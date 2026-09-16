@@ -1,0 +1,38 @@
+.path {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: none;
+  width: 100%;
+  min-height: 136px;
+  padding: 12px;
+  margin: 0;
+  list-style: none;
+  border: 2px solid #1457d9;
+  border-radius: 8px;
+  background: #edf3ff;
+}
+
+.path li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.path li b {
+  color: #1457d9;
+}
+
+.path .result {
+  justify-content: center;
+  margin-top: auto;
+  color: #071a3d;
+}
+
+.path .result strong {
+  font-size: 24px;
+}

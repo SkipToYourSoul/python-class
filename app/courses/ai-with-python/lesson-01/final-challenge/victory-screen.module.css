@@ -1,0 +1,296 @@
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 32px;
+  border: 0;
+  overflow: hidden;
+  color: #fff7d5;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    #244a88,
+    #091d40 55%,
+    #040d21
+  );
+  font-family: inherit;
+}
+.screen::backdrop {
+  background: #040d21;
+}
+.content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+.label {
+  color: #ffd54c;
+  font: 900 18px/1.3 monospace;
+  letter-spacing: 0.12em;
+}
+.emblem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(120px, 20vh, 220px);
+  aspect-ratio: 1;
+  color: #ffd24b;
+  animation: trophyArrival 800ms ease-out both;
+}
+.emblem > svg {
+  width: 64%;
+  height: 64%;
+  filter: drop-shadow(0 0 20px #f9b72c66);
+}
+.emblem > span {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #e8b642;
+  border-radius: 50%;
+  outline: 1px solid #d9b65755;
+  outline-offset: 12px;
+  background: radial-gradient(circle, #ffdc4024, transparent 70%);
+}
+.screen h2 {
+  margin: 0;
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 1;
+  font-weight: 950;
+  color: #ffdb63;
+  text-shadow: 0 4px #7f511d;
+  animation: titleArrival 700ms 180ms ease-out both;
+}
+.subtitle {
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.levels {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.levels > div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 2px solid #c6a04c;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #081d3ddd;
+  font-size: 22px;
+}
+.levels span {
+  color: #ffce38;
+  font: 900 20px monospace;
+}
+.levels svg {
+  color: #ffce38;
+  width: 24px;
+  height: 24px;
+}
+.message {
+  font-size: 22px;
+  color: #cbdcf6;
+}
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.actions a,
+.actions button,
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border: 2px solid #d7e5fd;
+  border-radius: 8px;
+  background: #102a50;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  cursor: pointer;
+  text-decoration: none;
+}
+.actions .primary {
+  background: #ffd13f;
+  border-color: #ffd13f;
+  color: #061b3a;
+}
+.close {
+  position: absolute;
+  z-index: 2;
+  top: 24px;
+  right: 24px;
+  font-size: 18px;
+  padding: 8px 12px;
+}
+.close svg {
+  width: 20px;
+  height: 20px;
+}
+.actions :focus-visible,
+.close:focus-visible {
+  outline: 3px solid #6cbcff;
+  outline-offset: 4px;
+}
+.effects {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.rays {
+  position: absolute;
+  width: 160vmax;
+  height: 160vmax;
+  left: 50%;
+  top: 42%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    transparent 0deg 16deg,
+    #ffcf3410 16deg 22deg,
+    transparent 22deg 36deg
+  );
+  animation: rays 8s ease-out both;
+}
+.confetti {
+  position: absolute;
+  left: var(--x);
+  top: -24px;
+  width: 8px;
+  height: 16px;
+  background: #ffd44b;
+  animation: confetti 5s var(--delay) ease-out both;
+}
+.confetti:nth-child(3n) {
+  background: #81c6ff;
+}
+.confetti:nth-child(3n + 1) {
+  background: #fff3c4;
+  border-radius: 50%;
+}
+.firework {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+}
+.firework i {
+  position: absolute;
+  width: 5px;
+  height: 18px;
+  background: #ffe497;
+  border-radius: 4px;
+  animation: burst 1800ms var(--delay) ease-out both;
+}
+.screen[data-hidden='true'] * {
+  animation-play-state: paused !important;
+}
+@keyframes trophyArrival {
+  from {
+    transform: scale(0.5) translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes titleArrival {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes rays {
+  from {
+    transform: translate(-50%, -50%) rotate(-15deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(20deg);
+    opacity: 0.5;
+  }
+}
+@keyframes confetti {
+  from {
+    transform: translateY(-24px) rotate(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(105vh) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+@keyframes burst {
+  from {
+    transform: rotate(var(--angle)) translateY(0) scale(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--angle)) translateY(-140px) scale(0.4);
+    opacity: 0;
+  }
+}
+@media (max-height: 760px) {
+  .content {
+    gap: 12px;
+  }
+  .emblem {
+    width: 120px;
+  }
+  .screen {
+    padding: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .levels {
+    gap: 8px;
+  }
+  .levels > div {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    font-size: 18px;
+  }
+  .label {
+    max-width: 70%;
+  }
+  .actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .screen * {
+    animation: none !important;
+  }
+  .effects {
+    display: none;
+  }
+}

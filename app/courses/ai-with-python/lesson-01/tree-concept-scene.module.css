@@ -1,0 +1,139 @@
+.layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.treeArea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.path {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #071a3d;
+  color: #fff8e6;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.path strong {
+  color: #ffcf24;
+}
+
+.explanation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.warrior {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  background: #fff8e6;
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.warrior img {
+  width: 48%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.warrior figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.warrior figcaption > span {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.warrior figcaption > strong {
+  white-space: nowrap;
+  font-size: 28px;
+}
+
+.warrior b {
+  color: #1457d9;
+  font-size: 44px;
+}
+
+.warrior p strong {
+  color: #1457d9;
+}
+
+.comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comparison h3 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cards > div {
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fffdf5;
+}
+
+.cards h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.cards h4 svg {
+  flex: none;
+}
+
+.algorithm h4 {
+  background: #dce8ff;
+}
+
+.model h4 {
+  background: #ffcf24;
+}
+
+.cards p {
+  padding: 8px 12px;
+  font-size: 20px;
+  line-height: 1.4;
+}

@@ -1,0 +1,258 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+.tabRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.onlineLink {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #526079;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.onlineLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.onlineLink:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+.scene .tabList {
+  height: auto;
+  padding: 0;
+  gap: 12px;
+  background: transparent;
+  border-radius: 0;
+}
+.scene .tab {
+  height: auto;
+  padding: 8px 16px;
+  border: 2px solid #071a3d;
+  border-radius: 0;
+  color: #071a3d;
+  background: white;
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1.3;
+}
+.scene .tab[data-active] {
+  background: #ffc91c;
+  box-shadow: 4px 4px 0 #1457d9;
+}
+.workArea {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.panel {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  min-height: 0;
+}
+.panel[hidden] {
+  display: none;
+}
+.stamp {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  width: 280px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.notebook {
+  border: 2px solid #071a3d;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.chrome {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: #e8ecf2;
+  border-bottom: 2px solid #b9c5d7;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.chrome strong {
+  font-weight: 700;
+}
+.chrome span {
+  color: #354b71;
+}
+.cells {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex: 1;
+  min-height: 0;
+  padding: 12px;
+  gap: 8px;
+}
+.cell {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 80px;
+  gap: 8px;
+  align-items: start;
+}
+.execution {
+  font:
+    500 20px/1.3 ui-monospace,
+    monospace;
+  color: #526079;
+  padding-top: 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+.cellContent {
+  min-width: 0;
+}
+.scene .cell pre {
+  padding: 8px 12px;
+  background: #f5f7fa;
+  border: 2px solid #bcc9da;
+  font:
+    500 clamp(20px, 1.65cqw, 24px)/1.2 ui-monospace,
+    monospace;
+  white-space: pre;
+}
+.output {
+  padding: 0 12px;
+  min-height: 26px;
+  font:
+    500 clamp(20px, 1.65cqw, 24px)/1.2 ui-monospace,
+    monospace;
+}
+.output span {
+  color: #61718a;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.scene .run {
+  border: 2px solid #071a3d;
+  padding: 8px;
+  color: #071a3d;
+  background: #ffc91c;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-top: 2px solid #bcc9da;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.scene .status button {
+  flex: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #1457d9;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 18px;
+  font-weight: 800;
+}
+.guide {
+  padding: 120px 0 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  min-height: 0;
+}
+.scene .guide h3 {
+  font-size: 26px;
+  line-height: 1.2;
+}
+.scene .guide p,
+.guide li {
+  font-size: 20px;
+  line-height: 1.4;
+}
+.guide ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.guide li b {
+  color: #1457d9;
+  margin-right: 8px;
+}
+.guide li span {
+  display: block;
+}
+.scene .guide .check {
+  font-size: 18px;
+  border-left: 4px solid #ffc91c;
+  padding-left: 12px;
+}
+.comment {
+  color: #39715b;
+}
+.cellNumber {
+  font-size: 18px;
+  line-height: 1.3;
+  color: #526079;
+  padding-top: 8px;
+}
+.scene button:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+.run:hover {
+  box-shadow: 4px 4px 0 #1457d9;
+}
+@container (min-width: 1400px) {
+  .panel {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+  .stamp {
+    width: 360px;
+  }
+  .scene .guide p,
+  .guide li {
+    font-size: 26px;
+  }
+  .scene .guide h3 {
+    font-size: 32px;
+  }
+  .scene .guide .check {
+    font-size: 22px;
+  }
+  .cells {
+    padding: 24px;
+    gap: 16px;
+  }
+}

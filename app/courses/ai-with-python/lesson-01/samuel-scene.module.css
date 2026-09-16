@@ -1,0 +1,58 @@
+.introduction {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  flex: none;
+}
+.person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.person img {
+  display: block;
+  width: 56px;
+  height: 64px;
+  object-fit: contain;
+  flex: none;
+}
+.person figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.person strong {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 850;
+}
+.person span {
+  font-size: 20px;
+  line-height: 1.4;
+  text-wrap: balance;
+  color: #354b71;
+}
+.introduction p {
+  min-width: 0;
+  font-size: clamp(24px, 2cqw, 28px);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.introduction p strong {
+  color: #1457d9;
+}
+.diagram {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  flex: 1;
+}
+.diagram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

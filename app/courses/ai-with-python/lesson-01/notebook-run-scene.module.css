@@ -1,0 +1,167 @@
+.scene .steps button {
+  font-size: 22px;
+}
+
+.steps {
+  flex: none;
+}
+
+.diagram {
+  gap: 24px;
+}
+
+.runCallout {
+  grid-template-columns: 32px auto minmax(0, 1fr) auto auto;
+}
+
+.bottomRow {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 24px;
+}
+
+.statusCallout,
+.outputCallout {
+  grid-template-columns: 32px auto minmax(0, 1fr);
+}
+
+.scene .runButton,
+.scene .changeButton {
+  border: 2px solid #071a3d;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #071a3d;
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.runButton {
+  background: #ffc91c;
+}
+
+.changeButton {
+  background: #fff;
+}
+
+.runButton:hover,
+.changeButton:hover:not(:disabled) {
+  box-shadow: 4px 4px 0 #1457d9;
+}
+
+.changeButton:disabled {
+  color: #526079;
+  background: #e8ecf2;
+  cursor: default;
+}
+
+.picture {
+  position: relative;
+  width: min(100%, calc(100cqh * 2630 / 604));
+  aspect-ratio: 2630 / 604;
+  flex: none;
+  outline: 2px solid #071a3d;
+  outline-offset: -2px;
+  background: #fff;
+}
+
+.picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scene .runHotspot {
+  position: absolute;
+  z-index: 3;
+  left: 11.6%;
+  top: 8.8%;
+  width: 3.2%;
+  height: 15.2%;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.runHotspot:hover:not(:disabled) {
+  background: rgb(255 201 28 / 35%);
+}
+
+.runHotspot:disabled {
+  cursor: wait;
+}
+
+.runHotspot:focus-visible,
+.runButton:focus-visible,
+.changeButton:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+
+.executionCount,
+.code,
+.output {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #071a3d;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(20px, 1.7cqw, 24px);
+  line-height: 1.2;
+  white-space: pre;
+}
+
+.executionCount {
+  left: 2.4%;
+  top: 67.6%;
+  width: 4.65%;
+  height: max(9.5%, 28px);
+  justify-content: flex-end;
+  padding-right: 8px;
+  color: #1457d9;
+}
+
+.code {
+  left: 7.1%;
+  top: 67.6%;
+  width: 74.7%;
+  height: max(9.5%, 28px);
+  padding: 0 8px;
+  border: 2px solid #1457d9;
+}
+
+.code > span:first-child {
+  color: #16743a;
+}
+
+.code .string {
+  color: #ba2434;
+}
+
+.output {
+  left: 7.1%;
+  top: 84.2%;
+  width: 74.7%;
+  height: max(11.6%, 28px);
+  padding: 0 8px;
+  border: 2px dashed #b8c7de;
+}
+
+[data-run-state='2'] .output {
+  border-style: solid;
+  border-color: #1457d9;
+  background: #eff5ff;
+}
+
+.scene .note {
+  flex: none;
+  color: #354b71;
+  font-size: 18px;
+  line-height: 1.35;
+}

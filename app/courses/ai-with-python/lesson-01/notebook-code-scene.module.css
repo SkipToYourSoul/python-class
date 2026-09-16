@@ -1,0 +1,163 @@
+.topRow,
+.bottomRow {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.topRow {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+
+.bottomRow {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.demonstration {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 2px solid #071a3d;
+  background: #fffdf7;
+  min-width: 0;
+}
+
+.switches,
+.reference {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.switches > span {
+  color: #354b71;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.switches fieldset {
+  flex-wrap: nowrap;
+}
+
+.scene .switches button {
+  font-size: 22px;
+  white-space: nowrap;
+}
+
+.reference code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(20px, 1.7cqw, 24px);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.scene .reference p {
+  color: #354b71;
+  font-size: clamp(22px, 1.7cqw, 26px);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.functionName {
+  color: #16743a;
+}
+
+.parenthesis {
+  color: #1457d9;
+  background: #e8effd;
+}
+
+.string {
+  color: #ba2434;
+}
+
+.string b {
+  background: #ffe8bc;
+}
+
+.picture {
+  position: relative;
+  width: min(100%, calc(100cqh * 1782 / 556));
+  aspect-ratio: 1782 / 556;
+  flex: none;
+  outline: 2px solid #071a3d;
+  outline-offset: -2px;
+  background: #fff;
+}
+
+.picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.highlight {
+  position: absolute;
+  border: 2px solid var(--interface-red);
+  pointer-events: none;
+}
+
+.codeType {
+  left: 66.7%;
+  top: 22.1%;
+  width: 10.8%;
+  height: 10.8%;
+}
+
+.executionCount {
+  left: 41.2%;
+  top: 51.4%;
+  width: 4%;
+  height: 10.5%;
+}
+
+.inputFrame {
+  position: absolute;
+  z-index: 2;
+  left: 45.6%;
+  top: 51.4%;
+  width: 54.4%;
+  height: 10.5%;
+  border: 2px solid var(--interface-red);
+  background: #fff;
+}
+
+.scene .cellInput {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0 8px;
+  color: #071a3d;
+  background: transparent;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(20px, 1.7cqw, 24px);
+  line-height: 1.2;
+  caret-color: #071a3d;
+}
+
+.cellInput:focus-visible {
+  outline: 2px solid #1457d9;
+  outline-offset: 4px;
+}
+
+.idleCaret {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  height: 24px;
+  border-left: 2px solid #071a3d;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.inputFrame:focus-within .idleCaret {
+  display: none;
+}

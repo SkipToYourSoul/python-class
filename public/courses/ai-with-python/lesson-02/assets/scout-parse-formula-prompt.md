@@ -1,0 +1,5 @@
+# HTML 解析公式漫画
+
+使用内置 image_gen 生成。参考图：scout-url-site-wide.png；成品：scout-parse-formula.png。
+
+Use case: illustration-story. Create a new wide 3:1 horizontal three-panel educational comic, matching the supplied reference ONLY for watercolor anime style, young brown-haired blue-cape knight and small blue/gold mechanical bird, parchment castle interior palette. Panel1: knight and mechanical bird study a magnifying glass over a BLUE LOCATION PIN emblem attached to an intelligence scroll (recognize a label). Panel2: bird selects the one scroll bearing matching BLUE LOCATION PIN from shelves of scrolls with other emblems (find matching element). Panel3: knight copies a clear canyon landscape pictogram from that selected scroll onto a clean intelligence card (extract the information). Each panel composition simple, close-up clear actions, equal thirds with thin navy separators, warm cream and royal blue gold. No text, letters, numerals, code, logos or watermarks. Imagery fills all panels. This is a visual metaphor for finding an HTML element by its class attribute and extracting text; actual code labels will be HTML overlays outside image.

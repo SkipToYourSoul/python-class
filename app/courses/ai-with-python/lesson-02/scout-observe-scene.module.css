@@ -1,0 +1,241 @@
+.layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.controls h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  margin: 0;
+}
+.controls h3 > span {
+  display: grid;
+  place-items: center;
+  background: #071a3d;
+  color: #ffd022;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 650;
+}
+.fields select {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #1457d9;
+  background: #edf4ff;
+  color: #071a3d;
+  font: inherit;
+  font-size: 20px;
+  border-radius: 0;
+}
+.defenses {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.defenses button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 4px;
+  border: 2px solid #071a3d;
+  font-size: 18px;
+  font-weight: 700;
+  background: #fffaf0;
+  cursor: pointer;
+}
+.defenses button[aria-pressed='true'] {
+  background: #ffd022;
+  box-shadow: 3px 3px #071a3d;
+}
+.defenses svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.battle {
+  position: relative;
+  flex: 1;
+  min-height: 110px;
+  overflow: hidden;
+  background: linear-gradient(170deg, #15354c, #091d37);
+  border: 2px solid #071a3d;
+  border-radius: 12px;
+}
+.battle::before {
+  content: '';
+  position: absolute;
+  inset: 25% 0 0;
+  background: #405369;
+  clip-path: polygon(
+    0 45%,
+    16% 0,
+    28% 44%,
+    42% 12%,
+    56% 53%,
+    80% 0,
+    100% 38%,
+    100% 100%,
+    0 100%
+  );
+  opacity: 0.4;
+}
+.battle > span {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff2bf;
+  font-size: 18px;
+  font-weight: 650;
+}
+.castle {
+  position: absolute;
+  left: 8%;
+  bottom: 28px;
+  color: #ffe292;
+  height: min(55%, 150px);
+  aspect-ratio: 1;
+}
+.castle svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.5;
+}
+.demon {
+  position: absolute;
+  height: min(65%, 180px);
+  aspect-ratio: 1;
+  right: 7%;
+  bottom: 28px;
+  border: 2px solid #f4c276;
+  border-radius: 50%;
+  background: url('/courses/ai-with-python/lesson-02/assets/defense-demons-ivory.png')
+    0 50% / 300% 100%;
+}
+.effect {
+  position: absolute;
+  left: 20%;
+  right: 12%;
+  top: 12%;
+  bottom: 26px;
+}
+.beam {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #fff6b7, #ffe8a790);
+  clip-path: polygon(0 65%, 100% 0, 100% 100%);
+  animation: illuminate 1s ease-out both;
+}
+.flames,
+.ice {
+  display: flex;
+  position: absolute;
+  left: 12%;
+  bottom: 0;
+  gap: 4px;
+  color: #ffb54e;
+  animation: rise 0.7s ease-out both;
+}
+.flames svg,
+.ice svg {
+  width: 44px;
+  height: 68px;
+  fill: #f9731670;
+}
+.ice {
+  color: #b7f0ff;
+}
+.ice svg {
+  fill: none;
+}
+.success .demon {
+  animation: retreat 1.3s ease-out both;
+}
+.feedback {
+  min-height: 54px;
+  padding: 8px 12px;
+  border-left: 4px solid #e8b63c;
+  background: #fff1ce;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.feedback[data-success='true'] {
+  background: #e2f0e4;
+  border-color: #21784b;
+}
+.reset {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 650;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.controls button:focus-visible,
+.fields select:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 3px;
+}
+@keyframes illuminate {
+  from {
+    opacity: 0;
+    transform: scaleX(0.1);
+    transform-origin: left;
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+@keyframes retreat {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(24px) rotate(12deg) scale(0.8);
+    opacity: 0.65;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .beam,
+  .flames,
+  .ice,
+  .success .demon {
+    animation: none;
+  }
+}

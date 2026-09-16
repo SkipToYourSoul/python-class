@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>前线侦察记录站</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f0e6;
+        color: #071a3d;
+        font:
+          500 24px/1.5 system-ui,
+          sans-serif;
+      }
+      header,
+      main {
+        max-width: 1080px;
+        margin: auto;
+        padding: 24px;
+      }
+      header {
+        padding-top: 40px;
+      }
+      header p {
+        margin: 0 0 12px;
+        color: #1457d9;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(32px, 4vw, 48px);
+        line-height: 1.2;
+      }
+      main {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding-top: 0;
+      }
+      .record {
+        padding: 24px;
+        background: #fffaf0;
+        border: 2px solid #071a3d;
+        border-top: 8px solid #1457d9;
+      }
+      h2 {
+        font-size: 30px;
+        margin: 0 0 20px;
+      }
+      .record p {
+        margin: 12px 0;
+        font-size: 22px;
+      }
+      .record span {
+        display: block;
+        color: #1457d9;
+        font-size: 26px;
+        font-weight: 750;
+      }
+      @media (max-width: 800px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+        .record span {
+          display: inline;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p>勇士与恶魔 / 前线档案</p>
+      <h1>前线侦察记录站</h1>
+      <p>哨兵发布观察记录，供勇士准备防御。</p>
+    </header>
+    <main>
+      <article class="record">
+        <h2 class="name">炎角兽</h2>
+        <p>出没地点：<span class="location">北方峡谷</span></p>
+        <p>属性：<span class="attribute">火焰</span></p>
+        <p>已知弱点：<span class="weakness">怕强光</span></p>
+      </article>
+      <article class="record">
+        <h2 class="name">藤甲魔</h2>
+        <p>出没地点：<span class="location">迷雾森林</span></p>
+        <p>属性：<span class="attribute">藤蔓</span></p>
+        <p>已知弱点：<span class="weakness">怕火</span></p>
+      </article>
+      <article class="record">
+        <h2 class="name">冰翼魔</h2>
+        <p>出没地点：<span class="location">冰封山口</span></p>
+        <p>属性：<span class="attribute">寒冰</span></p>
+        <p>已知弱点：<span class="weakness">怕热</span></p>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+.mascot {
+  position: absolute;
+  z-index: 3;
+  right: -3%;
+  bottom: 52px;
+  width: clamp(300px, 25cqw, 430px);
+  max-height: 76cqh;
+  display: grid;
+  justify-items: center;
+}
+
+.figure {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  max-height: calc(76cqh - 52px);
+  overflow: visible;
+}
+
+.mascot[data-paused='true'] svg * {
+  animation-play-state: paused;
+}

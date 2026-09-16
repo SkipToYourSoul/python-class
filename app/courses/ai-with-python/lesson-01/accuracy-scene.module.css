@@ -1,0 +1,128 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.check,
+.counterexample {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.check > :first-child,
+.counterexample > div {
+  flex-shrink: 0;
+}
+
+.results {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fffdf5;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.results th,
+.results td {
+  padding: 8px 12px;
+  border: 2px solid #071a3d;
+}
+
+.results thead {
+  background: #e8edf6;
+  font-size: 18px;
+}
+
+.checkAction {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkAction button {
+  flex: 1;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  color: #1457d9;
+}
+
+.score strong {
+  font-size: 24px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.counterexample {
+  padding: 16px;
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+  background: #fff8e6;
+}
+
+.counterexample h3 {
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.visitor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  min-height: 112px;
+}
+
+.visitor img {
+  width: 36%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.visitor figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.visitor strong,
+.visitor b {
+  font-size: 24px;
+}
+
+.identity {
+  color: #1457d9;
+  font-weight: 800;
+}
+
+.path {
+  padding: 8px 12px;
+  background: #e8edf6;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.conclusion {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.conclusion strong {
+  color: #1457d9;
+  font-size: 24px;
+}

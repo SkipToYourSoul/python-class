@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>王国公告 · 勇士情报站</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f0e6;
+        color: #071a3d;
+        font:
+          500 22px/1.5 system-ui,
+          sans-serif;
+      }
+      header,
+      main {
+        width: min(900px, calc(100% - 48px));
+        margin: auto;
+      }
+      header {
+        padding: 32px 0 24px;
+        border-bottom: 3px solid #071a3d;
+      }
+      header p {
+        margin: 0 0 8px;
+        color: #1457d9;
+        font-size: 18px;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(36px, 5vw, 52px);
+        line-height: 1.2;
+      }
+      main {
+        padding: 24px 0;
+      }
+      .event {
+        padding: 20px 24px;
+        margin-bottom: 16px;
+        border: 2px solid #071a3d;
+        border-left: 8px solid #1457d9;
+        background: #fffcf5;
+      }
+      .event:last-of-type {
+        margin-bottom: 0;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(24px, 3vw, 28px);
+        line-height: 1.4;
+      }
+      .hot {
+        display: inline-block;
+        min-width: 76px;
+        margin-right: 24px;
+        padding: 2px 12px;
+        background: #ffc91c;
+        font-weight: 750;
+        text-align: center;
+      }
+      a {
+        color: #1457d9;
+        font-size: 20px;
+        text-underline-offset: 5px;
+      }
+      a:hover {
+        color: #071a3d;
+      }
+      a:focus-visible {
+        outline: 3px solid #1457d9;
+        outline-offset: 5px;
+      }
+      .detail {
+        display: none;
+        padding: 24px;
+        margin-top: 24px;
+        border: 2px solid #071a3d;
+        background: #fff;
+        scroll-margin-top: 24px;
+      }
+      .detail:target {
+        display: block;
+      }
+      .detail p {
+        margin: 0 0 16px;
+      }
+      @media (max-width: 480px) {
+        header,
+        main {
+          width: calc(100% - 32px);
+        }
+        header {
+          padding-top: 24px;
+        }
+        .event {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="top">
+      <p>勇士情报站 / KINGDOM NEWS</p>
+      <h1>王国公告</h1>
+    </header>
+    <main>
+      <!-- 每个 event 是一条公告：标题、热度和链接属于同一条记录。 -->
+      <div class="event">
+        <h2 class="title">北方哨站发现恶魔踪迹</h2>
+        热度 <span class="hot">860</span>
+        <a href="#north">查看详情</a>
+      </div>
+      <div class="event">
+        <h2 class="title">森林勇士送来补给</h2>
+        热度 <span class="hot">620</span>
+        <a href="#forest">查看详情</a>
+      </div>
+      <div class="event">
+        <h2 class="title">东桥修复，商队可以通行</h2>
+        热度 <span class="hot">410</span>
+        <a href="#bridge">查看详情</a>
+      </div>
+      <!-- 详情也在这个文件里；点击链接即可查看，无需 JavaScript。 -->
+      <section class="detail" id="north">
+        <h2>北方哨站的侦察报告</h2>
+        <p>
+          巡逻队在山谷入口发现恶魔脚印。北方哨站已加强瞭望，请经过山谷的勇士结伴而行。
+        </p>
+        <a href="#top">返回公告</a>
+      </section>
+      <section class="detail" id="forest">
+        <h2>森林补给已送达</h2>
+        <p>
+          森林勇士送来了粮食、药草和修补工具。守卫可以前往城堡仓库领取补给。
+        </p>
+        <a href="#top">返回公告</a>
+      </section>
+      <section class="detail" id="bridge">
+        <h2>东桥恢复通行</h2>
+        <p>工匠已修好东桥的桥面。商队可以沿东侧道路进入王国，请按顺序通过。</p>
+        <a href="#top">返回公告</a>
+      </section>
+    </main>
+  </body>
+</html>

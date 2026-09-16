@@ -1,0 +1,263 @@
+.scene {
+  --analogy-blue: #1457d9;
+  --analogy-ink: #071a3d;
+  --analogy-yellow: #ffc91c;
+}
+
+.revealSteps {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+}
+
+.revealSteps button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--analogy-ink);
+  border-radius: 4px;
+  color: var(--analogy-ink);
+  background: #fff;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.revealSteps button[aria-current='step'] {
+  background: var(--analogy-yellow);
+}
+
+.revealSteps b {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.revealSteps button:hover {
+  box-shadow: 4px 4px 0 var(--analogy-blue);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.examples,
+.thinking,
+.skill {
+  border: 2px solid var(--analogy-ink);
+  padding: 24px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background: #fffdf7;
+}
+
+.correspondence {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 36px;
+}
+
+.scene .correspondence h3 {
+  font-size: clamp(24px, 2.15cqw, 32px);
+  font-weight: 850;
+}
+
+.concept {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--analogy-blue);
+}
+
+.concept strong {
+  font-size: clamp(26px, 2.4cqw, 36px);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 2px dashed #a8b4c9;
+}
+
+.data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.data > span {
+  font-size: 20px;
+  line-height: 1.3;
+  color: #354b71;
+}
+
+.scene .workspace p {
+  font-size: clamp(22px, 1.85cqw, 26px);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.samples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.samples figure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.characterImage {
+  display: block;
+  aspect-ratio: 1;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  object-fit: contain;
+}
+
+.samples figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-size: clamp(20px, 1.85cqw, 26px);
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.strokeDots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 24px;
+}
+
+.strokeDots i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--analogy-blue);
+}
+
+.learning {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.thinking,
+.skill {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.thinking {
+  background: var(--analogy-ink);
+  color: #fff;
+}
+
+.thinking .concept {
+  color: var(--analogy-yellow);
+}
+
+.storyImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.storyText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.storyCaption {
+  font-size: clamp(22px, 1.85cqw, 28px);
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.resultArrow {
+  color: var(--analogy-blue);
+  text-align: center;
+  font-size: 32px;
+  line-height: 1;
+  height: 32px;
+  flex: none;
+}
+
+.skill {
+  background: #fff1b5;
+}
+
+.takeaway {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scene .takeaway p {
+  font-size: clamp(22px, 2cqw, 28px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.takeaway strong {
+  color: var(--analogy-blue);
+  font-weight: 950;
+}
+
+.takeaway span {
+  font-size: 18px;
+  line-height: 1.3;
+  color: #354b71;
+}
+
+@container (max-height: 720px) {
+  .examples,
+  .thinking,
+  .skill {
+    padding: 16px;
+  }
+
+  .examples {
+    gap: 12px;
+  }
+}

@@ -1,0 +1,257 @@
+.battle {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+  background: radial-gradient(ellipse at center, #ffe99a, #f7f4ea 65%);
+}
+
+.backdrop {
+  position: absolute;
+  width: 60%;
+  height: 80%;
+  bottom: 0;
+  left: 20%;
+  object-fit: contain;
+  opacity: 0.22;
+}
+
+.arena {
+  position: absolute;
+  inset: 24px 24px 80px;
+}
+
+.team {
+  position: absolute;
+  width: 42%;
+  height: 100%;
+  z-index: 2;
+  animation: charge 3s ease-in-out infinite;
+}
+.warriors {
+  left: 0;
+  --direction: 1;
+}
+.demons {
+  right: 0;
+  --direction: -1;
+}
+
+.fighter {
+  position: absolute;
+  margin: 0;
+  width: 42%;
+  max-height: 32%;
+  aspect-ratio: 1;
+  border: 2px solid #071a3d;
+  background: #fffdf5;
+  animation: scramble 1.5s ease-in-out infinite;
+}
+.fighter:nth-child(1) {
+  top: 0;
+  left: 0;
+  --tilt: -7deg;
+}
+.fighter:nth-child(2) {
+  top: 0;
+  right: 0;
+  --tilt: 6deg;
+  animation-delay: -0.3s;
+}
+.fighter:nth-child(3) {
+  top: 35%;
+  left: 0;
+  --tilt: 5deg;
+  animation-delay: -0.6s;
+}
+.fighter:nth-child(4) {
+  top: 35%;
+  right: 0;
+  --tilt: -5deg;
+  animation-delay: -0.9s;
+}
+.fighter:nth-child(5) {
+  bottom: 0;
+  left: 28%;
+  --tilt: 4deg;
+  animation-delay: -1.2s;
+}
+.fighter img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.impact {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96px;
+  height: 96px;
+  transform: translate(-50%, -50%);
+}
+.cloud {
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  background: #fffdf5;
+  border: 2px dashed #d29614;
+  animation: dust 3s ease-in-out infinite;
+}
+.burst {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #ffcd28;
+  color: #071a3d;
+  clip-path: polygon(
+    50% 0,
+    62% 24%,
+    88% 10%,
+    79% 38%,
+    100% 50%,
+    78% 62%,
+    90% 90%,
+    62% 78%,
+    50% 100%,
+    37% 78%,
+    9% 91%,
+    23% 62%,
+    0 50%,
+    24% 38%,
+    10% 10%,
+    38% 24%
+  );
+  animation: impact 3s ease-in-out infinite;
+}
+.burst svg {
+  width: 48px;
+  height: 48px;
+}
+.spark {
+  position: absolute;
+  width: 24px;
+  height: 8px;
+  background: #1457d9;
+  border-radius: 8px;
+  animation: spark 3s ease-in-out infinite;
+}
+.spark:nth-of-type(1) {
+  top: -32px;
+  left: 8px;
+  --angle: 55deg;
+}
+.spark:nth-of-type(2) {
+  right: -24px;
+  top: 8px;
+  --angle: -30deg;
+}
+.spark:nth-of-type(3) {
+  bottom: -24px;
+  left: 16px;
+  --angle: -50deg;
+}
+
+.control,
+.motionNote {
+  position: absolute;
+  z-index: 3;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  min-height: 44px;
+  border: 2px solid #071a3d;
+  background: #ffcd28;
+  color: #071a3d;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.control:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+.control:hover {
+  box-shadow: 4px 4px 0 #1457d9;
+}
+.battle[data-playing='false'] * {
+  animation-play-state: paused;
+}
+
+@keyframes charge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  36% {
+    transform: translateX(calc(var(--direction) * 36px));
+  }
+  48% {
+    transform: translateX(calc(var(--direction) * 16px));
+  }
+  62% {
+    transform: translateX(calc(var(--direction) * 28px));
+  }
+  82% {
+    transform: translateX(calc(var(--direction) * -4px));
+  }
+}
+@keyframes scramble {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt));
+  }
+  50% {
+    transform: translateY(-12px) rotate(calc(var(--tilt) * -1));
+  }
+}
+@keyframes impact {
+  0%,
+  100% {
+    transform: scale(0.7) rotate(-12deg);
+  }
+  36%,
+  62% {
+    transform: scale(1.15) rotate(12deg);
+  }
+  48% {
+    transform: scale(0.9) rotate(-6deg);
+  }
+}
+@keyframes dust {
+  0%,
+  100% {
+    transform: scale(0.65);
+    opacity: 0.4;
+  }
+  45%,
+  65% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}
+@keyframes spark {
+  0%,
+  100% {
+    transform: rotate(var(--angle)) scaleX(0.6);
+    opacity: 0.35;
+  }
+  36%,
+  62% {
+    transform: rotate(var(--angle)) scaleX(1.2);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle * {
+    animation: none;
+  }
+}

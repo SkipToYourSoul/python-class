@@ -1,0 +1,105 @@
+.lobby {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  border: 2px solid #071a3d;
+  background: #102847;
+  isolation: isolate;
+}
+
+.lobby > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+  z-index: -2;
+}
+
+.lobby::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    rgb(7 26 61 / 18%) 55%,
+    rgb(7 26 61 / 94%) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.menu {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+  color: #fffdf5;
+}
+
+.mission {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(24px, 2.2cqw, 32px);
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.mission > svg {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  color: #ffc91c;
+}
+
+.mission i {
+  margin-inline: 8px;
+  color: #ffc91c;
+  font-style: normal;
+}
+
+.menu .start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 280px;
+  flex: none;
+  min-height: 72px;
+  padding: 16px 24px;
+  border: 2px solid #ffc91c;
+  background: #ffc91c;
+  color: #071a3d;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.start svg {
+  width: 24px;
+  height: 24px;
+}
+
+.start:is(:hover, :focus-visible) {
+  box-shadow: 4px 4px 0 #638ee7;
+}
+
+.menu .start:focus-visible {
+  outline: 3px solid #fffdf5;
+  outline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+  .menu {
+    padding: 24px;
+  }
+}

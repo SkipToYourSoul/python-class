@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,6 +10,8 @@
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
 
 # next.js
 /.next/
@@ -18,16 +20,46 @@
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.pem
+*.key
+*.p12
+*.pfx
+*.swp
+*.swo
+*~
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # local environment
 .env*
+!.env.example
+!.env.template
+.dev.vars*
+!.dev.vars.example
+.npmrc
+
+# Python / Jupyter local state (keep teaching notebooks and requirements)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# local editor and assistant state
+/.idea/
+/.vscode/
+/.codex/
+/.agents/
 
 # deployment and generated files
 .vercel
@@ -35,5 +67,19 @@ next-env.d.ts
 /dist/
 /.wrangler/
 /outputs/
+/output/
 /work/
+/release/
 *.tsbuildinfo
+
+# historical reviews and generation drafts; retain the active design reference
+/design-reviews/*
+!/design-reviews/course-home-reference.png
+/AI_WITH_PYTHON_IMPLEMENTATION_*.md
+/AI_WITH_PYTHON_REVIEW_*.md
+/COURSE_ENTRY_IMPLEMENTATION_*.md
+/docs/LESSON_02_IMPLEMENTATION.md
+
+# Only this non-secret file is required by vite.config.ts
+/.openai/*
+!/.openai/hosting.json

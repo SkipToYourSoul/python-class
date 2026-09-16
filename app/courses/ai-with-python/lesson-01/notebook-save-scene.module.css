@@ -1,0 +1,246 @@
+.steps {
+  flex: none;
+}
+.scene .steps button {
+  font-size: 22px;
+}
+.diagram {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 29cqw, 420px);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.callouts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  min-height: 0;
+}
+.scene .callout {
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+.scene .callout h3 {
+  font-size: clamp(24px, 2cqw, 30px);
+  white-space: normal;
+}
+.callout p,
+.callout code,
+.callout button {
+  grid-column: 1 / -1;
+}
+.scene .callout p {
+  font-size: 22px;
+  line-height: 1.4;
+}
+.callout code {
+  font-size: 20px;
+  white-space: nowrap;
+}
+.scene .action {
+  justify-self: start;
+  border: 2px solid #071a3d;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 800;
+  background: #ffc91c;
+  color: #071a3d;
+}
+.action:hover:not(:disabled) {
+  box-shadow: 4px 4px 0 #1457d9;
+}
+.scene button:disabled {
+  opacity: 1;
+  color: #526079;
+  background: #e8ecf2;
+  cursor: default;
+}
+.scene button:focus-visible,
+.filenameInput:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+.picture {
+  position: relative;
+  width: min(100%, calc(100cqh * var(--picture-ratio)));
+  aspect-ratio: var(--picture-ratio);
+  flex: none;
+  outline: 2px solid #071a3d;
+  outline-offset: -2px;
+  background: #fff;
+}
+.picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.writing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+.scene .writing h3 {
+  color: #071a3d;
+  font-size: clamp(24px, 2.4cqw, 30px);
+  line-height: 1.2;
+}
+.scene .writing p,
+.writing code {
+  font-size: clamp(20px, 2cqw, 24px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.writing code {
+  color: #1457d9;
+}
+.markdownContent {
+  position: absolute;
+  left: 15.8%;
+  top: 52.4%;
+  width: 60.5%;
+  height: 16.2%;
+  background: #f5f5f5;
+}
+.document {
+  position: absolute;
+  left: 35.9%;
+  top: 32.2%;
+  width: 64.1%;
+  height: 67.8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: white;
+}
+.exampleCode {
+  display: block;
+  border: 2px solid #b8c7de;
+  background: #f5f5f5;
+  padding: 0 8px;
+  font-size: clamp(20px, 2cqw, 24px);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.scene .exampleOutput {
+  font-size: clamp(20px, 2cqw, 24px);
+  line-height: 1.2;
+  padding-left: 8px;
+}
+.fileLabel,
+.tabLabel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.fileLabel {
+  left: 3.5%;
+  top: 68%;
+  width: 30%;
+  min-height: 28px;
+  background: #0077cf;
+  color: white;
+  padding: 0 8px;
+}
+.tabLabel {
+  left: 62.7%;
+  top: 13%;
+  width: 21.3%;
+  height: 8.3%;
+  background: #fff;
+  color: #071a3d;
+}
+.scene .fileEntry {
+  position: absolute;
+  left: 2.8%;
+  top: 23.2%;
+  width: 28.5%;
+  min-height: 32px;
+  border: 2px solid #f23849;
+  padding: 0 8px;
+  font-size: 18px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: white;
+  background: #0077cf;
+}
+.renameDialog {
+  position: absolute;
+  z-index: 2;
+  left: 20%;
+  top: 50%;
+  width: 60%;
+  aspect-ratio: 750 / 344;
+  transform: translateY(-50%);
+}
+.scene .filenameInput {
+  position: absolute;
+  left: 8.6%;
+  top: 39.5%;
+  width: 82.6%;
+  height: 16.5%;
+  min-height: 28px;
+  border: 2px solid #00aeff;
+  border-radius: 0;
+  padding: 0 8px;
+  font-size: 20px;
+  background: #f4f4f4;
+  color: #071a3d;
+}
+.scene .renameHotspot {
+  position: absolute;
+  left: 70.5%;
+  top: 62.5%;
+  width: 20.8%;
+  height: 18.8%;
+  min-height: 28px;
+  border: 0;
+  padding: 0;
+  font-size: 22px;
+  color: white;
+  background: #007ad7;
+}
+.scene .saveHotspot {
+  position: absolute;
+  z-index: 2;
+  left: 36.3%;
+  top: 22.6%;
+  width: 3.2%;
+  height: 9%;
+  min-width: 28px;
+  min-height: 28px;
+  border: 2px solid #f23849;
+  padding: 0;
+  background: transparent;
+}
+.scene .saveHotspot:disabled {
+  background: transparent;
+}
+.savedBadge {
+  position: absolute;
+  left: 88%;
+  top: 14%;
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 0 8px;
+  color: #1457d9;
+  background: #fff;
+}
+.scene .note {
+  flex: none;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #354b71;
+}

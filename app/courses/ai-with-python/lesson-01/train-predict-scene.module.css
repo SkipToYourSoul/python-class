@@ -1,0 +1,22 @@
+.diagram {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  min-height: 0;
+  flex: 1;
+}
+
+.diagram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.diagram figcaption {
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #354b71;
+  text-align: center;
+}

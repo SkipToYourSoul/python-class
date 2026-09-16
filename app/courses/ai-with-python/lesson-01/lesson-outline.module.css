@@ -1,0 +1,138 @@
+.outline {
+  display: grid;
+  min-width: 0;
+  gap: 24px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.bookends {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bookendLabel {
+  color: #53647d;
+  font-weight: 650;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.sectionList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  height: auto;
+  padding: 12px;
+  border: 2px solid #071a3d;
+  border-radius: 0;
+  color: #071a3d;
+  background: #fffdf6;
+  text-align: left;
+  white-space: normal;
+  font-size: 18px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.section[data-active] {
+  color: #fffdf6;
+  background: #071a3d;
+  box-shadow: none;
+}
+
+.sectionMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.section[data-active] .sectionMeta {
+  color: #ffc91c;
+}
+
+.section strong {
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.sectionPages {
+  min-width: 0;
+  font-size: 18px;
+}
+
+.pageList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 2px solid #c0cbdc;
+  color: #071a3d;
+  background: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.page b {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.page[aria-current='page'] {
+  border-color: #1457d9;
+  background: #fff0a4;
+  font-weight: 800;
+}
+
+.outline :is(button, [role='tab']):is(:hover, :focus-visible) {
+  box-shadow: 4px 4px 0 #ffc91c;
+}
+
+.outline :is(button, [role='tab'], [role='tabpanel']):focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+
+@media (max-width: 850px) {
+  .bookends,
+  .sectionList,
+  .pageList {
+    grid-template-columns: 1fr;
+  }
+}
