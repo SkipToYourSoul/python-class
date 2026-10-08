@@ -1,5 +1,5 @@
 /* oxlint-disable next/no-img-element -- Local generated comic artwork. */
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { assetBase } from './lesson-data';
 import s from './mission-comic.module.css';
 

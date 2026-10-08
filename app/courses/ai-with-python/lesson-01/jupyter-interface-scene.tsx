@@ -3,7 +3,8 @@
 
 import { useRef } from 'react';
 import { useScreenshotConnections } from './use-screenshot-connections';
-import { asset, Stage } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset } from './lesson-ui';
 import s from './jupyter-interface-scene.module.css';
 
 const regions = [

@@ -1,7 +1,8 @@
 /* oxlint-disable next/no-img-element -- Local course portrait and generated teaching illustration. */
 'use client';
 
-import { Stage, asset } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset } from './lesson-ui';
 import s from './samuel-scene.module.css';
 
 export function SamuelScene() {

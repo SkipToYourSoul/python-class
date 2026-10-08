@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRight, Database, GitBranch, Tags } from 'lucide-react';
-import { XiaopaiSpeech } from './xiaopai-speech';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import s from './fit-explainer.module.css';
 
 export function FitExplainer({ trained }: { trained: boolean }) {

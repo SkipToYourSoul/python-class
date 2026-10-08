@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 'use client';
 import { Castle, Flashlight, Flame, Snowflake, RotateCcw } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { ScoutRecord, Note } from './lesson-ui';
 import { assetBase, scoutPath, scoutRecord } from './lesson-data';
 import { usePageState } from './lesson-state';

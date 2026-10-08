@@ -1,0 +1,167 @@
+.journey,
+.codeWorkspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.comic {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+}
+.frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.frame img {
+  display: block;
+  width: 300%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+.comic figcaption {
+  padding: 12px 16px;
+  font-size: clamp(20px, 1.65cqw, 26px);
+  font-weight: 750;
+  line-height: 1.4;
+  border-top: 2px solid #071a3d;
+}
+.journeyExplanation {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  justify-content: center;
+}
+.mission,
+.detail {
+  font-size: clamp(22px, 1.9cqw, 28px);
+  line-height: 1.45;
+}
+.journeySteps {
+  display: grid;
+  gap: 8px;
+}
+.journeySteps button {
+  justify-content: flex-start;
+  text-align: left;
+  gap: 16px;
+  padding: 12px 16px;
+}
+.journeySteps strong {
+  display: block;
+  font-size: clamp(24px, 2cqw, 30px);
+  line-height: 1.3;
+}
+.journeySteps small {
+  display: block;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 650;
+}
+.number {
+  font-size: 28px;
+  font-family: monospace;
+  font-weight: 900;
+}
+.detail {
+  min-height: 2.9em;
+  padding-left: 16px;
+  border-left: 5px solid #ffc91c;
+}
+.direction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  background: #e7efff;
+  font-size: 20px;
+  font-weight: 750;
+}
+.direction span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.direction > svg {
+  color: #1457d9;
+  flex: none;
+}
+.analogy {
+  font-size: 18px;
+  line-height: 1.4;
+  color: #526078;
+}
+.codeWorkspace {
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.codeColumn,
+.codeStory {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+.codeColumn pre {
+  font-size: clamp(20px, 1.45cqw, 24px) !important;
+}
+.codeColumn {
+  justify-content: center;
+}
+.codeStory .comic {
+  flex: 1;
+}
+.codeTools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.codeTools > span {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.codeTools > button {
+  flex: none;
+}
+.keyword {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-left: 5px solid #ffc91c;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.keyword strong {
+  color: #1457d9;
+  font-size: 22px;
+}
+@container (max-height: 760px) {
+  .journeyExplanation {
+    gap: 8px;
+  }
+  .journeySteps button {
+    padding-block: 8px;
+  }
+  .direction {
+    padding: 8px;
+  }
+  .codeColumn,
+  .codeStory {
+    gap: 8px;
+  }
+  .comic figcaption {
+    padding: 8px 12px;
+  }
+}

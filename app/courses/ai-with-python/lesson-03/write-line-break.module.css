@@ -1,0 +1,118 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.code {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+.code > [aria-label='JupyterLab 代码讲解'] {
+  width: 100%;
+}
+.code pre {
+  font-size: clamp(20px, 1.6cqw, 24px) !important;
+}
+.code p {
+  font-size: clamp(20px, 1.5cqw, 24px);
+  line-height: 1.5;
+  font-weight: 650;
+}
+.file {
+  align-self: center;
+  min-width: 0;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+}
+.file header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 2px solid #071a3d;
+  background: #e7efff;
+  font-size: 22px;
+}
+.file header > span {
+  margin-left: auto;
+  font-size: 18px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.fileBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  min-height: 310px;
+}
+.fileBody h3 {
+  font-size: clamp(24px, 2cqw, 30px);
+  line-height: 1.4;
+}
+.fileBody > button {
+  margin-top: auto;
+  align-self: flex-start;
+  background: #ffc91c;
+}
+.hiddenContent {
+  padding-block: 32px;
+  color: #526078;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.result {
+  display: grid;
+  gap: 16px;
+}
+.result > strong {
+  font-size: 22px;
+  color: #1457d9;
+}
+.result p {
+  font-size: clamp(20px, 1.5cqw, 24px);
+  line-height: 1.5;
+}
+.lines {
+  border: 2px solid #1457d9;
+  background: #fff0b7;
+  padding: 12px 8px;
+}
+.lines > div {
+  display: flex;
+  gap: 12px;
+  font-size: clamp(20px, 1.5cqw, 24px);
+  line-height: 1.8;
+  white-space: nowrap;
+}
+.lines span {
+  color: #526078;
+  padding-inline: 4px;
+}
+.lines code {
+  font-family: inherit;
+  font-weight: 750;
+}
+@container (max-height: 760px) {
+  .code {
+    gap: 12px;
+  }
+  .file header {
+    padding: 12px;
+    font-size: 20px;
+  }
+  .fileBody {
+    padding: 16px;
+    gap: 12px;
+    min-height: 280px;
+  }
+  .result {
+    gap: 12px;
+  }
+}

@@ -9,11 +9,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { CheckpointTaskTemplate } from '@/components/course/ai-with-python/practice-templates';
 import {
-  Stage,
   Choices,
   Steps,
-  CheckpointTaskTemplate,
   ControlledMedia,
   asset,
   useSceneState,
@@ -25,7 +25,7 @@ import { SamuelScene } from './samuel-scene';
 import { LearningAnalogyScene } from './learning-analogy-scene';
 import { DiscussionScene } from './discussion-scene';
 import { TrainPredictScene } from './train-predict-scene';
-import { XiaopaiSpeech } from './xiaopai-speech';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import { StudentWorldGallery } from './student-world-gallery';
 import galleryStyles from './student-world-gallery.module.css';
 
@@ -244,6 +244,7 @@ function Practice({ active }: { active: boolean }) {
             <button
               key={file}
               className={s.artButton}
+              data-lesson-art-button
               onClick={() => setIndex(i)}
             >
               <img src={asset(`future-world/${file}`)} alt={title} />
@@ -255,7 +256,9 @@ function Practice({ active }: { active: boolean }) {
           <XiaopaiSpeech
             active={active && index === null && !galleryOpen}
             compact
-          />
+          >
+            你的未来，可以与它们<strong>完全不同</strong>。
+          </XiaopaiSpeech>
           <StudentWorldGallery
             active={active}
             open={galleryOpen}

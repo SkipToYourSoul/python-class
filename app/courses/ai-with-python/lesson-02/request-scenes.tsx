@@ -1,14 +1,11 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 'use client';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { usePageState } from './lesson-state';
 import { Note, ScoutResources, StepBar } from './lesson-ui';
 import { assetBase, scoutOrigin, scoutUrl, scoutPath } from './lesson-data';
-import {
-  NotebookPanel,
-  RequestExplainer,
-  ResponseExplainer,
-} from './notebook-panels';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
+import { RequestExplainer, ResponseExplainer } from './notebook-panels';
 import s from './lesson.module.css';
 import { MissionComic } from './mission-comic';
 import { ScoutObserveScene } from './scout-observe-scene';

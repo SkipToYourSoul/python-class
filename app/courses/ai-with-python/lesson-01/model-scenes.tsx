@@ -1,17 +1,17 @@
 /* oxlint-disable next/no-img-element -- Supplied character artwork. */
 'use client';
-import Link from 'next/link';
+import Link from '../../../../components/static-link';
 
 import { warriors } from '@/lib/course-data';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
 import {
-  Stage,
   Hint,
   Choices,
   More,
   CodeCell,
   RoleCard,
   CastleTree,
-  ClassPracticeStamp,
   PracticeProgress,
   asset,
   newRoles,
@@ -32,7 +32,7 @@ import problemStyles from './castle-problem.module.css';
 import { TreeConceptScene } from './tree-concept-scene';
 import discussionStyles from './data-discussion.module.css';
 import { FitExplainer } from './fit-explainer';
-import { XiaopaiSpeech } from './xiaopai-speech';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import predictionStyles from './prediction-paths.module.css';
 import { AccuracyScene } from './accuracy-scene';
 import { ArrowRight } from 'lucide-react';

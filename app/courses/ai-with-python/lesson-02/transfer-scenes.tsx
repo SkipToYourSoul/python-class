@@ -10,8 +10,8 @@ import {
   ShieldAlert,
   FileCode2,
 } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
-import { XiaopaiSpeech } from '../lesson-01/xiaopai-speech';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import {
   Dialog,
   DialogTrigger,
@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/dialog';
 import { usePageState } from './lesson-state';
 import { Note, StepBar } from './lesson-ui';
-import { NotebookPanel } from './notebook-panels';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { MovieStoryComic } from './movie-story-comic';
 import {
   MovieWritingPractice as CombinedMoviePractice,

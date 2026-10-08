@@ -1,0 +1,234 @@
+.compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr);
+  gap: 16px;
+}
+.fileWindow {
+  border: 2px solid #071a3d;
+  background: #fffcf4;
+  min-width: 0;
+}
+.fileWindow > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #e6efff;
+  border-bottom: 2px solid #071a3d;
+  font-size: 22px;
+}
+.fileWindow > header span {
+  margin-left: auto;
+  font-size: 18px;
+}
+.txtBody {
+  padding: 20px 16px;
+  display: grid;
+  gap: 16px;
+}
+.txtBody p {
+  margin: 0;
+  display: flex;
+  gap: 4px;
+  font-size: clamp(20px, 1.7cqw, 28px);
+  white-space: nowrap;
+}
+.txtBody b {
+  color: #798398;
+}
+.txtBody span:nth-of-type(1) {
+  color: #1457d9;
+}
+.txtBody span:nth-of-type(2) {
+  color: #207354;
+}
+.txtBody span:nth-of-type(3) {
+  color: #915300;
+}
+.windowNote {
+  padding: 12px 16px;
+  font-size: 18px;
+  border-top: 1px solid #c6ccda;
+}
+.arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #1457d9;
+  font-size: 18px;
+  text-align: center;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: clamp(18px, 1.5cqw, 24px);
+  background: #fffcf4;
+}
+.table th,
+.table td {
+  border: 1px solid #a5b2c6;
+  padding: 12px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+.table th {
+  background: #ffe394;
+  color: #071a3d;
+}
+.table td:nth-child(1) {
+  color: #1457d9;
+}
+.table td:nth-child(2) {
+  color: #207354;
+}
+.table td:nth-child(3) {
+  color: #915300;
+}
+.table[data-emphasis='none'] th {
+  background: #e6efff;
+}
+.table[data-emphasis='header'] th {
+  box-shadow: inset 0 -4px #e89c00;
+}
+.rawStrip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 16px 24px;
+  background: #e6efff;
+  border-left: 4px solid #1457d9;
+  align-items: center;
+}
+.rawStrip strong {
+  font-size: 24px;
+}
+.rawStrip p {
+  font-size: 20px;
+  margin-top: 8px;
+}
+.rawStrip pre {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.rawStrip pre > span {
+  display: block;
+}
+.rawStrip pre b {
+  color: #a5321e;
+  background: #ffdb9d;
+}
+.rawStrip pre > span[data-header='true'] {
+  color: #1457d9;
+  font-weight: 700;
+}
+.codeLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+.code {
+  min-width: 0;
+}
+.code pre {
+  font-size: clamp(20px, 1.35cqw, 24px) !important;
+}
+.code > p {
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.explain {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.codeSteps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.codeSteps button {
+  padding: 8px;
+  font-size: 18px;
+  flex: 1;
+  white-space: nowrap;
+}
+.smallComic {
+  aspect-ratio: 2.2;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+}
+.smallComic img {
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  transform: translateX(-50%);
+}
+.explanation h3 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.explanation p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+}
+.explain .table {
+  font-size: 18px;
+}
+.explain .table td,
+.explain .table th {
+  padding: 8px 4px;
+}
+.explain > button:last-child {
+  margin-top: auto;
+}
+@container (max-height:760px) {
+  .compare {
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  }
+  .txtBody {
+    padding: 16px 12px;
+    gap: 12px;
+  }
+  .rawStrip {
+    padding: 12px 16px;
+  }
+  .explain {
+    gap: 8px;
+  }
+  .explanation h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .explanation p {
+    line-height: 1.4;
+  }
+}
+
+@container (max-height: 760px) {
+  .fileWindow .table th,
+  .fileWindow .table td {
+    padding: 8px;
+  }
+  .rawStrip {
+    padding: 8px 16px;
+  }
+  .explain .table th,
+  .explain .table td {
+    padding: 6px 4px;
+  }
+}

@@ -1,0 +1,91 @@
+export const assetBase = '/courses/ai-with-python/lesson-05';
+export const chapters = [
+  { id: 'observe', number: '01', title: '看清恶魔军团' },
+  { id: 'connect', number: '02', title: '寻找特征联系' },
+  { id: 'discover', number: '03', title: '制作分类图鉴' },
+] as const;
+export const scenes = [
+  { id: 'l5-cover', chapter: 'observe', title: '勇闯图表世界' },
+  { id: 'l5-mission', chapter: 'observe', title: '最终决战前的侦察' },
+  { id: 'l5-warmup', chapter: 'observe', title: '你在哪里见过图表？' },
+  { id: 'l5-observe-cover', chapter: 'observe', title: '看清恶魔军团' },
+  { id: 'l5-compare', chapter: 'observe', title: '同一份数据，两种看法' },
+  { id: 'l5-archive', chapter: 'observe', title: '一行是一只恶魔' },
+  {
+    id: 'l5-distribution-story',
+    chapter: 'observe',
+    title: '这么多数字，先看什么？',
+  },
+  { id: 'l5-buckets', chapter: 'observe', title: '把分组数量，变成柱高' },
+  { id: 'l5-normal', chapter: 'observe', title: '统计学中的神奇规律' },
+  { id: 'l5-histogram', chapter: 'observe', title: '柱子里藏着多少个体？' },
+  { id: 'l5-setup', chapter: 'observe', title: '请来绘图的帮手' },
+  { id: 'l5-hist-code', chapter: 'observe', title: '一列数据，画出分布' },
+  { id: 'l5-practice-01', chapter: 'observe', title: '画出军团的速度分布' },
+  { id: 'l5-connect-cover', chapter: 'connect', title: '寻找特征联系' },
+  { id: 'l5-guess', chapter: 'connect', title: '个头越大，跑得越慢？' },
+  { id: 'l5-point', chapter: 'connect', title: '一行记录，变成一个点' },
+  { id: 'l5-scatter', chapter: 'connect', title: '把所有个体放在一起' },
+  { id: 'l5-scatter-code', chapter: 'connect', title: '横轴和纵轴，各选一列' },
+  {
+    id: 'l5-time-story',
+    chapter: 'connect',
+    title: '同一只恶魔，一直这么快？',
+  },
+  { id: 'l5-line', chapter: 'connect', title: '沿着时间看变化' },
+  { id: 'l5-line-code', chapter: 'connect', title: '有顺序的观测，连成线' },
+  { id: 'l5-bar-story', chapter: 'connect', title: '哪一族通常跑得更快？' },
+  { id: 'l5-bar', chapter: 'connect', title: '用柱高比较三族的速度' },
+  { id: 'l5-bar-code', chapter: 'connect', title: '按种类，比较平均速度' },
+  { id: 'l5-choose', chapter: 'connect', title: '先看问题，再选图表' },
+  { id: 'l5-color-story', chapter: 'connect', title: '更多列，也能一起画吗？' },
+  {
+    id: 'l5-multivariate-scatter',
+    chapter: 'connect',
+    title: '第三列、第四列，放在哪里？',
+  },
+  {
+    id: 'l5-multivariate-groups',
+    chapter: 'connect',
+    title: '折线和条形，也能分组比较',
+  },
+  {
+    id: 'l5-practice-02',
+    chapter: 'connect',
+    title: '三个例子，亲手画出三种图',
+  },
+  {
+    id: 'l5-practice-02-results',
+    chapter: 'connect',
+    title: '三种图，带回三条线索',
+  },
+  { id: 'l5-discover-cover', chapter: 'discover', title: '制作分类图鉴' },
+  { id: 'l5-colors', chapter: 'discover', title: '加上颜色，再看一次' },
+  { id: 'l5-hue-code', chapter: 'discover', title: '颜色也能表达一列数据' },
+  { id: 'l5-pairs', chapter: 'discover', title: '换一组特征，会更清楚吗？' },
+  { id: 'l5-practice-03', chapter: 'discover', title: '完成你的恶魔图鉴' },
+  {
+    id: 'l5-practice-03-code',
+    chapter: 'discover',
+    title: '一张图，一条有依据的发现',
+  },
+  { id: 'l5-dossier', chapter: 'discover', title: '把图鉴交给勇士' },
+  {
+    id: 'l5-transfer',
+    chapter: 'discover',
+    title: '真实世界，也能这样研究吗？',
+  },
+  { id: 'l5-penguins', chapter: 'discover', title: '认识企鹅观测档案' },
+  { id: 'l5-challenge', chapter: 'discover', title: '企鹅家族有什么不同？' },
+  {
+    id: 'l5-challenge-report',
+    chapter: 'discover',
+    title: '让证据支持你的发现',
+  },
+  { id: 'l5-summary', chapter: 'discover', title: '带走一套看数据的方法' },
+] as const;
+
+export const sceneAliases = {
+  'l5-practice-01-code': 'l5-practice-01',
+  'l5-practice-02-code': 'l5-practice-02',
+};

@@ -1,0 +1,305 @@
+.mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.enemyBoard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  min-height: 0;
+  border: 2px solid #071a3d;
+  color: #fffaf0;
+  background:
+    linear-gradient(#071a3ddd, #071a3d66, #071a3df5),
+    url('/courses/ai-with-python/lesson-04/assets/game/watchpost.png') center /
+      cover;
+}
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-left: 5px solid #f36d4a;
+  background: #071a3dcc;
+  color: #ffc91c;
+  font-size: 20px;
+  font-weight: 850;
+}
+.alert svg {
+  width: 26px;
+  height: 26px;
+}
+.battlefield {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+.castle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffc91c;
+  font-size: 20px;
+  white-space: nowrap;
+}
+.castle svg {
+  width: clamp(40px, 5cqw, 72px);
+  height: clamp(40px, 5cqw, 72px);
+  filter: drop-shadow(0 0 20px #ffc91c66);
+}
+.enemy {
+  height: 72%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.demonArt {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+}
+.demonArt > span {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  background-color: transparent;
+  filter: drop-shadow(0 4px 8px #000a);
+}
+.enemy figcaption {
+  padding: 0 8px;
+  background: #071a3dbb;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.warningLine {
+  height: 8px;
+  flex: none;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffc91c 0 12px,
+    #071a3d 12px 24px
+  );
+}
+.enemyBoard > p {
+  color: #ffc91c;
+  font-size: 20px;
+}
+.assignment {
+  padding: 20px;
+  border: 2px solid #071a3d;
+  background: #fffdf5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 0;
+}
+.assignment header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.assignment header p {
+  font-size: 18px;
+  margin-top: 8px;
+}
+.assignment [data-practice-stamp] {
+  width: 90px;
+  height: 90px;
+  flex: none;
+}
+.tasks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+.tasks li {
+  display: flex;
+  gap: 12px;
+}
+.tasks li > b {
+  color: #1457d9;
+  font-size: 24px;
+}
+.tasks strong {
+  font-size: 24px;
+}
+.tasks p {
+  font-size: 20px;
+}
+.assignment .delivery {
+  border-top: 2px solid #071a3d;
+  padding-top: 12px;
+  font-size: 20px;
+}
+.delivery strong {
+  color: #1457d9;
+  margin-right: 8px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+.footer .start {
+  background: #ffc91c;
+}
+.clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.clock time {
+  font:
+    800 24px/1.2 ui-monospace,
+    monospace;
+  min-width: 80px;
+  text-align: center;
+}
+.clock[data-urgent='true'] time {
+  color: #b34022;
+}
+.codeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+  flex: 1;
+  min-height: 0;
+}
+.codeCard {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+.codeCard > [data-notebook-panel] {
+  flex: 1;
+}
+.codeCard [data-notebook-panel] pre {
+  font-size: clamp(18px, 1.3cqw, 22px);
+}
+.codeCard [data-notebook-part='input'] {
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 4px;
+}
+.codeCard [data-notebook-part='cells'] {
+  padding: 6px;
+}
+.checks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 18px;
+  border: 2px solid #1457d9;
+  background: #edf3fd;
+  min-height: 0;
+}
+.checks h3 {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checks h3 > span {
+  background: #ffc91c;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.metrics > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.metrics b {
+  font-size: 30px;
+  color: #1457d9;
+}
+.metrics span {
+  font-size: 18px;
+  line-height: 1.25;
+}
+.checks p {
+  font-size: 18px;
+}
+.question {
+  font-size: 20px;
+  line-height: 1.4;
+  border-top: 1px solid #a5b9d8;
+  padding-top: 8px;
+}
+@media (max-height: 800px) {
+  .enemyBoard,
+  .assignment {
+    padding: 16px;
+    gap: 10px;
+  }
+  .assignment header h3 {
+    font-size: 28px;
+  }
+  .assignment [data-practice-stamp] {
+    width: 76px;
+    height: 76px;
+  }
+  .tasks {
+    gap: 10px;
+  }
+  .tasks strong {
+    font-size: 22px;
+  }
+  .tasks p,
+  .assignment .delivery,
+  .enemyBoard > p {
+    font-size: 18px;
+  }
+  .checks {
+    padding: 10px 14px;
+    gap: 6px;
+  }
+  .checks h3 {
+    font-size: 22px;
+  }
+  .metrics b {
+    font-size: 26px;
+  }
+  .question {
+    font-size: 18px;
+    padding-top: 6px;
+  }
+}
+
+.codeGuide {
+  flex: none;
+}
+.codeGuide > aside > :first-child {
+  width: 52px;
+}

@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-img-element -- The animated walker uses a supplied course mascot asset. */
 'use client';
 
-import Link from 'next/link';
+import Link from '../static-link';
 import { ArrowLeft, ArrowRight, Check, Menu } from 'lucide-react';
 
 export type LessonSpineChapter = {

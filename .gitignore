@@ -70,6 +70,10 @@ next-env.d.ts
 /output/
 /work/
 /release/
+/.runtime/
+/static-export/
+/.coze.deploy.json
+/image_*.png
 *.tsbuildinfo
 
 # historical reviews and generation drafts; retain the active design reference

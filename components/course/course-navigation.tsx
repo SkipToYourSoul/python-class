@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '../static-link';
 import { ArrowLeft, BookOpen, Landmark } from 'lucide-react';
 
 export function CourseNavigation({ course }: { course?: string }) {

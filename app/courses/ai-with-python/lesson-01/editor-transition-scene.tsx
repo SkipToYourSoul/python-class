@@ -1,7 +1,8 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { asset, Stage, ZoomImage } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset, ZoomImage } from './lesson-ui';
 import s from './editor-transition-scene.module.css';
 
 export function EditorTransitionScene() {

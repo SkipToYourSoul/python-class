@@ -1,0 +1,72 @@
+{
+  "seed": 20261005,
+  "demonCount": 90,
+  "penguinOriginalCount": 344,
+  "penguinCount": 342,
+  "omittedOriginalRows": [4, 272],
+  "penguinOriginalSha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+  "demonSpeedBins": [
+    {
+      "low": 2.2,
+      "high": 3.5625,
+      "count": 3
+    },
+    {
+      "low": 3.5625,
+      "high": 4.925,
+      "count": 10
+    },
+    {
+      "low": 4.925,
+      "high": 6.2875,
+      "count": 11
+    },
+    {
+      "low": 6.2875,
+      "high": 7.6499999999999995,
+      "count": 16
+    },
+    {
+      "low": 7.6499999999999995,
+      "high": 9.0125,
+      "count": 18
+    },
+    {
+      "low": 9.0125,
+      "high": 10.375,
+      "count": 14
+    },
+    {
+      "low": 10.375,
+      "high": 11.737499999999997,
+      "count": 12
+    },
+    {
+      "low": 11.737499999999997,
+      "high": 13.1,
+      "count": 6
+    }
+  ],
+  "demonMeans": {
+    "炎角兽族": {
+      "height": 160.86,
+      "speed": 8.22,
+      "mass": 71.44
+    },
+    "藤甲魔族": {
+      "height": 198.15,
+      "speed": 5.24,
+      "mass": 113.87
+    },
+    "冰翼魔族": {
+      "height": 133.57,
+      "speed": 10.6,
+      "mass": 44.71
+    }
+  },
+  "penguinCounts": {
+    "阿德利企鹅": 151,
+    "帽带企鹅": 68,
+    "巴布亚企鹅": 123
+  }
+}

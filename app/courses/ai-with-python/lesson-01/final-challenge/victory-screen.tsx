@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '../../../../../components/static-link';
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { ArrowRight, Check, Trophy, X } from 'lucide-react';
 import s from './victory-screen.module.css';

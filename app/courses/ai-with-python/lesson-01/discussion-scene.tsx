@@ -2,7 +2,8 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { asset, Hint, More, Stage } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset, Hint, More } from './lesson-ui';
 import s from './discussion-scene.module.css';
 
 const questions = [

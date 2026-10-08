@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: '我的课程',
   description: '课程与学习路径的个人画廊。',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

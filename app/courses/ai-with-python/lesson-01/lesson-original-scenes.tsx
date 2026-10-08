@@ -1,8 +1,8 @@
 /* oxlint-disable next/no-img-element -- Supplied course art. */
 import { ArrowRight, Play, Lightbulb } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { ChapterCover } from '@/components/course/ai-with-python/chapter-cover';
 import { scenes } from './lesson-data';
-import { SceneHeading } from './lesson-ui';
+import { SceneHeading } from '@/components/course/ai-with-python/lesson-stage';
 import { XiaopaiMascot } from './xiaopai-mascot';
 type RoadmapTaskKind = 'clues' | 'lab' | 'model';
 
@@ -187,36 +187,6 @@ function RoadmapTaskIllustration({ kind }: { kind: RoadmapTaskKind }) {
           </>
         ) : null}
       </svg>
-    </div>
-  );
-}
-
-export function ChapterCover({
-  number,
-  title,
-  kicker,
-  task,
-}: {
-  number: string;
-  title: ReactNode;
-  kicker: string;
-  task: ReactNode;
-}) {
-  return (
-    <div className="atlas-chapter-brief atlas-chapter-brief-simple">
-      <header>
-        <span>
-          CHAPTER {number} · {kicker}
-        </span>
-        <h2>{title}</h2>
-      </header>
-      <div className="atlas-brief-number" aria-hidden="true">
-        {number}
-      </div>
-      <footer>
-        <span>本章任务</span>
-        <p>{task}</p>
-      </footer>
     </div>
   );
 }

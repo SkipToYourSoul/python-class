@@ -19,7 +19,7 @@ import {
   Timer,
   Trophy,
 } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import {
   Dialog,
   DialogTrigger,
@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/dialog';
 import { assetBase } from './lesson-data';
 import { LessonState, usePageState } from './lesson-state';
-import { NotebookPanel } from './notebook-panels';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { levels, type IntelRecord } from './challenge-data';
 import {
   initialDefense,

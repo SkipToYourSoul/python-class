@@ -11,12 +11,14 @@ export function XiaopaiSpeech({
   label = '小派的鼓励',
   compact = false,
   featured = false,
+  animated = true,
 }: {
   active: boolean;
-  children?: ReactNode;
+  children: ReactNode;
   label?: string;
   compact?: boolean;
   featured?: boolean;
+  animated?: boolean;
 }) {
   const [paused, setPaused] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -33,29 +35,29 @@ export function XiaopaiSpeech({
     <aside
       className={`${s.speech} ${compact ? s.compact : ''} ${featured ? s.featured : ''}`}
       aria-label={label}
-      data-paused={paused || hidden || !active}
+      data-paused={paused || hidden || !active || !animated}
     >
-      <button
-        className={s.mascot}
-        type="button"
-        aria-label={paused ? '播放小派动画' : '暂停小派动画'}
-        title={paused ? '播放小派动画' : '暂停小派动画'}
-        onClick={() => setPaused((value) => !value)}
-      >
-        <span aria-hidden="true">
-          <XiaopaiFigure />
-          <span className={s.control}>
-            {paused ? <Play size={18} /> : <Pause size={18} />}
+      {animated ? (
+        <button
+          className={s.mascot}
+          type="button"
+          aria-label={paused ? '播放小派动画' : '暂停小派动画'}
+          title={paused ? '播放小派动画' : '暂停小派动画'}
+          onClick={() => setPaused((value) => !value)}
+        >
+          <span aria-hidden="true">
+            <XiaopaiFigure />
+            <span className={s.control}>
+              {paused ? <Play size={18} /> : <Pause size={18} />}
+            </span>
           </span>
-        </span>
-      </button>
-      <p className={s.bubble}>
-        {children ?? (
-          <>
-            你的未来，可以与它们<strong>完全不同</strong>。
-          </>
-        )}
-      </p>
+        </button>
+      ) : (
+        <div className={s.mascot}>
+          <XiaopaiFigure />
+        </div>
+      )}
+      <p className={s.bubble}>{children}</p>
     </aside>
   );
 }

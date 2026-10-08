@@ -2,8 +2,9 @@
 'use client';
 
 import { GitBranch, Settings2 } from 'lucide-react';
-import { Stage, CastleTree, asset } from './lesson-ui';
-import { XiaopaiSpeech } from './xiaopai-speech';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { CastleTree, asset } from './lesson-ui';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import s from './tree-concept-scene.module.css';
 
 export function TreeConceptScene() {

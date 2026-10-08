@@ -1,0 +1,200 @@
+.phases {
+  display: flex;
+  flex: none;
+  gap: 24px;
+  color: #40516e;
+  font-size: 18px;
+  font-weight: 750;
+}
+.phases [aria-current='step'] {
+  color: #1457d9;
+}
+.mission {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.enemyBoard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 20px;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+  color: #fffaf0;
+  background:
+    linear-gradient(0deg, #f36d4a20, transparent 55%),
+    radial-gradient(ellipse at center, #304b72, #071a3d 78%);
+}
+.alert {
+  flex: none;
+  padding: 6px 12px;
+  border-left: 5px solid #f36d4a;
+  background: #ffffff0d;
+  color: #ffc91c;
+  font-size: 20px;
+  font-weight: 850;
+}
+.enemyBoard h3 {
+  flex: none;
+  font-size: clamp(26px, 2.6cqw, 36px);
+  line-height: 1.3;
+}
+.demons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+.demons figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 0;
+  justify-content: end;
+  gap: 4px;
+}
+.demonArt {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+}
+.demonArt > span {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  background-color: transparent;
+  filter: drop-shadow(0 4px 10px #0008);
+}
+.demons figcaption {
+  flex: none;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.defenseLine {
+  flex: none;
+  height: 8px;
+  border-block: 1px solid #ffc91c;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffc91c 0 12px,
+    #071a3d 12px 24px
+  );
+}
+.enemyBoard .dispatch {
+  flex: none;
+  color: #ffc91c;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.assignment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+  gap: 12px;
+  padding: 20px;
+  border: 2px solid #071a3d;
+  background: #fffdf5;
+}
+.assignmentHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.assignmentHeading p {
+  margin-top: 8px;
+  font-size: 18px;
+}
+.assignmentHeading [data-practice-stamp] {
+  flex: none;
+  width: 92px;
+  height: 92px;
+}
+.tasks {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tasks li {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+}
+.tasks li > b {
+  color: #1457d9;
+  font:
+    850 24px/1.4 ui-monospace,
+    monospace;
+}
+.tasks strong {
+  display: block;
+  font-size: 24px;
+  line-height: 1.3;
+}
+.tasks p {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.assignment .delivery {
+  padding-top: 10px;
+  border-top: 2px solid #071a3d;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.delivery strong {
+  margin-right: 8px;
+  color: #1457d9;
+}
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.footer .start {
+  background: #ffc91c;
+}
+@media (max-height: 800px) {
+  .enemyBoard,
+  .assignment {
+    padding: 16px;
+    gap: 8px;
+  }
+  .assignmentHeading [data-practice-stamp] {
+    width: 80px;
+    height: 80px;
+  }
+  .assignmentHeading h3 {
+    font-size: 28px;
+  }
+  .assignmentHeading p {
+    margin-top: 4px;
+  }
+  .tasks {
+    gap: 8px;
+  }
+  .tasks strong {
+    font-size: 22px;
+  }
+  .assignment .delivery {
+    padding-top: 8px;
+  }
+}

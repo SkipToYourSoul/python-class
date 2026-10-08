@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '../../../components/static-link';
 import { ArrowRight, Clock3, Database, Flag, Network } from 'lucide-react';
 import { CourseNavigation } from '@/components/course/course-navigation';
 import { courseLessons, courseStages } from '@/lib/course-data';

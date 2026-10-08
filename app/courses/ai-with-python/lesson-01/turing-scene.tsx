@@ -12,7 +12,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Stage, useSceneState, asset } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { useSceneState, asset } from './lesson-ui';
 import shared from './lesson-review.module.css';
 import s from './turing-scene.module.css';
 

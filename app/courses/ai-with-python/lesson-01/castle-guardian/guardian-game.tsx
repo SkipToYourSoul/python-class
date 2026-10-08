@@ -1,10 +1,10 @@
 /* oxlint-disable next/no-img-element -- Supplied game artwork. */
 'use client';
-import Link from 'next/link';
+import Link from '../../../../../components/static-link';
 import { ArrowLeft, RotateCcw, Maximize } from 'lucide-react';
 import { warriors } from '@/lib/course-data';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import {
-  Stage,
   Choices,
   CastleTree,
   useSceneState,

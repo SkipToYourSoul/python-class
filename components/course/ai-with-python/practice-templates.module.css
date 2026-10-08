@@ -1,0 +1,128 @@
+.taskLayout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 24px;
+}
+.taskBrief {
+  background: #071a3d;
+  color: #fff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 8px;
+  min-height: 0;
+}
+.taskBrief h3 {
+  color: #fff;
+  font-size: 28px;
+}
+.taskBrief > p {
+  font-size: 22px;
+}
+.taskBrief > p.tip {
+  font-size: 18px;
+}
+.visualTaskLayout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+}
+.visualTaskBrief {
+  padding: 16px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.taskIllustration {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+.taskIllustration img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #071a3d;
+  outline: 2px dashed #071a3d;
+  outline-offset: -8px;
+  width: 128px;
+  height: 128px;
+  flex: none;
+  border-radius: 50%;
+  background: #ffc91c;
+  color: #071a3d;
+  transform: rotate(-8deg);
+  animation: stampIn 0.32s ease-out;
+}
+.stamp svg {
+  width: 24px;
+  height: 24px;
+}
+.stamp span {
+  font:
+    900 18px/1.2 ui-monospace,
+    monospace;
+}
+.stamp b {
+  font-size: 32px;
+  line-height: 1.2;
+}
+.actionTag {
+  background: #ffc91c;
+  color: #071a3d;
+  padding: 8px 12px;
+  font-size: 18px;
+}
+.taskWork {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tip {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+@keyframes stampIn {
+  from {
+    transform: scale(1.15) rotate(-14deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stamp {
+    animation: none;
+  }
+}
+@media (max-height: 760px) {
+  .taskBrief {
+    padding: 16px;
+    gap: 12px;
+  }
+  .stamp {
+    width: 112px;
+    height: 112px;
+  }
+  .taskBrief h3 {
+    font-size: 26px;
+  }
+  .taskBrief > p {
+    font-size: 20px;
+  }
+}

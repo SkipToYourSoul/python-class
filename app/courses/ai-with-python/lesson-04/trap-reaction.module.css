@@ -1,0 +1,131 @@
+.scene {
+  position: relative;
+  height: clamp(105px, 20cqh, 180px);
+  flex: none;
+  border: 2px solid #071a3d;
+  overflow: hidden;
+}
+.scene .comic {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: contain;
+}
+.enemy,
+.clue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 8px 16px;
+}
+.enemy {
+  color: #fff9e9;
+  background: radial-gradient(ellipse at 18% 70%, #623957, #1b1437 65%);
+}
+.character {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 1.3;
+  flex: none;
+}
+.demon {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 85%;
+}
+.chuckle {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  color: #ffc91c;
+  font-size: 18px;
+  font-weight: 900;
+  transform: rotate(9deg);
+}
+.words {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.label {
+  font-size: 18px;
+  font-weight: 750;
+}
+.enemy .label {
+  color: #ffc91c;
+}
+.words strong {
+  font-size: clamp(22px, 2cqw, 28px);
+  line-height: 1.35;
+}
+.clue {
+  color: #071a3d;
+  background: #e5edf9;
+}
+.clue > svg {
+  color: #1457d9;
+  width: 64px;
+  height: 64px;
+  flex: none;
+}
+.clue .label {
+  color: #1457d9;
+}
+.enemy[data-playing='true'] {
+  animation: enemyReveal 1800ms ease-out both;
+}
+.enemy[data-playing='true'] .demon {
+  animation: snicker 360ms ease-in-out 4;
+}
+.enemy[data-playing='true'] .chuckle {
+  animation: chuckle 600ms ease-in-out 3;
+}
+@keyframes enemyReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  16% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  30%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes snicker {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+}
+@keyframes chuckle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(9deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-4deg);
+  }
+}
+@media (max-height: 760px) {
+  .scene {
+    height: 110px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enemy[data-playing='true'],
+  .enemy[data-playing='true'] .demon,
+  .enemy[data-playing='true'] .chuckle {
+    animation: none;
+  }
+}

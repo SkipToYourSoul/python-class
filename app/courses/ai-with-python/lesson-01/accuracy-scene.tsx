@@ -1,8 +1,8 @@
 /* oxlint-disable next/no-img-element -- Existing course character illustration. */
 'use client';
 
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import {
-  Stage,
   PracticeProgress,
   CodeCell,
   accuracyCode,
@@ -10,7 +10,7 @@ import {
   asset,
   useSceneState,
 } from './lesson-ui';
-import { XiaopaiSpeech } from './xiaopai-speech';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import shared from './lesson-review.module.css';
 import s from './accuracy-scene.module.css';
 

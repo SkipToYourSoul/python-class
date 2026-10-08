@@ -1,0 +1,178 @@
+.entry {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.75fr);
+  gap: 32px;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+}
+.mission {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.mission > strong {
+  font-size: clamp(24px, 2cqw, 30px);
+  color: #1457d9;
+}
+.mission ol {
+  padding-left: 1.35em;
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.6;
+}
+.mission p {
+  font-size: 24px;
+  line-height: 1.5;
+}
+.mission b {
+  background: #ffe17a;
+}
+.entryPicture {
+  margin: 0;
+  min-width: 0;
+}
+.handoffFrame {
+  aspect-ratio: 1.65;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+}
+.handoffFrame img {
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  transform: translateX(-50%);
+}
+.entryPicture figcaption {
+  margin-top: 12px;
+  font-size: 22px;
+  line-height: 1.4;
+}
+.primary {
+  background: #ffc91c !important;
+}
+.entryFooter {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.95fr) minmax(0, 1fr);
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+.code,
+.detail {
+  min-width: 0;
+}
+.code pre {
+  font-size: clamp(20px, 1.4cqw, 24px) !important;
+}
+.code > p {
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.stepTabs {
+  display: flex;
+  gap: 4px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.stepTabs button {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 18px;
+  white-space: nowrap;
+}
+.comic {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  margin: 0;
+  border: 2px solid #071a3d;
+  background: #fffcf4;
+}
+.comicFrame {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.comicFrame img {
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+.comic figcaption {
+  padding: 8px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.result {
+  border-left: 4px solid #ffc91c;
+  background: #fffcf4;
+  padding: 12px;
+}
+.result h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.result > code {
+  display: block;
+  font-size: 18px;
+  color: #1457d9;
+  overflow-wrap: anywhere;
+}
+.result pre {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 8px;
+  white-space: pre-wrap;
+}
+.detail > div:last-child {
+  margin-top: auto;
+}
+@container (max-height: 760px) {
+  .entry {
+    gap: 24px;
+  }
+  .mission {
+    gap: 12px;
+  }
+  .mission ol {
+    font-size: 22px;
+  }
+  .workspace {
+    gap: 16px;
+  }
+  .detail {
+    gap: 8px;
+  }
+  .result {
+    padding: 8px 12px;
+  }
+  .code > p {
+    margin-top: 8px;
+  }
+}
+
+.tip {
+  margin-top: 12px;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #1457d9;
+}

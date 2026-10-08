@@ -1,0 +1,254 @@
+[
+  {
+    "id": "A01",
+    "place": "北方峡谷",
+    "demons": ["炎角兽", "雾铃魔"],
+    "threat": 84,
+    "minutes": 19
+  },
+  {
+    "id": "A02",
+    "place": "迷雾森林",
+    "demons": ["藤甲魔", "苔帽魔"],
+    "threat": 73,
+    "minutes": 24
+  },
+  {
+    "id": "A03",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "镜翼魔"],
+    "threat": 89,
+    "minutes": 12
+  },
+  {
+    "id": "A04",
+    "place": "西侧哨塔",
+    "demons": ["砂爪魔", "墨鳍魔"],
+    "threat": 68,
+    "minutes": 17
+  },
+  {
+    "id": "A05",
+    "place": "北方峡谷",
+    "demons": ["岩背魔"],
+    "threat": 100,
+    "minutes": 23
+  },
+  {
+    "id": "A06",
+    "place": "东侧石桥",
+    "demons": ["雾铃魔", "藤甲魔"],
+    "threat": 58,
+    "minutes": 28
+  },
+  {
+    "id": "A07",
+    "place": "西侧哨塔",
+    "demons": ["炎角兽", "砂爪魔"],
+    "threat": 96,
+    "minutes": 16
+  },
+  {
+    "id": "A08",
+    "place": "迷雾森林",
+    "demons": ["雾铃魔", "镜翼魔"],
+    "threat": 91,
+    "minutes": 11
+  },
+  {
+    "id": "A09",
+    "place": "东侧石桥",
+    "demons": ["藤甲魔", "苔帽魔", "墨鳍魔"],
+    "threat": 86,
+    "minutes": 25
+  },
+  {
+    "id": "A10",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "砂爪魔"],
+    "threat": 44,
+    "minutes": 20
+  },
+  {
+    "id": "A11",
+    "place": "北方峡谷",
+    "demons": ["雾铃魔", "墨鳍魔"],
+    "threat": 78,
+    "minutes": 14
+  },
+  {
+    "id": "A12",
+    "place": "西侧哨塔",
+    "demons": ["炎角兽", "藤甲魔"],
+    "threat": 92,
+    "minutes": 27
+  },
+  {
+    "id": "A13",
+    "place": "迷雾森林",
+    "demons": ["苔帽魔", "镜翼魔"],
+    "threat": 90,
+    "minutes": 18
+  },
+  {
+    "id": "A14",
+    "place": "东侧石桥",
+    "demons": ["雾铃魔", "冰翼魔"],
+    "threat": 83,
+    "minutes": 22
+  },
+  {
+    "id": "A15",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "墨鳍魔"],
+    "threat": 52,
+    "minutes": 15
+  },
+  {
+    "id": "A16",
+    "place": "西侧哨塔",
+    "demons": ["砂爪魔", "藤甲魔"],
+    "threat": 88,
+    "minutes": 24
+  },
+  {
+    "id": "A17",
+    "place": "北方峡谷",
+    "demons": ["炎角兽", "苔帽魔"],
+    "threat": 41,
+    "minutes": 13
+  },
+  {
+    "id": "A18",
+    "place": "迷雾森林",
+    "demons": ["雾铃魔", "砂爪魔"],
+    "threat": 65,
+    "minutes": 29
+  },
+  {
+    "id": "A19",
+    "place": "东侧石桥",
+    "demons": ["镜翼魔", "墨鳍魔"],
+    "threat": 40,
+    "minutes": 21
+  },
+  {
+    "id": "A20",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "藤甲魔"],
+    "threat": 63,
+    "minutes": 17
+  },
+  {
+    "id": "A21",
+    "place": "西侧哨塔",
+    "demons": ["雾铃魔", "炎角兽", "镜翼魔"],
+    "threat": 69,
+    "minutes": 26
+  },
+  {
+    "id": "A22",
+    "place": "北方峡谷",
+    "demons": ["炎角兽", "砂爪魔"],
+    "threat": 85,
+    "minutes": 12
+  },
+  {
+    "id": "A23",
+    "place": "迷雾森林",
+    "demons": ["藤甲魔", "苔帽魔"],
+    "threat": 69,
+    "minutes": 23
+  },
+  {
+    "id": "A24",
+    "place": "东侧石桥",
+    "demons": ["雾铃魔", "苔帽魔"],
+    "threat": 80,
+    "minutes": 18
+  },
+  {
+    "id": "A25",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "镜翼魔"],
+    "threat": 96,
+    "minutes": 10
+  },
+  {
+    "id": "A26",
+    "place": "西侧哨塔",
+    "demons": ["砂爪魔", "墨鳍魔"],
+    "threat": 55,
+    "minutes": 28
+  },
+  {
+    "id": "A27",
+    "place": "北方峡谷",
+    "demons": ["炎角兽", "藤甲魔", "苔帽魔"],
+    "threat": 54,
+    "minutes": 16
+  },
+  {
+    "id": "A28",
+    "place": "迷雾森林",
+    "demons": ["雾铃魔", "墨鳍魔", "冰翼魔"],
+    "threat": 94,
+    "minutes": 21
+  },
+  {
+    "id": "A29",
+    "place": "东侧石桥",
+    "demons": ["镜翼魔", "苔帽魔"],
+    "threat": 63,
+    "minutes": 25
+  },
+  {
+    "id": "A30",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "砂爪魔"],
+    "threat": 81,
+    "minutes": 14
+  },
+  {
+    "id": "A31",
+    "place": "西侧哨塔",
+    "demons": ["藤甲魔", "墨鳍魔"],
+    "threat": 79,
+    "minutes": 22
+  },
+  {
+    "id": "A32",
+    "place": "北方峡谷",
+    "demons": ["雾铃魔", "藤甲魔"],
+    "threat": 44,
+    "minutes": 17
+  },
+  {
+    "id": "A33",
+    "place": "迷雾森林",
+    "demons": ["炎角兽", "苔帽魔"],
+    "threat": 67,
+    "minutes": 27
+  },
+  {
+    "id": "A34",
+    "place": "东侧石桥",
+    "demons": ["砂爪魔", "镜翼魔"],
+    "threat": 68,
+    "minutes": 19
+  },
+  {
+    "id": "A35",
+    "place": "冰封山口",
+    "demons": ["冰翼魔", "墨鳍魔"],
+    "threat": 91,
+    "minutes": 24
+  },
+  {
+    "id": "A36",
+    "place": "西侧哨塔",
+    "demons": ["藤甲魔", "苔帽魔", "砂爪魔"],
+    "threat": 52,
+    "minutes": 15
+  }
+]

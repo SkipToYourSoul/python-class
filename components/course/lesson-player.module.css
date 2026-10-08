@@ -1,0 +1,205 @@
+.player {
+  --ink: #071a3d;
+  --accent: #1457d9;
+  --yellow: #ffc91c;
+  --paper: #f5f0e6;
+}
+
+.player .canvas {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 3cqh 4cqw !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  justify-content: flex-start !important;
+  container-type: size;
+}
+
+.player .canvas::before {
+  display: none !important;
+}
+
+/* The legacy lesson 02 cover uses the same inset as opted-in covers. */
+.player :global(#l2-cover) .canvas,
+.player .canvas:has([data-lesson-cover]) {
+  padding: 4cqh 4cqw !important;
+}
+
+.player :global(.lesson-standard-heading) {
+  margin-bottom: 0 !important;
+}
+
+.player button,
+.player a,
+.modal button,
+.modal a {
+  cursor: pointer;
+}
+
+.player button:focus-visible,
+.player a:focus-visible,
+.modal button:focus-visible,
+.modal a:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+
+.player button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.toolbar button,
+.toolbar a,
+.menuChapters button,
+.menuPages button {
+  padding: 12px 18px;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+  color: #071a3d;
+  font-size: 18px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.modal {
+  width: min(1120px, 94vw) !important;
+  max-width: none !important;
+  max-height: 92vh;
+  overflow: auto;
+  background: #f5f0e6 !important;
+  padding: 28px !important;
+  color: #071a3d;
+  font-size: 20px;
+  gap: 20px !important;
+}
+
+.modal [data-slot='dialog-title'] {
+  font-size: 28px;
+  font-weight: 850;
+}
+
+.modal [data-slot='dialog-description'] {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.menuChapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menuChapters button[aria-pressed='true'] {
+  background: #071a3d;
+  color: #ffc91c;
+}
+
+.menuPages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.menuPages button {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menuPages button span {
+  color: #1457d9;
+}
+
+.menuPages button[aria-current] {
+  background: #ffc91c;
+}
+
+.player :global(.atlas-chapter-brief-simple) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 5cqh 1cqw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 26%;
+  grid-template-rows: 1fr auto;
+  gap: 32px;
+  color: #fff9eb;
+}
+
+.player :global(.atlas-chapter-brief-simple) header {
+  align-self: center;
+}
+
+.player :global(.atlas-chapter-brief-simple) header > span {
+  color: #ffc91c;
+  font-size: 18px !important;
+}
+
+.player :global(.atlas-chapter-brief-simple) h2 {
+  color: #fff9eb !important;
+  font-size: clamp(72px, 7.4cqw, 108px) !important;
+  line-height: 1.15;
+  font-weight: 950;
+  margin-top: 24px;
+  max-width: 780px;
+}
+
+.player :global(.atlas-chapter-brief-simple) footer {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 0;
+  margin: 0;
+}
+
+.player :global(.atlas-chapter-brief-simple) footer > span {
+  font-size: 18px !important;
+  padding: 10px 14px;
+  background: #ffc91c !important;
+  color: #071a3d !important;
+}
+
+.player :global(.atlas-chapter-brief-simple) footer p {
+  color: #fff9eb !important;
+  font-size: 26px !important;
+  line-height: 1.5;
+}
+
+.player :global(.atlas-brief-number) {
+  position: static !important;
+  align-self: center;
+  width: auto;
+  margin: 0 !important;
+  padding-right: 24px;
+  padding-bottom: 32px;
+  font-size: clamp(140px, 19cqw, 260px) !important;
+  color: #6ca0ff;
+  line-height: 1.1 !important;
+}
+
+.player :global(.atlas-chapter-brief-simple)::before,
+.player :global(.atlas-chapter-brief-simple)::after {
+  display: none;
+}
+
+.player :global(.atlas-brief-number)::after {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player *,
+  .player *::before,
+  .player *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

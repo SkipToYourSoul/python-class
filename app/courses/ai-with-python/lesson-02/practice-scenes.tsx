@@ -1,8 +1,8 @@
 /* oxlint-disable next/no-img-element -- Reuse the course's local story illustrations. */
 'use client';
-import Link from 'next/link';
+import Link from '../../../../components/static-link';
 import { ArrowRight, RotateCcw } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { useContext } from 'react';
 import { LessonState } from './lesson-state';
 import { ResourceButton } from './lesson-ui';

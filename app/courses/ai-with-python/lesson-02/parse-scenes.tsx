@@ -10,8 +10,9 @@ import {
   ArrowRight,
   FolderTree,
 } from 'lucide-react';
-import { Stage, ClassPracticeStamp } from '../lesson-01/lesson-ui';
-import { XiaopaiSpeech } from '../lesson-01/xiaopai-speech';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import {
   Dialog,
   DialogContent,
@@ -22,7 +23,7 @@ import {
 } from '@/components/ui/dialog';
 import { usePageState } from './lesson-state';
 import { Note, StepBar } from './lesson-ui';
-import { NotebookPanel } from './notebook-panels';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { ScoutHtmlDialog } from './scout-html-dialog';
 import { ParseHtmlReference } from './parse-html-reference';
 import { ParseStoryComic } from './parse-story-comic';

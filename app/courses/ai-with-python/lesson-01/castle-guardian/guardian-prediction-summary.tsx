@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '../../../../../components/static-link';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import lesson from '../lesson-review.module.css';
 import s from './guardian-prediction-summary.module.css';

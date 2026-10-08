@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Stage, ClassPracticeStamp } from '../lesson-01/lesson-ui';
-import { NotebookPanel } from './notebook-panels';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { usePageState } from './lesson-state';
 import { ScoutHtmlDialog } from './scout-html-dialog';
 import { scoutUrl } from './lesson-data';

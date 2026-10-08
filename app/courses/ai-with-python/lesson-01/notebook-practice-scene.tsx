@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ClassPracticeStamp, Stage, useSceneState } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
+import { useSceneState } from './lesson-ui';
 import s from './notebook-practice-scene.module.css';
 
 const basicCells = [

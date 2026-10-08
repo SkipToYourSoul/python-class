@@ -1,7 +1,8 @@
 /* oxlint-disable next/no-img-element -- Original generated course illustration. */
 'use client';
 
-import { Stage, asset } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset } from './lesson-ui';
 import s from './train-predict-scene.module.css';
 
 export function TrainPredictScene() {

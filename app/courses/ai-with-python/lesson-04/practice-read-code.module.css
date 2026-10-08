@@ -1,0 +1,59 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 24px;
+  min-height: 0;
+}
+.code,
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+.code [data-notebook-part='cells'] {
+  gap: 8px;
+}
+.code [data-notebook-part='cells'] pre {
+  font-size: 20px;
+}
+.code [data-notebook-part='input'] pre {
+  padding: 4px 6px;
+}
+.code [data-notebook-panel] {
+  flex: none;
+}
+.instruction,
+.caption {
+  font-size: 18px;
+  line-height: 1.35;
+}
+.caption {
+  color: #48586b;
+  margin-bottom: 8px !important;
+}
+.result h3 {
+  font-size: 26px;
+}
+.output {
+  min-width: 0;
+}
+.output pre {
+  padding: 12px;
+  border: 2px solid #a8b3c5;
+  background: #fffdf5;
+  font:
+    500 18px/1.2 'SFMono-Regular',
+    Consolas,
+    monospace;
+  white-space: pre;
+}
+.output table {
+  font-size: 18px;
+  line-height: 1.25;
+}
+.output table th,
+.output table td {
+  padding: 4px 6px;
+}

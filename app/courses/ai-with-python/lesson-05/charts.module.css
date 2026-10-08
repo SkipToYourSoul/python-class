@@ -1,0 +1,76 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  gap: 8px;
+  color: #071a3d;
+  font-size: 18px;
+}
+.plot {
+  flex: 1;
+  min-height: 150px;
+  width: 100%;
+}
+.plot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+}
+.legend {
+  display: flex;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.3;
+  min-height: 24px;
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend i {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border: 1px solid #071a3d;
+}
+.sizeLegend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.sizeLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.sizeLegend svg {
+  width: 28px;
+  height: 28px;
+}
+.detail {
+  font-size: 18px;
+  line-height: 1.4;
+  min-height: 26px;
+  margin: 0;
+}
+.point {
+  cursor: pointer;
+  outline: none;
+}
+.point:hover,
+.point:focus-visible {
+  stroke: #071a3d;
+  stroke-width: 4;
+}

@@ -2,7 +2,8 @@
 'use client';
 
 import { useRef, type CSSProperties, type KeyboardEvent } from 'react';
-import { asset, Stage, Steps, useSceneState } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset, Steps, useSceneState } from './lesson-ui';
 import { useScreenshotConnections } from './use-screenshot-connections';
 import tour from './jupyter-interface-scene.module.css';
 import s from './notebook-save-scene.module.css';

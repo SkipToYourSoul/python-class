@@ -1,0 +1,390 @@
+.concept {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 4px solid #1457d9;
+  background: #fffaf0;
+  padding: 14px 18px;
+}
+.concept h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  line-height: 1.3;
+}
+.concept h3 svg {
+  flex: none;
+  color: #1457d9;
+}
+.concept h3 span[lang] {
+  font-size: 22px;
+  color: #1457d9;
+}
+.concept p {
+  font-size: 22px;
+  line-height: 1.4;
+}
+.concept strong {
+  font-size: 20px;
+  line-height: 1.4;
+}
+.axisKey {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 20px;
+}
+.conceptColumn {
+  gap: 12px;
+}
+.prompt {
+  font-size: 22px !important;
+  line-height: 1.4;
+}
+.reveal {
+  padding: 10px 14px;
+  border-left: 4px solid #1457d9;
+  background: #e9effc;
+  font-size: 20px !important;
+  line-height: 1.4;
+}
+.featureColumn {
+  gap: 16px;
+}
+.featureColumn > p {
+  font-size: 24px;
+  line-height: 1.5;
+}
+.encoding {
+  margin: 0;
+}
+.encoding > div {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 0;
+  border-bottom: 2px solid #bbc3cf;
+  font-size: 22px;
+}
+.encoding dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100px;
+  flex: none;
+  font-weight: 800;
+}
+.encoding dd {
+  margin: 0;
+}
+.colorDot,
+.largeDot {
+  display: block;
+  background: #1457d9;
+  border-radius: 50%;
+  border: 1px solid #071a3d;
+  width: 16px;
+  height: 16px;
+}
+.largeDot {
+  width: 26px;
+  height: 26px;
+}
+.parameter {
+  color: #1457d9;
+  font-size: 22px;
+  padding: 8px 12px;
+  background: #e9effc;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.encodingNote {
+  border-left: 4px solid #ffc91c;
+  padding: 10px 16px;
+  background: #fffaf0;
+  font-size: 22px;
+}
+.encodingNote > p {
+  font-size: 22px;
+}
+.practiceCodePage,
+.practiceResultsPage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 12px;
+}
+.practiceIntro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.practiceIntro p {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.practiceProgress {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.practiceProgress li {
+  white-space: nowrap;
+  padding: 2px 8px;
+  border-bottom: 3px solid #bbc3cf;
+}
+.practiceProgress [aria-current='step'] {
+  border-color: #1457d9;
+  background: #ffc91c;
+}
+.practicePreparation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 144px;
+  align-items: center;
+  gap: 12px;
+  padding-right: 8px;
+  flex: none;
+}
+.practicePreparation [data-practice-stamp] {
+  justify-self: center;
+  width: 112px;
+  height: 112px;
+}
+.preparationNotebook {
+  min-width: 0;
+}
+.preparationNotebook [data-notebook-part='cells'] {
+  display: grid;
+  grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+  gap: 12px;
+  padding: 6px;
+}
+.preparationNotebook [data-notebook-part='input'] {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 4px;
+}
+.practiceCodeColumns,
+.practiceResultColumns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.practiceCodeColumns {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.12fr);
+}
+.practicePlotCode {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  min-height: 0;
+}
+.practicePlotCode > p {
+  padding-left: 8px;
+  border-left: 3px solid #1457d9;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.practicePlotCode [data-notebook-panel] {
+  position: relative;
+  flex: 1;
+}
+.practicePlotCode [data-notebook-part='cells'] {
+  padding: 4px 0;
+}
+.practicePlotCode [data-notebook-part='toolbar'] {
+  display: none;
+}
+.practicePlotCode [data-notebook-part='input'] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+}
+.practicePlotCode [data-notebook-part='prompt'] {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  text-align: left;
+  padding: 0 4px;
+}
+.practicePlotCode [data-notebook-part='input'] pre {
+  padding: 4px 2px;
+}
+.practiceCodePage [data-notebook-panel] pre {
+  font-size: clamp(20px, 1.5cqw, 24px);
+}
+.practiceResultCard {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  gap: 6px;
+  padding: 8px;
+  border: 2px solid #bbc3cf;
+  background: #fffcf5;
+}
+.practiceResultCard h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 22px;
+  line-height: 1.3;
+}
+.practiceResultCard h3 span {
+  font-size: 18px;
+  font-weight: 500;
+}
+.practiceQuestion {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.practiceResultPlot {
+  display: flex;
+  flex: 1;
+  min-height: 150px;
+}
+.practiceResultPlot > div > p {
+  display: none;
+}
+.practiceResultPlot text[data-axis-tick='x'] {
+  transform: translateY(3px);
+}
+.practiceFinding {
+  min-height: calc(2.8em + 8px);
+  font-size: 20px;
+  line-height: 1.4;
+  padding-top: 6px;
+  border-top: 2px solid #ffc91c;
+}
+.practiceResultActions {
+  display: flex;
+  gap: 12px;
+}
+.backButton {
+  background: #fffaf0;
+}
+.practiceStory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+  flex: none;
+  height: clamp(112px, 17cqh, 180px);
+  gap: 16px;
+  padding: 0;
+  border-top: 4px solid #ffc91c;
+  background: #fffaf0;
+}
+.practiceStoryDialogue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px 8px 0;
+}
+.practiceStoryDialogue strong {
+  font-size: 18px;
+}
+.practiceStoryDialogue p {
+  font-size: clamp(20px, 1.5cqw, 24px);
+  line-height: 1.5;
+}
+.practiceComicButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+.practiceComicButton > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.practiceComicCaption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 6px;
+  background: #ffc91c;
+  border-top: 1px solid #071a3d;
+  color: #071a3d;
+  font-size: 18px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+@container (max-height:740px) {
+  .practiceCodePage,
+  .practiceResultsPage {
+    gap: 8px;
+  }
+  .practiceResultCard {
+    padding: 6px;
+    gap: 4px;
+  }
+  .practiceCodeColumns {
+    gap: 8px;
+  }
+  .preparationNotebook [data-notebook-part='cells'] {
+    padding: 4px 6px;
+  }
+  .practiceStory {
+    height: 112px;
+  }
+  .practiceFinding,
+  .practicePlotCode > p {
+    font-size: 18px;
+  }
+  .concept {
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  .concept h3 {
+    font-size: 24px;
+  }
+  .concept h3 span[lang],
+  .concept p {
+    font-size: 20px;
+  }
+  .conceptColumn {
+    gap: 10px;
+  }
+  .featureColumn {
+    gap: 8px;
+  }
+  .featureColumn > p {
+    font-size: 22px;
+    line-height: 1.4;
+  }
+  .encoding > div {
+    padding: 6px 0;
+    font-size: 20px;
+  }
+  .encodingNote {
+    padding: 8px 12px;
+  }
+}

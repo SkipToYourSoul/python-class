@@ -1,0 +1,86 @@
+.scene {
+  color: var(--ink, #071a3d);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  gap: clamp(16px, 2.2cqh, 24px);
+  font-size: clamp(24px, 2cqw, 28px);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.scene * {
+  box-sizing: border-box;
+}
+.scene h3,
+.scene h4,
+.scene p,
+.scene figure,
+.scene pre {
+  margin: 0;
+}
+.scene h3 {
+  font-size: clamp(28px, 2.6cqw, 36px);
+  line-height: 1.2;
+  font-weight: 850;
+}
+.scene h4 {
+  font-size: 24px;
+  line-height: 1.3;
+}
+.scene button,
+.scene input,
+.scene textarea,
+.scene select {
+  font: inherit;
+  font-size: 18px;
+}
+.heading {
+  flex: none;
+}
+.heading h2 {
+  color: #071a3d;
+}
+.body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+}
+.footer > p {
+  font-size: 20px;
+}
+
+.scene button:not([data-lesson-image-button]):not([data-lesson-art-button]) {
+  cursor: pointer;
+}
+
+.scene button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.scene button:focus-visible,
+.scene a:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+
+.scene p {
+  font-weight: 500;
+}
+
+@media (max-height: 760px) {
+  .scene {
+    gap: 16px;
+  }
+}

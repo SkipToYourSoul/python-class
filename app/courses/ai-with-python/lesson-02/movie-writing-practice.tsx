@@ -1,11 +1,12 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { ClassPracticeStamp, Stage } from '../lesson-01/lesson-ui';
-import { XiaopaiSpeech } from '../lesson-01/xiaopai-speech';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import { movieUrl } from './movie-content';
 import { usePageState } from './lesson-state';
-import { NotebookPanel } from './notebook-panels';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import s from './movie-writing-practice.module.css';
 
 export const moviePracticeCells = [

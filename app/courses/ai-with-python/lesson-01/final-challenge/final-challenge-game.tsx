@@ -1,6 +1,6 @@
 /* oxlint-disable next/no-img-element -- Supplied game artwork. */
 'use client';
-import Link from 'next/link';
+import Link from '../../../../../components/static-link';
 import { useEffect, useState, type CSSProperties } from 'react';
 import {
   ArrowLeft,

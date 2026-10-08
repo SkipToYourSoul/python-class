@@ -1,6 +1,6 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 import { ArrowRight, MailQuestion } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { assetBase } from './lesson-data';
 import s from './scout-scale-scene.module.css';
 

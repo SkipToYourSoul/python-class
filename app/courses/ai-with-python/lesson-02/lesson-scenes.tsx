@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 'use client';
 import { useContext } from 'react';
-import { ChapterCover } from '../lesson-01/lesson-original-scenes';
+import { ChapterCover } from '@/components/course/ai-with-python/chapter-cover';
 import { XiaopaiMascot } from '../lesson-01/xiaopai-mascot';
 import { LessonState } from './lesson-state';
 import { chapters, assetBase, scenes } from './lesson-data';

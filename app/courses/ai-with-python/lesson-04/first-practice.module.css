@@ -1,0 +1,177 @@
+.mission {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+.enemyBoard {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  color: #fffaf0;
+  background: radial-gradient(ellipse at top, #243b65, #071a3d 75%);
+  border: 2px solid #071a3d;
+}
+.alert {
+  border-left: 5px solid #f36d4a;
+  background: #ffffff0d;
+  padding: 8px 12px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffc91c;
+}
+.roster {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 8px 16px;
+}
+.roster figure {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.roster figure > span {
+  flex: 1;
+  min-height: 0;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid #b4c9eb;
+  background-color: #f5f0e6;
+  border-radius: 4px;
+}
+.roster figcaption {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.enemyBoard .dispatch {
+  font-size: 18px;
+  color: #ffc91c;
+  text-align: center;
+}
+.plan {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  border: 2px solid #071a3d;
+  background: #fffdf5;
+  padding: 20px;
+}
+.planHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.planHeading p {
+  margin-top: 12px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.planHeading [data-practice-stamp] {
+  width: 104px;
+  height: 104px;
+}
+.plan .definition {
+  font-size: 18px;
+  color: #40516e;
+}
+.prompts {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(22px, 2cqw, 28px);
+}
+.prompts li {
+  border-left: 4px solid #1457d9;
+  padding-left: 12px;
+}
+.delivery {
+  border-top: 2px solid #071a3d;
+  padding-top: 12px;
+  font-size: 22px;
+}
+.delivery p {
+  margin-top: 4px;
+  font-size: 18px;
+}
+.timerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex: none;
+  padding: 12px 20px;
+  background: #071a3d;
+  border-left: 6px solid #ffc91c;
+  color: #fffaf0;
+}
+.timerLabel {
+  display: flex;
+  flex-direction: column;
+}
+.timerLabel strong {
+  font-size: 22px;
+}
+.timerLabel output {
+  font-size: 18px;
+}
+.clock {
+  color: #ffc91c;
+  font:
+    800 48px/1 ui-monospace,
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.timerBar[data-urgent='true'] {
+  border-left-color: #f36d4a;
+}
+.timerBar[data-urgent='true'] .clock {
+  color: #ffa98c;
+}
+.controls {
+  display: flex;
+  gap: 12px;
+}
+.controls button:first-child {
+  background: #ffc91c;
+}
+
+@media (max-height: 760px) {
+  .plan {
+    padding: 16px;
+    gap: 8px;
+  }
+  .planHeading p {
+    font-size: 20px;
+    margin-top: 8px;
+  }
+  .prompts {
+    font-size: 22px;
+    gap: 8px;
+  }
+  .delivery {
+    font-size: 20px;
+    padding-top: 8px;
+  }
+  .timerBar {
+    padding: 8px 16px;
+  }
+  .clock {
+    font-size: 44px;
+  }
+}

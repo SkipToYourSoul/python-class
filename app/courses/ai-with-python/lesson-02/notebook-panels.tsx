@@ -1,10 +1,7 @@
-import { type ReactNode } from 'react';
 import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
-  BookOpen,
-  ChevronDown,
   FileCode2,
   Mail,
   MapPin,
@@ -12,104 +9,8 @@ import {
   Send,
   ShieldCheck,
 } from 'lucide-react';
-import { XiaopaiSpeech } from '../lesson-01/xiaopai-speech';
+import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import s from './lesson.module.css';
-
-type Cell = {
-  code: string;
-  activeLines?: number[];
-  output?: string;
-  outputLabel?: string;
-};
-
-function PythonLine({ text }: { text: string }) {
-  return text
-    .split(
-      /("[^"\n]*"|'[^'\n]*'|\b(?:import|from|for|in|if|else|print|\d+)\b)/g,
-    )
-    .map((part, index) => {
-      const kind = /^['"]/.test(part)
-        ? s.pyString
-        : /^(import|from|for|in|if|else)$/.test(part)
-          ? s.pyKeyword
-          : part === 'print'
-            ? s.pyFunction
-            : /^\d+$/.test(part)
-              ? s.pyNumber
-              : undefined;
-      return (
-        <span className={kind} key={index}>
-          {part}
-        </span>
-      );
-    });
-}
-
-export function NotebookPanel({
-  title,
-  cells,
-  executionStart = 1,
-  compact = false,
-  children,
-}: {
-  title: string;
-  cells: Cell[];
-  executionStart?: number;
-  compact?: boolean;
-  children?: ReactNode;
-}) {
-  return (
-    <section
-      className={`${s.notebook} ${compact ? s.compactNotebook : ''}`}
-      aria-label="JupyterLab 代码讲解"
-    >
-      <div className={s.notebookTab}>
-        <BookOpen size={20} aria-hidden="true" />
-        <span>{title}</span>
-      </div>
-      <div className={s.notebookToolbar}>
-        <span>
-          Code <ChevronDown size={18} aria-hidden="true" />
-        </span>
-        <span>Python 3</span>
-      </div>
-      <div className={s.notebookCells}>
-        {cells.map((cell, index) => (
-          <div className={s.notebookCell} key={index}>
-            <div className={s.notebookInput}>
-              <span className={s.cellPrompt} aria-hidden="true">
-                [{cell.output ? index + executionStart : ' '}]:
-              </span>
-              <pre>
-                <code>
-                  {cell.code.split('\n').map((line, lineIndex) => (
-                    <span
-                      key={lineIndex}
-                      className={`${s.notebookLine} ${cell.activeLines?.includes(lineIndex) ? s.activeNotebookLine : ''}`}
-                    >
-                      <PythonLine text={line || ' '} />
-                    </span>
-                  ))}
-                </code>
-              </pre>
-            </div>
-            {cell.output && (
-              <div
-                className={`${s.notebookOutput} ${!cell.output.includes('\n') ? s.shortNotebookOutput : ''}`}
-              >
-                <span className={s.cellOutputLabel}>
-                  {cell.outputLabel ?? '输出示例'}
-                </span>
-                <pre>{cell.output}</pre>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      {children}
-    </section>
-  );
-}
 
 export function RequestExplainer({ step }: { step: number }) {
   const sayings = [

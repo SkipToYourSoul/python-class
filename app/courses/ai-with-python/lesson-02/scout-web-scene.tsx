@@ -7,7 +7,7 @@ import {
   Download,
   Search,
 } from 'lucide-react';
-import { Stage } from '../lesson-01/lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { Code, Note } from './lesson-ui';
 import { assetBase, scoutPath } from './lesson-data';
 import shared from './lesson.module.css';

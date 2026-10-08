@@ -1,0 +1,7 @@
+# 海龟先生与熊猫博士
+
+用于第四课 pandas 引入页。使用内置 imagegen 生成，保留透明背景；双角色左右并排，通过页面样式分别显示。熊猫博士是帮助学生记忆 pandas 的课程角色。
+
+## 生成提示词
+
+Use case: illustration-story. Asset type: a paired mascot illustration for a Chinese Python data detective classroom slide for ages 10–13. Create a wide 2:1 composition, 1536x768, with a genuinely transparent background. LEFT HALF: a cute friendly green anthropomorphic sea turtle gentleman with round expressive eyes, green patterned shell, a small navy bowtie, holding a drawing pencil and a little drawing board showing only simple colorful geometric line shapes (star and square). He faces slightly right and gestures to introduce his colleague. RIGHT HALF: an equally sized cute black-and-white panda professor with round thin glasses, white lab coat over navy clothing, warm clever smile, holding a clipboard showing a simple blue and yellow grid table and a few plain bar-chart bars (no writing). Full bodies, clear silhouettes, detailed polished children's storybook game mascot art with warm soft shading and clean outlines. Each character and all their props entirely within their respective half, centered at 25% and 75% horizontal positions; equal visual weight; generous margin around edges; feet same baseline. No text, letters, numbers, speech bubbles, arrows, logos, watermark, background scene, background rectangle, or checkerboard. Transparent alpha background. This is one coordinated two-character illustration, not a UI mockup.

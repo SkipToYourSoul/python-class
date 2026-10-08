@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Stage, useSceneState, asset } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { useSceneState, asset } from './lesson-ui';
 import shared from './lesson-review.module.css';
 import s from './agi-scene.module.css';
 

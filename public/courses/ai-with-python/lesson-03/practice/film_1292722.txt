@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>泰坦尼克号 · 教学节选</title>
+<style>
+body { margin: 0; padding: 24px; background: #fffaf0; color: #142a46; font: 20px/1.6 system-ui, sans-serif; }
+h1 { margin: 12px 0; font-size: 32px; }
+p { margin: 12px 0; }
+a[rel="v:starring"] { display: inline-block; margin-right: 12px; }
+strong[property="v:average"] { color: #9a5500; font-weight: 700; }
+a { color: #165e9c; }
+</style>
+</head>
+<body>
+<p>电影详情教学节选；演员仅列部分，评分沿用第二课保存样本。</p>
+<h1><span property="v:itemreviewed">泰坦尼克号</span></h1>
+<p>导演：<a rel="v:directedBy">詹姆斯·卡梅隆</a></p>
+<div>演员：
+  <a rel="v:starring">莱昂纳多·迪卡普里奥</a>
+  <a rel="v:starring">凯特·温斯莱特</a>
+</div>
+<p>评分：<strong property="v:average">9.5</strong></p>
+<p>资料来源：<a href="https://movie.douban.com/subject/1292722/">豆瓣电影条目</a>；HTML 为课堂节选，保留详情页的标签与属性。</p>
+</body>
+</html>

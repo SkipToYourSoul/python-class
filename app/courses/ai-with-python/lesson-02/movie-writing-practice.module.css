@@ -6,25 +6,25 @@
   min-height: 0;
 }
 
-.workspace :global([class*='compactNotebook']) pre {
+.workspace [data-notebook-panel][data-notebook-compact] pre {
   font-size: clamp(20px, 1.35cqw, 24px);
   line-height: 1.2;
 }
 
-.workspace :global([class*='notebookInput']) {
+.workspace [data-notebook-panel] [data-notebook-part='input'] {
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 4px;
 }
 
-.workspace :global([class*='notebookInput']) pre {
+.workspace [data-notebook-panel] [data-notebook-part='input'] pre {
   padding: 4px;
 }
 
-.workspace :global([class*='notebookCells']) {
+.workspace [data-notebook-panel] [data-notebook-part='cells'] {
   padding: 6px;
 }
 
-.workspace :global([class*='cellPrompt']) {
+.workspace [data-notebook-panel] [data-notebook-part='prompt'] {
   white-space: nowrap;
 }
 

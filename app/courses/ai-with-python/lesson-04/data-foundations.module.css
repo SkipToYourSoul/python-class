@@ -1,0 +1,208 @@
+.lead {
+  font-size: clamp(24px, 2.1cqw, 30px);
+  line-height: 1.45;
+}
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.typeCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  border: 2px solid #071a3d;
+  border-top: 7px solid #1457d9;
+  padding: 20px 24px;
+  background: #fffdf5;
+  min-height: 0;
+}
+.typeCard:nth-child(2) {
+  border-top-color: #ffc91c;
+}
+.dogPair {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 0;
+}
+.dogPair img {
+  width: clamp(80px, 10cqw, 150px);
+  height: clamp(80px, 10cqw, 150px);
+  object-fit: contain;
+}
+.dogPair span {
+  display: block;
+  font-size: 22px;
+}
+.dogPair strong {
+  font-size: clamp(32px, 3.5cqw, 52px);
+  color: #1457d9;
+}
+.dogPair small {
+  font-size: 24px;
+}
+.typeCard h3 {
+  font-size: 30px;
+}
+.typeCard p {
+  font-size: 24px;
+  line-height: 1.5;
+}
+.takeaway {
+  font-size: 20px;
+  background: #eef2f8;
+  padding: 10px 12px;
+  line-height: 1.4;
+}
+.dogs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+.dogs figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 0;
+}
+.dogs img {
+  width: 100%;
+  max-height: 26cqh;
+  object-fit: contain;
+}
+.dogs figcaption {
+  font-size: clamp(22px, 2.2cqw, 30px);
+  font-weight: 800;
+  text-align: center;
+}
+.categoryFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 20px;
+  border-left: 5px solid #ffc91c;
+  background: #fff6d6;
+}
+.categoryFooter strong {
+  font-size: 26px;
+}
+.categoryFooter p {
+  font-size: 22px;
+  line-height: 1.5;
+}
+.categoryFooter button {
+  flex-shrink: 0;
+}
+.quantityLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: 32px;
+  flex: 1;
+  min-height: 0;
+}
+.quantityIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  min-height: 0;
+}
+.quantityIntro img {
+  height: clamp(100px, 20cqh, 190px);
+  max-width: 100%;
+  object-fit: contain;
+  align-self: center;
+}
+.quantityIntro h3 {
+  font-size: 28px;
+  line-height: 1.4;
+}
+.quantityIntro p {
+  font-size: 22px;
+  line-height: 1.5;
+}
+.quantityWork {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  justify-content: center;
+}
+.bars {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  min-height: 0;
+  flex: 1;
+  max-height: 34cqh;
+}
+.barColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  gap: 8px;
+  font-size: 24px;
+}
+.barColumn strong {
+  font-size: 32px;
+  white-space: nowrap;
+}
+.barColumn strong span {
+  font-size: 20px;
+}
+.barTrack {
+  width: 70%;
+  flex: 1;
+  min-height: 30px;
+  display: flex;
+  align-items: flex-end;
+  background: #e5eaf3;
+  border-bottom: 2px solid #071a3d;
+}
+.barFill {
+  width: 100%;
+  background: #1457d9;
+}
+.barColumn:last-child .barFill {
+  background: #b77a00;
+}
+.numericAnswer {
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.numericAnswer p {
+  font-size: 24px;
+  line-height: 1.45;
+}
+@container (max-height: 740px) {
+  .typeCard {
+    padding: 14px 18px;
+    gap: 8px;
+  }
+  .dogPair img {
+    width: 90px;
+    height: 90px;
+  }
+  .typeCard h3 {
+    font-size: 28px;
+  }
+  .typeCard p {
+    font-size: 22px;
+  }
+}

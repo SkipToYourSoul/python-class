@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { Check, Copy, Play, Pause, Code2, ListChecks } from 'lucide-react';
+import { Check, Copy, Play, Pause } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -93,41 +93,6 @@ export function useSceneState<T extends object>(
     [],
   );
   return [value, patch];
-}
-export function SceneHeading({
-  kicker,
-  title,
-}: {
-  kicker: string;
-  title: string;
-}) {
-  return (
-    <header className={`lesson-standard-heading ${s.heading}`}>
-      <span>{kicker}</span>
-      <h2>{title}</h2>
-    </header>
-  );
-}
-export function Stage({
-  title,
-  label,
-  children,
-  footer,
-  className = '',
-}: {
-  title: string;
-  label: string;
-  children: ReactNode;
-  footer?: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`${s.scene} ${className}`}>
-      <SceneHeading kicker={label} title={title} />
-      <div className={s.body}>{children}</div>
-      {footer && <div className={s.footer}>{footer}</div>}
-    </div>
-  );
 }
 export function Hint({ children }: { children: ReactNode }) {
   return (
@@ -234,6 +199,7 @@ export function ZoomImage({
       <button
         type="button"
         className={s.imageButton}
+        data-lesson-image-button
         onClick={() => setOpen(true)}
         aria-label={`${label}：${alt}`}
       >
@@ -338,73 +304,6 @@ export function RoleCard({
       </figcaption>
       {children}
     </figure>
-  );
-}
-export function ClassPracticeStamp({
-  number,
-  checklist = false,
-}: {
-  number: string;
-  checklist?: boolean;
-}) {
-  return (
-    <div className={s.stamp}>
-      {checklist ? (
-        <ListChecks aria-hidden="true" />
-      ) : (
-        <Code2 aria-hidden="true" />
-      )}
-      <span>{checklist ? 'CHECKLIST' : 'PRACTICE'}</span>
-      <b>{number}</b>
-    </div>
-  );
-}
-export function CheckpointTaskTemplate({
-  number,
-  title,
-  question,
-  instruction,
-  tip,
-  illustration,
-  children,
-}: {
-  number: string;
-  title: string;
-  question: string;
-  instruction: string;
-  tip: string;
-  illustration?: { src: string; alt: string };
-  children: ReactNode;
-}) {
-  return (
-    <Stage title={title} label={`CHECKPOINT · 课后练习 ${number}`}>
-      <div
-        className={`${s.taskLayout} ${illustration ? s.visualTaskLayout : ''}`}
-      >
-        <aside
-          className={`${s.taskBrief} ${illustration ? s.visualTaskBrief : ''}`}
-        >
-          <div className={s.stamp}>
-            <Check />
-            <span>CHECKPOINT</span>
-            <b>{number}</b>
-          </div>
-          {illustration ? (
-            <div className={s.taskIllustration}>
-              <img src={illustration.src} alt={illustration.alt} />
-            </div>
-          ) : (
-            <>
-              <h3>{question}</h3>
-              <p>{instruction}</p>
-              <strong className={s.actionTag}>动手完成你的作品</strong>
-              <p className={s.small}>{tip}</p>
-            </>
-          )}
-        </aside>
-        <div className={s.taskWork}>{children}</div>
-      </div>
-    </Stage>
   );
 }
 export function PracticeProgress({ active }: { active: number }) {

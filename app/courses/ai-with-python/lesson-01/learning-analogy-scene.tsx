@@ -3,7 +3,8 @@
 
 import { useSyncExternalStore } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { asset, Stage, useSceneState } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset, useSceneState } from './lesson-ui';
 import s from './learning-analogy-scene.module.css';
 
 const samples = [

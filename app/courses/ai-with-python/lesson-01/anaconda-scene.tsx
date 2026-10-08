@@ -2,7 +2,8 @@
 'use client';
 
 import { ArrowDown } from 'lucide-react';
-import { asset, Stage } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset } from './lesson-ui';
 import s from './anaconda-scene.module.css';
 
 export function AnacondaScene() {

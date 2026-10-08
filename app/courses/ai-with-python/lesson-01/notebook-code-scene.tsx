@@ -2,7 +2,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { asset, Choices, Stage, useSceneState } from './lesson-ui';
+import { Stage } from '@/components/course/ai-with-python/lesson-stage';
+import { asset, Choices, useSceneState } from './lesson-ui';
 import { useScreenshotConnections } from './use-screenshot-connections';
 import tour from './jupyter-interface-scene.module.css';
 import s from './notebook-code-scene.module.css';

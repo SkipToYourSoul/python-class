@@ -1,0 +1,314 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.chat {
+  border: 2px solid #071a3d;
+  background: #e6efff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.chatHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 2px solid #071a3d;
+}
+.chatHeader h3 {
+  margin: 0;
+  font-size: 24px;
+}
+.chatHeader span {
+  margin-left: auto;
+  font-size: 18px;
+  color: #52627a;
+}
+.chatBody {
+  padding: 16px;
+}
+.promptCard {
+  border: 2px solid #071a3d;
+  border-radius: 16px;
+  background: #fffcf4;
+}
+.attachmentArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px 0;
+}
+.emptyAttachment {
+  margin: 0;
+  font-size: 18px;
+  color: #1457d9;
+}
+.attachment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #8b9db8;
+  border-radius: 8px;
+  background: #e6efff;
+  width: fit-content;
+  max-width: calc(100% - 128px);
+  font-size: 18px;
+}
+.attachment span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.attachment button {
+  flex: none;
+  border: 0;
+  background: transparent;
+  padding: 4px;
+}
+.styles {
+  margin: 12px 16px 0 !important;
+}
+.styles legend {
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.styles > div {
+  display: flex;
+  gap: 8px;
+}
+.styles button {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.composerActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px 12px;
+  align-items: center;
+}
+.composerActions > span {
+  font-size: 18px;
+  line-height: 1.3;
+}
+.composerActions button,
+.attachmentArea .attachButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  padding: 8px 12px;
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+}
+.attachButton {
+  flex: none;
+  background: #fff;
+}
+.composerActions .copyButton {
+  background: #ffc91c;
+}
+.localNote {
+  margin: 8px 0 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #52627a;
+}
+.checklist svg {
+  flex: none;
+  color: #1457d9;
+}
+.prompt {
+  margin: 0;
+  padding: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: clamp(20px, 1.55cqw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  user-select: text;
+}
+.copyFeedback {
+  display: block;
+  margin: 0;
+  padding: 12px 0 0;
+  color: #1457d9;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.checklist {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.preview > header h3 {
+  margin: 0 0 4px;
+  color: #1457d9;
+  font-size: 28px;
+}
+.preview > header p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fff;
+}
+.search input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  color: #071a3d;
+  border: none;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.search svg {
+  flex: none;
+}
+.search button {
+  flex: none;
+  padding: 2px;
+  border: none;
+  background: transparent;
+}
+.cards {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.demonCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid #071a3d;
+  background: #fffcf4;
+  padding: 8px;
+  min-height: 0;
+}
+.noResults {
+  margin: 0;
+  grid-row: 1 / -1;
+  padding: 20px;
+  border: 2px dashed #8b9db8;
+  border-radius: 8px;
+  background: #fffcf4;
+  font-size: 20px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.portrait {
+  width: clamp(96px, 8.6cqw, 156px);
+  flex: none;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.portrait img {
+  display: block;
+  height: 100%;
+  width: 300%;
+  max-width: none;
+}
+.record {
+  min-width: 0;
+}
+.record h4 {
+  margin: 0 0 8px;
+  font-size: clamp(24px, 2cqw, 30px);
+  line-height: 1.2;
+}
+.record dl {
+  margin: 0;
+  font-size: clamp(18px, 1.4cqw, 22px);
+  line-height: 1.5;
+}
+.record dl > div {
+  display: flex;
+  gap: 8px;
+}
+.record dt {
+  color: #52627a;
+}
+.record dd {
+  margin: 0;
+  white-space: nowrap;
+}
+@container (max-height: 760px) {
+  .workspace {
+    gap: 20px;
+  }
+  .instructions,
+  .preview,
+  .cards {
+    gap: 8px;
+  }
+  .prompt {
+    padding: 12px;
+    line-height: 1.35;
+  }
+  .chatBody {
+    padding: 12px;
+  }
+  .chatHeader {
+    padding: 8px 12px;
+  }
+  .copyFeedback {
+    padding: 8px 0 0;
+  }
+  .demonCard {
+    gap: 12px;
+  }
+  .attachmentArea {
+    padding: 8px 12px 0;
+  }
+  .styles {
+    margin: 8px 12px 0 !important;
+  }
+  .styles legend {
+    margin-bottom: 4px;
+  }
+  .styles button {
+    padding: 6px 8px;
+  }
+  .composerActions {
+    padding: 0 12px 8px;
+  }
+  .portrait {
+    width: 84px;
+  }
+  .record h4 {
+    margin-bottom: 4px;
+  }
+}
