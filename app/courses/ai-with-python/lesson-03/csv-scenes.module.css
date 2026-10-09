@@ -1,9 +1,39 @@
+.definition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 8px 16px;
+  background: #fff6d5;
+  border-left: 4px solid #ffc91c;
+  line-height: 1.35;
+}
+.definition strong {
+  font-size: clamp(24px, 2cqw, 28px);
+}
+.definition .definitionName {
+  margin-top: 4px;
+  font-size: clamp(18px, 1.5cqw, 22px);
+}
+.extension {
+  display: grid;
+  text-align: center;
+  flex: none;
+  font-size: 18px;
+}
+.extension code {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1457d9;
+}
 .compare {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr);
   gap: 16px;
 }
 .fileWindow {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   border: 2px solid #071a3d;
   background: #fffcf4;
   min-width: 0;
@@ -12,42 +42,59 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px;
+  padding: 8px 12px;
   background: #e6efff;
   border-bottom: 2px solid #071a3d;
-  font-size: 22px;
+  font-size: clamp(22px, 1.65cqw, 28px);
 }
 .fileWindow > header span {
   margin-left: auto;
   font-size: 18px;
 }
-.txtBody {
-  padding: 20px 16px;
+.csvText {
   display: grid;
-  gap: 16px;
-}
-.txtBody p {
-  margin: 0;
-  display: flex;
-  gap: 4px;
+  grid-template-rows: repeat(4, 1fr);
   font-size: clamp(20px, 1.7cqw, 28px);
+  line-height: 1.5;
   white-space: nowrap;
 }
-.txtBody b {
-  color: #798398;
+.csvText > span {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 1px solid #c6ccda;
 }
-.txtBody span:nth-of-type(1) {
+.csvText > span:last-child {
+  border-bottom: 0;
+}
+.csvText > span[data-header='true'] {
+  background: #ffe394;
+  font-weight: 700;
+}
+.csvText b {
+  color: #a5321e;
+  background: #ffdb9d;
+  padding: 0 2px;
+}
+.csvText [data-column='0'] {
   color: #1457d9;
 }
-.txtBody span:nth-of-type(2) {
+.csvText [data-column='1'] {
   color: #207354;
 }
-.txtBody span:nth-of-type(3) {
+.csvText [data-column='2'] {
   color: #915300;
 }
+.compare .table {
+  font-size: clamp(20px, 1.7cqw, 28px);
+}
+.compare .table th,
+.compare .table td {
+  padding: 6px 8px;
+}
 .windowNote {
-  padding: 12px 16px;
-  font-size: 18px;
+  padding: 8px 12px;
+  font-size: clamp(18px, 1.3cqw, 24px);
   border-top: 1px solid #c6ccda;
 }
 .arrow {
@@ -92,38 +139,36 @@
 .table[data-emphasis='header'] th {
   box-shadow: inset 0 -4px #e89c00;
 }
-.rawStrip {
+.csvRules {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  padding: 16px 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.35;
+}
+.csvRules li {
+  display: grid;
+  gap: 4px;
+  padding: 8px 12px;
   background: #e6efff;
   border-left: 4px solid #1457d9;
-  align-items: center;
 }
-.rawStrip strong {
-  font-size: 24px;
+.csvRules strong {
+  font-size: clamp(20px, 1.6cqw, 28px);
 }
-.rawStrip p {
-  font-size: 20px;
-  margin-top: 8px;
+.csvRules span {
+  font-size: clamp(18px, 1.3cqw, 24px);
 }
-.rawStrip pre {
-  font-size: 20px;
-  line-height: 1.5;
-  margin: 0;
-  white-space: pre-wrap;
-}
-.rawStrip pre > span {
-  display: block;
-}
-.rawStrip pre b {
-  color: #a5321e;
-  background: #ffdb9d;
-}
-.rawStrip pre > span[data-header='true'] {
-  color: #1457d9;
-  font-weight: 700;
+@container (min-height: 900px) {
+  .csvText > span {
+    padding: 18px 12px;
+  }
+  .compare .table th,
+  .compare .table td {
+    padding: 18px 8px;
+  }
 }
 .codeLayout {
   display: grid;
@@ -200,13 +245,6 @@
     gap: 12px;
     grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
   }
-  .txtBody {
-    padding: 16px 12px;
-    gap: 12px;
-  }
-  .rawStrip {
-    padding: 12px 16px;
-  }
   .explain {
     gap: 8px;
   }
@@ -220,13 +258,6 @@
 }
 
 @container (max-height: 760px) {
-  .fileWindow .table th,
-  .fileWindow .table td {
-    padding: 8px;
-  }
-  .rawStrip {
-    padding: 8px 16px;
-  }
   .explain .table th,
   .explain .table td {
     padding: 6px 4px;

@@ -4,11 +4,11 @@
 
 三段 STORY 各有三幕，每幕为左右双格，共 9 张宽幅插画。使用内置 image_gen 生成，统一 3:1 横构图；网页完整展示画面，并分别渲染对话、问题与操作按钮。
 
-| 故事           | 当前素材                                                         | 完整提示词                            |
-| -------------- | ---------------------------------------------------------------- | ------------------------------------- |
-| 电影馆的旧档案 | `movie-act-01.png`、`movie-act-02.png`、`movie-act-03.png`       | [电影三幕](movie-comics-prompts.md)   |
-| 回到勇士情报站 | `handoff-act-01.png`、`handoff-act-02.png`、`handoff-act-03.png` | [交接三幕](handoff-comics-prompts.md) |
-| 城堡的夜晚     | `rescue-act-01.png`、`rescue-act-02.png`、`rescue-act-03.png`    | [档案三幕](rescue-comics-prompts.md)  |
+| 故事                 | 当前素材                                                                       | 完整提示词                                   |
+| -------------------- | ------------------------------------------------------------------------------ | -------------------------------------------- |
+| 电影突然卡住了       | `movie-watch-act-01.png`、`movie-watch-act-02.png`、`movie-watch-act-03.png`   | [电影三幕](movie-watch-comics-prompts.md)    |
+| 守城情报，也要留一份 | `handoff-outage-act-01.png`、`handoff-act-02.png`、`handoff-outage-act-03.png` | [交接三幕](handoff-outage-comics-prompts.md) |
+| 城堡的夜晚           | `rescue-act-01.png`、`rescue-act-02.png`、`rescue-act-03.png`                  | [档案三幕](rescue-comics-prompts.md)         |
 
 角色参考统一：封面 `archive-room.png` 确定勇士、小派及独立的猫头鹰信使；`movie-act-03.png` 固定管理员与电影段人物；`handoff-act-02.png` 固定晚班勇士的脸型、短发、轻胡茬和蓝金服装。修改构图时保留角色身份、服装与配色。
 

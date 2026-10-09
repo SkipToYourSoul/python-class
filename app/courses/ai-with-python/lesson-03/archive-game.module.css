@@ -765,15 +765,6 @@
   border-color: #afd297;
   background: #1e3932f5;
 }
-.simulation {
-  position: absolute;
-  bottom: 4px;
-  left: 24px;
-  font-size: 18px;
-  color: #f1e6cf;
-  text-shadow: 0 1px 3px #000;
-  line-height: 1.2;
-}
 .invasion {
   position: absolute;
   right: 0;

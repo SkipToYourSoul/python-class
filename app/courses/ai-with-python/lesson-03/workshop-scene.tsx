@@ -1,4 +1,3 @@
-/* oxlint-disable next/no-img-element -- Reuse the established classroom demon art. */
 'use client';
 
 import { useRef, useState } from 'react';
@@ -10,29 +9,26 @@ import {
   ShieldCheck,
   X,
   Sparkles,
-  Search,
+  Globe,
+  Shield,
 } from 'lucide-react';
 import { usePageState } from '@/components/course/lesson-state';
 import { LessonStage } from './lesson-ui';
 import { AI_PROMPT, INTEL_RECORDS } from './practice-content';
+import { DemonSprite } from './demon-sprite';
 import s from './workshop-scene.module.css';
 
 const styles = ['城堡档案', '冒险手账', '夜间指挥台'] as const;
 
 export function WorkshopScene() {
   const fileInput = useRef<HTMLInputElement>(null);
-  const [state, update] = usePageState({ fileName: '', style: 0, search: '' });
+  const [state, update] = usePageState({ fileName: '', style: 0 });
   const [fileError, setFileError] = useState('');
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>(
     'idle',
   );
   const selectedStyle = styles[state.style] ?? styles[0];
   const prompt = AI_PROMPT.replace(/【[^】]+】/, selectedStyle);
-  const search = state.search.trim();
-  const visibleRecords = INTEL_RECORDS.map((record, portraitIndex) => ({
-    ...record,
-    portraitIndex,
-  })).filter((record) => record.name.includes(search));
 
   async function copyPrompt() {
     try {
@@ -145,64 +141,60 @@ export function WorkshopScene() {
           </div>
           <p className={s.checklist}>
             <ShieldCheck size={22} aria-hidden="true" />
-            <span>核对：三只都在 · 地点、弱点配对正确 · 搜索可用</span>
+            <span>核对：三只都在 · 地点、弱点配对正确 · 文字清楚</span>
           </p>
         </section>
 
-        <section className={s.preview} aria-label="勇士图鉴作品示意">
-          <header>
-            <h3>城堡敌情图鉴</h3>
-            <p>作品示意 · 保存时的已知情报</p>
-          </header>
-          <div className={s.search}>
-            <Search size={22} aria-hidden="true" />
-            <input
-              aria-label="按恶魔名称搜索"
-              placeholder="输入恶魔名称搜索"
-              value={state.search}
-              onChange={(event) => update({ search: event.target.value })}
-            />
-            {state.search && (
-              <button
-                aria-label="清除搜索"
-                onClick={() => update({ search: '' })}
-              >
-                <X size={20} aria-hidden="true" />
-              </button>
-            )}
+        <section className={s.preview} aria-label="勇士图鉴网页成果示例">
+          <div className={s.previewLabel}>
+            <Globe size={22} aria-hidden="true" />
+            <strong>网页成果示例</strong>
+            <span>夜间指挥台风格</span>
           </div>
-          <div className={s.cards}>
-            {visibleRecords.map((record) => (
-              <article key={record.name} className={s.demonCard}>
-                <div className={s.portrait}>
-                  <img
-                    src="/courses/ai-with-python/lesson-02/assets/defense-demons-ivory.png"
-                    alt={record.name}
-                    style={{
-                      transform: `translateX(-${record.portraitIndex * (100 / 3)}%)`,
-                    }}
-                  />
+          <div className={s.webpage}>
+            <div className={s.browserBar}>
+              <span className={s.browserDots} aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span>城堡敌情图鉴.html</span>
+            </div>
+            <div className={s.siteBody}>
+              <header className={s.siteHeader}>
+                <Shield size={36} aria-hidden="true" />
+                <div>
+                  <h3>城堡敌情图鉴</h3>
+                  <p>守城档案 · 保存时的已知情报</p>
                 </div>
-                <div className={s.record}>
-                  <h4>{record.name}</h4>
-                  <dl>
-                    <div>
-                      <dt>地点</dt>
-                      <dd>{record.location}</dd>
+              </header>
+              <div className={s.cards}>
+                {INTEL_RECORDS.map((record, portraitIndex) => (
+                  <article key={record.name} className={s.demonCard}>
+                    <div className={s.portrait}>
+                      <DemonSprite index={portraitIndex} label={record.name} />
                     </div>
-                    <div>
-                      <dt>弱点</dt>
-                      <dd>{record.weakness}</dd>
+                    <div className={s.record}>
+                      <h4>{record.name}</h4>
+                      <dl>
+                        <div>
+                          <dt>地点</dt>
+                          <dd>{record.location}</dd>
+                        </div>
+                        <div>
+                          <dt>弱点</dt>
+                          <dd className={s.weakness}>{record.weakness}</dd>
+                        </div>
+                      </dl>
                     </div>
-                  </dl>
-                </div>
-              </article>
-            ))}
-            {visibleRecords.length === 0 && (
-              <output className={s.noResults}>
-                没有匹配的恶魔。点击右侧 ×，清除搜索再试。
-              </output>
-            )}
+                  </article>
+                ))}
+              </div>
+              <footer className={s.siteFooter}>
+                <FileSpreadsheet size={20} aria-hidden="true" />
+                <span>情报来源：handover.csv</span>
+              </footer>
+            </div>
           </div>
         </section>
       </div>

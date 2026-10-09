@@ -50,6 +50,7 @@ import {
   isGridCorrect,
   type ArchiveAction,
 } from './archive-engine';
+import { DemonSprite } from './demon-sprite';
 import g from './archive-game.module.css';
 
 const stepNames = ['找档案', '整理情报', '保存文件'];
@@ -81,27 +82,6 @@ function scattered<T>(
 }
 const defenses = ['探照灯', '火把', '供热装置'];
 const defenseIcons = [Sun, Flame, Snowflake];
-
-function DemonSprite({ index }: { index: number }) {
-  const [left, width] = [
-    [39, 720],
-    [766, 670],
-    [1460, 690],
-  ][index];
-  return (
-    <svg
-      viewBox={`${left} 0 ${width} 724`}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <image
-        href="/courses/ai-with-python/lesson-03/assets/archive-siege/demons.png"
-        width="2172"
-        height="724"
-      />
-    </svg>
-  );
-}
 
 function Python({ children }: { children: string }) {
   return children
@@ -1058,9 +1038,6 @@ export function ArchiveGame() {
           {flight.text}
         </span>
       )}
-      <div className={g.simulation}>
-        文件操作模拟 · 不会修改电脑上的练习文件
-      </div>
       <Dialog
         open={dialog !== null}
         onOpenChange={(open) => {

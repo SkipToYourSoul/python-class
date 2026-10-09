@@ -8,6 +8,7 @@ type ComicAct = {
 };
 
 type ComicStory = {
+  version: number;
   title: string;
   label: string;
   nextScene: string;
@@ -17,62 +18,65 @@ type ComicStory = {
 
 export const comicStories = {
   movie: {
-    title: '今晚的电影，谁来介绍？',
-    label: 'STORY · 电影馆的旧档案',
+    version: 2,
+    title: '电影突然卡住了',
+    label: 'STORY · 一次断网的提醒',
     nextScene: 'l3-read-cover',
-    nextLabel: '去读取电影档案',
+    nextLabel: '先读一份电影资料',
     acts: [
       {
-        title: '片名有了，介绍呢？',
-        image: 'movie-act-01.png',
-        alt: '第一幕：勇士为城堡电影夜准备介绍，小派发现电影卡片还缺少详细资料。',
+        title: '守城后的电影时间',
+        image: 'movie-watch-act-01.png',
+        alt: '第一幕：程序帮忙收集情报后，勇士和小派坐在城堡电影馆里，吃着爆米花观看正在联网播放的冒险电影。',
         captions: [
-          '勇士：“片名有了，谁来介绍电影？”',
-          '小派：“导演、演员和评分呢？”',
+          '勇士：“情报查好了，看会儿电影吧！”',
+          '小派：“这段真精彩！”',
+        ],
+        promptLabel: '接着上回',
+        prompt: '程序帮忙收集了情报，勇士终于有时间看会儿电影。',
+      },
+      {
+        title: '恶魔短暂干扰网络',
+        image: 'movie-watch-act-02.png',
+        alt: '第二幕：城堡外，恶魔用紫色迷雾短暂干扰通信；电影馆里的影片卡在加载画面，电脑显示断网，勇士和小派无法继续观看或打开网页。',
+        captions: [
+          '恶魔：“让你们断网一小会儿！”',
+          '勇士：“电影卡住了，网页也打不开！”',
         ],
         promptLabel: '先想一想',
-        prompt: '只知道片名，够做一张电影介绍卡吗？',
+        prompt: '这次只是电影卡住了。如果守城时查不到恶魔的弱点呢？',
       },
       {
-        title: '网站暂时连不上',
-        image: 'movie-act-02.png',
-        alt: '第二幕：电影网站暂时无法连接，管理员指向电脑里已经保存的电影网页。',
+        title: '网络恢复，留下提醒',
+        image: 'movie-watch-act-03.png',
+        alt: '第三幕：网络恢复，电影继续播放；勇士想到守城情报应该提前保存。管理员展示一份已保存在电脑里的电影资料网页，勇士和小派准备学习读取里面的文字信息。',
         captions: [
-          '勇士：“糟了，网站暂时连不上！”',
-          '管理员：“我存过这些电影网页。”',
-        ],
-        promptLabel: '找找办法',
-        prompt: '网站打不开，保存下来的文件还能派上用场吗？',
-      },
-      {
-        title: '读出已有的档案',
-        image: 'movie-act-03.png',
-        alt: '第三幕：管理员展示电脑中保存的电影网页，小派和勇士准备读取文件里的资料。',
-        captions: [
-          '管理员：“这就是之前保存的网页。”',
-          '小派：“让 Python 读出里面的资料！”',
+          '勇士：“网恢复了，重要情报得提前存下来！”',
+          '小派：“先读一份存好的电影资料，再学着保存。”',
         ],
         promptLabel: '接下任务',
-        prompt: '读出片名、导演、演员和评分，完成电影介绍。',
+        prompt:
+          '网络恢复后，电影继续播放。接下来，用保存好的电影资料练习读取文件。',
       },
     ],
   },
   handoff: {
-    title: '下一班勇士，也需要情报',
-    label: 'STORY · 回到勇士情报站',
+    version: 2,
+    title: '守城情报，也要留一份',
+    label: 'STORY · 断网带来的启发',
     nextScene: 'l3-write-cover',
     nextLabel: '去写下交接记录',
     acts: [
       {
-        title: '电影档案帮了大忙',
-        image: 'handoff-act-01.png',
-        alt: '第一幕：勇士顺利完成电影介绍，和小派离开电影馆，管理员收好电影档案。',
+        title: '想起上次电影断网',
+        image: 'handoff-outage-act-01.png',
+        alt: '第一幕：读完电影资料后，勇士回想起上次电影加载停住、网页因断网打不开的情景；他和小派离开电影馆，决定把守城情报也提前保存一份。',
         captions: [
-          '勇士：“幸好这些资料被保存下来了！”',
-          '小派：“下次需要，还能打开来看。”',
+          '勇士：“上次看电影一断网，网页也打不开。”',
+          '小派：“守城情报更要提前留一份！”',
         ],
-        promptLabel: '任务完成',
-        prompt: '电影介绍准备好了，勇士和小派回到城堡。',
+        promptLabel: '接着刚才',
+        prompt: '读完电影资料，勇士想起上次断网，决定把守城情报也存一份。',
       },
       {
         title: '换岗了，情报怎么交接？',
@@ -86,19 +90,20 @@ export const comicStories = {
         prompt: '屏幕上看到了，就等于保存成文件了吗？',
       },
       {
-        title: '把电影馆的办法用起来',
-        image: 'handoff-act-03.png',
-        alt: '第三幕：勇士想起电影馆保存的文件，和小派准备建立交接记录，晚班伙伴在旁等待。',
+        title: '把情报写进文件',
+        image: 'handoff-outage-act-03.png',
+        alt: '第三幕：勇士和小派从上次电影断网的经历中获得启发，准备把查到的守城情报写进文件；电脑的新文件仍为空白，晚班伙伴在旁等待。',
         captions: [
-          '勇士：“电影资料能存，情报也能存！”',
-          '小派：“这次，我们把内容写进文件。”',
+          '勇士：“把情报存好，下次断网时也能查。”',
+          '小派：“还可以交给下一班勇士！”',
         ],
         promptLabel: '接下任务',
-        prompt: '把已经查到的三条情报，留给下一班勇士。',
+        prompt: '把已经查到的三条情报写进文件，留给下一班勇士。',
       },
     ],
   },
   rescue: {
+    version: 1,
     title: '通信中断，档案仍在',
     label: 'STORY · 城堡的夜晚',
     nextScene: 'l3-organize-cover',

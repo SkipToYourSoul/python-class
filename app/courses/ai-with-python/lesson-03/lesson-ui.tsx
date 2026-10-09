@@ -189,9 +189,10 @@ export function ComicScene({ story }: { story: keyof typeof comicStories }) {
   const data = comicStories[story];
   const [state, update] = usePageState({ step: 0, comicVersion: 0 });
   const { navigate } = useContext(LessonState);
-  // The old steps revealed text only; start the new illustrated story at act one.
-  const step = state.comicVersion === 1 ? state.step : 0;
-  const setStep = (next: number) => update({ step: next, comicVersion: 1 });
+  // Start revised stories at act one, then preserve progress for that version.
+  const step = state.comicVersion === data.version ? state.step : 0;
+  const setStep = (next: number) =>
+    update({ step: next, comicVersion: data.version });
   const act = data.acts[step];
   const lastAct = step === data.acts.length - 1;
   return (

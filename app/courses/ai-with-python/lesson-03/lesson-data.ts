@@ -1,15 +1,16 @@
 export const assetBase = '/courses/ai-with-python/lesson-03';
 export const chapters = [
-  { id: 'start', number: '00', title: '电影馆的旧档案' },
-  { id: 'read', number: '01', title: '断网危机：找回电影档案' },
+  { id: 'start', number: '00', title: '一次断网的提醒' },
+  { id: 'read', number: '01', title: '先读档案：找出电影资料' },
   { id: 'write', number: '02', title: '勇士换班：情报不能丢！' },
   { id: 'organize', number: '03', title: '恶魔来袭：让档案派上用场！' },
   { id: 'finish', number: '04', title: '城堡档案官' },
 ] as const;
 export const scenes = [
   { id: 'l3-cover', chapter: 'start', title: '探险家的日记本' },
-  { id: 'l3-movie-story', chapter: 'read', title: '今晚的电影，谁来介绍？' },
-  { id: 'l3-read-cover', chapter: 'read', title: '断网危机：找回电影档案' },
+  { id: 'l3-recap', chapter: 'start', title: '前情提要' },
+  { id: 'l3-movie-story', chapter: 'read', title: '电影突然卡住了' },
+  { id: 'l3-read-cover', chapter: 'read', title: '先读档案：找出电影资料' },
   { id: 'l3-files', chapter: 'read', title: '网页，也能存进文件' },
   {
     id: 'l3-file-concept',
@@ -22,7 +23,7 @@ export const scenes = [
   { id: 'l3-parse', chapter: 'read', title: '老方法，读出新资料' },
   { id: 'l3-practice-01', chapter: 'read', title: '这次，获取更多电影信息' },
   { id: 'l3-practice-01-read', chapter: 'read', title: '一口气读出电影资料' },
-  { id: 'l3-handoff-story', chapter: 'write', title: '下一班勇士，也需要情报' },
+  { id: 'l3-handoff-story', chapter: 'write', title: '守城情报，也要留一份' },
   { id: 'l3-write-cover', chapter: 'write', title: '勇士换班：情报不能丢！' },
   { id: 'l3-screen-file', chapter: 'write', title: '写文件，像存入一份新档案' },
   { id: 'l3-write-code', chapter: 'write', title: '同样三步，把“读”换成“写”' },
@@ -46,7 +47,7 @@ export const scenes = [
     title: '恶魔来袭：让档案派上用场！',
   },
   { id: 'l3-lines', chapter: 'organize', title: '读回档案，逐条核对' },
-  { id: 'l3-csv', chapter: 'organize', title: '同一份情报，按列排整齐' },
+  { id: 'l3-csv', chapter: 'organize', title: 'CSV：把情报存成一张表' },
   { id: 'l3-csv-code', chapter: 'organize', title: '把情报写成 CSV 文件' },
   { id: 'l3-practice-03', chapter: 'organize', title: '制作自己的勇士图鉴' },
   { id: 'l3-workshop', chapter: 'organize', title: '把情报表变成勇士图鉴' },

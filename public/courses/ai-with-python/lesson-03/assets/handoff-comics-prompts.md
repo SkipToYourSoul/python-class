@@ -1,5 +1,7 @@
 # 第二节 STORY 三幕漫画生成记录
 
+2026-10-09：当前第一幕和第三幕已改为“从上次电影断网获得启发，给守城情报留一份”，使用 `handoff-outage-act-01.png` 与 `handoff-outage-act-03.png`；第二幕沿用 `handoff-act-02.png`。见[当前素材与完整提示词](handoff-outage-comics-prompts.md)。下方保留原版生成记录。
+
 生成方式：内置 image_gen.imagegen，参考图生成与宽幅重新构图；未使用 CLI/API。
 
 最终素材：handoff-act-01.png、handoff-act-02.png、handoff-act-03.png，均为 2172×724（3:1）。每幅左右两格、无文字，网页同步呈现中文对话。最终素材只用于课程漫画；旧 2:1 中间稿保留在默认生成目录，不在课程目录重复保存。

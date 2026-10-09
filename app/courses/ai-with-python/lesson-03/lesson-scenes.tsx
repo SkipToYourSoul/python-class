@@ -26,10 +26,12 @@ import { OrganizeScene } from './organize-scenes';
 import { ArchiveGame } from './archive-game';
 import { practiceSource } from './practice-content';
 import { CoverScene } from './cover-scene';
+import { RecapScene } from './recap-scene';
 import s from './lesson.module.css';
 
 export function LessonScenes({ id }: { id: string }) {
   if (id === 'l3-cover') return <CoverScene />;
+  if (id === 'l3-recap') return <RecapScene />;
   if (id === 'l3-movie-story') return <ComicScene story="movie" />;
   if (id === 'l3-handoff-story') return <ComicScene story="handoff" />;
   if (id === 'l3-rescue-story') return <ComicScene story="rescue" />;
@@ -87,8 +89,8 @@ function ChallengeEntry() {
       <div className={s.two}>
         <img
           className={s.challengeArt}
-          src={`${assetBase}/assets/archive-siege/room.png`}
-          alt="城堡档案室：左侧档案柜、中央整理桌，窗外是恶魔即将经过的石桥"
+          src={`${assetBase}/assets/archive-siege/challenge-entry-demons.png`}
+          alt="城堡档案室的窗外，炎角兽和藤甲魔正沿石桥逼近，冰翼魔从空中飞来；室内档案柜与暖灯仍完好。"
         />
         <div className={`${s.stack} ${s.center}`}>
           <h3>网络中断，恶魔即将抵达！</h3>
@@ -107,9 +109,6 @@ function ChallengeEntry() {
               接受档案任务 <ArrowRight size={22} />
             </button>
           </div>
-          <p className={s.small}>
-            文件操作模拟：这里的操作只改变游戏档案，不会修改电脑上的练习文件。超时可保留成果，继续练习。
-          </p>
         </div>
       </div>
     </LessonStage>

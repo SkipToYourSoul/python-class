@@ -1,5 +1,9 @@
 # 档案室正式美术素材
 
+## challenge-entry-demons.png
+
+2026-10-09 更新挑战入口插图：方形构图放大窗外石桥，加入炎角兽、藤甲魔和冰翼魔，保留档案室的蓝金风格与暖灯。使用内置 image_gen，详见[完整提示词与检查](challenge-entry-demons-prompt.md)。该图仅用于入口页，游戏背景继续使用 room.png。
+
 ## defenses.png
 
 胜利场景用透明防御装置图集：探照灯、火盆、供热装置。内置 image_gen 生成。

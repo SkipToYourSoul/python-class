@@ -162,7 +162,7 @@ a {{ color: #165e9c; }}
 
 - CHECKLIST 01：在一个代码单元格中完成读取文件、解析 HTML、输出片名、导演、评分和演员；与样本核对一致。
 - CHECKLIST 02：在代码中定义 `reports` 列表，把三条情报写入 `handover.txt`，再用 `for line in f` 逐行读取核对。文件与输出都有三条情报，每条一行，没有多余空行。
-- CHECKLIST 03：向 AI 提供 `handover.csv`，选择风格并发送创作要求。核对图鉴有三张卡片、资料准确，支持按名称搜索。
+- CHECKLIST 03：向 AI 提供 `handover.csv`，选择风格并发送创作要求。核对图鉴有三张卡片、资料准确、文字清楚。
 
 ## 课后练习与完成标准
 
@@ -293,7 +293,7 @@ CSV 使用 `csv.DictWriter` 处理字段和分隔符，并在打开文件时设�
         "向老师指定的 AI 工具手动上传 handover.csv 文件。"
         "从下面的要求中选填风格，再发送给 AI。\n\n"
         + source["aiPrompt"]
-        + "\n\n完成标准：三张卡片、资料准确、按名称搜索可用。"
+        + "\n\n完成标准：三张卡片、资料准确、文字清楚。"
     )]
     cells += [
         markdown(

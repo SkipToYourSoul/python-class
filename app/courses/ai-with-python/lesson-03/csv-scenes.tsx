@@ -36,33 +36,48 @@ export function IntelTable({ emphasis = 'all' }: { emphasis?: string }) {
 }
 export function CsvConcept() {
   return (
-    <LessonStage title="同一份情报，按列排整齐" label="CSV · 从文字到表格">
+    <LessonStage title="CSV：把情报存成一张表" label="CONCEPT · 认识 CSV 文件">
+      <section className={s.definition} aria-label="CSV 文件的概念">
+        <div>
+          <p>
+            <strong>CSV 是一种用文本保存表格数据的文件格式。</strong>
+          </p>
+          <p className={s.definitionName}>
+            Comma-Separated Values · 逗号分隔值
+          </p>
+        </div>
+        <div className={s.extension}>
+          <span>常见文件后缀</span>
+          <code>.csv</code>
+        </div>
+      </section>
       <div className={s.compare}>
         <section className={s.fileWindow}>
           <header>
             <FileText />
-            <strong>handover.txt</strong>
+            <strong>handover.csv</strong>
             <span>文本视图</span>
           </header>
-          <div className={s.txtBody}>
-            {INTEL_RECORDS.map((record) => (
-              <p key={record.name}>
-                <span>{record.name}</span>
-                <b>｜</b>
-                <span>{record.location}</span>
-                <b>｜</b>
-                <span>{record.weakness}</span>
-              </p>
+          <pre className={s.csvText}>
+            {CSV_PREVIEW.split('\n').map((line, i) => (
+              <span key={line} data-header={i === 0}>
+                {line.split(',').map((value, j) => (
+                  <span key={j} data-column={j}>
+                    {j > 0 && <b>,</b>}
+                    {value}
+                  </span>
+                ))}
+              </span>
             ))}
-          </div>
-          <div className={s.windowNote}>原来的记录：用“｜”隔开三种信息。</div>
+          </pre>
+          <div className={s.windowNote}>文本编辑器里，看到的是这些文字。</div>
         </section>
         <div className={s.arrow}>
-          <ArrowRight size={32} />
+          <ArrowRight size={32} aria-hidden="true" />
           <span>
-            按 CSV
+            同一文件
             <br />
-            格式保存
+            两种视图
           </span>
         </div>
         <section className={s.fileWindow}>
@@ -72,29 +87,25 @@ export function CsvConcept() {
             <span>表格视图</span>
           </header>
           <IntelTable />
-          <div className={s.windowNote}>一列一种信息，一行一条记录。</div>
+          <div className={s.windowNote}>表格软件按逗号分列，显示成表格。</div>
         </section>
       </div>
-      <div className={s.rawStrip}>
-        <div>
-          <strong>CSV 文件里实际存的是文字</strong>
-          <p>首行写表头，英文逗号分隔字段。</p>
-        </div>
-        <pre>
-          {CSV_PREVIEW.split('\n').map((line, i) => (
-            <span key={line} data-header={i === 0}>
-              {line.split(',').map((value, j) => (
-                <span key={j}>
-                  {j > 0 && <b>,</b>}
-                  {value}
-                </span>
-              ))}
-            </span>
-          ))}
-        </pre>
-      </div>
+      <ul className={s.csvRules} aria-label="这个 CSV 文件的组织方式">
+        <li>
+          <strong>表头：说明各列</strong>
+          <span>本例首行写恶魔、地点、弱点。</span>
+        </li>
+        <li>
+          <strong>英文逗号：分开各列</strong>
+          <span>每列保存一种信息。</span>
+        </li>
+        <li>
+          <strong>换行：开始下一条</strong>
+          <span>本例每条情报占一行。</span>
+        </li>
+      </ul>
       <Guide>
-        CSV 也是文本文件。表格软件按逗号分列；只改文件后缀，不会自动整理内容。
+        把刚才读出的三条情报按列保存，伙伴更好查找，程序也更容易读取。
       </Guide>
     </LessonStage>
   );
@@ -201,12 +212,12 @@ export function CsvPracticeEntry() {
           <ol>
             <li>向 AI 提供情报表。</li>
             <li>选择风格，发送创作要求。</li>
-            <li>核对资料，试试按名称搜索。</li>
+            <li>对照情报表，核对网页内容。</li>
           </ol>
           <p>
             完成标准：
             <br />
-            <b>3 张卡片 · 信息准确 · 可搜索</b>
+            <b>3 张卡片 · 信息准确 · 文字清楚</b>
           </p>
         </aside>
         <figure className={entry.entryPicture}>
