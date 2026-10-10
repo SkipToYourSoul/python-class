@@ -62,30 +62,49 @@ export const scenes = [
   { id: 'l5-discover-cover', chapter: 'discover', title: '制作分类图鉴' },
   { id: 'l5-colors', chapter: 'discover', title: '加上颜色，再看一次' },
   { id: 'l5-hue-code', chapter: 'discover', title: '颜色也能表达一列数据' },
-  { id: 'l5-pairs', chapter: 'discover', title: '换一组特征，会更清楚吗？' },
-  { id: 'l5-practice-03', chapter: 'discover', title: '完成你的恶魔图鉴' },
-  {
-    id: 'l5-practice-03-code',
-    chapter: 'discover',
-    title: '一张图，一条有依据的发现',
-  },
-  { id: 'l5-dossier', chapter: 'discover', title: '把图鉴交给勇士' },
+  { id: 'l5-pairs', chapter: 'discover', title: '两组特征，交叉核对线索' },
+  { id: 'l5-dossier', chapter: 'discover', title: '三张图，补齐恶魔特征档案' },
   {
     id: 'l5-transfer',
     chapter: 'discover',
     title: '真实世界，也能这样研究吗？',
   },
   { id: 'l5-penguins', chapter: 'discover', title: '认识企鹅观测档案' },
-  { id: 'l5-challenge', chapter: 'discover', title: '企鹅家族有什么不同？' },
+  {
+    id: 'l5-penguin-overview',
+    chapter: 'discover',
+    title: '四项特征，一次看全',
+  },
+  {
+    id: 'l5-penguin-bill',
+    chapter: 'discover',
+    title: '换一对特征，观察企鹅点群',
+  },
   {
     id: 'l5-challenge-report',
     chapter: 'discover',
-    title: '让证据支持你的发现',
+    title: '换组特征，换个角度看企鹅',
   },
-  { id: 'l5-summary', chapter: 'discover', title: '带走一套看数据的方法' },
+  {
+    id: 'l5-practice-03',
+    chapter: 'discover',
+    title: '亲手画出企鹅的种类差异',
+  },
+  {
+    id: 'l5-challenge',
+    chapter: 'discover',
+    title: '魔堡潜入：全班图表指挥官',
+  },
+  { id: 'l5-summary', chapter: 'discover', title: '这节课，学会了哪些图表？' },
+  {
+    id: 'l5-final-preparation',
+    chapter: 'discover',
+    title: '图鉴已备好，下一课最终决战',
+  },
 ] as const;
 
 export const sceneAliases = {
   'l5-practice-01-code': 'l5-practice-01',
   'l5-practice-02-code': 'l5-practice-02',
+  'l5-practice-03-code': 'l5-practice-03',
 };

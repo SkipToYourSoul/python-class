@@ -1,0 +1,12 @@
+[
+  {
+    "name": "domain_health_check.py",
+    "path": "./codeact/scripts/domain_health_check.py",
+    "description": "域名健康复测脚本。使用 curl 并发检测指定 HTTPS 域名的 HTTP 状态码，判定是否从故障中恢复。全部 200 时以 display_only 通知用户；任一非 200 时以 no_reply 静默退出。每次检测追加写入 ./codeact/output/domain-check.log。",
+    "params": {
+      "result_mode": "auto",
+      "urls": "https://creaai.online/ https://www.creaai.online/"
+    },
+    "status": "active"
+  }
+]

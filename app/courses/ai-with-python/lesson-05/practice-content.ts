@@ -23,6 +23,10 @@ export const HIST_AXIS_LABELS = { x: 'Speed (m/s)', y: 'Count' };
 export const SCATTER_AXIS_LABELS = { x: 'Height (cm)', y: 'Speed (m/s)' };
 export const LINE_AXIS_LABELS = { x: 'Hour', y: 'Speed (m/s)' };
 export const KIND_BAR_AXIS_LABELS = { x: 'Kind', y: 'Mean speed (m/s)' };
+export const PENGUIN_AXIS_LABELS = {
+  x: 'Bill length (mm)',
+  y: 'Bill depth (mm)',
+};
 
 export const HIST_CODE = `sns.histplot(
     data=demons, x="speed"
@@ -106,20 +110,76 @@ export const PRACTICE_02_CODE = [
   '# 条形图：三族的平均速度有什么不同？\n' + KIND_BAR_CODE,
 ].join('\n\n');
 
-export const PENGUIN_CODE = `penguins = pd.read_csv("penguins.csv")
+export const PENGUIN_PLOT_FIELDS = {
+  billLength: { column: 'culmen_length_mm', label: 'Bill length (mm)' },
+  billDepth: { column: 'culmen_depth_mm', label: 'Bill depth (mm)' },
+  flipper: { column: 'flipper_length_mm', label: 'Flipper length (mm)' },
+  mass: { column: 'body_mass_g', label: 'Body mass (g)' },
+} as const;
+
+export type PenguinPlotField = keyof typeof PENGUIN_PLOT_FIELDS;
+
+function getPenguinCode(
+  x: PenguinPlotField,
+  y: PenguinPlotField,
+  colored: boolean,
+) {
+  return `penguins = pd.read_csv("Penguins_cleaned.csv")
 sns.scatterplot(
     data=penguins,
-    x="billLength", y="billDepth",
-    hue="kind"
+    x="${PENGUIN_PLOT_FIELDS[x].column}",
+    y="${PENGUIN_PLOT_FIELDS[y].column}"${colored ? ',\n    hue="species"' : ''}
 )
-plt.xlabel("Bill length (mm)")
-plt.ylabel("Bill depth (mm)")
+plt.xlabel("${PENGUIN_PLOT_FIELDS[x].label}")
+plt.ylabel("${PENGUIN_PLOT_FIELDS[y].label}")
+plt.show()`;
+}
+
+export const PENGUIN_CODE = getPenguinCode('billLength', 'billDepth', true);
+
+export const PENGUIN_PRACTICE_CODE = `import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+${PENGUIN_CODE}`;
+
+export function getPenguinFullCode(
+  x: PenguinPlotField,
+  y: PenguinPlotField,
+  colored: boolean,
+) {
+  return [
+    'import pandas as pd\nimport seaborn as sns',
+    FONT_CODE,
+    getPenguinCode(x, y, colored),
+  ].join('\n\n');
+}
+
+export const PENGUIN_FULL_CODE = getPenguinFullCode(
+  'billLength',
+  'billDepth',
+  true,
+);
+
+export const PAIRPLOT_CODE = `penguins = pd.read_csv("Penguins_cleaned.csv")
+sns.pairplot(
+    data=penguins,
+    vars=["culmen_length_mm", "culmen_depth_mm",
+          "flipper_length_mm", "body_mass_g"],
+    hue="species"
+)
 plt.show()`;
 
-export const PENGUIN_FULL_CODE = [
+export const PAIRPLOT_FULL_CODE = [
   'import pandas as pd\nimport seaborn as sns',
   FONT_CODE,
-  PENGUIN_CODE,
+  PAIRPLOT_CODE,
+].join('\n\n');
+
+export const PAIRPLOT_UNCOLORED_FULL_CODE = [
+  'import pandas as pd\nimport seaborn as sns',
+  FONT_CODE,
+  PAIRPLOT_CODE.replace(',\n    hue="species"', ''),
 ].join('\n\n');
 
 export const COMPLETE_CODE = [
@@ -132,6 +192,7 @@ export const COMPLETE_CODE = [
   '# 教师演示：同一个体 D001 的连续观测\n' + LINE_CODE,
   '# 教师演示：比较三族的平均速度\n' + KIND_BAR_CODE,
   '# 课堂练习 02：三个问题，选对三种图\n' + PRACTICE_02_CODE,
-  '# 课堂练习 03：加入种类颜色\n' + HUE_CODE,
-  '# 结课挑战：企鹅家族有什么不同？（一种可选方案）\n' + PENGUIN_CODE,
+  '# 教师演示：恶魔种类颜色与特征线索\n' + HUE_CODE,
+  '# 教师演示：企鹅四项数值特征的关系总览\n' + PAIRPLOT_CODE,
+  '# 课堂练习 03：企鹅喙长与喙深，按种类着色\n' + PENGUIN_PRACTICE_CODE,
 ].join('\n\n');

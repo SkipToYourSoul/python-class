@@ -1,0 +1,106 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+  border: 2px solid #071a3d;
+  background: #fffcf5;
+}
+
+.plot,
+.plot > div {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.recap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  line-height: 1.35;
+}
+
+.recap h3 {
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.recap h3 span {
+  display: block;
+  font-size: 18px;
+  line-height: 1.3;
+  margin-top: 4px;
+  color: #1457d9;
+}
+
+.recap strong {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.recap p {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.sample {
+  color: #1457d9;
+}
+
+.encodings {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 10px 14px;
+  border-top: 3px solid #ffc91c;
+  background: #fffaf0;
+}
+
+.encodings p {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+@media (max-height: 800px) {
+  .grid {
+    gap: 12px;
+  }
+
+  .card {
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .recap {
+    gap: 5px;
+  }
+
+  .recap h3 {
+    font-size: 24px;
+  }
+
+  .recap strong {
+    font-size: 18px;
+  }
+
+  .encodings {
+    padding: 8px 12px;
+    gap: 18px;
+  }
+}

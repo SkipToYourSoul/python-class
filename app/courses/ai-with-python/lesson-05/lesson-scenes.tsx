@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 'use client';
 import { useContext, useState } from 'react';
-import { ArrowRight, ArrowLeft, Check, Download, ZoomIn } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, ZoomIn } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -29,8 +29,19 @@ import {
   LineChart,
   KindBars,
 } from './charts';
-import { PenguinIntro, PenguinLab, PenguinReport } from './penguin-challenge';
-import { demons, demonKinds, patrol, demonHistograms } from './study-data';
+import { PenguinIntro } from './penguin-challenge';
+import {
+  DemonPairs,
+  DemonDossier,
+  PenguinOverview,
+  PenguinBill,
+  PenguinFeatures,
+  PenguinPractice,
+  FinalPreparation,
+} from './third-section-scenes';
+import { ChartSummary } from './chart-summary';
+import { CastleChallenge } from './castle-challenge';
+import { demons, patrol, demonHistograms } from './study-data';
 import { Warmup } from './warmup-scene';
 import { NumericStory, Buckets, NormalScene, Setup } from './early-scenes';
 import {
@@ -45,7 +56,6 @@ import {
 import c from './second-section.module.css';
 import {
   SETUP_CODE,
-  COMPLETE_CODE,
   BAR_CODE,
   HIST_CODE,
   HIST_AXIS_LABELS,
@@ -668,11 +678,11 @@ function Choose() {
     </Page>
   );
 }
-function Colors({ pairs = false }: { pairs?: boolean }) {
-  const [state, update] = usePageState({ colored: false, pair: 0 });
+function Colors() {
+  const [state, update] = usePageState({ colored: false });
   return (
     <Page
-      title={pairs ? '换一组特征，会更清楚吗？' : '加上颜色，再看一次'}
+      title="加上颜色，再看一次"
       label="COLOR · 类别与图例"
       footer={
         <p>
@@ -681,13 +691,6 @@ function Colors({ pairs = false }: { pairs?: boolean }) {
       }
     >
       <div className={s.tabs}>
-        {pairs && (
-          <Tabs
-            items={['身高 × 速度', '体重 × 速度']}
-            value={state.pair}
-            onChange={(pair) => update({ pair })}
-          />
-        )}
         <button
           aria-pressed={state.colored}
           onClick={() => update({ colored: !state.colored })}
@@ -702,23 +705,13 @@ function Colors({ pairs = false }: { pairs?: boolean }) {
             src={`${assetBase}/assets/discovery.png`}
             alt="小派和勇士研究有类别颜色的散点图"
           />
-          <p>
-            {pairs
-              ? '哪组特征更容易看出类别差异？哪些区域仍然重叠？'
-              : '刚才聚在一起的点，真的属于同一种恶魔吗？先猜，再打开颜色。'}
-          </p>
+          <p>刚才聚在一起的点，真的属于同一种恶魔吗？先猜，再打开颜色。</p>
           <Guide>
-            {pairs
-              ? '一组特征看不清，就换一组。但需要保留图里不确定的地方。'
-              : '先读图例，再找对应颜色。加入种类这一列，能帮助我们解释点群。'}
+            先读图例，再找对应颜色。加入种类这一列，能帮助我们解释点群。
           </Guide>
         </div>
         <div className={s.chartPanel}>
-          <Scatter
-            colored={state.colored}
-            xField={state.pair === 1 ? 'mass' : 'height'}
-            interactive
-          />
+          <Scatter colored={state.colored} interactive />
         </div>
       </div>
     </Page>
@@ -833,199 +826,6 @@ function SpeedPractice() {
     </Page>
   );
 }
-const dossierTask = {
-  title: '完成你的恶魔图鉴',
-  goal: '用图中的证据说明不同种类的特点。',
-  steps: [
-    '给散点图增加种类颜色，核对图例。',
-    '选择一组特征，观察各类的位置与重叠。',
-    '写一条发现，并指出还不能确定的地方。',
-  ],
-  code: HUE_CODE,
-};
-function PracticeEntry() {
-  const { navigate } = useContext(LessonState);
-  return (
-    <Page title={dossierTask.title} label="CLASS PRACTICE · 课堂练习 03">
-      <div className={s.practiceGrid}>
-        <div className={s.practiceEntry}>
-          <ClassPracticeStamp number="03" checklist />
-          <h3>{dossierTask.goal}</h3>
-          <ol>
-            {dossierTask.steps.map((step) => (
-              <li key={step}>{step}</li>
-            ))}
-          </ol>
-          <div className={s.actions}>
-            <button onClick={() => navigate('l5-practice-03-code')}>
-              开始跟写
-              <ArrowRight size={20} />
-            </button>
-            <a href={`${assetBase}/practice/lesson-05-practice.zip`} download>
-              <Download size={20} />
-              下载练习包
-            </a>
-          </div>
-        </div>
-        <div className={s.column}>
-          <Art kind="discovery" />
-          <p className={s.note}>
-            打开 JupyterLab，运行环境准备单元格。用你运行得到的图核对结果。
-          </p>
-        </div>
-      </div>
-    </Page>
-  );
-}
-function PracticeCode() {
-  const [state, update] = usePageState({
-    text: '',
-    checked: false,
-    reference: false,
-  });
-  return (
-    <Page
-      title="一张图，一条有依据的发现"
-      label="CLASS PRACTICE · 课堂练习 03"
-      footer={<CodeTools code={full(dossierTask.code)} label="复制跟写代码" />}
-    >
-      <div className={s.steps}>
-        <span className={s.active}>01 输入代码</span>
-        <span>02 运行核对</span>
-        <span>03 解释发现</span>
-      </div>
-      <div className={s.practiceGrid}>
-        <div className={s.practiceCode}>
-          <NotebookPanel
-            compact
-            title="第五课练习.ipynb"
-            cells={[{ code: full(dossierTask.code) }]}
-          />
-        </div>
-        <div className={s.column}>
-          <label className={s.inputLabel}>
-            我的发现
-            <textarea
-              value={state.text}
-              onChange={(e) => update({ text: e.target.value })}
-              placeholder="我观察到……，图中的依据是……"
-              maxLength={240}
-            />
-          </label>
-          <label className={s.check}>
-            <input
-              type="checkbox"
-              checked={state.checked}
-              onChange={(e) => update({ checked: e.target.checked })}
-            />
-            我已运行代码，并核对了坐标、单位与图例。
-          </label>
-          {state.reference ? (
-            <p className={s.feedback}>
-              比较炎角兽族与藤甲魔族的位置。交界处仍有重叠；类别特点不适用于每一只。
-            </p>
-          ) : (
-            <Guide>
-              不要只说“颜色不同”。请说清哪类个体在哪个区域，以及是否重叠。
-            </Guide>
-          )}
-          <button
-            className={s.button}
-            onClick={() => update({ reference: !state.reference })}
-          >
-            {state.reference ? '收起参考观察' : '完成后查看参考观察'}
-          </button>
-        </div>
-      </div>
-    </Page>
-  );
-}
-function Dossier() {
-  const [state, update] = usePageState({ tab: 0 });
-  const kind = demonKinds[state.tab];
-  const rows = demons.filter((d) => d.kind === kind);
-  const range = (f: 'height' | 'speed') =>
-    `${Math.min(...rows.map((d) => d[f])).toFixed(1)}–${Math.max(...rows.map((d) => d[f])).toFixed(1)}`;
-  return (
-    <Page
-      title="把图鉴交给勇士"
-      label="MISSION COMPLETE · 侦察归档"
-      footer={
-        <p>
-          图鉴描述这批观测样本。继续侦察时，新的记录可能补充或修正我们的发现。
-        </p>
-      }
-    >
-      <Tabs
-        items={demonKinds}
-        value={state.tab}
-        onChange={(tab) => update({ tab })}
-      />
-      <div className={s.storyGrid}>
-        <Art kind="discovery" />
-        <div className={s.storyText}>
-          <span className={s.tag}>
-            {kind} · {rows.length} 个观测个体
-          </span>
-          <h3>身高 {range('height')} cm</h3>
-          <h3>速度 {range('speed')} m/s</h3>
-          <blockquote>
-            “我知道要观察什么了，也知道同一类里仍有不同！”
-          </blockquote>
-          <p className={s.note}>勇士带上图鉴，准备下一次侦察。</p>
-        </div>
-      </div>
-    </Page>
-  );
-}
-function Summary() {
-  return (
-    <Page
-      title="带走一套看数据的方法"
-      label="FIELD GUIDE · 本课回顾"
-      footer={<CodeTools code={COMPLETE_CODE} />}
-    >
-      <div className={s.summary}>
-        {[
-          {
-            title: '比较对象',
-            chart: '条形图',
-            text: '同一个指标，谁更高、谁更低？',
-          },
-          {
-            title: '观察分布',
-            chart: '直方图',
-            text: '主要集中在哪里？少数个体在哪里？',
-          },
-          {
-            title: '寻找关系',
-            chart: '散点图',
-            text: '两个数值有什么联系？有没有例外？',
-          },
-          {
-            title: '观察变化',
-            chart: '折线图',
-            text: '同一对象，随时间怎样改变？',
-          },
-        ].map((x) => (
-          <div className={s.summaryItem} key={x.title}>
-            <span className={s.tag}>{x.chart}</span>
-            <strong>{x.title}</strong>
-            <p>{x.text}</p>
-          </div>
-        ))}
-      </div>
-      <p className={s.evidence}>
-        <Check
-          size={24}
-          style={{ display: 'inline', verticalAlign: 'middle' }}
-        />
-        先提出问题，再选择图表。用证据解释发现，为不确定的地方留下空间。
-      </p>
-    </Page>
-  );
-}
-
 export function LessonScenes({ id }: { id: string }) {
   const c = chapters.find((x) => id === `l5-${x.id}-cover`);
   if (c)
@@ -1038,7 +838,7 @@ export function LessonScenes({ id }: { id: string }) {
           {
             observe: '比较个体，观察数值分布',
             connect: '研究三类问题，用合适的图表找线索',
-            discover: '制作恶魔图鉴，再研究真实企鹅',
+            discover: '观察恶魔与企鹅的类别特点，再亲手绘图',
           }[c.id]
         }
       />
@@ -1046,8 +846,8 @@ export function LessonScenes({ id }: { id: string }) {
   if (id === 'l5-practice-01') return <SpeedPractice />;
   if (id === 'l5-practice-02') return <ChartPractice />;
   if (id === 'l5-practice-02-results') return <ChartPracticeResults />;
-  if (id === 'l5-practice-03') return <PracticeEntry />;
-  if (id === 'l5-practice-03-code') return <PracticeCode />;
+  if (id === 'l5-practice-03') return <PenguinPractice />;
+  if (id === 'l5-challenge') return <CastleChallenge />;
   switch (id) {
     case 'l5-cover':
       return <Cover />;
@@ -1249,9 +1049,9 @@ export function LessonScenes({ id }: { id: string }) {
         />
       );
     case 'l5-pairs':
-      return <Colors pairs />;
+      return <DemonPairs />;
     case 'l5-dossier':
-      return <Dossier />;
+      return <DemonDossier />;
     case 'l5-transfer':
       return (
         <Story
@@ -1259,17 +1059,21 @@ export function LessonScenes({ id }: { id: string }) {
           title="真实世界，也能这样研究吗？"
           speaker="小派"
           quote="我们用数据看懂了恶魔的特点。这套方法，也能帮助我们认识真实动物吗？"
-          question="下一项任务：用真实企鹅的观测数据，独立发现不同种类的差异。"
+          question="接下来观察真实企鹅的四项特征，再亲手画出不同种类的差异。"
         />
       );
     case 'l5-penguins':
       return <PenguinIntro />;
-    case 'l5-challenge':
-      return <PenguinLab />;
+    case 'l5-penguin-overview':
+      return <PenguinOverview />;
+    case 'l5-penguin-bill':
+      return <PenguinBill />;
     case 'l5-challenge-report':
-      return <PenguinReport />;
+      return <PenguinFeatures />;
     case 'l5-summary':
-      return <Summary />;
+      return <ChartSummary />;
+    case 'l5-final-preparation':
+      return <FinalPreparation />;
     default:
       return null;
   }

@@ -571,9 +571,13 @@ export function LineChart({
 export function KindBars({
   axisLabels,
   groupedBySize = false,
+  field = 'speed',
+  colorByKind = false,
 }: {
   axisLabels?: AxisLabels;
   groupedBySize?: boolean;
+  field?: Field;
+  colorByKind?: boolean;
 } = {}) {
   const sizeGroups = ['<180 cm', '≥180 cm'];
   const grouped = demonKinds.map((kind) => ({
@@ -585,7 +589,7 @@ export function KindBars({
           (!groupedBySize ||
             (groupIndex === 0 ? d.height < 180 : d.height >= 180)),
       );
-      return sample.length ? mean(sample.map((d) => d.speed)) : null;
+      return sample.length ? mean(sample.map((d) => d[field])) : null;
     }),
   }));
   const yTicks = range(
@@ -612,7 +616,7 @@ export function KindBars({
         label={
           groupedBySize
             ? '各恶魔种类按身高分组的平均速度条形图，空组不显示柱子'
-            : '三类恶魔的平均速度条形图，每根柱子表示该族 30 个个体的平均值'
+            : `三类恶魔的平均${demonFields[field].label}条形图，每根柱子表示该族 30 个个体的平均值`
         }
       >
         {(b) => {
@@ -631,7 +635,10 @@ export function KindBars({
                 )}
                 yTicks={yTicks}
                 xLabel={axisLabels?.x ?? '恶魔种类'}
-                yLabel={axisLabels?.y ?? '平均速度（m/s）'}
+                yLabel={
+                  axisLabels?.y ??
+                  `平均${demonFields[field].label}（${demonFields[field].unit}）`
+                }
               />
               {grouped.map((group, kindIndex) =>
                 group.values.map((value, groupIndex) => {
@@ -647,7 +654,13 @@ export function KindBars({
                         y={y(value)}
                         width={barWidth}
                         height={b.bottom - y(value)}
-                        fill={COLORS[groupIndex]}
+                        fill={
+                          COLORS[
+                            colorByKind && !groupedBySize
+                              ? kindIndex
+                              : groupIndex
+                          ]
+                        }
                       />
                       <text
                         x={barCenter}
@@ -668,7 +681,7 @@ export function KindBars({
       <p className={s.detail}>
         {groupedBySize
           ? '柱高表示该组平均速度；空缺表示没有样本。'
-          : '柱高表示每族 30 个个体的平均速度。'}
+          : `柱高表示每族 30 个个体的平均${demonFields[field].label}。`}
       </p>
     </div>
   );

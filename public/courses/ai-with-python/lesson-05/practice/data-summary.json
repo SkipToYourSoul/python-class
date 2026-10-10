@@ -1,10 +1,11 @@
 {
   "seed": 20261005,
   "demonCount": 90,
-  "penguinOriginalCount": 344,
+  "penguinSource": "Penguins_cleaned.csv",
+  "penguinSourceCount": 342,
   "penguinCount": 342,
-  "omittedOriginalRows": [4, 272],
-  "penguinOriginalSha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+  "penguinSourceSha256": "1b6fbc2bd8b3a0f78753adda0372a9b8ec98798a0bad41bfb61e81fb229052a1",
+  "penguinMissingSexCount": 9,
   "demonSpeedBins": [
     {
       "low": 2.2,

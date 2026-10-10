@@ -97,7 +97,7 @@ plt.xlabel("Kind")
 plt.ylabel("Mean speed (m/s)")
 plt.show()
 
-# 课堂练习 03：加入种类颜色
+# 教师演示：恶魔种类颜色与特征线索
 sns.scatterplot(
     data=demons,
     x="height", y="speed",
@@ -107,12 +107,27 @@ plt.xlabel("Height (cm)")
 plt.ylabel("Speed (m/s)")
 plt.show()
 
-# 结课挑战：企鹅家族有什么不同？（一种可选方案）
-penguins = pd.read_csv("penguins.csv")
+# 教师演示：企鹅四项数值特征的关系总览
+penguins = pd.read_csv("Penguins_cleaned.csv")
+sns.pairplot(
+    data=penguins,
+    vars=["culmen_length_mm", "culmen_depth_mm",
+          "flipper_length_mm", "body_mass_g"],
+    hue="species"
+)
+plt.show()
+
+# 课堂练习 03：企鹅喙长与喙深，按种类着色
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+penguins = pd.read_csv("Penguins_cleaned.csv")
 sns.scatterplot(
     data=penguins,
-    x="billLength", y="billDepth",
-    hue="kind"
+    x="culmen_length_mm",
+    y="culmen_depth_mm",
+    hue="species"
 )
 plt.xlabel("Bill length (mm)")
 plt.ylabel("Bill depth (mm)")
