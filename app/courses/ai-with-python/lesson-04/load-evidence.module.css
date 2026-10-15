@@ -1,3 +1,39 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 0.45fr);
+  gap: 24px;
+  min-width: 0;
+}
+.code {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.code [data-notebook-part='input'] pre {
+  font-size: 20px;
+  white-space: pre;
+}
+.source {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid #071a3d;
+  padding: 12px 16px;
+  background: #fff6d6;
+  font-size: 22px;
+  line-height: 1.4;
+}
+.source svg {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  color: #1457d9;
+}
+.source p {
+  margin-top: 4px;
+  font-size: 20px;
+}
 .panels {
   display: grid;
   flex: 1;
@@ -8,7 +44,7 @@
   grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
   min-width: 0;
 }

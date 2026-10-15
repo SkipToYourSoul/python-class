@@ -1,8 +1,8 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Castle, ShieldAlert } from 'lucide-react';
-import { LessonState, usePageState } from '@/components/course/lesson-state';
+import { LessonState } from '@/components/course/lesson-state';
 import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { Guide, LessonStage, Portrait, PracticeTools } from './lesson-ui';
@@ -11,7 +11,6 @@ import { practiceThreeCells, PRACTICE_THREE_CODE } from './practice-content';
 import s from './practice-three.module.css';
 
 const enemyNames = ['炎角兽', '藤甲魔', '冰翼魔'];
-const DURATION = 5 * 60;
 
 export function PracticeThreeEntry() {
   const { navigate } = useContext(LessonState);
@@ -57,7 +56,7 @@ export function PracticeThreeEntry() {
           <header>
             <div>
               <h3>让数据指引调查</h3>
-              <p>接着练习二的工作表 focus。</p>
+              <p>从练习二读入的原始 df 重新选三列。</p>
             </div>
             <ClassPracticeStamp number="03" checklist />
           </header>
@@ -96,53 +95,6 @@ export function PracticeThreeEntry() {
   );
 }
 
-function PracticeClock() {
-  const [state, update] = usePageState({ practiceRemaining: DURATION });
-  const [running, setRunning] = useState(false);
-  const remaining = Math.max(0, Math.min(DURATION, state.practiceRemaining));
-  useEffect(() => {
-    if (!running || remaining === 0) return;
-    const timer = window.setTimeout(
-      () => update({ practiceRemaining: remaining - 1 }),
-      1000,
-    );
-    return () => window.clearTimeout(timer);
-  }, [running, remaining, update]);
-  useEffect(() => {
-    const pause = () => {
-      if (document.hidden) setRunning(false);
-    };
-    document.addEventListener('visibilitychange', pause);
-    return () => document.removeEventListener('visibilitychange', pause);
-  }, []);
-  return (
-    <div className={s.clock} data-urgent={remaining <= 60}>
-      <time role="timer" aria-label="练习三剩余时间">
-        {remaining === 0
-          ? '准备汇报'
-          : `${String(Math.floor(remaining / 60)).padStart(2, '0')}:${String(remaining % 60).padStart(2, '0')}`}
-      </time>
-      <button disabled={remaining === 0} onClick={() => setRunning(!running)}>
-        {remaining === 0
-          ? '计时结束'
-          : running
-            ? '暂停计时'
-            : remaining === DURATION
-              ? '开始计时'
-              : '继续计时'}
-      </button>
-      <button
-        onClick={() => {
-          setRunning(false);
-          update({ practiceRemaining: DURATION });
-        }}
-      >
-        重置计时
-      </button>
-    </div>
-  );
-}
-
 export function PracticeThreeCode() {
   const associations = records.reduce((sum, row) => sum + row.demons.length, 0);
   return (
@@ -150,9 +102,15 @@ export function PracticeThreeCode() {
       title="一页完成你的数据调查"
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
-        <div className={s.footer}>
+        <div className={s.codeFooter}>
+          <div className={s.codeGuide}>
+            <Guide>
+              从原始 df 建立 work。
+              <br />
+              Shift + Enter 逐格运行，重做从第 1 格开始。
+            </Guide>
+          </div>
           <PracticeTools code={PRACTICE_THREE_CODE} />
-          <PracticeClock />
         </div>
       }
     >
@@ -195,11 +153,6 @@ export function PracticeThreeCode() {
             留下的第一名，能直接认定为首领吗？
           </strong>
         </section>
-      </div>
-      <div className={s.codeGuide}>
-        <Guide>
-          接着 focus，Shift + Enter 逐格运行。work 是副本，可以重跑。
-        </Guide>
       </div>
     </LessonStage>
   );

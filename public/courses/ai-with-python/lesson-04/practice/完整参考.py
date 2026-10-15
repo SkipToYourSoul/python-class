@@ -12,7 +12,9 @@ focus = df[
 ].copy()
 print(focus.head())
 
-work = focus.copy()
+work = df[
+    ["记录编号", "出现的恶魔", "威胁值"]
+].copy()
 names = work["出现的恶魔"].str.split("/")
 work["出现的恶魔"] = names
 expanded = work.explode("出现的恶魔")

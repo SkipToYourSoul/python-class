@@ -167,25 +167,10 @@
 .footer .start {
   background: #ffc91c;
 }
-.clock {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.clock time {
-  font:
-    800 24px/1.2 ui-monospace,
-    monospace;
-  min-width: 80px;
-  text-align: center;
-}
-.clock[data-urgent='true'] time {
-  color: #b34022;
-}
 .codeGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(min-content, 1.1fr) minmax(min-content, 1fr);
   gap: 8px 24px;
   flex: 1;
   min-height: 0;
@@ -298,8 +283,18 @@
 }
 
 .codeGuide {
-  flex: none;
+  flex: 1;
+  min-width: 0;
 }
 .codeGuide > aside > :first-child {
   width: 52px;
+}
+.codeFooter {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+.codeFooter > :last-child {
+  flex: none;
 }

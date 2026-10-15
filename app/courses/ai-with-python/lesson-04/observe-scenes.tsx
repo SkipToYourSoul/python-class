@@ -13,6 +13,7 @@ import {
 } from './lesson-ui';
 import { records, suspects, THREAT_RULE } from './investigation-data';
 import s from './lesson.module.css';
+import p from './pandas-scene.module.css';
 
 export function Opening() {
   return (
@@ -242,23 +243,17 @@ export function TableScene() {
   const [state, update] = usePageState({ step: 0 });
   const focus = ['行', '地点', '值'][state.step];
   return (
-    <LessonStage
-      title="一行、一列、一个值"
-      label="LOOK · 望 / 表格结构"
-      footer={
-        <Tabs
-          labels={['横看一行', '竖看一列', '看一个单元格']}
-          value={state.step}
-          onChange={(step) => update({ step })}
-        />
-      }
-    >
-      <p className={s.speech}>小派：“先说清楚，一条战报到底记了一件什么事？”</p>
+    <LessonStage title="一行、一列、一个值" label="LOOK · 望 / 表格结构">
+      <Tabs
+        labels={['横看一行', '竖看一列', '看一个单元格']}
+        value={state.step}
+        onChange={(step) => update({ step })}
+      />
       <RecordTable focus={focus} />
       <Guide>
         {
           [
-            '一行是一场进攻：编号、地点、出现的恶魔和读数都属于这一场。',
+            '一条战报记录了什么？一行就是一场进攻：编号、地点、出现的恶魔和读数都属于这一场。',
             '一列记录同一个方面。地点这一列，告诉我们每场进攻发生在哪里。',
             '一个单元格放这个字段的一个值。这里的威胁值属于整场进攻。',
           ][state.step]
@@ -315,32 +310,44 @@ export function StructureScene() {
 }
 export function PandasScene() {
   return (
-    <LessonStage title="请来处理表格的帮手" label="SMELL · 闻 / Pandas">
-      <div className={s.balancedLayout}>
-        <div className={s.balancedColumn}>
-          <Comic />
-          <p className={s.speech}>勇士：“36 条记录，一条条翻会漏掉线索。”</p>
-          <Guide>
-            Pandas 是 Python 的数据分析工具包，能帮我们读表、选列和统计。
-          </Guide>
-        </div>
-        <div className={s.balancedColumn}>
-          <div className={s.paper}>
-            <strong className={s.lead}>CSV 文件 → DataFrame</strong>
-            <RecordTable
-              items={records.slice(0, 2)}
-              full
-              caption="df · 前 2 行，全部 5 列"
+    <LessonStage
+      title="请来处理表格的帮手"
+      label="SMELL · 闻 / Pandas"
+      footer={<PracticeTools />}
+    >
+      <div className={p.layout}>
+        <div className={p.story}>
+          <figure className={p.comic}>
+            <Comic />
+            <figcaption>勇士：“36 条记录，一条条翻会漏掉线索。”</figcaption>
+          </figure>
+          <div className={p.doctor}>
+            <img
+              src="/courses/ai-with-python/lesson-04/assets/turtle-panda-helpers.png"
+              alt="熊猫博士拿着表格记录板"
             />
+            <div className={p.doctorSpeech}>
+              <strong>熊猫博士 · pandas</strong>
+              <p>
+                “我是 Python 的数据分析帮手，读表、选列和统计都可以交给我！”
+              </p>
+            </div>
           </div>
-          <p>DataFrame：带有行、列标签的二维表格。</p>
-          <Guide>
-            在练习文件夹打开 JupyterLab，选择 Python
-            内核。练习包内有环境说明；本课需要安装 pandas。
-          </Guide>
-          <PracticeTools />
+        </div>
+        <div className={s.paper}>
+          <strong className={s.lead}>CSV 文件 → DataFrame</strong>
+          <RecordTable
+            items={records.slice(0, 3)}
+            full
+            caption="df · 前 3 行，全部 5 列"
+          />
+          <p className={p.definition}>DataFrame：带有行、列标签的二维表格。</p>
         </div>
       </div>
+      <Guide>
+        在练习文件夹打开 <strong>JupyterLab</strong>，选择 Python
+        内核；本课需要安装 pandas，方法见练习包。
+      </Guide>
     </LessonStage>
   );
 }

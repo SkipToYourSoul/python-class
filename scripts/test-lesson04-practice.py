@@ -188,15 +188,23 @@ process.stdout.write(JSON.stringify(Array.from({length: 13}, (_, n) => m.rankSus
         cells = self.source["practiceThreeCells"]
         self.assertEqual([cell["key"] for cell in cells], ["expand", "summarize", "investigate"])
         self.assertEqual(self.source["PRACTICE_THREE_CODE"], "\n\n".join(cell["code"] for cell in cells))
-        original = self.df[["记录编号", "出现的恶魔", "威胁值"]].copy()
-        namespace = {"focus": original.copy()}
+        namespace = {"df": self.df.copy()}
+        # A student may run the teaching blocks before exercise 03. The split
+        # demonstration changes focus to lists; exercise 03 must recover from df.
+        with redirect_stdout(io.StringIO()):
+            for key, code in self.source["codeBlocks"].items():
+                if key != "load":
+                    exec(code, namespace)
+        self.assertTrue(namespace["focus"]["出现的恶魔"].map(lambda value: isinstance(value, list)).all())
+        focus_after_demo = namespace["focus"].copy(deep=True)
         for _ in range(3):
             for cell in cells:
                 buffer = io.StringIO()
                 with redirect_stdout(buffer):
                     exec(cell["code"], namespace)
                 self.assertEqual(buffer.getvalue(), expected[cell["key"]])
-                pd.testing.assert_frame_equal(namespace["focus"], original)
+                pd.testing.assert_frame_equal(namespace["focus"], focus_after_demo)
+                pd.testing.assert_frame_equal(namespace["df"], self.df)
             self.assertEqual(len(namespace["expanded"]), 76)
             pd.testing.assert_frame_equal(namespace["summary"], self.summary)
             ranking = namespace["ranking"]

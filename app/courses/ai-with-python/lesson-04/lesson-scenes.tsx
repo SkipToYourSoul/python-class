@@ -4,6 +4,7 @@ import { PracticeTwoEntry } from './practice-two-entry';
 import { PracticeThreeEntry, PracticeThreeCode } from './practice-three';
 import { ChapterCover } from '@/components/course/ai-with-python/chapter-cover';
 import { CoverScene } from './cover-scene';
+import { RecapScene } from './recap-scene';
 import { FirstPractice } from './first-practice';
 import { PandasIntro } from './pandas-intro';
 import { PlanScene } from './plan-scene';
@@ -37,6 +38,7 @@ import {
 
 export function LessonScenes({ id }: { id: string }) {
   if (id === 'l4-cover') return <CoverScene />;
+  if (id === 'l4-recap') return <RecapScene />;
   const scene = scenes.find((x) => x.id === id);
   if (!scene) return null;
   if (id.endsWith('-cover')) {

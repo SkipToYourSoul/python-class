@@ -46,7 +46,16 @@
   font-size: 24px;
 }
 .typeCard h3 {
-  font-size: 30px;
+  padding: 12px 16px;
+  background: #1457d9;
+  color: #fff;
+  font-size: clamp(32px, 3.2cqw, 44px);
+  line-height: 1.2;
+  font-weight: 900;
+}
+.typeCard:nth-child(2) h3 {
+  background: #ffc91c;
+  color: #071a3d;
 }
 .typeCard p {
   font-size: 24px;
@@ -198,9 +207,6 @@
   .dogPair img {
     width: 90px;
     height: 90px;
-  }
-  .typeCard h3 {
-    font-size: 28px;
   }
   .typeCard p {
     font-size: 22px;

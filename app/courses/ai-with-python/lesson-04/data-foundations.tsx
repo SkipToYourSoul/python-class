@@ -15,13 +15,10 @@ const dogs = [
 
 export function DataKindsScene() {
   return (
-    <LessonStage
-      title="同一只狗，可以记录什么？"
-      label="LOOK · 望 / 统计学里的两类数据"
-    >
-      <p className={s.lead}>小派：“给巡逻犬建档，品种和体重都要记下来！”</p>
+    <LessonStage title="统计学里的两类数据" label="LOOK · 望 / 认识数据">
       <div className={s.comparison}>
         <section className={s.typeCard}>
+          <h3>分类数据</h3>
           <div className={s.dogPair}>
             <img src={`${art}/dog-corgi.png`} alt="柯基犬插图" />
             <div>
@@ -29,7 +26,6 @@ export function DataKindsScene() {
               <strong>柯基</strong>
             </div>
           </div>
-          <h3>分类数据</h3>
           <p>
             回答“属于哪一类”。
             <br />
@@ -38,6 +34,7 @@ export function DataKindsScene() {
           <div className={s.takeaway}>可以按品种分组，数数每类有几只。</div>
         </section>
         <section className={s.typeCard}>
+          <h3>数值数据</h3>
           <div className={s.dogPair}>
             <img src={`${art}/dog-corgi.png`} alt="同一只柯基犬插图" />
             <div>
@@ -47,7 +44,6 @@ export function DataKindsScene() {
               </strong>
             </div>
           </div>
-          <h3>数值数据</h3>
           <p>
             回答“有多少、多大、多长”。
             <br />
@@ -56,7 +52,10 @@ export function DataKindsScene() {
           <div className={s.takeaway}>可以比较轻重，计算平均体重。</div>
         </section>
       </div>
-      <Guide>先看记录表示什么，再决定怎样分析。这是统计学里的分类方法。</Guide>
+      <Guide>
+        给巡逻犬建档：<strong>品种记类别，体重记数值。</strong>
+        先看记录表示什么，再决定怎样分析。
+      </Guide>
     </LessonStage>
   );
 }

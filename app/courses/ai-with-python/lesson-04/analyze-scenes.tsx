@@ -13,9 +13,10 @@ import {
 } from './lesson-ui';
 import { records, rankSuspects } from './investigation-data';
 import { codeBlocks, practiceSteps } from './practice-content';
-import { LoadEvidence } from './load-evidence';
+import { LoadScene } from './load-evidence';
 import outputs from '@/public/courses/ai-with-python/lesson-04/practice/reference-outputs.json';
 import s from './lesson.module.css';
+import a from './analysis-layout.module.css';
 
 type CodeKey = keyof typeof codeBlocks;
 const exampleGroups = ['炎角兽', '岩背魔', '藤甲魔'];
@@ -24,7 +25,7 @@ const details: Record<
   {
     title: string;
     chapter: string;
-    dialogue: string;
+    dialogue?: string;
     explain: string;
     note: string;
   }
@@ -40,9 +41,8 @@ const details: Record<
   info: {
     title: '先检查这份记录',
     chapter: 'SMELL · 闻 / 全表信息',
-    dialogue: '小派：“先核对记录有没有读完整，再开始调查。”',
     explain:
-      'info() 显示行数、列名、非空数量和数据类型。每列都是 36 个非空值，说明本样本没有缺项。',
+      'info() 显示行列、非空数量与类型。本样本 3 列文字、2 列整数，没有缺项；仍要核对来源与记录准确性。',
     note: '',
   },
   row: {
@@ -56,9 +56,8 @@ const details: Record<
   select: {
     title: '只留下当前需要的列',
     chapter: 'SMELL · 闻 / 选择列',
-    dialogue: '小派：“这次比较恶魔关联的威胁，先把目光聚焦。”',
     explain:
-      '内层列表写要保留的列名，外层方括号从 df 取出这些列；copy() 留出独立工作表。',
+      '聚焦调查需要的三列：内层列表写列名，外层方括号从 df 取列；copy() 留出独立工作表。',
     note: 'focus 保留 36 行、3 列；原来的 df 仍保留全部 5 列。',
   },
   split: {
@@ -71,9 +70,8 @@ const details: Record<
   explode: {
     title: '让每个恶魔各占一行',
     chapter: 'ANALYZE · 切 / 展开',
-    dialogue: '小派：“让每个名字都带着这次进攻的编号与读数。”',
-    explain: 'explode 把列表里的名字展开。同场有两个名字，就变成两条关联记录。',
-    note: '36 场进攻展开成 76 条关联；不是发生了 76 场进攻，也不是个人伤害增加了。',
+    explain: 'explode 把名字列表展开：每个恶魔各占一行，保留同场的编号和读数。',
+    note: `${records.length} 场进攻展开成 ${records.reduce((sum, row) => sum + row.demons.length, 0)} 条关联记录；${records[0].id} 的两行仍是一场进攻，威胁值不是个人伤害。`,
   },
   group: {
     title: '同一个名字，放到一组',
@@ -86,9 +84,8 @@ const details: Record<
   mean: {
     title: '计算每组的平均威胁值',
     chapter: 'ANALYZE · 切 / 求平均',
-    dialogue: '小派：“现在，对每一组都做同样的平均值计算。”',
     explain:
-      'mean() 对每组求平均，结果 means 是 Series。右侧放大一组：读数之和 ÷ 记录数。',
+      'mean() 对每组做同样的平均值计算，结果 means 是 Series。右侧放大一组：读数之和 ÷ 记录数。',
     note: 'round(1) 只把显示结果保留一位小数；排名仍使用原始精度。',
   },
   rank: {
@@ -102,10 +99,9 @@ const details: Record<
   count: {
     title: '这个平均值来自几次记录？',
     chapter: 'VERIFY · 核对记录数量',
-    dialogue: '小派：“别只看一个平均值，也看看它背后的记录数。”',
     explain:
       'agg 同时做两种汇总：mean 求平均，count 数非空记录。结果 summary 是一张表。',
-    note: '本样本每场每个名字只出现一次，威胁值无缺项，因此 count 对应关联进攻次数。',
+    note: '本样本每场每个名字只出现一次，威胁值无缺项，count 对应关联进攻次数。岩背魔只有 1 条记录，100.0 不能代表它每次都会如此。',
   },
   filter: {
     title: '改变条件，再看调查名单',
@@ -128,7 +124,6 @@ export function CodeScene({ kind }: { kind: CodeKey }) {
     kind === 'filter'
       ? codeBlocks.filter.replace('>= 3', `>= ${state.minimum}`)
       : codeBlocks[kind];
-  const activeLine = kind === 'load' ? [0, 2, 3][state.step] : undefined;
   const dialogue =
     kind === 'filter'
       ? `勇士：“这一轮，我们先查至少出现过 ${state.minimum} 次的对象。”`
@@ -141,11 +136,28 @@ export function CodeScene({ kind }: { kind: CodeKey }) {
     kind === 'filter'
       ? `count >= ${state.minimum} 选出记录次数足够的行，再按 mean 从高到低排列。`
       : d.explain;
+  if (kind === 'load') {
+    return <LoadScene step={state.step} onStep={(step) => update({ step })} />;
+  }
+  const mergedGuide = ['select', 'explode', 'mean', 'count'].includes(kind);
+  const infoGuide = kind === 'info';
+  const comic = (
+    <Comic
+      className={mergedGuide || infoGuide ? a.comic : s.miniComic}
+      kind={
+        ['info', 'row', 'select'].includes(kind)
+          ? 'read'
+          : ['split', 'explode'].includes(kind)
+            ? 'expand'
+            : 'analysis'
+      }
+    />
+  );
   return (
     <LessonStage title={d.title} label={d.chapter}>
-      <div className={s.codeLayout}>
-        <div className={s.codeSide}>
-          <p className={s.speech}>{dialogue}</p>
+      <div className={mergedGuide || infoGuide ? a.layout : s.codeLayout}>
+        <div className={mergedGuide || infoGuide ? a.column : s.codeSide}>
+          {!mergedGuide && !infoGuide && <p className={s.speech}>{dialogue}</p>}
           <NotebookPanel
             title="第四课练习.ipynb"
             compact
@@ -154,46 +166,22 @@ export function CodeScene({ kind }: { kind: CodeKey }) {
                 code,
                 output: kind === 'info' ? outputs.info.trimEnd() : undefined,
                 outputLabel: 'df.info() 原始输出示例',
-                activeLines:
-                  activeLine === undefined ? undefined : [activeLine],
               },
             ]}
           />
-          {kind === 'load' && (
-            <Tabs
-              labels={['导入工具', '读入文件', '查看前五行']}
-              value={state.step}
-              onChange={(step) => update({ step })}
-            />
-          )}
-          {kind !== 'info' && (
+          {mergedGuide && comic}
+          {!mergedGuide && kind !== 'info' && (
             <Guide>
-              {kind === 'load'
-                ? [
-                    'import pandas as pd：给工具包起一个简写名 pd。',
-                    'read_csv()：从当前文件夹读 CSV；df 接住生成的 DataFrame。',
-                    'head() 默认查看前五行。',
-                  ][state.step]
-                : explain}
+              {explain}
               <br />
               {note}
             </Guide>
           )}
         </div>
-        <div className={s.codeSide}>
-          <Comic
-            className={s.miniComic}
-            kind={
-              ['load', 'info', 'row', 'select'].includes(kind)
-                ? 'read'
-                : ['split', 'explode'].includes(kind)
-                  ? 'expand'
-                  : 'analysis'
-            }
-          />
+        <div className={mergedGuide || infoGuide ? a.column : s.codeSide}>
+          {!mergedGuide && comic}
           <CodeEvidence
             kind={kind}
-            step={state.step}
             group={
               exampleGroups.includes(state.group)
                 ? state.group
@@ -203,27 +191,32 @@ export function CodeScene({ kind }: { kind: CodeKey }) {
             onGroup={(group) => update({ group })}
             onMinimum={(minimum) => update({ minimum })}
           />
+          {infoGuide && <Guide>{explain}</Guide>}
         </div>
       </div>
+      {mergedGuide && (
+        <Guide>
+          {explain}
+          <br />
+          {note}
+        </Guide>
+      )}
     </LessonStage>
   );
 }
 function CodeEvidence({
   kind,
-  step,
   group,
   minimum,
   onGroup,
   onMinimum,
 }: {
   kind: CodeKey;
-  step: number;
   group: string;
   minimum: number;
   onGroup: (s: string) => void;
   onMinimum: (n: number) => void;
 }) {
-  if (kind === 'load') return <LoadEvidence step={step} />;
   if (kind === 'select')
     return (
       <>
@@ -244,8 +237,7 @@ function CodeEvidence({
     );
   if (kind === 'info')
     return (
-      <div className={s.paper}>
-        <h3>读懂 info() 的结果</h3>
+      <div className={s.paper} aria-label="全表信息摘要">
         <div className={s.infoMetrics}>
           <p className={s.metric}>
             <strong>{records.length}</strong> 行记录
@@ -255,7 +247,6 @@ function CodeEvidence({
           </p>
         </div>
         <p>每列 36 个非空值</p>
-        <Guide>3 列文字、2 列整数。没有缺项也要核对来源，确认记录准确。</Guide>
       </div>
     );
   if (kind === 'row')
@@ -300,9 +291,6 @@ function CodeEvidence({
             ))}
           </tbody>
         </table>
-        <Guide>
-          名字分开了；进攻编号和整场读数保留。两行仍关联同一场进攻。
-        </Guide>
       </>
     );
   if (kind === 'group' || kind === 'mean') {
@@ -344,14 +332,7 @@ function CodeEvidence({
       </>
     );
   if (kind === 'count')
-    return (
-      <>
-        <Ranking limit={3} />
-        <Guide>
-          岩背魔只有 1 条记录。100.0 是这次进攻的读数，不能代表它每次都会如此。
-        </Guide>
-      </>
-    );
+    return <Ranking limit={3} caption="汇总示意 · 平均威胁值与记录次数" />;
   if (kind === 'filter')
     return (
       <>
@@ -402,50 +383,52 @@ export function AggregateScene() {
     ['sum()', '把这些读数相加', String(total)],
     ['median()', '排序后中间的值', median.toFixed(1)],
   ];
+  const explanations = [
+    'mean() 把读数相加，再除以记录条数，得到平均值。',
+    'count() 数这一组有几条非空记录。这里每个读数都有值。',
+    'max() 找出这一组最大的读数。',
+    'min() 找出这一组最小的读数。',
+    'sum() 把这些读数相加；读数之和不表示恶魔的累计伤害。',
+    medianExplanation,
+  ];
   return (
-    <LessonStage
-      title="一组数字，怎样概括？"
-      label="ANALYZE · 切 / 聚合"
-      footer={
-        <Tabs
-          labels={items.map((x) => x[0])}
-          value={state.step}
-          onChange={(step) => update({ step })}
-        />
-      }
-    >
-      <div className={s.balancedLayout}>
-        <div className={s.balancedColumn}>
+    <LessonStage title="一组数字，怎样概括？" label="ANALYZE · 切 / 聚合">
+      <Tabs
+        labels={items.map((x) => x[0])}
+        value={state.step}
+        onChange={(step) => update({ step })}
+      />
+      <div className={a.aggregateLayout}>
+        <figure className={a.story}>
           <Comic />
-          <p className={s.speech}>
+          <figcaption>
             勇士：“同一组记录，是数次数，还是比较通常有多危险？”
-          </p>
-          <Guide>
-            聚合把一组数概括成一个结果。不同的问题，需要不同的汇总方法。
-          </Guide>
-        </div>
-        <div className={s.balancedColumn}>
+          </figcaption>
+        </figure>
+        <div className={a.aggregatePanel}>
           <h3>{exampleName}关联进攻的威胁值</h3>
           <div className={s.tokens}>
-            {values.map((v, i) => (
+            {(state.step === 5 ? sorted : values).map((v, i) => (
               <span key={i} className={s.token}>
                 {v}
               </span>
             ))}
           </div>
-          <div className={s.paper}>
-            <p>{items[state.step][1]}</p>
+          <output
+            className={`${s.paper} ${a.statResult}`}
+            aria-label="当前汇总结果"
+          >
+            <span>{items[state.step][1]}</span>
             <strong className={s.number}>{items[state.step][2]}</strong>
-          </div>
-          <Guide>
-            {state.step === 5
-              ? medianExplanation
-              : state.step === 4
-                ? '这里只是读数之和，不表示恶魔的累计伤害。'
-                : '本课重点用 mean 与 count。平均值：把读数相加，再除以记录条数。'}
-          </Guide>
+          </output>
         </div>
       </div>
+      <Guide>
+        聚合把一组数概括成一个结果。不同问题选不同方法，本课重点用 mean 与
+        count。
+        <br />
+        {explanations[state.step]}
+      </Guide>
     </LessonStage>
   );
 }

@@ -103,7 +103,7 @@
 .assignment {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   min-height: 0;
   gap: 12px;
   padding: 20px;
@@ -152,16 +152,6 @@
   font-size: 18px;
   line-height: 1.4;
 }
-.assignment .delivery {
-  padding-top: 10px;
-  border-top: 2px solid #071a3d;
-  font-size: 18px;
-  line-height: 1.4;
-}
-.delivery strong {
-  margin-right: 8px;
-  color: #1457d9;
-}
 .footer {
   display: flex;
   width: 100%;
@@ -193,8 +183,5 @@
   }
   .tasks strong {
     font-size: 22px;
-  }
-  .assignment .delivery {
-    padding-top: 8px;
   }
 }

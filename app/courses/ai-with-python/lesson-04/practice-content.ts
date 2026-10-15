@@ -79,14 +79,14 @@ export const practiceSteps = [
   },
 ] as const;
 
-/** Exercise 03 continues from the original string values in exercise 02's focus. */
+/** Exercise 03 rebuilds its work table from the original df, so demonstrations can run first. */
 export const practiceThreeCells = [
   {
     key: 'expand',
     title: '拆分并展开',
-    code: 'work = focus.copy()\nnames = work["出现的恶魔"].str.split("/")\nwork["出现的恶魔"] = names\nexpanded = work.explode("出现的恶魔")',
+    code: 'work = df[\n    ["记录编号", "出现的恶魔", "威胁值"]\n].copy()\nnames = work["出现的恶魔"].str.split("/")\nwork["出现的恶魔"] = names\nexpanded = work.explode("出现的恶魔")',
     instruction:
-      '接着练习二的 focus 操作副本，保留原始名字字符串。展开后得到 76 条关联；本格没有打印输出。',
+      '从练习二读入的原始 df 重新选三列，建立工作表 work，再拆分、展开。展开后得到 76 条关联；本格没有打印输出，可以从本格开始重做。',
   },
   {
     key: 'summarize',

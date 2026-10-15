@@ -7,11 +7,12 @@ export const chapters = [
 
 export const scenes = [
   { id: 'l4-cover', chapter: 'look', title: '数据小侦探' },
+  { id: 'l4-recap', chapter: 'look', title: '前情提要' },
   { id: 'l4-opening', chapter: 'look', title: '城堡守住了，谁在指挥？' },
   { id: 'l4-suspects', chapter: 'look', title: '先认识调查名单' },
   { id: 'l4-roadmap', chapter: 'look', title: '跟着《唐探1900》学探案' },
   { id: 'l4-look-cover', chapter: 'look', title: '望：看懂战报' },
-  { id: 'l4-data-kinds', chapter: 'look', title: '同一只狗，可以记录什么？' },
+  { id: 'l4-data-kinds', chapter: 'look', title: '统计学里的两类数据' },
   { id: 'l4-categories', chapter: 'look', title: '分类数据：它属于哪一类？' },
   { id: 'l4-quantities', chapter: 'look', title: '数值数据：有多少、有多大？' },
   { id: 'l4-all-records', chapter: 'look', title: '先把全部战报看一遍' },
@@ -22,12 +23,12 @@ export const scenes = [
   { id: 'l4-practice-01', chapter: 'look', title: '先写下你的调查办法' },
   { id: 'l4-smell-cover', chapter: 'smell', title: '闻：读取线索' },
   { id: 'l4-pandas-intro', chapter: 'smell', title: '海龟先生，请来熊猫博士' },
+  { id: 'l4-pandas', chapter: 'smell', title: '请来处理表格的帮手' },
   {
     id: 'l4-data-structures',
     chapter: 'smell',
     title: '熊猫博士的两种数据工具',
   },
-  { id: 'l4-pandas', chapter: 'smell', title: '请来处理表格的帮手' },
   { id: 'l4-load', chapter: 'smell', title: '把 CSV 读成一张表' },
   { id: 'l4-info', chapter: 'smell', title: '先检查这份记录' },
   { id: 'l4-series', chapter: 'smell', title: '用代码取出一列' },

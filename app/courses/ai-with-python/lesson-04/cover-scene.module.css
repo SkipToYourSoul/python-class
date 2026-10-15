@@ -83,7 +83,7 @@
   min-height: 0;
   margin: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 12px;
 }
 
@@ -133,27 +133,4 @@
 .caption > span {
   font-size: clamp(18px, 1.5cqw, 22px);
   font-weight: 650;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.controls > span {
-  font: 800 18px/1.4 monospace;
-}
-
-.controls > button {
-  padding: 10px 16px;
-  font-size: 20px;
-  line-height: 1.4;
-}
-
-.controls > button:disabled {
-  opacity: 0.45;
-  background: #fffaf0;
-  cursor: default;
 }

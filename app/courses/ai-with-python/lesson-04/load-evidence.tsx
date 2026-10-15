@@ -3,8 +3,56 @@
 
 import { FileSpreadsheet, ArrowDown, Table2 } from 'lucide-react';
 import { records } from './investigation-data';
-import { Guide, RecordTable } from './lesson-ui';
+import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
+import { Guide, LessonStage, RecordTable, Tabs } from './lesson-ui';
+import { codeBlocks } from './practice-content';
 import s from './load-evidence.module.css';
+
+export function LoadScene({
+  step,
+  onStep,
+}: {
+  step: number;
+  onStep: (step: number) => void;
+}) {
+  const explanations = [
+    'import pandas as pd：给工具包起一个简写名 pd。这一步只导入工具，还没有读取战报。',
+    `read_csv() 读取 CSV，df 保存完整的 ${records.length} 行、5 列；赋值后还没有打印表格。`,
+    `head() 默认查看前五行，五列全部保留；df 仍有 ${records.length} 行。`,
+  ];
+
+  return (
+    <LessonStage title="把 CSV 读成一张表" label="SMELL · 闻 / 读取">
+      <Tabs
+        labels={['导入工具', '读入文件', '查看前五行']}
+        value={step}
+        onChange={onStep}
+      />
+      <div className={s.workspace}>
+        <div className={s.code}>
+          <NotebookPanel
+            title="第四课练习.ipynb"
+            compact
+            cells={[{ code: codeBlocks.load, activeLines: [[0, 2, 3][step]] }]}
+          />
+          <div className={s.source}>
+            <FileSpreadsheet aria-hidden="true" />
+            <div>
+              <strong>attack-records.csv</strong>
+              <p>与当前笔记本放在同一文件夹</p>
+            </div>
+          </div>
+        </div>
+        <LoadEvidence step={step} />
+      </div>
+      <Guide>
+        {explanations[step]}
+        <br />
+        从上到下运行代码，观察每一步的结果。
+      </Guide>
+    </LessonStage>
+  );
+}
 
 export function LoadEvidence({ step }: { step: number }) {
   return (
@@ -27,7 +75,6 @@ export function LoadEvidence({ step }: { step: number }) {
           <span>→</span>
           <code>pd</code>
         </p>
-        <Guide>这一步只导入工具，还没有读取战报，也没有表格输出。</Guide>
       </section>
 
       <section className={s.panel} aria-hidden={step !== 1} inert={step !== 1}>
@@ -48,16 +95,14 @@ export function LoadEvidence({ step }: { step: number }) {
             </div>
           </div>
         </div>
-        <Guide>整份战报存入 df；赋值后还没有打印表格。</Guide>
       </section>
 
       <section className={s.panel} aria-hidden={step !== 2} inert={step !== 2}>
         <RecordTable
           items={records.slice(0, 5)}
           full
-          caption="df.head() · 前 5 行，全部 5 列"
+          caption="输出示例 · df.head() · 前 5 行，全部 5 列"
         />
-        <Guide>五列都在！这里只查看前五行，df 仍有 {records.length} 行。</Guide>
       </section>
     </div>
   );

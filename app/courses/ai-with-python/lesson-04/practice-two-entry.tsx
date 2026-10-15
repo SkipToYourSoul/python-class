@@ -82,10 +82,6 @@ export function PracticeTwoEntry() {
               </div>
             </li>
           </ol>
-          <p className={s.delivery}>
-            <strong>完成标准</strong> 工作表保留 {records.length} 行，只选上述 3
-            列。
-          </p>
         </section>
       </div>
       <Guide>先读全、再检查、最后选列。原始战报仍保存在 df 中。</Guide>

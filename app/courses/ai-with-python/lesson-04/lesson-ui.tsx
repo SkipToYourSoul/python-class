@@ -193,15 +193,17 @@ export function Ranking({
   minimum = 1,
   limit = 5,
   showCount = true,
+  caption = '调查名单 · 按平均威胁值从高到低',
 }: {
   minimum?: number;
   limit?: number;
   showCount?: boolean;
+  caption?: string;
 }) {
   const rows = rankSuspects(minimum).slice(0, limit);
   return (
     <table className={s.table}>
-      <caption>调查名单 · 按平均威胁值从高到低</caption>
+      <caption>{caption}</caption>
       <thead>
         <tr>
           <th>恶魔</th>
