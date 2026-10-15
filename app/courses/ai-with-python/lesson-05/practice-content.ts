@@ -137,11 +137,40 @@ plt.show()`;
 
 export const PENGUIN_CODE = getPenguinCode('billLength', 'billDepth', true);
 
-export const PENGUIN_PRACTICE_CODE = `import pandas as pd
+function getPenguinPracticeCode(x: PenguinPlotField, y: PenguinPlotField) {
+  return `import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-${PENGUIN_CODE}`;
+${getPenguinCode(x, y, true)}`;
+}
+
+export const PENGUIN_PRACTICE_CODE = getPenguinPracticeCode(
+  'billLength',
+  'billDepth',
+);
+
+/** Choose one new horizontal axis; keep the same observations, y axis and hue. */
+export const PENGUIN_PRACTICE_TRANSFERS = [
+  {
+    id: 'flipper',
+    x: 'flipper',
+    y: 'billDepth',
+    title: '鳍肢长度（mm）',
+    question: '换成鳍肢长度后，哪一类更靠右？点群还重叠吗？',
+    finding: '巴布亚企鹅整体更靠右、喙较浅；阿德利与帽带的点群仍有重叠。',
+    code: getPenguinPracticeCode('flipper', 'billDepth'),
+  },
+  {
+    id: 'mass',
+    x: 'mass',
+    y: 'billDepth',
+    title: '体重（g）',
+    question: '换成体重后，哪一类更靠右？点群还重叠吗？',
+    finding: '巴布亚企鹅整体更靠右、喙较浅；三类的体重范围仍有重叠。',
+    code: getPenguinPracticeCode('mass', 'billDepth'),
+  },
+] as const;
 
 export function getPenguinFullCode(
   x: PenguinPlotField,
@@ -195,4 +224,7 @@ export const COMPLETE_CODE = [
   '# 教师演示：恶魔种类颜色与特征线索\n' + HUE_CODE,
   '# 教师演示：企鹅四项数值特征的关系总览\n' + PAIRPLOT_CODE,
   '# 课堂练习 03：企鹅喙长与喙深，按种类着色\n' + PENGUIN_PRACTICE_CODE,
+  ...PENGUIN_PRACTICE_TRANSFERS.map(
+    (choice) => '# 同一练习的换轴参考：' + choice.title + '\n' + choice.code,
+  ),
 ].join('\n\n');

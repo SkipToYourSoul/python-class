@@ -132,3 +132,35 @@ sns.scatterplot(
 plt.xlabel("Bill length (mm)")
 plt.ylabel("Bill depth (mm)")
 plt.show()
+
+# 同一练习的换轴参考：鳍肢长度（mm）
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+penguins = pd.read_csv("Penguins_cleaned.csv")
+sns.scatterplot(
+    data=penguins,
+    x="flipper_length_mm",
+    y="culmen_depth_mm",
+    hue="species"
+)
+plt.xlabel("Flipper length (mm)")
+plt.ylabel("Bill depth (mm)")
+plt.show()
+
+# 同一练习的换轴参考：体重（g）
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+penguins = pd.read_csv("Penguins_cleaned.csv")
+sns.scatterplot(
+    data=penguins,
+    x="body_mass_g",
+    y="culmen_depth_mm",
+    hue="species"
+)
+plt.xlabel("Body mass (g)")
+plt.ylabel("Bill depth (mm)")
+plt.show()

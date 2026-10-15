@@ -1,0 +1,9 @@
+.recap {
+  height: 100%;
+  min-width: 0;
+}
+
+.recap nav[aria-label='选择回顾课程'] button {
+  padding: 10px 12px;
+  font-size: 18px;
+}

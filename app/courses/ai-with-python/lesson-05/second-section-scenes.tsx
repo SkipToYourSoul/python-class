@@ -22,6 +22,7 @@ import {
   PRACTICE_02_CODE,
 } from './practice-content';
 import { assetBase } from './lesson-data';
+import { StoryResult } from './story-scenes';
 import s from './lesson.module.css';
 import c from './second-section.module.css';
 
@@ -75,41 +76,8 @@ export function ChartConcept({ type }: { type: keyof typeof concepts }) {
   );
 }
 
-export function BarStory() {
-  return (
-    <Page title="哪一族通常跑得更快？" label="STORY · 比较军团">
-      <div className={s.storyGrid}>
-        <img
-          className={s.art}
-          src={`${assetBase}/assets/fieldwork.png`}
-          alt="勇士、小派与熊猫博士侦察三种恶魔的体型和移动速度"
-        />
-        <div className={s.storyText}>
-          <span className={s.tag}>勇士</span>
-          <blockquote>
-            “一只恶魔的表现，能代表整个种类吗？把每族的记录合起来比较吧！”
-          </blockquote>
-          <div className={s.question}>
-            <span>先想一想</span>
-            <p>每族都有 30 只恶魔，怎样比较各族的平均速度？</p>
-          </div>
-        </div>
-      </div>
-    </Page>
-  );
-}
-
 export function KindBarScene() {
   const [state, update] = usePageState({ show: false });
-  const means = demonKinds.map((kind) => ({
-    kind,
-    speed:
-      demons
-        .filter((d) => d.kind === kind)
-        .reduce((sum, d) => sum + d.speed, 0) /
-      demons.filter((d) => d.kind === kind).length,
-  }));
-  const fastest = means.reduce((a, b) => (a.speed > b.speed ? a : b));
   return (
     <Page
       title="用柱高比较三族的速度"
@@ -134,12 +102,7 @@ export function KindBarScene() {
             这次把每族 30
             只的速度求平均。柱高表示平均速度，三根柱子对应三个种类。
           </Guide>
-          {state.show && (
-            <p className={c.reveal}>
-              {fastest.kind}均速最高，为 {fastest.speed.toFixed(1)}{' '}
-              m/s。不能推断它的每个个体都最快。
-            </p>
-          )}
+          {state.show && <StoryResult kind="kind" />}
         </div>
         <div className={s.chartPanel}>
           <KindBars />
@@ -264,7 +227,7 @@ export function GroupedChartsScene() {
             {state.chart === 0
               ? state.grouped
                 ? '保留 D001，再加入藤甲魔族 D002、冰翼魔族 D009 的同期记录，用颜色区分种类。'
-                : '沿用第 20 页 D001 的六次观测：横轴仍是时刻，纵轴仍是速度。再侦察其他种类，会看到怎样的变化？'
+                : '沿用刚才 D001 的六次观测：横轴仍是时刻，纵轴仍是速度。再侦察其他种类，会看到怎样的变化？'
               : state.grouped
                 ? '每族再按身高小于 180 cm、不小于 180 cm 分成两组，用并排的柱子比较平均速度。'
                 : '刚才每族只有一根均速柱。各族内部，体型不同的个体表现也一样吗？'}

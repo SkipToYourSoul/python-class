@@ -218,6 +218,7 @@ export function DataScatter({
   colored = false,
   interactive = true,
   sizeByMass = false,
+  reserveLegend = false,
 }: {
   points: ScatterPoint[];
   kinds: readonly string[];
@@ -226,6 +227,7 @@ export function DataScatter({
   colored?: boolean;
   interactive?: boolean;
   sizeByMass?: boolean;
+  reserveLegend?: boolean;
 }) {
   const [state, setState] = usePageState({ selectedPoint: '' });
   const selected = points.find((p) => p.id === state.selectedPoint);
@@ -243,8 +245,12 @@ export function DataScatter({
       : 6;
   return (
     <div className={s.chart}>
-      {colored && (
-        <div className={s.legend}>
+      {(colored || reserveLegend) && (
+        <div
+          className={s.legend}
+          aria-hidden={!colored}
+          style={{ visibility: colored ? undefined : 'hidden' }}
+        >
           {kinds.map((kind, i) => (
             <span key={kind}>
               <i style={{ background: COLORS[i % COLORS.length] }} />
@@ -348,6 +354,7 @@ export function Scatter({
   interactive = true,
   axisLabels,
   sizeByMass = false,
+  reserveLegend = false,
 }: {
   colored?: boolean;
   xField?: 'height' | 'mass';
@@ -355,6 +362,7 @@ export function Scatter({
   interactive?: boolean;
   axisLabels?: AxisLabels;
   sizeByMass?: boolean;
+  reserveLegend?: boolean;
 }) {
   return (
     <DataScatter
@@ -377,6 +385,7 @@ export function Scatter({
       colored={colored}
       interactive={interactive}
       sizeByMass={sizeByMass}
+      reserveLegend={reserveLegend}
     />
   );
 }

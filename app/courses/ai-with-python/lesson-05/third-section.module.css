@@ -300,6 +300,33 @@
 .means i {
   margin-right: 6px;
 }
+.practiceSteps {
+  display: flex;
+  gap: 8px;
+}
+.practiceSteps button[aria-pressed='false'] {
+  background: #fffdf7;
+}
+.practiceSteps button[aria-pressed='true'] {
+  color: white;
+  background: #1457d9;
+}
+.practiceAxisChoice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 750;
+}
+.practiceAxisChoice select {
+  min-width: 0;
+  flex: 1;
+  border: 2px solid #071a3d;
+  padding: 6px 8px;
+  background: white;
+  color: #071a3d;
+  font-size: 18px;
+}
 .practiceLayout {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);

@@ -96,7 +96,8 @@ def main():
     plots.mkdir(exist_ok=True)
     names = ["01-individual-heights", "02-speed-histogram", "03-height-speed", "04-patrol",
              "05-kind-mean-speeds", "06-practice-height-speed", "07-practice-patrol", "08-practice-kind-mean-speeds",
-             "09-demon-kinds", "10-penguin-overview", "11-penguin-kinds"]
+             "09-demon-kinds", "10-penguin-overview", "11-penguin-kinds",
+             "12-penguin-flipper", "13-penguin-mass"]
     for path in plots.glob("*.png"):
         if path.stem not in names:
             path.unlink()
@@ -123,6 +124,15 @@ def main():
         assert axis.get_ylabel() == code["PENGUIN_AXIS_LABELS"]["y"]
         check_points(axis, penguins[["culmen_length_mm", "culmen_depth_mm"]])
         assert {text.get_text() for text in axis.get_legend().get_texts()} == set(penguins.species)
+
+    def check_penguin_transfer(axis, choice):
+        x = code["PENGUIN_PLOT_FIELDS"][choice["x"]]
+        y = code["PENGUIN_PLOT_FIELDS"][choice["y"]]
+        assert axis.get_xlabel() == x["label"] and axis.get_ylabel() == y["label"]
+        check_points(axis, penguins[[x["column"], y["column"]]])
+        assert {text.get_text() for text in axis.get_legend().get_texts()} == set(penguins.species)
+        assert choice["y"] == "billDepth" and choice["x"] in ("flipper", "mass")
+        assert len(choice["code"].splitlines()) == len(code["PENGUIN_PRACTICE_CODE"].splitlines()) == 14
 
     def check_pairplot(grid, colored=True):
         fields = list(builder.PENGUIN_FIELDS.values())
@@ -216,6 +226,8 @@ def main():
             check_pairplot(pairplots[-1])
         elif index == 10:
             check_penguin(axis)
+        elif index in (11, 12):
+            check_penguin_transfer(axis, code["PENGUIN_PRACTICE_TRANSFERS"][index - 11])
         plt.gcf().set_size_inches(12, 12) if index == 9 else plt.gcf().set_size_inches(10, 6)
         pairplots[-1].tight_layout() if index == 9 else plt.tight_layout()
         plt.savefig(plots / f"{names[index]}.png", dpi=150)
@@ -229,7 +241,7 @@ def main():
     finally:
         plt.show = original_show
         sns.pairplot = original_pairplot
-    assert len(counts) == 11
+    assert len(counts) == 13
     # Each plotting cell works after the same font and shared preparation cells.
     assert [step["id"] for step in code["PRACTICE_02_PLOTS"]] == ["scatter", "line", "bar"]
     for step in code["PRACTICE_02_PLOTS"]:
@@ -295,6 +307,17 @@ def main():
             exec(compile(code["FONT_CODE"], "预置字体.py", "exec"), namespace)
             exec(compile(code["PENGUIN_PRACTICE_CODE"], "课堂练习三.py", "exec"), namespace)
             assert observed == [True]
+            for choice in code["PENGUIN_PRACTICE_TRANSFERS"]:
+                observed = []
+
+                def check_transfer_practice():
+                    check_penguin_transfer(plt.gca(), choice)
+                    observed.append(True)
+                    plt.close("all")
+
+                plt.show = check_transfer_practice
+                exec(compile(choice["code"], "课堂练习三换轴.py", "exec"), {})
+                assert observed == [True]
         finally:
             os.chdir(OUT)
             plt.show = original_show
@@ -335,7 +358,7 @@ def main():
             plt.show = original_show
             sns.pairplot = original_pairplot
     notebook = json.loads((OUT / "第五课练习.ipynb").read_text())
-    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 7
+    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 8
     markdown_cells = ["".join(cell["source"]) for cell in notebook["cells"] if cell["cell_type"] == "markdown"]
     assert sum(text.startswith("## 课堂练习 ") for text in markdown_cells) == 3
     assert not any("结课挑战" in text for text in markdown_cells)
@@ -343,6 +366,9 @@ def main():
     for step in code["PRACTICE_02_PLOTS"]:
         assert any(text.startswith("### 步骤 ") and step["code"] in text for text in markdown_cells)
     assert any(text.startswith("跟写参考：") and code["PENGUIN_PRACTICE_CODE"] in text for text in markdown_cells)
+    assert any(text.startswith("### 换一个轴") for text in markdown_cells)
+    for choice in code["PENGUIN_PRACTICE_TRANSFERS"]:
+        assert any(text.startswith("### 换轴核对参考") and choice["code"] in text for text in markdown_cells)
     demon_demo = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 教师演示参考 · 恶魔种类"))
     penguin_overview = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 教师演示参考 · 企鹅四项"))
     practice_three = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 课堂练习 03"))
@@ -362,14 +388,14 @@ def main():
         assert archive.read("patrol-by-kind.csv") == (OUT / "patrol-by-kind.csv").read_bytes()
         assert archive.read(builder.PENGUIN_SOURCE) == (OUT / builder.PENGUIN_SOURCE).read_bytes()
         assert "penguins.csv" not in archive.namelist() and "penguins-original.csv" not in archive.namelist()
-        assert len([name for name in archive.namelist() if name.endswith(".png")]) == 11
-    print("PASS: exact teaching code generated 11 output figures; axes, slide/CSV equality, histogram counts,")
+        assert len([name for name in archive.namelist() if name.endswith(".png")]) == 13
+    print("PASS: exact teaching code generated 13 output figures; axes, slide/CSV equality, histogram counts,")
     print("90-point scatter, six-point patrol line, three kind-mean bars, shared preparation and three plotting cells,")
     print("4×4 penguin pairplot: default histograms without hue, density diagonals with hue,")
     print("12 browser KDE curves match SciPy and Seaborn, 342 points in every scatter cell,")
-    print("standalone penguin exercise and 32 dropdown code combinations with matching labels and species legend,")
+    print("standalone penguin exercise, both free-choice axis transfers and 32 dropdown code combinations with matching labels and species legend,")
     print("342 provided observations in original order, 9 missing sex records retained, original CSV bytes preserved,")
-    print("three classroom exercises, notebook order, seven empty input cells and ZIP verified.")
+    print("three classroom exercises, notebook order, eight empty input cells and ZIP verified.")
     print(f"Demon height-speed correlation: {demons.height.corr(demons.speed):.3f}")
 
 

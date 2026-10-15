@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-img-element -- Local course illustrations. */
 'use client';
 import { useContext, useState } from 'react';
-import { ArrowRight, ArrowLeft, Check, ZoomIn } from 'lucide-react';
+import { ArrowRight, Check, ZoomIn } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -41,12 +41,18 @@ import {
 } from './third-section-scenes';
 import { ChartSummary } from './chart-summary';
 import { CastleChallenge } from './castle-challenge';
-import { demons, patrol, demonHistograms } from './study-data';
+import { demons, demonHistograms } from './study-data';
 import { Warmup } from './warmup-scene';
+import { RecapScene } from './recap-scene';
+import {
+  GuessStory,
+  PatrolStory,
+  KindStory,
+  StoryResult,
+} from './story-scenes';
 import { NumericStory, Buckets, NormalScene, Setup } from './early-scenes';
 import {
   ChartConcept,
-  BarStory,
   KindBarScene,
   MoreFeaturesScene,
   GroupedChartsScene,
@@ -74,7 +80,6 @@ import s from './lesson.module.css';
 const full = (code: string) => `${SETUP_CODE}\n\n${code}`;
 function Cover() {
   const { navigate } = useContext(LessonState);
-  const [state, update] = usePageState({ recap: false });
   return (
     <div className={s.cover} data-lesson-cover>
       <div className={s.coverIntro}>
@@ -94,50 +99,22 @@ function Cover() {
           <br />
           为最终决战做好准备。
         </p>
-        <button className={s.button} onClick={() => navigate('l5-mission')}>
+        <button className={s.button} onClick={() => navigate('l5-recap')}>
           开始战前侦察 <ArrowRight size={24} />
         </button>
       </div>
       <figure className={s.coverArt}>
-        <span className={s.coverLabel}>
-          {state.recap ? '前情回顾 · 第四课' : '本课故事 · 决战前的侦察'}
-        </span>
+        <span className={s.coverLabel}>本课故事 · 决战前的侦察</span>
         <img
           className={s.art}
-          src={
-            state.recap
-              ? '/courses/ai-with-python/lesson-04/assets/lesson-04-opening.png'
-              : `${assetBase}/assets/opening.png`
-          }
-          alt={
-            state.recap
-              ? '第四课勇士与小派收集战报，调查恶魔首领的漫画'
-              : '勇士、小派与熊猫博士查看恶魔个体档案，为最终决战准备侦察图鉴'
-          }
+          src={`${assetBase}/assets/opening.png`}
+          alt="勇士、小派与熊猫博士查看恶魔个体档案，为最终决战准备侦察图鉴"
+          width={1536}
+          height={1024}
         />
         <figcaption>
-          {state.recap
-            ? '我们分析战报、核对证据，最终揭开魔王的伪装。'
-            : '魔王已经现身，决战在即！看清恶魔的体型与速度，为勇士备好图鉴。'}
+          魔王已经现身，决战在即！看清恶魔的体型与速度，为勇士备好图鉴。
         </figcaption>
-        <nav>
-          <button
-            className={s.button}
-            disabled={state.recap}
-            onClick={() => update({ recap: true })}
-          >
-            <ArrowLeft size={20} />
-            回顾第四课
-          </button>
-          <button
-            className={s.button}
-            disabled={!state.recap}
-            onClick={() => update({ recap: false })}
-          >
-            本课故事
-            <ArrowRight size={20} />
-          </button>
-        </nav>
       </figure>
     </div>
   );
@@ -336,38 +313,6 @@ function HistogramScene() {
     </Page>
   );
 }
-function Guess() {
-  const [state, update] = usePageState({ answer: '' });
-  return (
-    <Page title="个头越大，跑得越慢？" label="MAKE A GUESS · 提出猜想">
-      <div className={s.storyGrid}>
-        <Art />
-        <div className={s.storyText}>
-          <span className={s.tag}>勇士的猜想</span>
-          <blockquote>“大块头看起来很笨重，速度应该都很慢吧？”</blockquote>
-          <div className={s.choices}>
-            {['我猜是', '不一定', '需要更多记录'].map((answer) => (
-              <button
-                key={answer}
-                aria-pressed={state.answer === answer}
-                onClick={() => update({ answer })}
-              >
-                {answer}
-              </button>
-            ))}
-          </div>
-          <div className={s.question}>
-            <p>
-              {state.answer
-                ? `保留你的猜想“${state.answer}”。下一步同时观察每只恶魔的身高和速度。`
-                : '先说出猜想，再考虑：需要看哪两列来检验？'}
-            </p>
-          </div>
-        </div>
-      </div>
-    </Page>
-  );
-}
 function Point() {
   const [state, update] = usePageState({ selected: 0 });
   const row = demons[state.selected];
@@ -464,7 +409,6 @@ function SinglePoint({
 }
 function ScatterScene() {
   const [state, update] = usePageState({ show: false });
-  const special = demons.find((d) => d.id === 'D004')!;
   return (
     <Page
       title="把所有个体放在一起"
@@ -490,12 +434,7 @@ function ScatterScene() {
           <Guide>
             看到一些点有共同方向，可以描述趋势。但“通常如此”不等于“每个都如此”。
           </Guide>
-          {state.show && (
-            <p className={c.reveal}>
-              D004 身高 {special.height} cm，速度 {special.speed}{' '}
-              m/s。它提醒我们：高个体也可能跑得快。
-            </p>
-          )}
+          {state.show && <StoryResult kind="guess" />}
         </div>
         <div className={s.chartPanel}>
           <Scatter interactive />
@@ -506,7 +445,6 @@ function ScatterScene() {
 }
 function LineScene() {
   const [state, update] = usePageState({ show: false });
-  const maximum = patrol.reduce((a, b) => (a.speed > b.speed ? a : b));
   return (
     <Page
       title="沿着时间看变化"
@@ -518,7 +456,7 @@ function LineScene() {
             className={s.button}
             onClick={() => update({ show: !state.show })}
           >
-            {state.show ? '收起结果' : '核对最高观测值'}
+            {state.show ? '收起结果' : '核对最快与最慢时刻'}
           </button>
         </>
       }
@@ -526,15 +464,11 @@ function LineScene() {
       <div className={s.grid}>
         <div className={`${s.column} ${c.conceptColumn}`}>
           <ChartConcept type="line" />
-          <p className={c.prompt}>先猜哪个时刻最快，再沿着折线核对。</p>
-          <Guide>
-            连接相邻观测时刻，看清变化。未测量时刻的精确速度、之后的表现，都还不能确定。
-          </Guide>
-          {state.show && (
-            <p className={c.reveal}>
-              记录中，{maximum.hour}:00 的速度最高，为 {maximum.speed} m/s。
-            </p>
-          )}
+          <p className={c.prompt}>
+            先找最快与最慢的观测时刻，再安排下一次侦察。
+          </p>
+          <Guide>连线看变化；未观测时刻与之后的速度，还要继续确认。</Guide>
+          {state.show && <StoryResult kind="patrol" />}
         </div>
         <div className={s.chartPanel}>
           <LineChart />
@@ -682,8 +616,8 @@ function Colors() {
   const [state, update] = usePageState({ colored: false });
   return (
     <Page
-      title="加上颜色，再看一次"
-      label="COLOR · 类别与图例"
+      title="有了类别，能看出什么？"
+      label="CATEGORY · 已知类别与点群"
       footer={
         <p>
           颜色对应已知种类。不同种类可以重叠，图上接近的点不一定属于同一类。
@@ -705,13 +639,13 @@ function Colors() {
             src={`${assetBase}/assets/discovery.png`}
             alt="小派和勇士研究有类别颜色的散点图"
           />
-          <p>刚才聚在一起的点，真的属于同一种恶魔吗？先猜，再打开颜色。</p>
+          <p>位置、颜色都会用了。聚在一起的点，真的属于同一种恶魔吗？</p>
           <Guide>
-            先读图例，再找对应颜色。加入种类这一列，能帮助我们解释点群。
+            颜色来自已知种类记录。先看同类点的位置，再找不同类的重叠；图表不会自动判断身份。
           </Guide>
         </div>
         <div className={s.chartPanel}>
-          <Scatter colored={state.colored} interactive />
+          <Scatter colored={state.colored} reserveLegend interactive />
         </div>
       </div>
     </Page>
@@ -837,8 +771,8 @@ export function LessonScenes({ id }: { id: string }) {
         task={
           {
             observe: '比较个体，观察数值分布',
-            connect: '研究三类问题，用合适的图表找线索',
-            discover: '观察恶魔与企鹅的类别特点，再亲手绘图',
+            connect: '用位置、颜色、大小与分组呈现多个变量',
+            discover: '对照已知类别，研究点群、重叠与例外',
           }[c.id]
         }
       />
@@ -851,6 +785,8 @@ export function LessonScenes({ id }: { id: string }) {
   switch (id) {
     case 'l5-cover':
       return <Cover />;
+    case 'l5-recap':
+      return <RecapScene />;
     case 'l5-mission':
       return (
         <Story
@@ -880,6 +816,7 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l5-hist-code':
       return (
         <CodeLesson
+          kind="hist"
           title="一列数据，画出分布"
           code={HIST_CODE}
           complete={full(HIST_CODE)}
@@ -904,7 +841,7 @@ export function LessonScenes({ id }: { id: string }) {
         />
       );
     case 'l5-guess':
-      return <Guess />;
+      return <GuessStory />;
     case 'l5-point':
       return <Point />;
     case 'l5-scatter':
@@ -912,6 +849,7 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l5-scatter-code':
       return (
         <CodeLesson
+          kind="scatter"
           title="横轴和纵轴，各选一列"
           code={SCATTER_CODE}
           complete={full(SCATTER_CODE)}
@@ -936,19 +874,13 @@ export function LessonScenes({ id }: { id: string }) {
         />
       );
     case 'l5-time-story':
-      return (
-        <Story
-          title="同一只恶魔，一直这么快？"
-          speaker="勇士"
-          quote="图鉴里有一次速度记录。但 D001 在不同时间，移动速度也会变化吧？"
-          question="如果每隔两小时记录一次，怎样展示一天中的变化？"
-        />
-      );
+      return <PatrolStory />;
     case 'l5-line':
       return <LineScene />;
     case 'l5-line-code':
       return (
         <CodeLesson
+          kind="line"
           title="有顺序的观测，连成线"
           code={LINE_CODE}
           complete={full(LINE_CODE)}
@@ -975,12 +907,13 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l5-choose':
       return <Choose />;
     case 'l5-bar-story':
-      return <BarStory />;
+      return <KindStory />;
     case 'l5-bar':
       return <KindBarScene />;
     case 'l5-bar-code':
       return (
         <CodeLesson
+          kind="bar"
           title="按种类，比较平均速度"
           code={KIND_BAR_CODE}
           complete={KIND_BAR_FULL_CODE}
@@ -1023,6 +956,7 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l5-hue-code':
       return (
         <CodeLesson
+          kind="hue"
           title="颜色也能表达一列数据"
           code={HUE_CODE}
           complete={full(HUE_CODE)}
@@ -1043,9 +977,14 @@ export function LessonScenes({ id }: { id: string }) {
               text: '先读图例，再描述不同种类的位置和重叠。颜色本身不表示大小。',
             },
           ]}
-          chart={
-            <Scatter colored interactive axisLabels={SCATTER_AXIS_LABELS} />
-          }
+          chart={(step) => (
+            <Scatter
+              colored={step > 0}
+              reserveLegend
+              interactive
+              axisLabels={SCATTER_AXIS_LABELS}
+            />
+          )}
         />
       );
     case 'l5-pairs':

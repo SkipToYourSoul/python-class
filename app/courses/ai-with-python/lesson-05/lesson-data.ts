@@ -6,6 +6,7 @@ export const chapters = [
 ] as const;
 export const scenes = [
   { id: 'l5-cover', chapter: 'observe', title: '勇闯图表世界' },
+  { id: 'l5-recap', chapter: 'observe', title: '前情提要' },
   { id: 'l5-mission', chapter: 'observe', title: '最终决战前的侦察' },
   { id: 'l5-warmup', chapter: 'observe', title: '你在哪里见过图表？' },
   { id: 'l5-observe-cover', chapter: 'observe', title: '看清恶魔军团' },
@@ -60,7 +61,7 @@ export const scenes = [
     title: '三种图，带回三条线索',
   },
   { id: 'l5-discover-cover', chapter: 'discover', title: '制作分类图鉴' },
-  { id: 'l5-colors', chapter: 'discover', title: '加上颜色，再看一次' },
+  { id: 'l5-colors', chapter: 'discover', title: '有了类别，能看出什么？' },
   { id: 'l5-hue-code', chapter: 'discover', title: '颜色也能表达一列数据' },
   { id: 'l5-pairs', chapter: 'discover', title: '两组特征，交叉核对线索' },
   { id: 'l5-dossier', chapter: 'discover', title: '三张图，补齐恶魔特征档案' },
@@ -71,14 +72,14 @@ export const scenes = [
   },
   { id: 'l5-penguins', chapter: 'discover', title: '认识企鹅观测档案' },
   {
-    id: 'l5-penguin-overview',
-    chapter: 'discover',
-    title: '四项特征，一次看全',
-  },
-  {
     id: 'l5-penguin-bill',
     chapter: 'discover',
     title: '换一对特征，观察企鹅点群',
+  },
+  {
+    id: 'l5-penguin-overview',
+    chapter: 'discover',
+    title: '四项特征，一次看全',
   },
   {
     id: 'l5-challenge-report',

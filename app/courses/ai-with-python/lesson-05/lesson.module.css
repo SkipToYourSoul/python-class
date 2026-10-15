@@ -230,21 +230,13 @@
 .coverArt > .art {
   flex: 1;
   min-height: 0;
-  object-fit: cover;
+  object-fit: contain;
+  border: 0;
 }
 .coverArt figcaption {
   font-size: 22px;
   font-weight: 750;
   line-height: 1.5;
-}
-.coverArt nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-.coverArt nav button {
-  font-size: 18px;
-  padding: 9px 14px;
 }
 .coverLabel {
   font-size: 20px;

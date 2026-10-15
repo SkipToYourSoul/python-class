@@ -19,7 +19,7 @@ import {
   PAIRPLOT_FULL_CODE,
   PAIRPLOT_UNCOLORED_FULL_CODE,
   PENGUIN_PRACTICE_CODE,
-  PENGUIN_AXIS_LABELS,
+  PENGUIN_PRACTICE_TRANSFERS,
   PENGUIN_PLOT_FIELDS,
   getPenguinFullCode,
 } from './practice-content';
@@ -60,8 +60,8 @@ function PenguinPlot({
       kinds={english ? ['Adelie', 'Chinstrap', 'Gentoo'] : penguinKinds}
       colored
       interactive={false}
-      xLabel={english ? PENGUIN_AXIS_LABELS.x : fieldLabel(x)}
-      yLabel={english ? PENGUIN_AXIS_LABELS.y : fieldLabel(y)}
+      xLabel={english ? PENGUIN_PLOT_FIELDS[x].label : fieldLabel(x)}
+      yLabel={english ? PENGUIN_PLOT_FIELDS[y].label : fieldLabel(y)}
     />
   );
 }
@@ -685,26 +685,52 @@ export function PenguinFeatures() {
 }
 
 export function PenguinPractice() {
-  const [state, update] = usePageState({ penguinPracticeRevealed: false });
+  const [state, update] = usePageState({
+    penguinPracticeRevealed: false,
+    penguinPracticeStep: 0,
+    penguinPracticeTransfer: 'flipper',
+    penguinTransferRevealed: false,
+  });
+  const transfer =
+    PENGUIN_PRACTICE_TRANSFERS.find(
+      (choice) => choice.id === state.penguinPracticeTransfer,
+    ) ?? PENGUIN_PRACTICE_TRANSFERS[0];
+  const changingAxis = state.penguinPracticeStep === 1;
+  const code = changingAxis ? transfer.code : PENGUIN_PRACTICE_CODE;
+  const revealed = changingAxis
+    ? state.penguinTransferRevealed
+    : state.penguinPracticeRevealed;
   return (
     <Page
-      title="亲手画出企鹅的种类差异"
+      title={changingAxis ? '换一个轴，再解释变化' : '亲手画出企鹅的种类差异'}
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
         <>
-          <CodeTools code={PENGUIN_PRACTICE_CODE} label="完整跟写代码" />
+          <div className={s.practiceSteps} aria-label="课堂练习 03 环节">
+            {['01 跟写与核对', '02 换轴与解释'].map((label, step) => (
+              <button
+                key={label}
+                className={s.button}
+                aria-pressed={state.penguinPracticeStep === step}
+                onClick={() => update({ penguinPracticeStep: step })}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <CodeTools code={code} label="完整跟写代码" />
           <button
             className={s.button}
-            aria-expanded={state.penguinPracticeRevealed}
+            aria-expanded={revealed}
             onClick={() =>
-              update({
-                penguinPracticeRevealed: !state.penguinPracticeRevealed,
-              })
+              update(
+                changingAxis
+                  ? { penguinTransferRevealed: !revealed }
+                  : { penguinPracticeRevealed: !revealed },
+              )
             }
           >
-            {state.penguinPracticeRevealed
-              ? '收起练习收获'
-              : '完成跟写，查看收获'}
+            {revealed ? '收起参考发现' : '观察后，核对发现'}
           </button>
         </>
       }
@@ -712,33 +738,77 @@ export function PenguinPractice() {
       <div className={s.practiceLayout}>
         <div className={s.practiceCode}>
           <p className={s.instructions}>
-            先运行字体准备单元格。CSV 与笔记本放在同一文件夹。
-            <br />
-            亲手跟写完整代码，按 <strong>Shift+Enter</strong> 运行。
+            {changingAxis ? (
+              <>
+                自选右侧一个横轴，亲手修改 <strong>x</strong> 和{' '}
+                <strong>xlabel</strong> 的名称、单位。
+                <br />按 <strong>Shift+Enter</strong> 运行，对比原图并解释变化。
+              </>
+            ) : (
+              <>
+                先运行字体准备单元格。CSV 与笔记本放在同一文件夹。
+                <br />
+                亲手跟写完整代码，按 <strong>Shift+Enter</strong> 运行。
+              </>
+            )}
           </p>
           <NotebookPanel
             compact
             title="第五课练习.ipynb"
-            cells={[{ code: PENGUIN_PRACTICE_CODE }]}
+            cells={[
+              { code, ...(changingAxis ? { activeLines: [7, 11] } : {}) },
+            ]}
           />
         </div>
         <div className={s.practiceOutput}>
           <section className={s.evidenceCard}>
+            {changingAxis ? (
+              <label className={s.practiceAxisChoice}>
+                自选横轴
+                <select
+                  value={transfer.id}
+                  onChange={(event) =>
+                    update({
+                      penguinPracticeTransfer: event.target.value,
+                      penguinTransferRevealed: false,
+                    })
+                  }
+                >
+                  {PENGUIN_PRACTICE_TRANSFERS.map((choice) => (
+                    <option key={choice.id} value={choice.id}>
+                      {choice.title}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
             <strong className={s.outputLabel}>
-              输出示例 · 342 只企鹅，三种颜色
+              输出核对 · 342 个点，三类图例
             </strong>
             <div className={s.plot}>
-              <PenguinPlot english />
+              <PenguinPlot
+                x={changingAxis ? transfer.x : 'billLength'}
+                y="billDepth"
+                english
+              />
             </div>
           </section>
           <div className={s.practiceFinding}>
-            <ClassPracticeStamp number="03" checklist />
+            {!changingAxis && <ClassPracticeStamp number="03" checklist />}
             <div aria-live="polite">
-              <strong>核对坐标、单位、图例，再解释发现</strong>
+              <strong>
+                {changingAxis
+                  ? '横轴名称和单位变了，纵轴与颜色保留'
+                  : '核对坐标、单位、图例，再解释发现'}
+              </strong>
               <p>
-                {state.penguinPracticeRevealed
-                  ? 'hue="species" 让种类差异显现：阿德利的喙通常较短，帽带与巴布亚的喙深有差异。点群仍有重叠。'
-                  : '你画出了三类企鹅吗？哪类喙通常较短？哪两类喙长相近、喙深有差异？'}
+                {changingAxis
+                  ? revealed
+                    ? transfer.finding + '换轴提供了新线索，企鹅仍是同一批。'
+                    : transfer.question
+                  : revealed
+                    ? '阿德利的喙通常较短，帽带与巴布亚的喙深有差异。点群仍有重叠。'
+                    : '哪类喙通常较短？哪两类喙长相近、喙深有差异？'}
               </p>
             </div>
           </div>

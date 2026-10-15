@@ -14,6 +14,13 @@ import {
 } from '@/components/ui/dialog';
 import { usePageState } from '@/components/course/lesson-state';
 import { assetBase } from './lesson-data';
+import {
+  CodeMappingDiagram,
+  getCodeMapping,
+  type CodeLessonKind,
+  type CodeMapping,
+} from './code-mapping';
+import codeStyle from './code-lesson.module.css';
 import s from './lesson.module.css';
 export function Page({
   title,
@@ -173,15 +180,24 @@ export function CodeLesson({
   complete,
   steps,
   chart,
+  kind,
 }: {
   title: string;
   code: string;
   complete: string;
-  steps: { name: string; lines: number[]; text: string }[];
-  chart?: ReactNode;
+  steps: {
+    name: string;
+    lines: number[];
+    text: ReactNode;
+    mapping?: CodeMapping;
+  }[];
+  chart?: ReactNode | ((step: number) => ReactNode);
+  kind?: CodeLessonKind;
 }) {
   const [state, update] = usePageState({ step: 0 });
   const current = steps[state.step] || steps[0];
+  const mapping =
+    current.mapping ?? (kind ? getCodeMapping(kind, state.step) : undefined);
   return (
     <Page
       title={title}
@@ -198,16 +214,21 @@ export function CodeLesson({
         value={state.step}
         onChange={(step) => update({ step })}
       />
-      <div className={s.codeGrid}>
-        <div className={s.column}>
+      <div className={codeStyle.grid}>
+        <div className={codeStyle.code}>
           <NotebookPanel
             compact
             title="第五课练习.ipynb"
             cells={[{ code, activeLines: current.lines }]}
           />
-          <Guide>{current.text}</Guide>
+          {mapping && <CodeMappingDiagram mapping={mapping} />}
         </div>
-        <div className={s.chartPanel}>{chart}</div>
+        <div className={codeStyle.explanation} data-code-kind={kind}>
+          <Guide>{current.text}</Guide>
+          <div className={codeStyle.chart}>
+            {typeof chart === 'function' ? chart(state.step) : chart}
+          </div>
+        </div>
       </div>
     </Page>
   );
