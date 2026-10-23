@@ -29,6 +29,7 @@ function ButtonGroup({
 }: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>) {
   return (
     <div
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- A generic button group keeps its div props; fieldset adds form-specific semantics.
       role="group"
       data-slot="button-group"
       data-orientation={orientation}

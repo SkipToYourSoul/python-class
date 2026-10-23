@@ -152,7 +152,7 @@ function ChartTooltipContent({
     }
 
     const [item] = payload;
-    const key = `${labelKey ?? item?.dataKey ?? item?.name ?? 'value'}`;
+    const key = getChartConfigKey(labelKey, item?.dataKey, item?.name);
     const itemConfig = getPayloadConfigFromPayload(config, item, key);
     const value =
       !labelKey && typeof label === 'string'
@@ -200,7 +200,7 @@ function ChartTooltipContent({
         {payload
           .filter((item) => item.type !== 'none')
           .map((item, index) => {
-            const key = `${nameKey ?? item.name ?? item.dataKey ?? 'value'}`;
+            const key = getChartConfigKey(nameKey, item.name, item.dataKey);
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
             const indicatorColor = color ?? item.payload?.fill ?? item.color;
 
@@ -299,7 +299,7 @@ function ChartLegendContent({
       {payload
         .filter((item) => item.type !== 'none')
         .map((item, index) => {
-          const key = `${nameKey ?? item.dataKey ?? 'value'}`;
+          const key = getChartConfigKey(nameKey, item.dataKey, item.value);
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
           return (
@@ -325,6 +325,18 @@ function ChartLegendContent({
         })}
     </div>
   );
+}
+
+function getChartConfigKey(...candidates: unknown[]) {
+  // Recharts dataKey can be a function; use a series name/value instead of
+  // treating the accessor's source code as a config key.
+  for (const candidate of candidates) {
+    if (typeof candidate === 'string' || typeof candidate === 'number') {
+      return String(candidate);
+    }
+  }
+
+  return 'value';
 }
 
 function getPayloadConfigFromPayload(
