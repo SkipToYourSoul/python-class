@@ -1,6 +1,6 @@
 # 勇士的电影时间
 
-使用内置 imagegen 生成，参考 scout-observe.png 的角色与水彩漫画风格。
+使用内置 imagegen 生成，参考 scout-observe.jpg 的角色与水彩漫画风格。
 
 Use case: illustration-story
 Asset type: landscape 3:2 classroom comic.

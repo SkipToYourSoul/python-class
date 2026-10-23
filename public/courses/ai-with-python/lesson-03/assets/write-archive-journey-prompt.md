@@ -1,8 +1,8 @@
 # 写文件：档案馆三步比喻
 
-生成方式：内置 image_gen.imagegen；2172×724，三格横向漫画。参考 handoff-act-03.png 的勇士、小派、管理员角色定稿，以及 library-file-paths.png 的档案馆环境。
+生成方式：内置 image_gen.imagegen；2172×724，三格横向漫画。参考 handoff-act-03.jpg 的勇士、小派、管理员角色定稿，以及 library-file-paths.jpg 的档案馆环境。
 
-最终素材：write-archive-journey.png。用于第14页完整三幕以及15–17页相应单格；页面用文字明确标为档案馆比喻，技术代码与文字由网页呈现。
+最终素材：write-archive-journey.jpg。用于第14页完整三幕以及15–17页相应单格；页面用文字明确标为档案馆比喻，技术代码与文字由网页呈现。
 
 ## 最终提示词
 

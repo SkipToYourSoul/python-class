@@ -12,17 +12,17 @@ focus = df[
 ].copy()
 print(focus.head())
 
-work = df[
-    ["记录编号", "出现的恶魔", "威胁值"]
-].copy()
-names = work["出现的恶魔"].str.split("/")
-work["出现的恶魔"] = names
-expanded = work.explode("出现的恶魔")
+names = focus["出现的恶魔"].str.split("/")
+focus["出现的恶魔"] = names
+expanded = focus.explode("出现的恶魔")
 
 groups = expanded.groupby("出现的恶魔")[
     "威胁值"
 ]
 summary = groups.agg(["mean", "count"])
+summary = summary.sort_values(
+    "mean", ascending=False
+)
 print(summary.round(1))
 
 eligible = summary[summary["count"] >= 3]

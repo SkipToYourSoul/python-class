@@ -6,9 +6,9 @@
 
 教学衔接：电影恢复播放是因为网络恢复。随后用已经保存的电影资料网页作为读取文件的样本，读取片名、导演、演员和评分等文字信息；第二节再学习把守城情报写入文件。保存资料页与保存电影视频是两种不同的操作。
 
-最终素材（同目录）：`movie-watch-act-01.png`、`movie-watch-act-02.png`、`movie-watch-act-03.png`。每幅 3:1、左右两格，不含对白文字；页面提供同步台词与课堂提问。旧 `movie-act-*.png` 保留为历史素材，当前页面使用新的三个文件。
+最终素材（同目录）：`movie-watch-act-01.jpg`、`movie-watch-act-02.jpg`、`movie-watch-act-03.jpg`。每幅 3:1、左右两格，不含对白文字；页面提供同步台词与课堂提问。旧 `movie-act-*.png` 保留为历史素材，当前页面使用新的三个文件。
 
-角色和风格参考：`movie-act-01.png`、`movie-act-03.png`；第二幕额外以 `diary-defense-cover.png` 为紫色恶魔与城堡通信的参考。
+角色和风格参考：`movie-act-01.png`、`movie-act-03.png`；第二幕额外以 `diary-defense-cover.jpg` 为紫色恶魔与城堡通信的参考。
 
 ## 第1幕
 

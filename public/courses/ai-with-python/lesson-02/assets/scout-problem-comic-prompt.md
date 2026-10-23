@@ -2,9 +2,9 @@
 
 用途：合并原第 2、3 页。先承接守城门，再引出远方侦察与针对性布防，最后停在情报过多的问题上。
 
-生成方式：内置 imagegen；参考 `intelligence-station.png` 的勇士形象与水彩漫画画风。
+生成方式：内置 imagegen；参考 `intelligence-station.jpg` 的勇士形象与水彩漫画画风。
 
-最终素材：`scout-problem-comic.png`。对白由 `mission-comic.tsx` 呈现，避免图片文字影响投屏清晰度。
+最终素材：`scout-problem-comic.jpg`。对白由 `mission-comic.tsx` 呈现，避免图片文字影响投屏清晰度。
 
 ## 生成提示词
 

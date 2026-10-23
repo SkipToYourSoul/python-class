@@ -1,0 +1,155 @@
+.practice {
+  height: 100%;
+  min-height: 0;
+  color: #071a3d;
+}
+
+.form {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notebook {
+  border: 2px solid #1457d9;
+  background: #fff;
+}
+
+.notebookTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 38px;
+  padding: 4px 10px;
+  border-bottom: 1px solid #c9d2df;
+  background: #edf3fc;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: #1457d9;
+  white-space: nowrap;
+}
+
+.copy svg,
+.submit svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.practice .code {
+  padding: 8px 12px;
+  color: #183b70;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: clamp(20px, 1.7cqw, 22px);
+  line-height: 1.2;
+  font-weight: 600;
+  white-space: pre;
+}
+
+.practice .code input {
+  min-width: 0;
+  height: 1.3em;
+  padding: 0 3px;
+  border: 1px solid #1457d9;
+  border-bottom-width: 2px;
+  border-radius: 0;
+  background: #edf3fc;
+  color: #071a3d;
+  font: inherit;
+  font-size: inherit;
+  line-height: 1.1;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.practice .code input::placeholder {
+  color: #526889;
+  opacity: 1;
+}
+
+.practice .code input[data-result='correct'] {
+  border-color: #27704b;
+  background: #edf8ee;
+}
+
+.practice .code input[data-result='retry'] {
+  border-color: #b14c2e;
+  background: #fff0e9;
+}
+
+.practice .code input:focus-visible {
+  outline: 3px solid #ffc91c;
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.submit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-height: 42px;
+  padding: 6px 12px;
+  border: 2px solid #071a3d;
+  background: #ffc91c;
+  color: #071a3d;
+  font-weight: 750;
+}
+
+.submit:hover {
+  box-shadow: 3px 3px 0 #071a3d;
+}
+
+.summary {
+  font-size: 18px;
+  line-height: 1.35;
+}
+.practice .tip {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.accessibleStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-height: 760px) {
+  .form {
+    gap: 10px;
+  }
+
+  .practice .code {
+    padding: 6px 10px;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  .practice .code input {
+    height: 1.15em;
+  }
+}

@@ -34,7 +34,7 @@ export type RoleData = {
 export const newRoles: RoleData[] = [
   {
     name: '银翼守卫',
-    image: 'image133.png',
+    image: 'image133.jpg',
     attack: 40,
     defense: 80,
     health: 390,
@@ -42,7 +42,7 @@ export const newRoles: RoleData[] = [
   },
   {
     name: '深渊魔将',
-    image: 'image134.png',
+    image: 'image134.jpg',
     attack: 70,
     defense: 38,
     health: 190,
@@ -50,7 +50,7 @@ export const newRoles: RoleData[] = [
   },
   {
     name: '远行勇士',
-    image: 'final-visitor-sky-lancer.png',
+    image: 'final-visitor-sky-lancer.jpg',
     attack: 48,
     defense: 75,
     health: 470,

@@ -81,7 +81,7 @@ export function Art({
   return (
     <img
       className={s.art}
-      src={`${assetBase}/assets/${kind}.png`}
+      src={`${assetBase}/assets/${kind}.jpg`}
       alt={
         alt ||
         {
@@ -125,9 +125,11 @@ export function Story({
 export function CodeTools({
   code,
   label = '完整代码',
+  description,
 }: {
   code: string;
   label?: string;
+  description?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [copy, setCopy] = useState('');
@@ -148,10 +150,14 @@ export function CodeTools({
           <DialogHeader>
             <DialogTitle>{label}</DialogTitle>
             <DialogDescription>
-              解压后打开“第五课练习.ipynb”。CSV 与笔记本放在同一文件夹，需要
-              pandas、matplotlib 和
-              seaborn，先运行笔记本的字体准备单元格。页面图表是数据演示，Python
-              请在 JupyterLab 中运行。
+              {description ?? (
+                <>
+                  解压后打开“第五课练习.ipynb”。CSV 与笔记本放在同一文件夹，需要
+                  pandas、matplotlib 和
+                  seaborn，先运行笔记本的字体准备单元格。页面图表是数据演示，Python
+                  请在 JupyterLab 中运行。
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
           <button

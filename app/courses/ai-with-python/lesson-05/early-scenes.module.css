@@ -8,24 +8,46 @@
   flex: 1;
   min-height: 0;
 }
-.comic {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 0;
+.numericGrid {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 }
-.comic img {
-  width: 100%;
-  height: 100%;
+.comic {
+  position: relative;
   min-height: 0;
-  flex: 1;
-  object-fit: cover;
+  overflow: hidden;
   border: 2px solid #071a3d;
 }
-.comic figcaption {
-  font-size: 20px;
+.comic img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.comic .comicSpeech {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 82%;
+  padding: 12px 16px;
+  border: 2px solid #071a3d;
+  border-radius: 16px;
+  background: #fffaf0;
+  color: #071a3d;
+  font-size: clamp(20px, 1.65cqw, 24px);
   font-weight: 750;
-  line-height: 1.5;
+  line-height: 1.45;
+}
+.comicSpeech::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 40%;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid #071a3d;
+  border-bottom: 2px solid #071a3d;
+  background: #fffaf0;
+  transform: rotate(45deg);
 }
 .explanation,
 .groupList,
@@ -51,24 +73,71 @@
   margin-top: 6px;
   line-height: 1.5;
 }
-.featureList {
+.statisticsSections {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
-.featureList h3 {
+.statSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+}
+.statHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.statHeader h3 {
   font-size: 26px;
+  line-height: 1.3;
 }
-.featureList p {
+.statHeader > span {
+  flex: none;
+  padding: 4px 8px;
+  background: #e8efff;
+  color: #1457d9;
+  font-size: 18px;
+  font-weight: 750;
+}
+.statFeatured {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  border-left: 4px solid #ffc91c;
+  padding-left: 12px;
   font-size: 20px;
   line-height: 1.4;
-  padding-left: 12px;
-  border-left: 3px solid #1457d9;
 }
-.featureList strong {
-  font-size: 22px;
+.statFeatured strong {
+  color: #1457d9;
+  font-size: 24px;
+  font-weight: 850;
+}
+.secondaryStats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid #bbc3cf;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.secondaryStats > div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+}
+.secondaryStats dt {
+  font-weight: 750;
+}
+.secondaryStats dd {
+  margin: 0;
 }
 .speedStrip {
   font-size: 22px;
@@ -119,13 +188,23 @@
   background: #e8efff;
   padding: 4px 8px;
 }
-.groupReminder {
-  flex: none;
+.groupTotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #e8efff;
 }
-.groupList .groupReminder p {
-  font-size: 20px;
-  line-height: 1.4;
-  padding: 8px 12px;
+.groupTotal strong {
+  font-size: 24px;
+}
+.groupTotal > span {
+  font-size: 18px;
+}
+.peakGroup {
+  outline: 3px solid #b77a00;
+  outline-offset: -3px;
 }
 .groupRow {
   display: grid;
@@ -224,12 +303,29 @@
   border: 1px solid #fffaf0;
   position: relative;
 }
-.bar strong {
+.peakBar {
+  background: #ffc91c;
+}
+.barLabel {
   position: absolute;
   width: 100%;
-  text-align: center;
   bottom: calc(100% + 4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.barLabel strong,
+.zeroCount strong {
   font-size: 24px;
+}
+.barLabel > span,
+.zeroCount > span {
+  padding: 2px 6px;
+  background: #ffc91c;
+  font-size: 18px;
+  font-weight: 750;
 }
 .pendingBar {
   background: repeating-linear-gradient(45deg, #e6ebf5 0 8px, #fffaf0 8px 16px);
@@ -238,9 +334,15 @@
 .zeroCount {
   position: absolute;
   width: 100%;
-  text-align: center;
   bottom: 4px;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.zeroCount > span {
+  background: #e8efff;
 }
 .boundaries {
   position: relative;
@@ -264,9 +366,39 @@
   left: 40%;
   font-size: 18px;
 }
-.chartDefinition {
+.histogramConclusion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 2px solid #bbc3cf;
+  padding-top: 10px;
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 1.4;
+}
+.histogramConclusion b {
+  color: #1457d9;
+}
+.shareEvidence,
+.shareDots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.shareEvidence {
+  gap: 16px;
+}
+.shareEvidence strong {
+  font-size: 22px;
+}
+.shareDots > span {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #071a3d;
+  border-radius: 50%;
+  background: #1457d9;
+}
+.shareDots > .peakDot {
+  background: #ffc91c;
 }
 .action {
   padding: 8px 16px;
@@ -275,6 +407,7 @@
   color: #071a3d;
   font-size: 18px;
   font-weight: 750;
+  flex: none;
 }
 .normalGrid {
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
@@ -284,18 +417,76 @@
 }
 .normalText {
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
 }
-.normalText p {
+.normalSteps {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  font-weight: 750;
+}
+.normalSteps li {
+  padding: 8px 12px;
+  border: 2px solid #bbc3cf;
+  background: #fffaf0;
+}
+.normalSteps li[aria-current='step'] {
+  border-color: #071a3d;
+  background: #ffc91c;
+}
+.normalQuestions,
+.normalConcept {
   display: flex;
   flex-direction: column;
-  font-size: 22px;
+  gap: 12px;
+}
+.normalQuestions > span {
+  font-size: 20px;
+  color: #354963;
+}
+.normalText .normalQuestionTitle,
+.normalConcept h3 {
+  font-size: 32px;
+  line-height: 1.3;
+}
+.normalQuestions p,
+.normalConcept p {
+  font-size: 24px;
   line-height: 1.5;
+}
+.normalQuestions b {
+  color: #1457d9;
+}
+.normalConcept h3 {
+  font-size: 36px;
+  color: #1457d9;
+}
+.normalConcept > span {
+  font-size: 22px;
+  color: #354963;
+}
+.normalClues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 750;
+}
+.normalClues span {
+  padding: 6px 10px;
+  background: #e8efff;
+}
+.normalClues span:first-child {
+  background: #ffc91c;
+}
+.normalText .normalNext {
   border-left: 4px solid #ffc91c;
   padding-left: 16px;
-}
-.normalText p b {
-  font-size: 26px;
+  font-size: 22px;
+  line-height: 1.5;
 }
 .setupGrid {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -348,8 +539,11 @@
   .setupCode {
     gap: 12px;
   }
-  .featureList {
-    gap: 8px;
+  .statisticsSections {
+    gap: 12px;
+  }
+  .statSection {
+    gap: 10px;
   }
   .normalText {
     gap: 16px;

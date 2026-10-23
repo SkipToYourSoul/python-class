@@ -65,6 +65,88 @@
   min-height: 26px;
   margin: 0;
 }
+.histogramFindings {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-top: 2px solid #bbc3cf;
+  background: #fffaf0;
+  flex: none;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.histogramFindings p {
+  margin: 0;
+}
+.histogramFindings p:first-child {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.histogramFindings b {
+  color: #1457d9;
+  white-space: nowrap;
+}
+.peakKey {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #071a3d;
+  background: #ffc91c;
+  flex: none;
+}
+.histogramShare {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.shareTrack {
+  height: 16px;
+  border: 1px solid #071a3d;
+  background: #e8efff;
+  flex: 1;
+}
+.shareTrack span {
+  display: block;
+  height: 100%;
+  background: #1457d9;
+}
+.histogramShare strong {
+  font-size: 20px;
+  white-space: nowrap;
+}
+.chartConclusion {
+  margin: 0;
+  padding: 10px 12px;
+  border-top: 2px solid #bbc3cf;
+  background: #fffaf0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.lineChanges {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  flex: none;
+}
+.lineChanges > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px;
+  background: #e8efff;
+  line-height: 1.35;
+}
+.lineChanges span {
+  font-size: 18px;
+}
+.lineChanges strong {
+  font-size: 20px;
+  color: #1457d9;
+}
 .point {
   cursor: pointer;
   outline: none;

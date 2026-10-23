@@ -1,0 +1,656 @@
+{
+  "ATTACK_THRESHOLD": 30,
+  "HOURS": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+  "TEAMS": [
+    {
+      "name": "曙光队",
+      "tower": "北塔",
+      "equipment": "强光"
+    },
+    {
+      "name": "烈焰队",
+      "tower": "东塔",
+      "equipment": "火焰"
+    },
+    {
+      "name": "暖阳队",
+      "tower": "西塔",
+      "equipment": "热量"
+    }
+  ],
+  "TOWER_NAMES": ["北塔", "东塔", "西塔"],
+  "battleReadings": [
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 21,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 32
+    },
+    {
+      "tower": "东塔",
+      "hour": 14,
+      "energy": 24,
+      "guard": "G021",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 35
+    },
+    {
+      "tower": "西塔",
+      "hour": 17,
+      "energy": 22,
+      "guard": "G036",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 28
+    }
+  ],
+  "bossRecords": [
+    {
+      "part": "头盔",
+      "energy": 72,
+      "defense": 85,
+      "weakness": "强光"
+    },
+    {
+      "part": "左肩",
+      "energy": 48,
+      "defense": 66,
+      "weakness": "热量"
+    },
+    {
+      "part": "右肩",
+      "energy": 36,
+      "defense": 74,
+      "weakness": "火焰"
+    },
+    {
+      "part": "胸甲",
+      "energy": 18,
+      "defense": 24,
+      "weakness": "火焰"
+    },
+    {
+      "part": "左臂",
+      "energy": 26,
+      "defense": 52,
+      "weakness": "强光"
+    },
+    {
+      "part": "右臂",
+      "energy": 44,
+      "defense": 60,
+      "weakness": "热量"
+    },
+    {
+      "part": "腰甲",
+      "energy": 22,
+      "defense": 40,
+      "weakness": "强光"
+    },
+    {
+      "part": "左腿",
+      "energy": 58,
+      "defense": 76,
+      "weakness": "火焰"
+    },
+    {
+      "part": "右腿",
+      "energy": 65,
+      "defense": 80,
+      "weakness": "热量"
+    }
+  ],
+  "bossWindows": [
+    {
+      "part": "胸甲",
+      "energy": 18,
+      "defense": 24,
+      "weakness": "火焰"
+    },
+    {
+      "part": "腰甲",
+      "energy": 22,
+      "defense": 40,
+      "weakness": "强光"
+    },
+    {
+      "part": "左臂",
+      "energy": 26,
+      "defense": 52,
+      "weakness": "强光"
+    }
+  ],
+  "current": [
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 21,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 32
+    },
+    {
+      "tower": "东塔",
+      "hour": 14,
+      "energy": 24,
+      "guard": "G021",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 35
+    },
+    {
+      "tower": "西塔",
+      "hour": 17,
+      "energy": 22,
+      "guard": "G036",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 28
+    }
+  ],
+  "history": [
+    {
+      "tower": "北塔",
+      "hour": 6,
+      "energy": 72,
+      "guard": "G001",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 78
+    },
+    {
+      "tower": "北塔",
+      "hour": 7,
+      "energy": 66,
+      "guard": "G002",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 72
+    },
+    {
+      "tower": "北塔",
+      "hour": 8,
+      "energy": 58,
+      "guard": "G003",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 68
+    },
+    {
+      "tower": "北塔",
+      "hour": 9,
+      "energy": 44,
+      "guard": "G004",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 54
+    },
+    {
+      "tower": "北塔",
+      "hour": 10,
+      "energy": 18,
+      "guard": "G005",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 42
+    },
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 25,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 30
+    },
+    {
+      "tower": "北塔",
+      "hour": 12,
+      "energy": 52,
+      "guard": "G007",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 63
+    },
+    {
+      "tower": "北塔",
+      "hour": 13,
+      "energy": 61,
+      "guard": "G008",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 75
+    },
+    {
+      "tower": "北塔",
+      "hour": 14,
+      "energy": 48,
+      "guard": "G009",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 66
+    },
+    {
+      "tower": "北塔",
+      "hour": 15,
+      "energy": 34,
+      "guard": "G010",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 50
+    },
+    {
+      "tower": "北塔",
+      "hour": 16,
+      "energy": 42,
+      "guard": "G011",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 60
+    },
+    {
+      "tower": "北塔",
+      "hour": 17,
+      "energy": 56,
+      "guard": "G012",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 70
+    },
+    {
+      "tower": "东塔",
+      "hour": 6,
+      "energy": 88,
+      "guard": "G013",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 90
+    },
+    {
+      "tower": "东塔",
+      "hour": 7,
+      "energy": 82,
+      "guard": "G014",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 86
+    },
+    {
+      "tower": "东塔",
+      "hour": 8,
+      "energy": 76,
+      "guard": "G015",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 82
+    },
+    {
+      "tower": "东塔",
+      "hour": 9,
+      "energy": 69,
+      "guard": "G016",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 75
+    },
+    {
+      "tower": "东塔",
+      "hour": 10,
+      "energy": 58,
+      "guard": "G017",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 68
+    },
+    {
+      "tower": "东塔",
+      "hour": 11,
+      "energy": 64,
+      "guard": "G018",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 73
+    },
+    {
+      "tower": "东塔",
+      "hour": 12,
+      "energy": 52,
+      "guard": "G019",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 62
+    },
+    {
+      "tower": "东塔",
+      "hour": 13,
+      "energy": 36,
+      "guard": "G020",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 49
+    },
+    {
+      "tower": "东塔",
+      "hour": 14,
+      "energy": 22,
+      "guard": "G021",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 34
+    },
+    {
+      "tower": "东塔",
+      "hour": 15,
+      "energy": 27,
+      "guard": "G022",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 46
+    },
+    {
+      "tower": "东塔",
+      "hour": 16,
+      "energy": 49,
+      "guard": "G023",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 65
+    },
+    {
+      "tower": "东塔",
+      "hour": 17,
+      "energy": 70,
+      "guard": "G024",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 80
+    },
+    {
+      "tower": "西塔",
+      "hour": 6,
+      "energy": 68,
+      "guard": "G025",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 65
+    },
+    {
+      "tower": "西塔",
+      "hour": 7,
+      "energy": 74,
+      "guard": "G026",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 72
+    },
+    {
+      "tower": "西塔",
+      "hour": 8,
+      "energy": 80,
+      "guard": "G027",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 78
+    },
+    {
+      "tower": "西塔",
+      "hour": 9,
+      "energy": 71,
+      "guard": "G028",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 70
+    },
+    {
+      "tower": "西塔",
+      "hour": 10,
+      "energy": 65,
+      "guard": "G029",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 60
+    },
+    {
+      "tower": "西塔",
+      "hour": 11,
+      "energy": 59,
+      "guard": "G030",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 55
+    },
+    {
+      "tower": "西塔",
+      "hour": 12,
+      "energy": 62,
+      "guard": "G031",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 58
+    },
+    {
+      "tower": "西塔",
+      "hour": 13,
+      "energy": 54,
+      "guard": "G032",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 50
+    },
+    {
+      "tower": "西塔",
+      "hour": 14,
+      "energy": 48,
+      "guard": "G033",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 44
+    },
+    {
+      "tower": "西塔",
+      "hour": 15,
+      "energy": 38,
+      "guard": "G034",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 40
+    },
+    {
+      "tower": "西塔",
+      "hour": 16,
+      "energy": 24,
+      "guard": "G035",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 38
+    },
+    {
+      "tower": "西塔",
+      "hour": 17,
+      "energy": 19,
+      "guard": "G036",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 25
+    }
+  ],
+  "plans": [
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 25,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 30
+    },
+    {
+      "tower": "东塔",
+      "hour": 14,
+      "energy": 22,
+      "guard": "G021",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 34
+    },
+    {
+      "tower": "西塔",
+      "hour": 17,
+      "energy": 19,
+      "guard": "G036",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 25
+    }
+  ],
+  "summary": [
+    {
+      "tower": "北塔",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "mean": 48,
+      "meanDefense": 60.666666666666664,
+      "count": 12,
+      "min": 18,
+      "max": 72,
+      "minDefense": 30
+    },
+    {
+      "tower": "东塔",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "mean": 57.75,
+      "meanDefense": 67.5,
+      "count": 12,
+      "min": 22,
+      "max": 88,
+      "minDefense": 34
+    },
+    {
+      "tower": "西塔",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "mean": 55.166666666666664,
+      "meanDefense": 54.583333333333336,
+      "count": 12,
+      "min": 19,
+      "max": 80,
+      "minDefense": 25
+    }
+  ],
+  "windows": [
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 25,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 30
+    },
+    {
+      "tower": "北塔",
+      "hour": 10,
+      "energy": 18,
+      "guard": "G005",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 42
+    },
+    {
+      "tower": "东塔",
+      "hour": 14,
+      "energy": 22,
+      "guard": "G021",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 34
+    },
+    {
+      "tower": "东塔",
+      "hour": 15,
+      "energy": 27,
+      "guard": "G022",
+      "kind": "藤甲魔族",
+      "attribute": "藤甲",
+      "weakness": "火焰",
+      "defense": 46
+    },
+    {
+      "tower": "西塔",
+      "hour": 17,
+      "energy": 19,
+      "guard": "G036",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 25
+    },
+    {
+      "tower": "西塔",
+      "hour": 16,
+      "energy": 24,
+      "guard": "G035",
+      "kind": "冰翼魔族",
+      "attribute": "寒冰",
+      "weakness": "热量",
+      "defense": 38
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # 课堂练习二：三种图，三条线索
 
 工具：内置 imagegen（原图编辑）。
-输出：`chart-clues.png`，2172 × 724。
+输出：`chart-clues.jpg`，2172 × 724。
 参考：`patrol-clue.png`。原图保留。
 
 ```text

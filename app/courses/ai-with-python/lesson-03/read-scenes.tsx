@@ -122,7 +122,7 @@ function FileConcept() {
       <div className={`${s.two} ${s.fileConcept}`}>
         <figure className={s.fileFormats}>
           <img
-            src={`${assetBase}/assets/computer-file-formats.png`}
+            src={`${assetBase}/assets/computer-file-formats.jpg`}
             alt="电脑里保存着多种格式的文件：DOC 文档、JPG 图片、MP3 音频、PPT 演示文稿、MP4 视频、TXT 文本、PDF 电子文档和 HTML 网页。"
           />
           <figcaption>照片、音乐、视频、文档……都能存成文件。</figcaption>
@@ -221,7 +221,7 @@ function Paths() {
       <div className={`${s.two} ${s.pathLayout}`}>
         <figure className={s.pathIllustration}>
           <img
-            src={`${assetBase}/assets/library-file-paths.png`}
+            src={`${assetBase}/assets/library-file-paths.jpg`}
             alt="城堡图书馆中，蓝色长路线从入口经过课程区，到达第三课书架的电影档案；黄色短路线从我在这里的位置，到达同一份电影档案。"
           />
           <figcaption>书架像文件夹，电影档案像文件。</figcaption>

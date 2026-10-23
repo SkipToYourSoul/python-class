@@ -1,16 +1,28 @@
 import Link from '../static-link';
 import { ArrowLeft, BookOpen, Landmark } from 'lucide-react';
 
-export function CourseNavigation({ course }: { course?: string }) {
+export function CourseNavigation({
+  course,
+  appearance = 'ink',
+  homeHref = '/python',
+}: {
+  course?: string;
+  appearance?: 'ink' | 'paper';
+  homeHref?: string;
+}) {
   return (
-    <nav className="course-navigation" aria-label="课程导航">
-      <Link className="course-brand" href="/" aria-label="我的课程首页">
+    <nav
+      className="course-navigation"
+      data-appearance={appearance}
+      aria-label="课程导航"
+    >
+      <Link className="course-brand" href={homeHref} aria-label="我的课程首页">
         <Landmark aria-hidden="true" />
         <span>我的课程</span>
       </Link>
       <div className="course-navigation-actions">
         {course && (
-          <Link className="course-back" href="/">
+          <Link className="course-back" href={homeHref}>
             <ArrowLeft aria-hidden="true" />
             <span>全部课程</span>
           </Link>

@@ -52,7 +52,7 @@ function ArchiveComic({ step, caption }: { step: number; caption: string }) {
     <figure className={s.comic}>
       <div className={s.frame}>
         <img
-          src={`${assetBase}/assets/write-archive-journey.png`}
+          src={`${assetBase}/assets/write-archive-journey.jpg`}
           alt={acts[step].alt}
           style={{ transform: `translateX(-${(step * 100) / 3}%)` }}
         />

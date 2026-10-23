@@ -16,7 +16,7 @@ import summary from './summary.module.css';
 const recap = [
   {
     title: '取回网页',
-    image: 'scout-http-client.png',
+    image: 'scout-http-client.jpg',
     alt: '勇士带着网页地址发出请求，电脑上显示前线敌情',
     description: '让程序取回 HTML，在输出中找到三个恶魔的名字。',
     tools: 'requests.get() → res.text',
@@ -24,7 +24,7 @@ const recap = [
   },
   {
     title: '解析敌情',
-    image: 'scout-parse-formula.png',
+    image: 'scout-parse-formula.jpg',
     alt: '勇士与机械鸟从卷轴中摘出地点信息，整理成情报',
     description: '看懂 DOM，逐条提取出没地点、属性和已知弱点。',
     tools: 'BeautifulSoup · find / find_all',
@@ -32,7 +32,7 @@ const recap = [
   },
   {
     title: '换个网站',
-    image: 'warriors-movie-time.png',
+    image: 'warriors-movie-time.jpg',
     alt: '敌情整理完成后，勇士们用空闲时间挑选电影',
     description: '核对响应和页面结构，用同样的方法打印豆瓣电影标题。',
     tools: 'for 循环 · get_text()',

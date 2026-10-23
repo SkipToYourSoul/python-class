@@ -41,7 +41,7 @@ export function MovieStoryComic({
               </defs>
               <image
                 clipPath={`url(#movie-comic-${scene}-${col})`}
-                href="/courses/ai-with-python/lesson-02/assets/movie-story-sheet.png"
+                href="/courses/ai-with-python/lesson-02/assets/movie-story-sheet.jpg"
                 width="1200"
                 height="1200"
               />

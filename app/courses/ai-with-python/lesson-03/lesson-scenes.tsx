@@ -89,7 +89,7 @@ function ChallengeEntry() {
       <div className={s.two}>
         <img
           className={s.challengeArt}
-          src={`${assetBase}/assets/archive-siege/challenge-entry-demons.png`}
+          src={`${assetBase}/assets/archive-siege/challenge-entry-demons.jpg`}
           alt="城堡档案室的窗外，炎角兽和藤甲魔正沿石桥逼近，冰翼魔从空中飞来；室内档案柜与暖灯仍完好。"
         />
         <div className={`${s.stack} ${s.center}`}>

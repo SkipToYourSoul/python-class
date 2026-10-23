@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>魔王现身 · 九处部位情报</title><style>
+* { box-sizing:border-box; }
+body { margin:0; color:#071a3d; background:#f5f0e6; font:20px/1.5 system-ui,sans-serif; }
+header,main,footer { max-width:1440px; margin:auto; padding:24px 32px; }
+header { border-bottom:3px solid #071a3d; }
+h1 { font-size:clamp(34px,4vw,56px); margin:8px 0; }
+h2 { margin:12px 0; font-size:28px; }
+p { margin:12px 0; }
+.stamp { display:inline-block; background:#ffc91c; border:2px solid #071a3d; padding:4px 12px; font-size:18px; font-weight:700; }
+.table-wrap { overflow-x:auto; border:2px solid #071a3d; background:#fffdf7; }
+table { width:100%; border-collapse:collapse; white-space:nowrap; }
+th,td { padding:12px; border:1px solid #071a3d; text-align:center; }
+th { background:#071a3d; color:#fffdf7; font-size:18px; }
+tr:nth-child(even) { background:#e8eefb; }
+pre { overflow:auto; border:2px solid #071a3d; padding:20px; background:#fffdf7; font-size:18px; }
+a { color:#1457d9; }
+@media(max-width:700px) { header,main,footer { padding:20px; } }
+</style></head><body>
+<header><span class="stamp">魔堡情报档案</span><h1>魔王现身 · 九处部位情报</h1><p>三座魔塔全部击破，找出魔王外罩较弱、防御较低的部位</p>
+<p>外罩强度低于 30 才能破罩；防御力越低越容易突破。按弱点选择装备。</p></header>
+<main><h2>观测记录 · 9 条</h2><div class="table-wrap"><table>
+<thead><tr><th scope='col'>部位<br>part</th><th scope='col'>外罩强度<br>energy</th><th scope='col'>防御力<br>defense</th><th scope='col'>弱点<br>weakness</th></tr></thead><tbody><tr class='record'><td class='part'>头盔</td><td class='energy'>72</td><td class='defense'>85</td><td class='weakness'>强光</td></tr>
+<tr class='record'><td class='part'>左肩</td><td class='energy'>48</td><td class='defense'>66</td><td class='weakness'>热量</td></tr>
+<tr class='record'><td class='part'>右肩</td><td class='energy'>36</td><td class='defense'>74</td><td class='weakness'>火焰</td></tr>
+<tr class='record'><td class='part'>胸甲</td><td class='energy'>18</td><td class='defense'>24</td><td class='weakness'>火焰</td></tr>
+<tr class='record'><td class='part'>左臂</td><td class='energy'>26</td><td class='defense'>52</td><td class='weakness'>强光</td></tr>
+<tr class='record'><td class='part'>右臂</td><td class='energy'>44</td><td class='defense'>60</td><td class='weakness'>热量</td></tr>
+<tr class='record'><td class='part'>腰甲</td><td class='energy'>22</td><td class='defense'>40</td><td class='weakness'>强光</td></tr>
+<tr class='record'><td class='part'>左腿</td><td class='energy'>58</td><td class='defense'>76</td><td class='weakness'>火焰</td></tr>
+<tr class='record'><td class='part'>右腿</td><td class='energy'>65</td><td class='defense'>80</td><td class='weakness'>热量</td></tr></tbody></table></div>
+<h2>CSV 情报原文</h2><p>程序可以从下方整份 CSV 中取回相同的记录。</p>
+<pre id="intel-data">part,energy,defense,weakness
+头盔,72,85,强光
+左肩,48,66,热量
+右肩,36,74,火焰
+胸甲,18,24,火焰
+左臂,26,52,强光
+右臂,44,60,热量
+腰甲,22,40,强光
+左腿,58,76,火焰
+右腿,65,80,热量
+</pre></main>
+<footer><a href="/battle-towers.html">战前情报</a> · <a href="/battle-towers-current.html">阵前核对</a> · <a href="/boss-intel.html">魔王情报</a></footer>
+</body></html>

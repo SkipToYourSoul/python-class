@@ -79,21 +79,21 @@ export const practiceSteps = [
   },
 ] as const;
 
-/** Exercise 03 rebuilds its work table from the original df, so demonstrations can run first. */
+/** Exercise 03 continues from exercise 02's focus; reselect before repeating. */
 export const practiceThreeCells = [
   {
     key: 'expand',
     title: '拆分并展开',
-    code: 'work = df[\n    ["记录编号", "出现的恶魔", "威胁值"]\n].copy()\nnames = work["出现的恶魔"].str.split("/")\nwork["出现的恶魔"] = names\nexpanded = work.explode("出现的恶魔")',
+    code: 'names = focus["出现的恶魔"].str.split("/")\nfocus["出现的恶魔"] = names\nexpanded = focus.explode("出现的恶魔")',
     instruction:
-      '从练习二读入的原始 df 重新选三列，建立工作表 work，再拆分、展开。展开后得到 76 条关联；本格没有打印输出，可以从本格开始重做。',
+      '接着练习二的三列工作表 focus，拆分、展开名字，得到 76 条关联；本格没有打印输出。重做时先运行练习二的选列单元格，恢复名字字符串。',
   },
   {
     key: 'summarize',
-    title: '分组并汇总',
-    code: 'groups = expanded.groupby("出现的恶魔")[\n    "威胁值"\n]\nsummary = groups.agg(["mean", "count"])\nprint(summary.round(1))',
+    title: '汇总并排序',
+    code: 'groups = expanded.groupby("出现的恶魔")[\n    "威胁值"\n]\nsummary = groups.agg(["mean", "count"])\nsummary = summary.sort_values(\n    "mean", ascending=False\n)\nprint(summary.round(1))',
     instruction:
-      '一次计算平均威胁值与记录次数，打印九个恶魔的汇总表。mean 是平均值，count 是次数。',
+      '一次计算 mean（平均值）与 count（次数），按 mean 从高到低打印九个恶魔的汇总表。先核对第一名的记录次数，再决定是否保留。',
   },
   {
     key: 'investigate',

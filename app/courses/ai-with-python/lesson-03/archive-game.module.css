@@ -54,7 +54,7 @@
   z-index: -3;
   background:
     linear-gradient(90deg, #08132245, transparent 70%),
-    url('/courses/ai-with-python/lesson-03/assets/archive-siege/room.png')
+    url('/courses/ai-with-python/lesson-03/assets/archive-siege/room.jpg')
       center / cover;
 }
 .room::after {
@@ -963,7 +963,7 @@
   border: 3px ridge #b79a60;
   background:
     linear-gradient(130deg, #152b46d9, #142939ed),
-    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.png')
+    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.jpg')
       center / cover;
   color: #fff1d3;
 }

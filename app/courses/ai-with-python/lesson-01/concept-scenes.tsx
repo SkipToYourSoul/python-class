@@ -34,7 +34,7 @@ const milestones = [
     year: '1956',
     title: '人工智能成为一个研究方向',
     copy: '研究者在达特茅斯聚会，讨论怎样让机器表现出智能。这个名称已出现在 1955 年的会议提案中。',
-    image: 'atlas-1956.png',
+    image: 'atlas-1956.jpg',
     source:
       'https://www-formal.stanford.edu/jmc/history/dartmouth/dartmouth.html',
   },
@@ -42,7 +42,7 @@ const milestones = [
     year: '1959',
     title: '提出“机器学习”的概念',
     copy: '亚瑟·塞缪尔研究让计算机从下棋经验中进步。“机器学习”是一类让计算机从数据或经验中学习的方法，包含多种算法。',
-    image: 'atlas-1959.png',
+    image: 'atlas-1959.jpg',
     imageAlt: '1959 年塞缪尔机器学习研究的主题插画：计算机与西洋跳棋',
     source: 'https://doi.org/10.1147/rd.33.0210',
   },
@@ -50,14 +50,14 @@ const milestones = [
     year: '2006',
     title: '训练更深的网络有了新进展',
     copy: '研究者提出新的训练方法，为后来深度学习的发展提供了重要推动。',
-    image: 'atlas-2006.png',
+    image: 'atlas-2006.jpg',
     source: 'https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf',
   },
   {
     year: '2017',
     title: 'Transformer 架构被提出',
     copy: '一种处理信息的新方法出现。后来，许多大语言模型采用了这一架构。',
-    image: 'atlas-2017.png',
+    image: 'atlas-2017.jpg',
     source: 'https://arxiv.org/abs/1706.03762',
   },
 ];
@@ -213,11 +213,11 @@ function Future({ active }: { active: boolean }) {
 }
 
 const artworks = [
-  ['01-home.png', '窗外是鲸鱼'],
-  ['02-school.png', '走进课本里的森林'],
-  ['03-nature.png', '长在树上的城市'],
-  ['04-friends.png', '听懂动物的心愿'],
-  ['05-explore.png', '月球上的周末'],
+  ['01-home.jpg', '窗外是鲸鱼'],
+  ['02-school.jpg', '走进课本里的森林'],
+  ['03-nature.jpg', '长在树上的城市'],
+  ['04-friends.jpg', '听懂动物的心愿'],
+  ['05-explore.jpg', '月球上的周末'],
 ];
 function Practice({ active }: { active: boolean }) {
   const [index, setIndex] = useState<number | null>(null);
@@ -231,7 +231,7 @@ function Practice({ active }: { active: boolean }) {
         instruction="请在白纸上写出或画出未来世界的模样！"
         tip="生活、学校、自然、朋友、远方……可以从任何地方开始。"
         illustration={{
-          src: asset('future-world/creative-task.png'),
+          src: asset('future-world/creative-task.jpg'),
           alt: '大胆想象：孩子用彩色画笔描绘未来，鲸鱼在星空中游动，树屋漂浮在空中。在白纸上写出或画出你心中的未来世界，没有标准答案。',
         }}
       >

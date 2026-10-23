@@ -47,7 +47,7 @@ export function LessonScenes({ id }: { id: string }) {
         </div>
         <figure className={s.coverArt}>
           <img
-            src={`${assetBase}/assets/intelligence-station.png`}
+            src={`${assetBase}/assets/intelligence-station.jpg`}
             alt="勇士在城堡瞭望室观察远方，准备收集情报"
           />
           <figcaption>王国档案 02 · 数据获取</figcaption>

@@ -30,6 +30,9 @@ export function CheckpointTaskTemplate({
   instruction,
   tip,
   illustration,
+  taskVisual,
+  kind = 'checkpoint',
+  actionLabel = '动手完成你的作品',
   children,
 }: {
   number: string;
@@ -38,22 +41,40 @@ export function CheckpointTaskTemplate({
   instruction: string;
   tip: string;
   illustration?: { src: string; alt: string };
+  taskVisual?: ReactNode;
+  kind?: 'checkpoint' | 'class';
+  actionLabel?: string;
   children: ReactNode;
 }) {
+  const hasTaskVisual = taskVisual !== undefined && taskVisual !== null;
   return (
-    <Stage title={title} label={`CHECKPOINT · 课后练习 ${number}`}>
+    <Stage
+      title={title}
+      label={
+        kind === 'class'
+          ? `CLASS PRACTICE · 课堂练习 ${number}`
+          : `CHECKPOINT · 课后练习 ${number}`
+      }
+    >
       <div
-        className={`${s.taskLayout} ${illustration ? s.visualTaskLayout : ''}`}
+        className={`${s.taskLayout} ${illustration && !hasTaskVisual ? s.visualTaskLayout : ''}`}
       >
         <aside
-          className={`${s.taskBrief} ${illustration ? s.visualTaskBrief : ''}`}
+          className={`${s.taskBrief} ${hasTaskVisual ? s.customTaskBrief : illustration ? s.visualTaskBrief : ''}`}
+          data-task-visual={hasTaskVisual ? '' : undefined}
         >
-          <div className={s.stamp} data-practice-stamp>
-            <Check />
-            <span>CHECKPOINT</span>
-            <b>{number}</b>
-          </div>
-          {illustration ? (
+          {kind === 'class' ? (
+            <ClassPracticeStamp number={number} checklist />
+          ) : (
+            <div className={s.stamp} data-practice-stamp>
+              <Check aria-hidden="true" />
+              <span>CHECKPOINT</span>
+              <b>{number}</b>
+            </div>
+          )}
+          {hasTaskVisual ? (
+            <div className={s.taskVisual}>{taskVisual}</div>
+          ) : illustration ? (
             <div className={s.taskIllustration}>
               <img src={illustration.src} alt={illustration.alt} />
             </div>
@@ -61,7 +82,7 @@ export function CheckpointTaskTemplate({
             <>
               <h3>{question}</h3>
               <p>{instruction}</p>
-              <strong className={s.actionTag}>动手完成你的作品</strong>
+              <strong className={s.actionTag}>{actionLabel}</strong>
               <p className={s.tip}>{tip}</p>
             </>
           )}

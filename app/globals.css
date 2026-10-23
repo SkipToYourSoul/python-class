@@ -2387,440 +2387,70 @@ a {
   letter-spacing: 0.08em;
 }
 
-/* Homepage is a single 16:9 presentation; the catalog keeps its scrolling layout. */
-.celestial-viewport {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100svh;
-  overflow: hidden;
-  background: #071a3d;
+/* Shared navigation has an explicit paper appearance for illustrated entries. */
+.course-navigation[data-appearance='paper'] {
+  --course-card: #f8f5ee;
+  --course-ink: #071a3d;
+  --course-signal: #071a3d;
+  position: relative;
+  min-height: 44px;
+  height: 5.35cqh;
+  padding: 0 4.75%;
+  color: var(--course-ink);
+  background: rgb(248 245 238 / 65%);
+  border-bottom: 1px solid rgb(7 26 61 / 10%);
+  font-family: 'Source Han Sans SC', 'Noto Sans CJK SC', system-ui, sans-serif;
 }
-.celestial-compact-entry {
+.course-navigation[data-appearance='paper'] .course-brand {
+  gap: 24px;
+  font-size: clamp(14px, 1cqw, 18px);
+  font-weight: 700;
+}
+.course-navigation[data-appearance='paper'] .course-brand > svg {
+  width: clamp(26px, 1.7cqw, 34px);
+  height: clamp(26px, 1.7cqw, 34px);
+  stroke-width: 2.4;
+}
+.course-navigation[data-appearance='paper'] .course-series-name {
+  font-size: clamp(14px, 1cqw, 18px);
+  font-weight: 600;
+}
+.course-navigation[data-appearance='paper'] .course-series-name > svg {
   display: none;
 }
-
-.course-surface.celestial-home[data-course-series='python'] {
-  --home-serif: 'Times New Roman', 'Songti SC', 'Noto Serif SC', serif;
-  --home-active-size: clamp(216px, 17.5cqw, 300px);
-  container-type: size;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: min(100vw, calc(100svh * 16 / 9));
-  height: auto;
-  min-height: 0;
-  aspect-ratio: 16 / 9;
-  background-image:
-    radial-gradient(
-      ellipse at 48% 42%,
-      rgba(255, 255, 255, 0.45),
-      transparent 72%
-    ),
-    linear-gradient(rgba(7, 26, 61, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7, 26, 61, 0.04) 1px, transparent 1px);
-  background-size:
-    auto,
-    24px 24px,
-    24px 24px;
-}
-.celestial-home .course-navigation {
-  flex: 0 0 72px;
-  background: linear-gradient(115deg, #031631, #061a38);
-  border: 0;
-}
-.celestial-home .course-brand > svg {
-  fill: #f7d57e;
-  stroke-width: 1;
-  width: 32px;
-  height: 32px;
-}
-.celestial-map {
-  position: relative;
-  isolation: isolate;
-  flex: 1;
-  width: 100%;
-  min-height: 0;
-}
-.celestial-map::before,
-.celestial-map::after,
-.celestial-background-two {
-  position: absolute;
-  z-index: -1;
-  font-family: var(--home-serif);
-  font-weight: 400;
-  line-height: 1;
-  color: rgba(20, 57, 104, 0.075);
-  pointer-events: none;
-}
-.celestial-map::before {
-  content: '01';
-  top: 1%;
-  left: 1%;
-  font-size: clamp(180px, 18cqw, 280px);
-}
-.celestial-background-two {
-  top: 22%;
-  right: 0;
-  font-size: clamp(180px, 18cqw, 280px);
-}
-.celestial-map::after {
-  content: '03';
-  right: 0;
-  bottom: 0;
-  font-size: clamp(180px, 18vw, 280px);
-}
-.celestial-artwork {
-  position: absolute;
-  z-index: 2;
-  top: 15.8%;
-  left: 20.2%;
-  width: 56.5%;
-  height: 61.5%;
-  margin: 0;
-  padding: 16px;
-  background: #071a35;
-  border: 2px solid #071a35;
-  box-shadow: 0 5px 12px rgba(7, 26, 61, 0.2);
-}
-.celestial-artwork::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border: 1px solid #e6d3aa;
-  pointer-events: none;
-}
-.celestial-frame-gem {
-  position: absolute;
-  z-index: 3;
-  left: calc(50% - 10px);
-  width: 20px;
-  height: 20px;
-  transform: rotate(45deg);
-  background: #071a35;
-  border: 2px solid #ecd8aa;
-  outline: 2px solid #071a35;
-  box-shadow:
-    inset 0 0 0 3px #071a35,
-    inset 0 0 0 4px #ecd8aa;
-}
-.celestial-frame-gem.is-top {
-  top: -10px;
-}
-.celestial-frame-gem.is-bottom {
-  bottom: -10px;
-}
-.celestial-frame-corner {
-  position: absolute;
-  z-index: 3;
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
-  background: linear-gradient(
-    135deg,
-    transparent 47%,
-    #ecd8aa 49%,
-    #ecd8aa 52%,
-    transparent 54%
-  );
-}
-.celestial-frame-corner.is-tl {
-  top: 8px;
-  left: 8px;
-}
-.celestial-frame-corner.is-tr {
-  top: 8px;
-  right: 8px;
-  transform: rotate(90deg);
-}
-.celestial-frame-corner.is-bl {
-  bottom: 8px;
-  left: 8px;
-  transform: rotate(-90deg);
-}
-.celestial-frame-corner.is-br {
-  bottom: 8px;
-  right: 8px;
-  transform: rotate(180deg);
-}
-.course-map-artwork-trigger {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  background: #fff;
-  cursor: zoom-in;
-}
-.course-map-original {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.course-map-caption {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  color: #071a3d;
-  background: #fffdf6;
-  border: 1px solid #071a3d;
-  font-size: 18px;
-  font-weight: 650;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 160ms ease;
-}
-.course-map-caption svg {
-  width: 20px;
-  height: 20px;
-}
-.course-map-artwork-trigger:is(:hover, :focus-visible) .course-map-caption {
-  opacity: 1;
-}
-.course-map-artwork-trigger:focus-visible {
-  outline: 3px solid #ffc91c;
+.course-navigation[data-appearance='paper'] a:focus-visible {
+  outline-color: #1457d9;
   outline-offset: 4px;
 }
-.celestial-stages {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.celestial-stage {
-  position: absolute;
-  z-index: 3;
-  width: clamp(184px, 15cqw, 248px);
-  transform: translateX(-50%);
-  text-align: center;
-  font-family: var(--home-serif);
-}
-.celestial-stage.stage-one {
-  top: 54%;
-  left: 11.7%;
-}
-.celestial-stage.stage-two {
-  top: 6%;
-  left: 87.5%;
-}
-.celestial-stage.stage-three {
-  top: min(52.5%, calc(100% - var(--home-active-size) - 108px));
-  left: 85.9%;
-  width: var(--home-active-size);
-}
-.celestial-medallion {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 20px 12px 40px;
-  border-radius: 50%;
-  background: #f5f0e6;
-  transition: transform 160ms ease;
-}
-.celestial-medallion-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.celestial-medallion-frame circle {
-  fill: none;
-  stroke: #071a3d;
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-.celestial-medallion-frame circle:nth-child(2) {
-  stroke-width: 1;
-}
-.celestial-stage-gem {
-  position: absolute;
-  top: -3px;
-  left: calc(50% - 8px);
-  width: 16px;
-  height: 16px;
-  transform: rotate(45deg);
-  border: 2px solid #071a3d;
-  background: #f5f0e6;
-  box-shadow:
-    inset 0 0 0 3px #f5f0e6,
-    inset 0 0 0 5px #071a3d;
-}
-.celestial-medallion strong {
-  font-size: clamp(52px, 4vw, 68px);
-  font-weight: 700;
-  line-height: 0.9;
-}
-.celestial-stage-label {
-  font-size: 22px;
-  font-weight: 650;
-  line-height: 1.2;
-}
-.celestial-medallion h2 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.25;
-}
-.celestial-stage.stage-one h2 {
-  white-space: nowrap;
-  letter-spacing: -0.02em;
-}
-.celestial-complete-seal {
-  position: absolute;
-  bottom: -10px;
-  left: calc(50% - 19px);
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 2px solid #071a3d;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #ffe39a, #ffc91c 75%);
-  box-shadow: 0 0 0 3px #f5f0e6;
-}
-.celestial-complete-seal > svg {
-  width: 25px;
-  height: 25px;
-  stroke-width: 3;
-}
-.celestial-complete-label {
-  display: inline-block;
-  min-height: 32px;
-  margin-top: 20px;
-  padding: 4px 16px;
-  border: 1px solid #53647d;
-  background: rgba(255, 253, 246, 0.72);
-  font-family: 'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif;
-  font-size: 18px;
-  line-height: 1.2;
-  font-weight: 650;
-}
-.celestial-stage-link {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.celestial-stage-link .celestial-medallion {
-  color: #fff;
-  padding-top: 24px;
-  padding-bottom: 20px;
-  background: radial-gradient(circle at 45% 28%, #145cd6, #0642ae 65%, #06327c);
-  outline: 3px solid #f6c75b;
-  outline-offset: 1px;
-  box-shadow:
-    0 0 0 6px #071a3d,
-    0 0 0 8px #efd181;
-}
-.celestial-stage-link .celestial-medallion-frame circle {
-  stroke: #f6d788;
-  stroke-width: 1;
-}
-.celestial-stage-link .celestial-medallion-frame circle:nth-child(2) {
-  stroke: rgba(255, 255, 255, 0.75);
-}
-.celestial-stage-link .celestial-stage-gem {
-  top: -10px;
-  border-color: #f9cd67;
-  background: #0d48ac;
-  outline: 2px solid #071a3d;
-  box-shadow:
-    inset 0 0 0 3px #0d48ac,
-    inset 0 0 0 5px #f9cd67;
-}
-.celestial-stage-link .celestial-medallion strong {
-  font-size: clamp(64px, 5vw, 80px);
-}
-.celestial-stage-link .celestial-stage-label {
-  font-size: 26px;
-}
-.celestial-stage-link .celestial-medallion h2 {
-  font-size: 22px;
-}
-.celestial-current-label {
-  margin-top: 8px;
-  padding: 4px 8px;
-  border: 1px solid #071a3d;
-  background: #ffce36;
-  color: #071a3d;
-  font-family: 'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif;
-  font-size: 18px;
-  font-weight: 750;
-  line-height: 1.2;
-}
-.celestial-enter {
+.course-map-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  min-height: 64px;
-  padding: 12px 16px;
-  border: 3px solid #071a3d;
-  outline: 1px solid #f5f0e6;
-  outline-offset: -5px;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 1px solid #071a3d;
   border-radius: 3px;
-  background: linear-gradient(120deg, #ffc91c, #ffcd27);
   color: #071a3d;
-  box-shadow: 5px 5px 0 rgba(7, 26, 61, 0.7);
-  font-family: 'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif;
-  font-size: 24px;
-  font-weight: 850;
-  letter-spacing: 0.06em;
+  background: rgb(255 253 246 / 65%);
+  font-size: 18px;
+  font-weight: 650;
+  cursor: pointer;
   transition:
-    transform 160ms ease,
+    background 160ms ease,
     box-shadow 160ms ease;
 }
-.celestial-enter > svg {
-  width: 28px;
-  height: 28px;
+.course-map-button > svg {
+  width: 18px;
+  height: 18px;
 }
-.celestial-stage-link:is(:hover, :focus-visible) .celestial-medallion {
-  transform: translateY(-3px);
+.course-map-button:is(:hover, :focus-visible) {
+  background: #fffdf6;
+  box-shadow: 3px 3px 0 #071a3d;
 }
-.celestial-stage-link:is(:hover, :focus-visible) .celestial-enter {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #071a3d;
-}
-.celestial-stage-link:focus-visible {
-  outline: 3px dashed #1457d9;
-  outline-offset: 12px;
-}
-.celestial-compass {
-  position: absolute;
-  z-index: 1;
-  width: 76px;
-  height: 76px;
-  bottom: 1%;
-  left: calc(49% - 38px);
-  color: #071a3d;
-}
-.celestial-compass circle {
-  fill: none;
-  stroke: #63768e;
-  stroke-width: 0.7;
-}
-.compass-axis {
-  fill: none;
-  stroke: #63768e;
-  stroke-width: 0.6;
-}
-.compass-point {
-  fill: #f5f0e6;
-  stroke: #071a3d;
-  stroke-width: 0.8;
-}
-.compass-facet {
-  fill: #163f76;
+.course-map-button:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 5px;
 }
 
 .course-map-dialog-actions {
@@ -2848,7 +2478,7 @@ a {
   background: #1457d9;
 }
 
-/* The original roadmap is the homepage focal point; the viewer preserves its detail. */
+/* The optional full roadmap preserves the supplied original and its details. */
 .course-map-dialog[data-slot='dialog-content'] {
   width: calc(100vw - 48px);
   max-width: 1760px;
@@ -2920,39 +2550,6 @@ a {
   outline-offset: 4px;
 }
 
-@media (max-width: 1199px), (max-height: 674px) {
-  .celestial-map {
-    display: none;
-  }
-  .celestial-compact-entry {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    font-size: 18px;
-    line-height: 1.5;
-  }
-  .celestial-compact-entry p {
-    margin: 0;
-  }
-  .celestial-compact-entry a {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 44px;
-    padding: 8px 12px;
-    background: #ffc91c;
-    border: 2px solid #071a3d;
-    font-weight: 800;
-  }
-  .celestial-compact-entry a:focus-visible {
-    outline: 3px solid #1457d9;
-    outline-offset: 4px;
-  }
-}
 @media (max-width: 760px) {
   .course-navigation {
     padding: 16px;
@@ -2975,14 +2572,6 @@ a {
   }
   .course-back {
     padding: 8px;
-  }
-  .celestial-home .course-brand > svg {
-    width: 26px;
-    height: 26px;
-  }
-  .course-map-caption {
-    right: 8px;
-    bottom: 8px;
   }
   .course-map-dialog > header {
     flex-direction: column;

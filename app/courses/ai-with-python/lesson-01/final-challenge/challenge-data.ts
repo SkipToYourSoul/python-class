@@ -92,7 +92,7 @@ export const levels: Level[] = [
     visitors: [
       {
         name: '苍穹枪卫',
-        image: 'final-visitor-sky-lancer.png',
+        image: 'final-visitor-sky-lancer.jpg',
         attack: 35,
         defense: 85,
         health: 420,
@@ -101,7 +101,7 @@ export const levels: Level[] = [
       },
       {
         name: '暮影术士',
-        image: 'final-visitor-twilight-mage.png',
+        image: 'final-visitor-twilight-mage.jpg',
         attack: 90,
         defense: 25,
         health: 180,
@@ -110,7 +110,7 @@ export const levels: Level[] = [
       },
       {
         name: '赤焰游侠',
-        image: 'final-visitor-flame-ranger.png',
+        image: 'final-visitor-flame-ranger.jpg',
         attack: 80,
         defense: 40,
         health: 260,
@@ -193,7 +193,7 @@ export const levels: Level[] = [
     visitors: [
       {
         name: '毒藤潜行者',
-        image: 'final-visitor-vine-stalker.png',
+        image: 'final-visitor-vine-stalker.jpg',
         attack: 55,
         defense: 35,
         health: 150,
@@ -202,7 +202,7 @@ export const levels: Level[] = [
       },
       {
         name: '岩甲战锤',
-        image: 'final-visitor-stone-hammer.png',
+        image: 'final-visitor-stone-hammer.jpg',
         attack: 50,
         defense: 70,
         health: 350,
@@ -211,7 +211,7 @@ export const levels: Level[] = [
       },
       {
         name: '月痕弓手',
-        image: 'final-visitor-moon-archer.png',
+        image: 'final-visitor-moon-archer.jpg',
         attack: 65,
         defense: 50,
         health: 310,
@@ -312,7 +312,7 @@ export const levels: Level[] = [
     visitors: [
       {
         name: '骨面刺客',
-        image: 'final-visitor-bone-rogue.png',
+        image: 'final-visitor-bone-rogue.jpg',
         attack: 75,
         defense: 30,
         health: 210,
@@ -321,7 +321,7 @@ export const levels: Level[] = [
       },
       {
         name: '霜羽盾卫',
-        image: 'final-visitor-frost-sentinel.png',
+        image: 'final-visitor-frost-sentinel.jpg',
         attack: 30,
         defense: 90,
         health: 380,
@@ -330,7 +330,7 @@ export const levels: Level[] = [
       },
       {
         name: '虚空旅者',
-        image: 'final-visitor-void-wanderer.png',
+        image: 'final-visitor-void-wanderer.jpg',
         attack: 60,
         defense: 45,
         health: 230,

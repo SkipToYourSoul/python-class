@@ -8,7 +8,7 @@ export function MissionComic() {
     <Stage title="守住城门，还不够！" label="故事接续 · 新的难题">
       <figure className={s.comic}>
         <img
-          src={`${assetBase}/assets/scout-problem-comic.png`}
+          src={`${assetBase}/assets/scout-problem-comic.jpg`}
           alt="四格漫画：勇士守住城门；登上前哨观察远方的恶魔；根据藤甲魔怕火的情报布置火把；各地不断传来敌情，勇士被成堆的情报包围。"
         />
         <figcaption>

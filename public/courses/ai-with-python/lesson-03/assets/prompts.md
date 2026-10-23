@@ -6,21 +6,21 @@
 
 | 故事                 | 当前素材                                                                       | 完整提示词                                   |
 | -------------------- | ------------------------------------------------------------------------------ | -------------------------------------------- |
-| 电影突然卡住了       | `movie-watch-act-01.png`、`movie-watch-act-02.png`、`movie-watch-act-03.png`   | [电影三幕](movie-watch-comics-prompts.md)    |
-| 守城情报，也要留一份 | `handoff-outage-act-01.png`、`handoff-act-02.png`、`handoff-outage-act-03.png` | [交接三幕](handoff-outage-comics-prompts.md) |
-| 城堡的夜晚           | `rescue-act-01.png`、`rescue-act-02.png`、`rescue-act-03.png`                  | [档案三幕](rescue-comics-prompts.md)         |
+| 电影突然卡住了       | `movie-watch-act-01.jpg`、`movie-watch-act-02.jpg`、`movie-watch-act-03.jpg`   | [电影三幕](movie-watch-comics-prompts.md)    |
+| 守城情报，也要留一份 | `handoff-outage-act-01.jpg`、`handoff-act-02.jpg`、`handoff-outage-act-03.jpg` | [交接三幕](handoff-outage-comics-prompts.md) |
+| 城堡的夜晚           | `rescue-act-01.jpg`、`rescue-act-02.jpg`、`rescue-act-03.jpg`                  | [档案三幕](rescue-comics-prompts.md)         |
 
-角色参考统一：封面 `archive-room.png` 确定勇士、小派及独立的猫头鹰信使；`movie-act-03.png` 固定管理员与电影段人物；`handoff-act-02.png` 固定晚班勇士的脸型、短发、轻胡茬和蓝金服装。修改构图时保留角色身份、服装与配色。
+角色参考统一：封面 `archive-room.jpg` 确定勇士、小派及独立的猫头鹰信使；`movie-act-03.png` 固定管理员与电影段人物；`handoff-act-02.jpg` 固定晚班勇士的脸型、短发、轻胡茬和蓝金服装。修改构图时保留角色身份、服装与配色。
 
 恶魔小图统一参考第二课 `assets/defense-demons.png`：炎角兽为熔岩岩石公牛，藤甲魔为藤叶重甲兽，冰翼魔为蓝色冰晶双翼龙。电脑中的缩略图可以简化，但不改变物种和核心外形。
 
-旧三张故事图保留为构图与风格参考，不再用于 STORY 展示。封面仍使用 `archive-room.png`。
+旧三张故事图保留为构图与风格参考，不再用于 STORY 展示。封面仍使用 `archive-room.jpg`。
 
 ## 初版素材与封面生成记录
 
 生成方式：内置 image_gen，2026-09-22。项目使用的成品已复制到本目录，原始生成文件保留于 Codex generated_images。
 
-参考图：第二课 `movie-story-sheet.png`、`kingdom-mission-comic.png`。参考用途仅为角色与风格一致性，不复制参考图文字或版式。
+参考图：第二课 `movie-story-sheet.jpg`、`kingdom-mission-comic.png`。参考用途仅为角色与风格一致性，不复制参考图文字或版式。
 
 ## 共同生成规格
 
@@ -38,7 +38,7 @@ Story: SCOUT HANDOFF, daytime into evening intelligence shift. Left panel: at an
 
 Story: ARCHIVE RESCUE DURING A COMMUNICATION OUTAGE. Left panel: outside the castle at blue dusk, a thin line of magical beacon lights connects a distant watchtower with the castle; a playful ominous winged demon in distant silhouette disrupts the middle beacon with a dark mist cloud. The gold-blue mechanical owl carrying a sealed parchment is halted in midflight in front of the swirling dark mist, worried but unharmed, wings braking, castle safe in background. No battle wounds. Right panel: inside the warm lantern-lit castle archive room, blue-scarf hero calmly opens an EXISTING well-used blue-and-gold bound bestiary journal, owl now beside him points into the open page. The journal has three compact monster portraits: orange horned beast, green vine demon, blue winged demon; opposite their drawings are matching simple protective tool pictures: bright portable spotlight, lit fire torch, and glowing red-orange heater device. On the desk and adjacent equipment rack the same three defense tools are visible and ready: a BRIGHT SPOTLIGHT, a TORCH, and a RED-ORANGE HEAT EMITTER. The hero and a friendly guard consult recorded known weaknesses and prepare tools. They are not getting new information or fresh locations from the old book. No map with new markers, no magic scanning, no live feed. Show the value of existing stored knowledge when communication is interrupted.
 
-## archive-room.png
+## archive-room.jpg
 
 封面另参考第一课 `xiaopai-guide.png`，小派与机械猫头鹰为两个不同角色。
 

@@ -52,7 +52,7 @@ export function Comic({
   return (
     <img
       className={`${s.comic} ${className}`}
-      src={`${assetBase}/assets/story-${kind}.png`}
+      src={`${assetBase}/assets/story-${kind}.jpg`}
       alt={
         alt ||
         {
@@ -89,7 +89,7 @@ export function Portrait({ name }: { name: string }) {
       aria-hidden="true"
       className={s.portrait}
       style={{
-        backgroundImage: `url("${assetBase}/assets/suspects.png")`,
+        backgroundImage: `url("${assetBase}/assets/suspects.jpg")`,
         backgroundSize: '300% 200%',
         backgroundPosition: `${(index % 3) * 50}% ${Math.floor(index / 3) * 100}%`,
       }}

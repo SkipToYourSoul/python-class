@@ -1,0 +1,256 @@
+.twoCharts,
+.readGrid,
+.storyGrid,
+.codeGrid,
+.planGrid {
+  display: grid;
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+.planControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.twoCharts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.chartCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  min-width: 0;
+}
+.cardHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cardHeading span {
+  font-size: 20px;
+  color: #1457d9;
+  font-weight: 800;
+}
+.cardHeading strong {
+  font-size: clamp(24px, 2cqw, 30px);
+  line-height: 1.3;
+}
+.chartCard .chartTakeaway {
+  font-size: 20px;
+  line-height: 1.4;
+}
+.readGrid {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+.cluePanel,
+.comparisonPanel,
+.planPanel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  min-height: 0;
+}
+.cluePanel::before,
+.planPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(#fffaf0f2 35%, #fffaf0c9 70%, #fffaf070);
+}
+.clueBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom right;
+  opacity: 0.3;
+  z-index: -2;
+}
+.readSteps {
+  padding-left: 28px;
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.cluePanel h3,
+.comparisonPanel h3,
+.planPanel h3 {
+  font-size: clamp(26px, 2.2cqw, 34px);
+}
+.primary {
+  border: 2px solid #071a3d;
+  background: #ffc91c;
+  padding: 8px 12px;
+  align-self: flex-start;
+  color: #071a3d;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.primary:hover {
+  box-shadow: 3px 3px 0 #071a3d;
+}
+.candidateList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 20px;
+  line-height: 1.35;
+}
+.candidateList > div {
+  display: flex;
+  gap: 12px;
+  background: #fffaf0e8;
+  padding: 6px 10px;
+  border-left: 4px solid #1457d9;
+}
+.candidateList strong {
+  white-space: nowrap;
+}
+.cluePanel .prompt {
+  font-size: 22px;
+  line-height: 1.4;
+  background: #fffaf0db;
+  padding: 12px;
+}
+.storyGrid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+.storyGrid [data-lesson-art-button] img {
+  object-fit: cover;
+}
+.comparisonPanel {
+  justify-content: center;
+  gap: 18px;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: clamp(20px, 1.6cqw, 28px);
+  line-height: 1.3;
+  background: #fffaf0ed;
+  font-variant-numeric: tabular-nums;
+}
+.table caption {
+  text-align: left;
+  padding-bottom: 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.table td,
+.table th {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #071a3d33;
+}
+.table thead {
+  background: #071a3d;
+  color: #fffaf0;
+}
+.table tr[data-selected='true'] {
+  background: #e1f3db;
+  color: #205629;
+  font-weight: 800;
+  outline: 2px solid #39803c;
+  outline-offset: -2px;
+}
+.observation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 4px solid #1457d9;
+  padding: 8px 12px;
+  background: #e9eff7;
+}
+.observation span {
+  font-size: 20px;
+  color: #364b66;
+}
+.observation strong {
+  font-size: clamp(24px, 2cqw, 30px);
+}
+.codeToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.codeToolbar > span {
+  font-size: 18px;
+}
+.codeGrid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+}
+.codeGrid [data-notebook-part='toolbar'],
+.codeGrid [data-notebook-part='prompt'] {
+  display: none;
+}
+.codeGrid [data-notebook-part='input'] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.codeGrid [data-notebook-panel] pre {
+  font-size: clamp(20px, 1.6cqw, 24px);
+  line-height: 1.3;
+}
+.planGrid {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+}
+.planPanel {
+  gap: 10px;
+  padding: 16px;
+}
+.planPanel .evidenceLabel {
+  font-size: clamp(20px, 1.5cqw, 26px);
+  line-height: 1.35;
+  font-weight: 700;
+}
+.planPanel .table td,
+.planPanel .table th {
+  padding: 5px 8px;
+}
+.planAnswer {
+  padding: 10px 12px;
+  border-left: 4px solid #1457d9;
+  background: #fffaf0ed;
+  font-size: 22px;
+  line-height: 1.35;
+}
+.planAnswer p {
+  font-size: 20px;
+  line-height: 1.35;
+}
+.planAnswer[data-revealed='true'] {
+  border-color: #39803c;
+  background: #e1f3dbed;
+}
+@container (max-height:760px) {
+  .cluePanel,
+  .comparisonPanel {
+    padding: 14px;
+    gap: 10px;
+  }
+  .readSteps {
+    font-size: 20px;
+  }
+  .planPanel {
+    gap: 8px;
+  }
+  .planAnswer {
+    padding: 8px 10px;
+  }
+  .planPanel .table td,
+  .planPanel .table th {
+    padding: 3px 8px;
+  }
+}

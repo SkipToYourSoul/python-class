@@ -22,7 +22,7 @@ const stories = [
     tab: '二战 · 破解密码',
     date: '1939—1945',
     title: '读懂秘密电报',
-    image: 'turing-enigma-story.png',
+    image: 'turing-enigma-story.jpg',
     alt: '布莱切利庄园的破译工作：图灵与同伴研究电报，前景是木盒中的 Enigma 密码机，后方是带有多组圆形转鼓的 Bombe。',
     body: (
       <>
@@ -38,7 +38,7 @@ const stories = [
     tab: '回到 1936 · 图灵机',
     date: '1936',
     title: '想象一台“规则机器”',
-    image: 'turing-machine-story.png',
+    image: 'turing-machine-story.jpg',
     alt: '图灵在纸上构思抽象的图灵机：分成格子的纸带、对准一个格子的读写头，以及控制读写与移动的规则。',
     body: (
       <>
@@ -54,7 +54,7 @@ const stories = [
     tab: '1950 · 机器能思考吗',
     date: '1950 年 10 月',
     title: '从“会计算”到“有智能”',
-    image: 'turing-test-story.png',
+    image: 'turing-test-story.jpg',
     alt: '图灵撰写论文的故事画面，并展示文字对话测试：判断者通过文字与隐藏身份的人和计算机交流。',
     body: (
       <>

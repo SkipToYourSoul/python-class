@@ -33,7 +33,7 @@ export function CoverScene() {
       </div>
       <figure className={r.story} aria-label="第三课漫画剧情">
         <img
-          src={`${assetBase}/assets/diary-defense-cover.png`}
+          src={`${assetBase}/assets/diary-defense-cover.jpg`}
           alt="第三课四格剧情，按从左到右、从上到下阅读：勇士和小派提前把炎角兽怕强光的情报存入文件；恶魔袭击并切断网络；勇士断网后读取本地档案；根据记录用强光击退炎角兽，成功守住城堡。"
           width={1672}
           height={941}

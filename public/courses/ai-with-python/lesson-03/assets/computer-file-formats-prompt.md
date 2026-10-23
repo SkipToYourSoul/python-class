@@ -3,7 +3,7 @@
 - 使用位置：第三课第 5 页左侧。
 - 生成方式：内置 image_gen，新增图片。
 - 参考依据：原 PPT 第 11 页的文件格式图，补充 HTML 网页。
-- 图片：`computer-file-formats.png`。
+- 图片：`computer-file-formats.jpg`。
 
 ## 最终提示词
 

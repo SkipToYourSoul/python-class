@@ -1,8 +1,8 @@
 # 档案室正式美术素材
 
-## challenge-entry-demons.png
+## challenge-entry-demons.jpg
 
-2026-10-09 更新挑战入口插图：方形构图放大窗外石桥，加入炎角兽、藤甲魔和冰翼魔，保留档案室的蓝金风格与暖灯。使用内置 image_gen，详见[完整提示词与检查](challenge-entry-demons-prompt.md)。该图仅用于入口页，游戏背景继续使用 room.png。
+2026-10-09 更新挑战入口插图：方形构图放大窗外石桥，加入炎角兽、藤甲魔和冰翼魔，保留档案室的蓝金风格与暖灯。使用内置 image_gen，详见[完整提示词与检查](challenge-entry-demons-prompt.md)。该图仅用于入口页，游戏背景继续使用 room.jpg。
 
 ## defenses.png
 
@@ -25,13 +25,13 @@ Constraints: actual transparent alpha background, no background painted checkerb
 
 | 文件       | 尺寸       | alpha | 物件横向范围（含端点）                 |
 | ---------- | ---------- | ----- | -------------------------------------- |
-| room.png   | 1672 × 941 | 无    | 全幅背景                               |
+| room.jpg   | 1672 × 941 | 无    | 全幅背景                               |
 | books.png  | 2059 × 764 | 有    | 42–498；550–1006；1058–1513；1566–2022 |
 | demons.png | 2172 × 724 | 有    | 39–758；766–1435；1460–2149            |
 
 恶魔图集的第一只尾部稍跨三等分边界，显示单个角色时应按上述真实边界裁切，避免裁掉尾部。
 
-## room.png
+## room.jpg
 
 参考已确认概念图，以 16:9 背景呈现档案室；右侧窗景用于叠加来袭效果。
 

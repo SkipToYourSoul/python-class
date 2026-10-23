@@ -8,7 +8,9 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
+import warnings
 import zipfile
 
 os.environ.setdefault("MPLBACKEND", "Agg")
@@ -28,6 +30,74 @@ spec = importlib.util.spec_from_file_location("build_lesson05", ROOT / "scripts/
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
 code = builder.load_codes()
+warnings.filterwarnings("error", message=r"Glyph .* missing from font")
+
+
+def verify_packaged_fonts():
+    """Render the extracted downloads in a fresh process without system CJK fonts."""
+    with tempfile.TemporaryDirectory(prefix="lesson05-fonts-") as temporary:
+        folder = Path(temporary) / "学生 下载的练习包"
+        with zipfile.ZipFile(OUT / "lesson-05-practice.zip") as archive:
+            archive.extractall(folder)
+        probe = r'''
+import json
+from pathlib import Path
+import runpy
+import warnings
+import matplotlib.pyplot as plt
+from matplotlib import font_manager
+warnings.filterwarnings("error", message=r"Glyph .* missing from font")
+font_manager.fontManager.ttflist = [
+    font for font in font_manager.fontManager.ttflist if font.name == "DejaVu Sans"
+]
+for filename, expected in [("课堂练习二完整参考.py", 3), ("完整参考.py", 13)]:
+    plt.rcdefaults()
+    outputs = []
+    def show():
+        figure = plt.gcf()
+        figure.canvas.draw()
+        outputs.append(figure)
+        if filename == "课堂练习二完整参考.py" and len(outputs) == 3:
+            figure.savefig("中文柱状图核对.png", dpi=120)
+        plt.close("all")
+    plt.show = show
+    runpy.run_path(filename, run_name="__main__")
+    assert len(outputs) == expected, (filename, len(outputs))
+    assert plt.rcParams["font.family"] == ["Noto Sans CJK SC"]
+    print(f"PASS: extracted {filename}: {expected} figures, no missing Chinese glyphs")
+# Notebook setup has no __file__ and must load from the notebook's folder.
+notebook = json.loads(Path("第五课练习.ipynb").read_text(encoding="utf-8"))
+cell = next(cell for cell in notebook["cells"]
+            if "environment-setup" in cell["metadata"].get("tags", []))
+plt.rcdefaults()
+exec("".join(cell["source"]), {})
+plt.figure()
+plt.title("炎角兽族、藤甲魔族、冰翼魔族：平均速度 −1")
+plt.gcf().canvas.draw()
+plt.close("all")
+print("PASS: notebook Chinese font setup and minus sign")
+'''
+        environment = {**os.environ, "MPLCONFIGDIR": str(Path(temporary) / "cache")}
+        result = subprocess.run([sys.executable, "-c", probe], cwd=folder,
+                                env=environment, capture_output=True, text=True, check=True)
+        print(result.stdout, end="")
+        assert "missing from font" not in result.stderr
+        proof = Path(tempfile.gettempdir()) / "lesson05-chinese-font-proof.png"
+        shutil.copyfile(folder / "中文柱状图核对.png", proof)
+        # A damaged/incompletely extracted download reports the remedy immediately.
+        missing = folder / "missing-font"
+        missing.mkdir()
+        previous = Path.cwd()
+        try:
+            os.chdir(missing)
+            try:
+                exec(code["FONT_CODE"], {})
+            except FileNotFoundError as error:
+                assert "完整解压练习包" in str(error)
+            else:
+                raise AssertionError("Missing bundled font must not silently use DejaVu Sans")
+        finally:
+            os.chdir(previous)
 
 
 def main():
@@ -246,6 +316,7 @@ def main():
     assert [step["id"] for step in code["PRACTICE_02_PLOTS"]] == ["scatter", "line", "bar"]
     for step in code["PRACTICE_02_PLOTS"]:
         with tempfile.TemporaryDirectory() as temporary:
+            shutil.copytree(OUT / "fonts", Path(temporary) / "fonts")
             for csv_name in ("demons.csv", "patrol.csv"):
                 shutil.copyfile(OUT / csv_name, Path(temporary) / csv_name)
             os.chdir(temporary)
@@ -271,6 +342,7 @@ def main():
                 plt.show = original_show
     # The complete exercise reads both data sources and renders the three distinct examples.
     with tempfile.TemporaryDirectory() as temporary:
+        shutil.copytree(OUT / "fonts", Path(temporary) / "fonts")
         for csv_name in ("demons.csv", "patrol.csv"):
             shutil.copyfile(OUT / csv_name, Path(temporary) / csv_name)
         os.chdir(temporary)
@@ -284,7 +356,6 @@ def main():
         plt.show = check_three
         try:
             namespace = {}
-            exec(compile(code["FONT_CODE"], "预置字体.py", "exec"), namespace)
             exec(compile(code["PRACTICE_02_CODE"], "课堂练习二完整参考.py", "exec"), namespace)
             assert len(observed) == 3
         finally:
@@ -292,6 +363,7 @@ def main():
             plt.show = original_show
     # Exercise 03 is self-contained after the preconfigured font cell.
     with tempfile.TemporaryDirectory() as temporary:
+        shutil.copytree(OUT / "fonts", Path(temporary) / "fonts")
         shutil.copyfile(OUT / builder.PENGUIN_SOURCE, Path(temporary) / builder.PENGUIN_SOURCE)
         os.chdir(temporary)
         observed = []
@@ -323,6 +395,7 @@ def main():
             plt.show = original_show
     # Teacher references work with only the provided penguin CSV.
     with tempfile.TemporaryDirectory() as temporary:
+        shutil.copytree(OUT / "fonts", Path(temporary) / "fonts")
         shutil.copyfile(OUT / builder.PENGUIN_SOURCE, Path(temporary) / builder.PENGUIN_SOURCE)
         os.chdir(temporary)
         plt.show = lambda: plt.close("all")
@@ -357,18 +430,44 @@ def main():
             os.chdir(OUT)
             plt.show = original_show
             sns.pairplot = original_pairplot
+    # Fill the exact learner template for all 12 distinct ordered axis pairs.
+    namespace = {}
+    exec(compile(code["FONT_CODE"] + "\n" + code["SETUP_CODE"], "练习准备.py", "exec"), namespace)
+    observed_pairs = []
+    try:
+        for x_key, x in code["PENGUIN_PLOT_FIELDS"].items():
+            for y_key, y in code["PENGUIN_PLOT_FIELDS"].items():
+                if x_key == y_key:
+                    continue
+                filled = code["PENGUIN_PRACTICE_TEMPLATE"].replace('x="____"', f'x="{x["column"]}"').replace('y="____"', f'y="{y["column"]}"')
+                filled = filled.replace('xlabel("____")', f'xlabel("{x["label"]}")').replace('ylabel("____")', f'ylabel("{y["label"]}")')
+                assert "____" not in filled
+                def check_student_plot():
+                    axis = plt.gca()
+                    assert axis.get_xlabel() == x["label"] and axis.get_ylabel() == y["label"]
+                    check_points(axis, penguins[[x["column"], y["column"]]])
+                    assert {text.get_text() for text in axis.get_legend().get_texts()} == set(penguins.species)
+                    observed_pairs.append((x_key, y_key))
+                    plt.close("all")
+                plt.show = check_student_plot
+                exec(compile(filled, "学生自选双轴.py", "exec"), namespace)
+        assert len(observed_pairs) == 12
+    finally:
+        plt.show = original_show
     notebook = json.loads((OUT / "第五课练习.ipynb").read_text())
-    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 8
+    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 6
     markdown_cells = ["".join(cell["source"]) for cell in notebook["cells"] if cell["cell_type"] == "markdown"]
     assert sum(text.startswith("## 课堂练习 ") for text in markdown_cells) == 3
     assert not any("结课挑战" in text for text in markdown_cells)
     assert any(text.startswith("### 共用准备 ") and code["PRACTICE_02_PREPARATION"] in text for text in markdown_cells)
     for step in code["PRACTICE_02_PLOTS"]:
         assert any(text.startswith("### 步骤 ") and step["code"] in text for text in markdown_cells)
-    assert any(text.startswith("跟写参考：") and code["PENGUIN_PRACTICE_CODE"] in text for text in markdown_cells)
-    assert any(text.startswith("### 换一个轴") for text in markdown_cells)
+    student_cells = [cell for cell in notebook["cells"] if "student-axis-choice" in cell.get("metadata", {}).get("tags", [])]
+    assert len(student_cells) == 1 and "".join(student_cells[0]["source"]) == code["PENGUIN_PRACTICE_TEMPLATE"]
+    assert any(text.startswith("### 01 选择两个不同特征") and "culmen_length_mm" in text for text in markdown_cells)
+    assert any(text.startswith("### 03 看图") and "图中的证据" in text for text in markdown_cells)
     for choice in code["PENGUIN_PRACTICE_TRANSFERS"]:
-        assert any(text.startswith("### 换轴核对参考") and choice["code"] in text for text in markdown_cells)
+        assert any(text.startswith("### 其他选轴示例") and choice["code"] in text for text in markdown_cells)
     demon_demo = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 教师演示参考 · 恶魔种类"))
     penguin_overview = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 教师演示参考 · 企鹅四项"))
     practice_three = next(i for i, text in enumerate(markdown_cells) if text.startswith("## 课堂练习 03"))
@@ -385,17 +484,20 @@ def main():
         assert archive.testzip() is None
         assert archive.read("完整参考.py").decode() == code["COMPLETE_CODE"] + "\n"
         assert archive.read("课堂练习二完整参考.py").decode() == code["PRACTICE_02_CODE"] + "\n"
+        for path in (OUT / "fonts").iterdir():
+            assert archive.read(f"fonts/{path.name}") == path.read_bytes()
         assert archive.read("patrol-by-kind.csv") == (OUT / "patrol-by-kind.csv").read_bytes()
         assert archive.read(builder.PENGUIN_SOURCE) == (OUT / builder.PENGUIN_SOURCE).read_bytes()
         assert "penguins.csv" not in archive.namelist() and "penguins-original.csv" not in archive.namelist()
         assert len([name for name in archive.namelist() if name.endswith(".png")]) == 13
+    verify_packaged_fonts()
     print("PASS: exact teaching code generated 13 output figures; axes, slide/CSV equality, histogram counts,")
     print("90-point scatter, six-point patrol line, three kind-mean bars, shared preparation and three plotting cells,")
     print("4×4 penguin pairplot: default histograms without hue, density diagonals with hue,")
     print("12 browser KDE curves match SciPy and Seaborn, 342 points in every scatter cell,")
-    print("standalone penguin exercise, both free-choice axis transfers and 32 dropdown code combinations with matching labels and species legend,")
+    print("student template filled for all 12 distinct axis pairs, standalone examples and 32 dropdown code combinations with matching labels and species legend,")
     print("342 provided observations in original order, 9 missing sex records retained, original CSV bytes preserved,")
-    print("three classroom exercises, notebook order, eight empty input cells and ZIP verified.")
+    print("three classroom exercises, notebook order, six empty input cells, one axis-choice template and ZIP verified.")
     print(f"Demon height-speed correlation: {demons.height.corr(demons.speed):.3f}")
 
 

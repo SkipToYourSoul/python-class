@@ -34,7 +34,7 @@ export function ScoutObserveScene() {
         <div className={shared.stack}>
           <div className={shared.observeEvidence}>
             <img
-              src={`${assetBase}/assets/scout-observe.png`}
+              src={`${assetBase}/assets/scout-observe.jpg`}
               alt="勇士在电脑上查看炎角兽的前线情报。"
             />
             <ScoutRecord />

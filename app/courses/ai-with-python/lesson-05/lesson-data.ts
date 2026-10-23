@@ -10,15 +10,19 @@ export const scenes = [
   { id: 'l5-mission', chapter: 'observe', title: '最终决战前的侦察' },
   { id: 'l5-warmup', chapter: 'observe', title: '你在哪里见过图表？' },
   { id: 'l5-observe-cover', chapter: 'observe', title: '看清恶魔军团' },
-  { id: 'l5-compare', chapter: 'observe', title: '同一份数据，两种看法' },
-  { id: 'l5-archive', chapter: 'observe', title: '一行是一只恶魔' },
+  { id: 'l5-compare', chapter: 'observe', title: '画成图，高矮差距更清楚' },
+  {
+    id: 'l5-archive',
+    chapter: 'observe',
+    title: '90 只恶魔，记录了哪些特征？',
+  },
   {
     id: 'l5-distribution-story',
     chapter: 'observe',
-    title: '这么多数字，先看什么？',
+    title: '先看平均速度，再看快慢差距',
   },
-  { id: 'l5-buckets', chapter: 'observe', title: '把分组数量，变成柱高' },
-  { id: 'l5-normal', chapter: 'observe', title: '统计学中的神奇规律' },
+  { id: 'l5-buckets', chapter: 'observe', title: '直方图：看清数值的分布' },
+  { id: 'l5-normal', chapter: 'observe', title: '直方图的轮廓，像什么？' },
   { id: 'l5-histogram', chapter: 'observe', title: '柱子里藏着多少个体？' },
   { id: 'l5-setup', chapter: 'observe', title: '请来绘图的帮手' },
   { id: 'l5-hist-code', chapter: 'observe', title: '一列数据，画出分布' },
@@ -68,7 +72,7 @@ export const scenes = [
   {
     id: 'l5-transfer',
     chapter: 'discover',
-    title: '真实世界，也能这样研究吗？',
+    title: '从图表中，读出三族的特点',
   },
   { id: 'l5-penguins', chapter: 'discover', title: '认识企鹅观测档案' },
   {
@@ -77,19 +81,19 @@ export const scenes = [
     title: '换一对特征，观察企鹅点群',
   },
   {
-    id: 'l5-penguin-overview',
-    chapter: 'discover',
-    title: '四项特征，一次看全',
-  },
-  {
     id: 'l5-challenge-report',
     chapter: 'discover',
     title: '换组特征，换个角度看企鹅',
   },
   {
+    id: 'l5-penguin-overview',
+    chapter: 'discover',
+    title: '四项特征，一次看全',
+  },
+  {
     id: 'l5-practice-03',
     chapter: 'discover',
-    title: '亲手画出企鹅的种类差异',
+    title: '自选两个轴，用图表说发现',
   },
   {
     id: 'l5-challenge',

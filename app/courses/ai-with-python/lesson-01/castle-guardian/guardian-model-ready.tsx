@@ -16,7 +16,7 @@ export function GuardianModelReady({ onContinue }: { onContinue: () => void }) {
     <aside className={s.ready} aria-label="守门员已就位">
       <figure className={s.art}>
         <img
-          src={asset('castle-guardian-model-ready.png')}
+          src={asset('castle-guardian-model-ready.jpg')}
           alt="蓝色披风的城堡守门员手持盾牌，站在发光的城门控制台旁，准备迎接新来客"
         />
       </figure>

@@ -45,7 +45,7 @@
   pointer-events: none;
 }
 .environment {
-  background: url('/courses/ai-with-python/lesson-04/assets/shield-game/arena.png')
+  background: url('/courses/ai-with-python/lesson-04/assets/shield-game/arena.jpg')
     center 48% / cover;
 }
 .vignette {

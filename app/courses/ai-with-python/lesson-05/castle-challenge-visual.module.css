@@ -17,7 +17,7 @@
   inset: 0;
   background:
     linear-gradient(180deg, #08172e40, #09162ed9 75%),
-    url('/courses/ai-with-python/lesson-04/assets/shield-game/arena.png') center
+    url('/courses/ai-with-python/lesson-04/assets/shield-game/arena.jpg') center
       35% / cover;
   opacity: 0.7;
 }

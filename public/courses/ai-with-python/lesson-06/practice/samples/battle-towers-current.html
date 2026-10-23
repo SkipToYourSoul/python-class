@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三队抵达 · 阵前核对</title><style>
+* { box-sizing:border-box; }
+body { margin:0; color:#071a3d; background:#f5f0e6; font:20px/1.5 system-ui,sans-serif; }
+header,main,footer { max-width:1440px; margin:auto; padding:24px 32px; }
+header { border-bottom:3px solid #071a3d; }
+h1 { font-size:clamp(34px,4vw,56px); margin:8px 0; }
+h2 { margin:12px 0; font-size:28px; }
+p { margin:12px 0; }
+.stamp { display:inline-block; background:#ffc91c; border:2px solid #071a3d; padding:4px 12px; font-size:18px; font-weight:700; }
+.table-wrap { overflow-x:auto; border:2px solid #071a3d; background:#fffdf7; }
+table { width:100%; border-collapse:collapse; white-space:nowrap; }
+th,td { padding:12px; border:1px solid #071a3d; text-align:center; }
+th { background:#071a3d; color:#fffdf7; font-size:18px; }
+tr:nth-child(even) { background:#e8eefb; }
+pre { overflow:auto; border:2px solid #071a3d; padding:20px; background:#fffdf7; font-size:18px; }
+a { color:#1457d9; }
+@media(max-width:700px) { header,main,footer { padding:20px; } }
+</style></head><body>
+<header><span class="stamp">魔堡情报档案</span><h1>三队抵达 · 阵前核对</h1><p>各队按计划抵达，核对守卫与外罩的最新读数</p>
+<p>外罩强度低于 30 才能破罩；防御力越低越容易突破。按弱点选择装备。</p></header>
+<main><h2>观测记录 · 3 条</h2><div class="table-wrap"><table>
+<thead><tr><th scope='col'>魔塔<br>tower</th><th scope='col'>时刻<br>hour</th><th scope='col'>外罩强度<br>energy</th><th scope='col'>守卫编号<br>guard</th><th scope='col'>守卫族群<br>kind</th><th scope='col'>属性<br>attribute</th><th scope='col'>弱点<br>weakness</th><th scope='col'>防御力<br>defense</th></tr></thead><tbody><tr class='record'><td class='tower'>北塔</td><td class='hour'>11</td><td class='energy'>21</td><td class='guard'>G006</td><td class='kind'>炎角兽族</td><td class='attribute'>火焰</td><td class='weakness'>强光</td><td class='defense'>32</td></tr>
+<tr class='record'><td class='tower'>东塔</td><td class='hour'>14</td><td class='energy'>24</td><td class='guard'>G021</td><td class='kind'>藤甲魔族</td><td class='attribute'>藤甲</td><td class='weakness'>火焰</td><td class='defense'>35</td></tr>
+<tr class='record'><td class='tower'>西塔</td><td class='hour'>17</td><td class='energy'>22</td><td class='guard'>G036</td><td class='kind'>冰翼魔族</td><td class='attribute'>寒冰</td><td class='weakness'>热量</td><td class='defense'>28</td></tr></tbody></table></div>
+<h2>CSV 情报原文</h2><p>程序可以从下方整份 CSV 中取回相同的记录。</p>
+<pre id="intel-data">tower,hour,energy,guard,kind,attribute,weakness,defense
+北塔,11,21,G006,炎角兽族,火焰,强光,32
+东塔,14,24,G021,藤甲魔族,藤甲,火焰,35
+西塔,17,22,G036,冰翼魔族,寒冰,热量,28
+</pre></main>
+<footer><a href="/battle-towers.html">战前情报</a> · <a href="/battle-towers-current.html">阵前核对</a> · <a href="/boss-intel.html">魔王情报</a></footer>
+</body></html>

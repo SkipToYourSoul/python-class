@@ -1,0 +1,138 @@
+.cover {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.28fr) minmax(0, 0.72fr);
+  align-items: center;
+  gap: 24px;
+  color: #071a3d;
+}
+
+.introduction {
+  min-width: 0;
+}
+
+.eyebrow {
+  font: 800 18px/1.5 monospace;
+  letter-spacing: 0.06em;
+}
+
+.introduction h1 {
+  margin: 20px 0 12px;
+  font-size: clamp(56px, 6cqw, 90px);
+  font-weight: 950;
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+
+.introduction em {
+  color: #1457d9;
+  font-style: normal;
+}
+
+.subtitle {
+  display: block;
+  font-size: clamp(22px, 2cqw, 30px);
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.rule {
+  height: 4px;
+  width: 70px;
+  margin: 20px 0;
+  background: #ffc91c;
+}
+
+.introduction p {
+  margin: 0 0 24px;
+  font-size: clamp(20px, 1.9cqw, 28px);
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid #071a3d;
+  padding: 14px 20px;
+  background: #ffc91c;
+  color: #071a3d;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.start:hover {
+  box-shadow: 3px 3px 0 #071a3d;
+}
+
+.start:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 4px;
+}
+
+.story {
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.storyHeading {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.storyHeading > span {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  background: #071a3d;
+  color: #f5f0e6;
+  font-weight: 750;
+}
+
+.artwork {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+}
+
+.artwork img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.caption {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: clamp(20px, 1.8cqw, 26px);
+  line-height: 1.4;
+}
+
+.caption strong {
+  color: #1457d9;
+}
+
+.caption > span {
+  font-size: clamp(18px, 1.5cqw, 22px);
+  font-weight: 650;
+}

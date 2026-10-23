@@ -2,9 +2,9 @@
 
 方法：内置 `image_gen.imagegen`，独立生成四张新图；未使用 CLI。所有最终素材已复制到本目录。图片没有文字；具体教学数据由页面渲染。
 
-风格参考：实际查看第三课 `handoff-act-03.png`、`scout-handoff.png`、`archive-siege/demons.png`。生成新场景时用文字描述角色特征，未改写旧素材。每张生成后用 `view_image` 检查。
+风格参考：实际查看第三课 `handoff-act-03.jpg`、`scout-handoff.png`、`archive-siege/demons.png`。生成新场景时用文字描述角色特征，未改写旧素材。每张生成后用 `view_image` 检查。
 
-## suspects.png
+## suspects.jpg
 
 尺寸：1536×1024；3列2行。左上至右下：岩背魔、雾铃魔、砂爪魔、镜翼魔、苔帽魔、墨鳍魔。角色视觉份量接近，雾铃魔无王冠或首领标记。
 

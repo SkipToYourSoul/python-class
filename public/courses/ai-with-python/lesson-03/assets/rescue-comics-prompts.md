@@ -1,12 +1,12 @@
 # 第三节 STORY 三幕漫画生成记录
 
-生成方式：内置 `image_gen.imagegen`。风格参考及人物设计参考：`archive-room.png`、`archive-rescue.png`，生成前已实际查看。新图生成使用文字描述与已查看的参考上下文；定向修订使用已生成图的本地路径。没有调用外部 CLI/API，没有以绘图脚本替代图像生成。
+生成方式：内置 `image_gen.imagegen`。风格参考及人物设计参考：`archive-room.jpg`、`archive-rescue.png`，生成前已实际查看。新图生成使用文字描述与已查看的参考上下文；定向修订使用已生成图的本地路径。没有调用外部 CLI/API，没有以绘图脚本替代图像生成。
 
 最终文件均为 2172 × 724（3:1）PNG，每张左右两格，奶油色中缝。页面以 contain 完整显示，避免角色或屏幕被裁切。
 
-- `rescue-act-01.png`：通信被紫雾阻断，本地文件仍在。初稿 2:1，后定向扩为 3:1。
-- `rescue-act-02.png`：从本地文件夹打开已保存的三条记录，准备已有应对工具。定向统一成年男性夜班勇士外形。
-- `rescue-act-03.png`：长记录难查找，提出整理表格的设想；下方真实屏幕仍为原有文件，避免暗示已完成后续练习。
+- `rescue-act-01.jpg`：通信被紫雾阻断，本地文件仍在。初稿 2:1，后定向扩为 3:1。
+- `rescue-act-02.jpg`：从本地文件夹打开已保存的三条记录，准备已有应对工具。定向统一成年男性夜班勇士外形。
+- `rescue-act-03.jpg`：长记录难查找，提出整理表格的设想；下方真实屏幕仍为原有文件，避免暗示已完成后续练习。
 
 教学约束：小派为黄色双眼护目镜蓝背带裤小伙伴，机械蓝金猫头鹰是独立信使；存档未消失，读取的是过去已记录的信息，不能实时定位敌人或获得新情报。所有图无文字、字幕、水印。第三幕云形图示为“设想”，需要配合页面文案说明。
 
@@ -91,13 +91,13 @@ Text: none. No letters, numbers, words, code, captions, speech balloons, titles 
 
 ## 角色与恶魔身份统一修订（最终引用）
 
-依据用户明确“所有漫画角色一致”的要求，实际查看并以 `handoff-act-02.png`（夜班勇士）、`movie-act-03.png`（少年勇士与小派）、第二课 `defense-demons.png`（三种恶魔定稿）为额外参考，对三张逐张做定向编辑。少年统一蓝金城堡纹衣装、银金肩甲、棕手套；夜班勇士统一短深棕发、轻胡茬、蓝金城堡纹衣装；小派统一双眼银护目镜、普通蓝背带裤、双黑手套，无胸章。02/03小图统一为熔岩四足牛、藤甲类猿兽、冰晶双翼龙。
+依据用户明确“所有漫画角色一致”的要求，实际查看并以 `handoff-act-02.jpg`（夜班勇士）、`movie-act-03.png`（少年勇士与小派）、第二课 `defense-demons.png`（三种恶魔定稿）为额外参考，对三张逐张做定向编辑。少年统一蓝金城堡纹衣装、银金肩甲、棕手套；夜班勇士统一短深棕发、轻胡茬、蓝金城堡纹衣装；小派统一双眼银护目镜、普通蓝背带裤、双黑手套，无胸章。02/03小图统一为熔岩四足牛、藤甲类猿兽、冰晶双翼龙。
 
 最终来源：
 
-- `rescue-act-01.png` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-21789d72-ec8a-4b70-a7f3-4d1ae78b16c8.png`
-- `rescue-act-02.png` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-913e0790-b8dd-4570-88ab-968d185fdbc9.png`
-- `rescue-act-03.png` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-c3d76346-3d52-4533-909f-e4bcf5806903.png`
+- `rescue-act-01.jpg` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-21789d72-ec8a-4b70-a7f3-4d1ae78b16c8.png`
+- `rescue-act-02.jpg` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-913e0790-b8dd-4570-88ab-968d185fdbc9.png`
+- `rescue-act-03.jpg` ← `/Users/liye/.codex/generated_images/01a0c821-4b46-7610-b299-b6f3dd6800cb/exec-c3d76346-3d52-4533-909f-e4bcf5806903.png`
 
 逐张实际查看：01通信中断与本地文件完整保留；02两只黑手套、轻胡茬、三种既有物种已修正；03右格夜班勇士露指手套已补成完整棕手套，少年头发细节加强。构图与教学证据保持，三张仍2172×724。
 

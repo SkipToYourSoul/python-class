@@ -89,7 +89,7 @@ export function KindBarScene() {
             className={s.button}
             onClick={() => update({ show: !state.show })}
           >
-            {state.show ? '收起观察结果' : '核对哪族均速更高'}
+            {state.show ? '收起勇士线索' : '查看勇士的新线索'}
           </button>
         </>
       }
@@ -105,7 +105,7 @@ export function KindBarScene() {
           {state.show && <StoryResult kind="kind" />}
         </div>
         <div className={s.chartPanel}>
-          <KindBars />
+          <KindBars showConclusions />
         </div>
       </div>
     </Page>
@@ -260,7 +260,7 @@ export function GroupedChartsScene() {
 
 function PracticeClueComic() {
   const [open, setOpen] = useState(false);
-  const src = `${assetBase}/assets/chart-clues.png`;
+  const src = `${assetBase}/assets/chart-clues.jpg`;
   const alt =
     '勇士和小派对照特征散点、巡逻折线与三族均速条形图，把三条线索汇入侦察地图，为最终决战做准备';
   return (

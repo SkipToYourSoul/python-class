@@ -16,7 +16,7 @@ export function ChallengeEntry() {
           className={s.challengeScene}
           style={{
             background:
-              'url(/courses/ai-with-python/lesson-04/assets/shield-game/arena.png) center / cover',
+              'url(/courses/ai-with-python/lesson-04/assets/shield-game/arena.jpg) center / cover',
           }}
         >
           <div>

@@ -4,7 +4,7 @@
 
 所有素材原件保存在 Codex generated_images，项目使用本目录 PNG 副本。透明精灵保留生成的原始 alpha；没有后期背景去除。
 
-## arena.png
+## arena.jpg
 
 Use case: stylized-concept
 Asset type: Premium classroom fantasy battle game background, landscape 16:9.

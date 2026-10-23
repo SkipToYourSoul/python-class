@@ -28,7 +28,7 @@ export function TreeConceptScene() {
           </XiaopaiSpeech>
           <figure className={s.warrior}>
             <img
-              src={asset('decision-tree-warrior-390.png')}
+              src={asset('decision-tree-warrior-390.jpg')}
               alt="身穿银蓝铠甲、手持长剑的勇士"
               width={1254}
               height={1254}

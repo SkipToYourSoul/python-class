@@ -4,13 +4,13 @@
 
 生成方式：内置 `image_gen`（built-in tool mode），独立生成。未使用 CLI，未修改旧图。
 
-保存文件：`lesson-04-opening.png`，1672 × 941，约 16:9。
+保存文件：`lesson-04-opening.jpg`，1672 × 941，约 16:9。
 
 生成前实际查看的风格及角色参考：
 
-- `../../lesson-03/assets/diary-defense-cover.png`
+- `../../lesson-03/assets/diary-defense-cover.jpg`
 - `story-arrival.png`
-- `suspects.png`
+- `suspects.jpg`
 
 生成后使用 `view_image` 实际检查：四格等分且浅色窄分隔，剧情依次为防御成功、观察集体撤退、收集战报、电脑分析；勇士、小派、机械猫头鹰连续一致；恶魔九种在最后一格等尺寸陈列；没有额外文字、气泡、标题、水印或首领身份揭示。
 

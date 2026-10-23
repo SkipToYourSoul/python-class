@@ -4,7 +4,7 @@
 
 生成方式：内置 `image_gen.imagegen`，逐张生成；未使用 CLI。生成日期：2026-09-22。
 
-参考角色：`archive-room.png` 中棕发、蓝披风、银金护肩少年为勇士；黄色双眼银色护目镜、蓝背带裤的小伙伴为小派。机械猫头鹰是另一位信使，本组三幕未出场。
+参考角色：`archive-room.jpg` 中棕发、蓝披风、银金护肩少年为勇士；黄色双眼银色护目镜、蓝背带裤的小伙伴为小派。机械猫头鹰是另一位信使，本组三幕未出场。
 
 风格及场景参考：`movie-archive.png` 中手绘动漫、暖色灯光、蓝金城堡电影馆，以及圆眼镜、棕发盘髻、蓝金长袍女管理员。参考图只用于角色和美术风格，新图的数字文件全部通过电脑呈现。第一、二幕宽版额外引用 `movie-act-03.png` 固定角色身份和 3:1 横构图。
 
@@ -25,7 +25,7 @@ Hand-painted anime, crisp fine outlines, warm lamp light, blue and gold castle p
 ```text
 Use case: illustration-story.
 Asset type: a new wide 3:1 two-panel comic strip for a Chinese children's Python course, movie story act 2. Generate a NEW scene; input images are character/style references only.
-Input images: image 1 archive-room.png defines the brown-haired teenage boy hero wearing a blue cape and silver/gold shoulder armor and Xiaopai, a small yellow oval companion with TWO eyes in silver goggles, blue denim overalls and black gloves. Image 2 movie-archive.png defines warm painterly anime castle style, castle cinema and the friendly female archivist: brown hair in a bun, round glasses, blue robe with gold trim.
+Input images: image 1 archive-room.jpg defines the brown-haired teenage boy hero wearing a blue cape and silver/gold shoulder armor and Xiaopai, a small yellow oval companion with TWO eyes in silver goggles, blue denim overalls and black gloves. Image 2 movie-archive.png defines warm painterly anime castle style, castle cinema and the friendly female archivist: brown hair in a bun, round glasses, blue robe with gold trim.
 Primary request: exactly TWO equally sized panels placed side by side with a thin cream central gutter.
 Left panel: in the castle cinema, boy hero and Xiaopai lean toward the same modern laptop on a wooden desk with slightly worried faces. Its visible screen shows only a large simple disconnected Wi-Fi icon (curved arcs with a diagonal slash) above a muted empty rectangle; no text. Projection screen, audience seats and castle stone arches remain in background. Network unavailable while preparing film introductions.
 Right panel: the friendly female archivist arrives beside the SAME desk and gently points at the laptop screen, reassuring the boy and Xiaopai. The laptop screen now shows a clear generic yellow folder icon containing three movie thumbnail page icons (castle, ship, forest). These represent ALREADY SAVED files on the computer, with no download arrows, no writing, no text labels. The boy and Xiaopai look relieved and interested. Digital archives exist on the laptop, not inside any paper book. Keep all three characters clearly readable.
@@ -39,7 +39,7 @@ Additional input image 3 is movie-act-03.png, a finished panel of this same sequ
 ```text
 Use case: illustration-story.
 Asset type: a new wide 3:1 two-panel comic strip for a Chinese children's Python course, movie story act 3. Generate a NEW scene; input images are character/style references only.
-Input images: image 1 archive-room.png defines the brown-haired teenage boy hero wearing a blue cape and silver/gold armor and Xiaopai, a small yellow oval companion with TWO eyes in silver goggles, blue denim overalls and black gloves. Image 2 movie-archive.png defines warm painterly anime castle style, cinema setting and the friendly female archivist with brown hair in a bun, round glasses, blue/gold robe.
+Input images: image 1 archive-room.jpg defines the brown-haired teenage boy hero wearing a blue cape and silver/gold armor and Xiaopai, a small yellow oval companion with TWO eyes in silver goggles, blue denim overalls and black gloves. Image 2 movie-archive.png defines warm painterly anime castle style, cinema setting and the friendly female archivist with brown hair in a bun, round glasses, blue/gold robe.
 Primary request: exactly TWO equally sized panels placed side by side with a thin cream central gutter.
 Left panel: the female archivist shows the hero and Xiaopai a modern laptop on the castle cinema desk. Angle screen clearly toward viewer: it shows THREE already-saved webpage preview cards, each containing a movie image (castle, ship, forest) and only simple short horizontal gray bars for layout, no letters. She points to the folder/page previews to introduce reading the existing files. Hero and Xiaopai listen curiously.
 Right panel: the hero now sits at the same laptop, both hands poised above keyboard, about to begin reading the saved movie files. Xiaopai stands beside the hero, points helpfully at the screen with a cheerful encouraging face. The archivist is quietly pleased in the background. Screen contains only a movie webpage thumbnail with a castle image and neutral horizontal bars; DO NOT show parsed result tables, completed lists, victory states, code or readable text. This is the start of a task, not a completed task. Keep the computer as the object of action; no pen and no writing in a paper book.

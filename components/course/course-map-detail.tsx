@@ -3,7 +3,7 @@
 /* oxlint-disable next/no-img-element -- Preserve the supplied full-resolution course diagram. */
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- The overflow region must support keyboard scrolling. */
 import { useState } from 'react';
-import { Expand, X, ZoomIn } from 'lucide-react';
+import { ArrowUpRight, X, ZoomIn } from 'lucide-react';
 import {
   Dialog,
   DialogClose,
@@ -26,21 +26,9 @@ export function CourseMapDetail() {
         if (open) setOriginalSize(false);
       }}
     >
-      <DialogTrigger
-        className="course-map-artwork-trigger"
-        aria-label="放大查看完整路线图"
-      >
-        <img
-          className="course-map-original"
-          src={mapSource}
-          width={2370}
-          height={1334}
-          alt={mapDescription}
-        />
-        <span className="course-map-caption">
-          <Expand aria-hidden="true" />
-          放大查看
-        </span>
+      <DialogTrigger className="course-map-button">
+        查看完整路线图
+        <ArrowUpRight aria-hidden="true" />
       </DialogTrigger>
       <DialogContent className="course-map-dialog" showCloseButton={false}>
         <header>

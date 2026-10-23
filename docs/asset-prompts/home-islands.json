@@ -1,0 +1,18 @@
+{
+  "mode": "built-in image_gen",
+  "use_case": "precise-object-edit",
+  "reference": "design-reviews/course-home-reference.png",
+  "original_generated_image": "/Users/liye/.codex/generated_images/01a13528-8da1-7f30-b1a2-8496e48b6887/exec-2f594989-5080-4318-ae49-710a02a8d4c9.png",
+  "prompt": "Use case: precise-object-edit\nAsset type: production illustration-only background for a responsive course homepage, landscape 16:9, opaque.\nInput image 1 is the exact edit target, NOT merely a loose style reference.\nPrimary request: Remove only the overlaid website UI from the supplied image, filling removed UI seamlessly with the existing warm ivory paper texture and extremely subtle square grid. Preserve the exact illustration with essentially pixel-faithful placement, scale, composition, materials, lighting, and detail.\nREMOVE: top header temple logo, all top header labels and dropdown chevrons, the thin header horizontal rule; upper-left English kicker, large Chinese headline, and Chinese stage subtitle; upper-right outlined button and all right margin annotations; ALL bottom stage numbers 01/02/03, Chinese stage titles, English course names, Chinese descriptions, underline accents, completed-state yellow circles and labels, current-stage pill and yellow enter-course button; the bottom miniature progress line and its numbered dots; the bottom-right compass; all small decorative edge typography in both bottom corners.\nPRESERVE unchanged: All THREE floating islands, their architectural structures, stone slabs with integral English decoration, the blue portal, coding books and curly-brace sculpture on island one, gear and blue staircases and lab building on island two, golden neural-network orb dome and flag and AI boards on island three. Preserve the blue dotted curved connector paths and blue dots BETWEEN the islands. Preserve every rock, tree, foliage, waterfall, cloud, distant mountain, blue/gold/ivory coloration and soft daylight. The third island's yellow flag stays precisely where it is.\nComposition invariant: no recentering or resizing of the islands. Island one approximately x6–33% y28–65%, island two x36–61% y24–66%, island three x63–94% y14–66%. The top-left and bottom 34% keep their natural clean empty background so live HTML text can be laid over it. Keep cloud banks and faint distant mountains at edges and bottom.\nOutput one complete full-canvas landscape image, same 16:9 framing as input, preferably at least original resolution. No new text, UI, controls, typography, logos, borders, extra objects, crops, or changes in perspective. This is UI removal, not redesign.",
+  "production_asset": "public/courses/python-home/exploration-islands.webp",
+  "archived_png": "design-reviews/home-concepts-2026-10-13/exploration-islands-background-original.png",
+  "conversion": {
+    "tool": "sharp",
+    "format": "webp",
+    "quality": 94,
+    "effort": 6,
+    "width": 1672,
+    "height": 941,
+    "bytes": 184614
+  }
+}

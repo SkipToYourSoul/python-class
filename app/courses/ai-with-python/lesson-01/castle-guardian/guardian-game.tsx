@@ -30,7 +30,7 @@ const visitors: RoleData[] = [
   ...newRoles.slice(0, 2),
   {
     name: '熔岩巨魔',
-    image: 'castle-guardian-lava-demon.png',
+    image: 'castle-guardian-lava-demon.jpg',
     attack: 58,
     defense: 72,
     health: 520,

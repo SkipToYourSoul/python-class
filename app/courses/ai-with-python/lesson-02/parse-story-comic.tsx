@@ -69,7 +69,7 @@ export function ParseStoryComic({
               </defs>
               <image
                 clipPath={`url(#parse-comic-${scene}-${col})`}
-                href="/courses/ai-with-python/lesson-02/assets/parse-story-sheet-v2.png"
+                href="/courses/ai-with-python/lesson-02/assets/parse-story-sheet-v2.jpg"
                 width="1086"
                 height="1448"
               />

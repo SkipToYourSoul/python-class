@@ -9,7 +9,7 @@ import s from './cover-scene.module.css';
 const story = {
   title: '追查恶魔首领',
   introduction: '勇士再次守住城堡，幕后指挥者究竟是谁？',
-  image: '/courses/ai-with-python/lesson-04/assets/lesson-04-opening.png',
+  image: '/courses/ai-with-python/lesson-04/assets/lesson-04-opening.jpg',
   summary: '击退进攻 → 发现疑点 → 收集战报 → 用数据找线索',
   alt: '第四课四格剧情，按从左到右、从上到下阅读：勇士与小派依据档案再次击退恶魔；他们发现恶魔成组撤退，怀疑背后有人指挥；机械猫头鹰送来各地的进攻战报；勇士与小派把战报整理成表格，开始调查九个对象，尚未确定谁是首领。',
 };

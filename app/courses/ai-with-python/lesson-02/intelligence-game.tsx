@@ -43,7 +43,7 @@ import {
 import g from './intelligence-game.module.css';
 
 const formula = ['根据属性', '寻找元素', '获取文本'];
-const atlas = `${assetBase}/assets/defense-demons-ivory.png`;
+const atlas = `${assetBase}/assets/defense-demons-ivory.jpg`;
 function Demon({ name, small = false }: { name: string; small?: boolean }) {
   const index = name === '炎角兽' ? 0 : name === '藤甲魔' ? 1 : 2;
   return (
@@ -202,7 +202,7 @@ function DefenseMap({
       <div className={g.world}>
         <img
           className={g.mapArt}
-          src={`${assetBase}/assets/defense-kingdom-map.png`}
+          src={`${assetBase}/assets/defense-kingdom-map.jpg`}
           alt="城堡连接峡谷、森林和冰封山口的三座前哨"
         />
         <div className={g.mapVignette} />
@@ -276,7 +276,7 @@ function DefenseMap({
             {wave === 2 && <HeatDefense />}
             <div className={g.guard}>
               <img
-                src="/courses/ai-with-python/lesson-01/assets/final-guardian-hero.png"
+                src="/courses/ai-with-python/lesson-01/assets/final-guardian-hero.jpg"
                 alt="勇士抵达防线"
               />
               <ShieldCheck />

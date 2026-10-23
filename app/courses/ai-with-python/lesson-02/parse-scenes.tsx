@@ -94,7 +94,7 @@ function RecordCard({
       {illustrated && (
         <img
           className={p.beastPortrait}
-          src={`${assetBase}/assets/scout-flame-horn-search.png?v=1`}
+          src={`${assetBase}/assets/scout-flame-horn-search.jpg?v=1`}
           alt="放大镜中发现了藏在北方峡谷岩石后的炎角兽"
         />
       )}
@@ -373,7 +373,7 @@ function LoadedParseScene({ id, source }: { id: string; source: ScoutSource }) {
             <div className={p.domTree} aria-label="侦察记录站的 DOM 元素树">
               <figure className={p.treeTarget}>
                 <img
-                  src={`${assetBase}/assets/scout-flame-horn-search.png?v=1`}
+                  src={`${assetBase}/assets/scout-flame-horn-search.jpg?v=1`}
                   alt="用放大镜寻找藏在北方峡谷的炎角兽"
                 />
                 <figcaption>寻找炎角兽</figcaption>
@@ -547,7 +547,7 @@ function LoadedParseScene({ id, source }: { id: string; source: ScoutSource }) {
         >
           <img
             className={p.formulaComic}
-            src={`${assetBase}/assets/scout-parse-formula.png`}
+            src={`${assetBase}/assets/scout-parse-formula.jpg`}
             alt="勇士与机械鸟认出地点标记、找到对应卷轴、摘出卷轴中的情报"
           />
           <div className={p.formula}>

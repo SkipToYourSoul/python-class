@@ -1,11 +1,17 @@
 # 第五课：勇闯图表世界 · 完整参考
 # 在练习包文件夹运行；每次关闭图窗后继续下一张图。
 
+from pathlib import Path
+from matplotlib import font_manager
 import matplotlib.pyplot as plt
-plt.rcParams["font.sans-serif"] = [
-    "Heiti SC", "Microsoft YaHei", "Noto Sans CJK SC",
-    "Arial Unicode MS", "DejaVu Sans"
-]
+
+# 使用练习包自带的中文字体，无需安装到系统。
+_base = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd()
+_font = _base / "fonts" / "NotoSansCJKsc-Regular.otf"
+if not _font.is_file():
+    raise FileNotFoundError("请完整解压练习包，保留 fonts 文件夹，并在练习包文件夹中打开笔记本。")
+font_manager.fontManager.addfont(str(_font))
+plt.rcParams["font.family"] = [font_manager.FontProperties(fname=str(_font)).get_name()]
 plt.rcParams["axes.unicode_minus"] = False
 
 import pandas as pd
@@ -117,7 +123,7 @@ sns.pairplot(
 )
 plt.show()
 
-# 课堂练习 03：企鹅喙长与喙深，按种类着色
+# 课堂练习 03 选轴示例：喙长与喙深，按种类着色
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -133,7 +139,7 @@ plt.xlabel("Bill length (mm)")
 plt.ylabel("Bill depth (mm)")
 plt.show()
 
-# 同一练习的换轴参考：鳍肢长度（mm）
+# 其他选轴示例：鳍肢长度（mm）
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -149,7 +155,7 @@ plt.xlabel("Flipper length (mm)")
 plt.ylabel("Bill depth (mm)")
 plt.show()
 
-# 同一练习的换轴参考：体重（g）
+# 其他选轴示例：体重（g）
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt

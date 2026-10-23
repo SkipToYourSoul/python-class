@@ -20,7 +20,7 @@ export const storyComics: Record<
   guess: {
     title: '个头越大，跑得越慢？',
     label: 'MAKE A GUESS · 提出猜想',
-    image: 'height-speed-story.png',
+    image: 'height-speed-story.jpg',
     alt: '三格漫画：勇士凭大块头的外形猜它跑得慢；恶魔突然快速移动；勇士、小派与熊猫博士回到已有记录中查证身高和速度。',
     steps: [
       {
@@ -46,7 +46,7 @@ export const storyComics: Record<
   patrol: {
     title: '同一只恶魔，一直这么快？',
     label: 'STORY · 观察巡逻',
-    image: 'patrol-time-story.png',
+    image: 'patrol-time-story.jpg',
     alt: '三格漫画：勇士被桥上的炎角兽挡住；小派在不同时间记录同一只戴浅色脚环的恶魔；熊猫博士与同伴核对连续观测记录，尚未决定通过时机。',
     steps: [
       {
@@ -72,7 +72,7 @@ export const storyComics: Record<
   kind: {
     title: '哪一族通常跑得更快？',
     label: 'STORY · 比较军团',
-    image: 'three-kinds-story.png',
+    image: 'three-kinds-story.jpg',
     alt: '三格漫画：通向城堡的三条路上都有不同种类的恶魔巡逻；同族个体的移动表现也有差异；团队将三族的已有观测记录分成三组，准备比较。',
     steps: [
       {

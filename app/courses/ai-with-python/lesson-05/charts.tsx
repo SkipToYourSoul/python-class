@@ -66,6 +66,7 @@ function Axes({
   yTicks,
   x,
   y,
+  alignEdgeTicks = false,
 }: {
   b: Bounds;
   xLabel: string;
@@ -75,6 +76,7 @@ function Axes({
   yTicks: number[];
   x: (v: number) => number;
   y: (v: number) => number;
+  alignEdgeTicks?: boolean;
 }) {
   return (
     <g fill="#071a3d">
@@ -99,13 +101,19 @@ function Axes({
         stroke="#071a3d"
         strokeWidth="2"
       />
-      {xTicks.map((v) => (
+      {xTicks.map((v, i) => (
         <text
           key={v}
           data-axis-tick="x"
           x={x(v)}
           y={b.bottom + 26}
-          textAnchor="middle"
+          textAnchor={
+            alignEdgeTicks && i === 0
+              ? 'start'
+              : alignEdgeTicks && i === xTicks.length - 1
+                ? 'end'
+                : 'middle'
+          }
         >
           {xTickLabels?.[v] ?? v}
         </text>
@@ -140,11 +148,25 @@ const scale = (ticks: number[], from: number, to: number) => (v: number) =>
 export function Histogram({
   field = 'speed',
   axisLabels,
+  showConclusions = false,
 }: {
   field?: Field;
   axisLabels?: AxisLabels;
+  showConclusions?: boolean;
 }) {
   const bins = demonHistograms[field];
+  const peak = bins.reduce((largest, bin) =>
+    bin.count > largest.count ? bin : largest,
+  );
+  const middle = bins.slice(
+    Math.floor(bins.length / 4),
+    Math.ceil((bins.length * 3) / 4),
+  );
+  const total = bins.reduce((sum, bin) => sum + bin.count, 0);
+  const middleCount = middle.reduce((sum, bin) => sum + bin.count, 0);
+  const middlePercent = Math.round((middleCount / total) * 100);
+  const peakRange = `${peak.low.toFixed(1)}–${peak.high.toFixed(1)}`;
+  const middleRange = `${middle[0].low.toFixed(1)}–${middle.at(-1)!.high.toFixed(1)}`;
   const boundaries = [...bins.map((bin) => bin.low), bins.at(-1)!.high];
   const visibleTicks = boundaries.filter((_, i) => i % 2 === 0);
   const yTicks = range(
@@ -154,8 +176,17 @@ export function Histogram({
   );
   const fieldInfo = demonFields[field];
   return (
-    <div className={s.chart}>
-      <Plot label={`${fieldInfo.label}直方图，柱高表示区间内的个体数`}>
+    <div
+      className={s.chart}
+      data-histogram-conclusions={showConclusions || undefined}
+    >
+      <Plot
+        label={
+          showConclusions
+            ? `${total}只恶魔的${fieldInfo.label}直方图：约${peakRange}${fieldInfo.unit}这一组最多，有${peak.count}只；中间${middle.length}组共${middleCount}只`
+            : `${fieldInfo.label}直方图，柱高表示区间内的个体数`
+        }
+      >
         {(b) => {
           const x = scale(boundaries, b.left, b.right);
           const y = scale(yTicks, b.bottom, b.top + 16);
@@ -171,16 +202,28 @@ export function Histogram({
                   axisLabels?.x ?? `${fieldInfo.label}（${fieldInfo.unit}）`
                 }
                 yLabel={axisLabels?.y ?? '个体数（只）'}
+                alignEdgeTicks={showConclusions}
               />
-              {bins.map((bin) => (
-                <g key={bin.low}>
+              {bins.map((bin, i) => (
+                <g
+                  key={bin.low}
+                  data-bin-count={showConclusions ? bin.count : undefined}
+                >
                   <rect
                     x={x(bin.low) + 1}
                     y={y(bin.count)}
                     width={Math.max(0, x(bin.high) - x(bin.low) - 2)}
                     height={b.bottom - y(bin.count)}
-                    fill="#1457d9"
-                    opacity=".85"
+                    fill={
+                      showConclusions
+                        ? bin === peak
+                          ? '#ffc91c'
+                          : i === 0 || i === bins.length - 1
+                            ? '#b4caef'
+                            : '#1457d9'
+                        : '#1457d9'
+                    }
+                    opacity={showConclusions ? 1 : 0.85}
                   />
                   <text
                     x={(x(bin.low) + x(bin.high)) / 2}
@@ -190,14 +233,58 @@ export function Histogram({
                   >
                     {bin.count}
                   </text>
+                  {showConclusions && bin === peak && (
+                    <text
+                      x={(x(bin.low) + x(bin.high)) / 2}
+                      y={y(bin.count) + 26}
+                      textAnchor="middle"
+                      fill="#071a3d"
+                      fontWeight="850"
+                    >
+                      最多
+                    </text>
+                  )}
+                  {showConclusions &&
+                    bin !== peak &&
+                    (i === 0 || i === bins.length - 1) && (
+                      <text
+                        x={(x(bin.low) + x(bin.high)) / 2}
+                        y={y(bin.count) - 30}
+                        textAnchor="middle"
+                        fill="#354963"
+                      >
+                        较少
+                      </text>
+                    )}
                 </g>
               ))}
             </>
           );
         }}
       </Plot>
+      {showConclusions && (
+        <div className={s.histogramFindings} aria-live="polite">
+          <p>
+            <span className={s.peakKey} aria-hidden="true" />
+            最多：约 {peakRange} {fieldInfo.unit} · <b>{peak.count} 只</b>
+          </p>
+          <p>
+            中间 {middle.length} 组：约 {middleRange} {fieldInfo.unit}
+          </p>
+          <div className={s.histogramShare}>
+            <div className={s.shareTrack} aria-hidden="true">
+              <span style={{ width: `${(middleCount / total) * 100}%` }} />
+            </div>
+            <strong>
+              {middleCount}/{total} 只 · 约 {middlePercent}%
+            </strong>
+          </div>
+        </div>
+      )}
       <p className={s.detail}>
-        自动分组；刻度取近似值。区间左含右不含，最后一组含右端点。
+        {showConclusions
+          ? '自动等宽分组；区间端点取近似值，最后一组含右端点。'
+          : '自动分组；刻度取近似值。区间左含右不含，最后一组含右端点。'}
       </p>
     </div>
   );
@@ -210,6 +297,12 @@ export type ScatterPoint = {
   y: number;
   mass?: number;
 };
+type ScatterConclusion = {
+  text: string;
+  pointId: string;
+  pointLabel: string;
+  pointDetail: string;
+};
 export function DataScatter({
   points,
   kinds,
@@ -219,6 +312,10 @@ export function DataScatter({
   interactive = true,
   sizeByMass = false,
   reserveLegend = false,
+  conclusion,
+  groupFindings,
+  pointFinding,
+  alignEdgeTicks = false,
 }: {
   points: ScatterPoint[];
   kinds: readonly string[];
@@ -228,9 +325,19 @@ export function DataScatter({
   interactive?: boolean;
   sizeByMass?: boolean;
   reserveLegend?: boolean;
+  conclusion?: ScatterConclusion;
+  groupFindings?: { kind: string; summary: string }[];
+  pointFinding?: { pointId: string; label: string };
+  alignEdgeTicks?: boolean;
 }) {
   const [state, setState] = usePageState({ selectedPoint: '' });
   const selected = points.find((p) => p.id === state.selectedPoint);
+  const exception = conclusion
+    ? points.find((point) => point.id === conclusion.pointId)
+    : undefined;
+  const highlighted = points.find(
+    (point) => point.id === pointFinding?.pointId,
+  );
   const xTicks = range(points.map((p) => p.x));
   const yTicks = range(points.map((p) => p.y));
   const masses = points.flatMap((p) => (p.mass === undefined ? [] : [p.mass]));
@@ -244,7 +351,11 @@ export function DataScatter({
         )
       : 6;
   return (
-    <div className={s.chart}>
+    <div
+      className={s.chart}
+      data-scatter-conclusions={!!conclusion || undefined}
+      data-scatter-group-findings={groupFindings ? true : undefined}
+    >
       {(colored || reserveLegend) && (
         <div
           className={s.legend}
@@ -279,7 +390,10 @@ export function DataScatter({
         </div>
       )}
       <Plot label={`${xLabel}与${yLabel}散点图，每个点代表一个个体`}>
-        {(b) => {
+        {(bounds) => {
+          const b = groupFindings
+            ? { ...bounds, top: bounds.top + 78 }
+            : bounds;
           const x = scale(xTicks, b.left, b.right);
           const y = scale(yTicks, b.bottom, b.top + 16);
           return (
@@ -292,7 +406,63 @@ export function DataScatter({
                 yTicks={yTicks}
                 xLabel={xLabel}
                 yLabel={yLabel}
+                alignEdgeTicks={
+                  alignEdgeTicks || !!conclusion || !!groupFindings
+                }
               />
+              {groupFindings?.map((finding, index) => {
+                const sample = points.filter(
+                  (point) => point.kind === finding.kind,
+                );
+                if (!sample.length) return null;
+                const centerX =
+                  sample.reduce((sum, point) => sum + point.x, 0) /
+                  sample.length;
+                const centerY =
+                  sample.reduce((sum, point) => sum + point.y, 0) /
+                  sample.length;
+                const color =
+                  COLORS[kinds.indexOf(finding.kind) % COLORS.length];
+                const width = Math.min(216, (b.right - b.left - 16) / 2);
+                const left = index === 0 ? b.left : b.right - width;
+                const top = bounds.top + 6;
+                return (
+                  <g
+                    key={finding.kind}
+                    pointerEvents="none"
+                    data-scatter-group={finding.kind}
+                  >
+                    <path
+                      d={`M${left + (index === 0 ? width / 2 : 12)} ${top + 56}L${x(centerX)} ${y(centerY)}`}
+                      fill="none"
+                      stroke={color}
+                      strokeWidth="2"
+                      strokeDasharray="5 4"
+                    />
+                    <rect
+                      x={left}
+                      y={top}
+                      width={width}
+                      height="56"
+                      rx="8"
+                      fill="#fffdf7"
+                      stroke={color}
+                      strokeWidth="2"
+                    />
+                    <text
+                      x={left + 12}
+                      y={top + 22}
+                      fill={color}
+                      fontWeight="850"
+                    >
+                      {finding.kind}
+                    </text>
+                    <text x={left + 12} y={top + 45}>
+                      {finding.summary}
+                    </text>
+                  </g>
+                );
+              })}
               {points.map((p) => (
                 <circle
                   key={p.id}
@@ -332,10 +502,71 @@ export function DataScatter({
                   }
                 />
               ))}
+              {conclusion && exception && (
+                <g pointerEvents="none" data-scatter-exception={exception.id}>
+                  <path
+                    d={`M${x(exception.x)} ${y(exception.y) - 12}L${b.right - 112} ${b.top + 46}`}
+                    fill="none"
+                    stroke="#b77a00"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx={x(exception.x)}
+                    cy={y(exception.y)}
+                    r="12"
+                    fill="none"
+                    stroke="#b77a00"
+                    strokeWidth="3"
+                  />
+                  <rect
+                    x={b.right - 220}
+                    y={b.top - 8}
+                    width="216"
+                    height="54"
+                    rx="8"
+                    fill="#fff2b6"
+                    stroke="#071a3d"
+                    strokeWidth="2"
+                  />
+                  <text x={b.right - 208} y={b.top + 13} fontWeight="850">
+                    {conclusion.pointLabel}
+                  </text>
+                  <text x={b.right - 208} y={b.top + 35}>
+                    {conclusion.pointDetail}
+                  </text>
+                </g>
+              )}
+              {pointFinding && highlighted && (
+                <g
+                  pointerEvents="none"
+                  data-scatter-point-finding={highlighted.id}
+                >
+                  <circle
+                    cx={x(highlighted.x)}
+                    cy={y(highlighted.y)}
+                    r="12"
+                    fill="none"
+                    stroke="#b77a00"
+                    strokeWidth="3"
+                  />
+                  <text
+                    x={b.right}
+                    y={y(highlighted.y) - 36}
+                    textAnchor="end"
+                    fontWeight="850"
+                    paintOrder="stroke"
+                    stroke="#fffdf7"
+                    strokeWidth="6"
+                  >
+                    {pointFinding.label}
+                  </text>
+                </g>
+              )}
             </>
           );
         }}
       </Plot>
+      {conclusion && <p className={s.chartConclusion}>{conclusion.text}</p>}
       {interactive && (
         <p className={s.detail} aria-live="polite">
           {selected
@@ -355,6 +586,7 @@ export function Scatter({
   axisLabels,
   sizeByMass = false,
   reserveLegend = false,
+  showConclusions = false,
 }: {
   colored?: boolean;
   xField?: 'height' | 'mass';
@@ -363,7 +595,9 @@ export function Scatter({
   axisLabels?: AxisLabels;
   sizeByMass?: boolean;
   reserveLegend?: boolean;
+  showConclusions?: boolean;
 }) {
+  const exception = demons.find((point) => point.id === 'D004')!;
   return (
     <DataScatter
       points={demons.map((d) => ({
@@ -386,6 +620,16 @@ export function Scatter({
       interactive={interactive}
       sizeByMass={sizeByMass}
       reserveLegend={reserveLegend}
+      conclusion={
+        showConclusions && xField === 'height' && yField === 'speed'
+          ? {
+              text: '整体：身高较大通常速度较低，也有例外。',
+              pointId: exception.id,
+              pointLabel: `例外 ${exception.id}：又高又快`,
+              pointDetail: `${exception.height} cm · ${exception.speed} m/s`,
+            }
+          : undefined
+      }
     />
   );
 }
@@ -396,10 +640,12 @@ export function PatrolChart({
   type,
   axisLabels = { x: 'Hour', y: 'Speed (m/s)' },
   groupedByKind = false,
+  showConclusions = false,
 }: {
   type: PatrolChartType;
   axisLabels?: AxisLabels;
   groupedByKind?: boolean;
+  showConclusions?: boolean;
 }) {
   const xTicks = patrol.map((p) => p.hour);
   const yTicks = range(
@@ -409,6 +655,21 @@ export function PatrolChart({
   );
   const chartNames = { scatter: '散点图', line: '折线图', bar: '条形图' };
   const grouped = type === 'line' && groupedByKind;
+  const annotated = showConclusions && type === 'line' && !grouped;
+  const fastest = patrol.reduce((a, point) =>
+    point.speed > a.speed ? point : a,
+  );
+  const slowest = patrol.reduce((a, point) =>
+    point.speed < a.speed ? point : a,
+  );
+  const turningPoints = patrol.filter((point, i) => {
+    if (i === 0 || i === patrol.length - 1) return true;
+    return (
+      (point.speed - patrol[i - 1].speed) *
+        (patrol[i + 1].speed - point.speed) <
+      0
+    );
+  });
   const series = grouped
     ? demonKinds.map((kind) => ({
         kind,
@@ -425,7 +686,7 @@ export function PatrolChart({
         },
       ];
   return (
-    <div className={s.chart}>
+    <div className={s.chart} data-line-conclusions={annotated || undefined}>
       {grouped && (
         <div className={s.legend} aria-label="种类与观测个体图例">
           {series.map((group, i) => (
@@ -535,6 +796,47 @@ export function PatrolChart({
                               {p.speed}
                             </text>
                           )}
+                          {annotated &&
+                            (p.hour === fastest.hour ||
+                              p.hour === slowest.hour) && (
+                              <g
+                                pointerEvents="none"
+                                data-patrol-extreme={
+                                  p.hour === fastest.hour
+                                    ? 'fastest'
+                                    : 'slowest'
+                                }
+                              >
+                                <circle
+                                  cx={x(p.hour)}
+                                  cy={y(p.speed)}
+                                  r="13"
+                                  fill="none"
+                                  stroke={
+                                    p.hour === fastest.hour
+                                      ? '#b77a00'
+                                      : '#d45030'
+                                  }
+                                  strokeWidth="3"
+                                />
+                                <text
+                                  x={x(p.hour)}
+                                  y={
+                                    p.hour === fastest.hour
+                                      ? y(p.speed) - 41
+                                      : y(p.speed) + 36
+                                  }
+                                  textAnchor="middle"
+                                  fill="#071a3d"
+                                  fontWeight="850"
+                                  paintOrder="stroke"
+                                  stroke="#fffcf5"
+                                  strokeWidth="5"
+                                >
+                                  {p.hour === fastest.hour ? '最快' : '最慢'}
+                                </text>
+                              </g>
+                            )}
                         </g>
                       ))}
                     </g>
@@ -545,6 +847,25 @@ export function PatrolChart({
           );
         }}
       </Plot>
+      {annotated && (
+        <div className={s.lineChanges} aria-label="这六次观测中的变化">
+          {turningPoints.slice(0, -1).map((point, i) => {
+            const next = turningPoints[i + 1];
+            const rising = next.speed > point.speed;
+            return (
+              <div key={point.hour}>
+                <span>
+                  {point.hour}–{next.hour} 时
+                </span>
+                <strong>
+                  {rising ? '↗' : '↘'}{' '}
+                  {rising ? (i === 0 ? '上升' : '回升') : '下降'}
+                </strong>
+              </div>
+            );
+          })}
+        </div>
+      )}
       <p className={s.detail}>
         {grouped
           ? '每族各观测一个体；每条线仍连接同一个体的六次记录。'
@@ -564,15 +885,18 @@ const mean = (values: number[]) =>
 export function LineChart({
   axisLabels,
   groupedByKind = false,
+  showConclusions = false,
 }: {
   axisLabels?: AxisLabels;
   groupedByKind?: boolean;
+  showConclusions?: boolean;
 } = {}) {
   return (
     <PatrolChart
       type="line"
       axisLabels={axisLabels ?? { x: '观测时刻（时）', y: '速度（m/s）' }}
       groupedByKind={groupedByKind}
+      showConclusions={showConclusions}
     />
   );
 }
@@ -582,11 +906,13 @@ export function KindBars({
   groupedBySize = false,
   field = 'speed',
   colorByKind = false,
+  showConclusions = false,
 }: {
   axisLabels?: AxisLabels;
   groupedBySize?: boolean;
   field?: Field;
   colorByKind?: boolean;
+  showConclusions?: boolean;
 } = {}) {
   const sizeGroups = ['<180 cm', '≥180 cm'];
   const grouped = demonKinds.map((kind) => ({
@@ -601,6 +927,19 @@ export function KindBars({
       return sample.length ? mean(sample.map((d) => d[field])) : null;
     }),
   }));
+  const annotated = showConclusions && !groupedBySize;
+  const coloredFindings = annotated && colorByKind;
+  const rankLabels = {
+    height: { high: '较高', low: '较矮' },
+    mass: { high: '较重', low: '较轻' },
+    speed: { high: '较快', low: '较慢' },
+  }[field];
+  const ranked = [...grouped].sort(
+    (a, b) => (b.values[0] ?? 0) - (a.values[0] ?? 0),
+  );
+  const highest = ranked[0];
+  const lowest = ranked.at(-1)!;
+  const meanDifference = (highest.values[0] ?? 0) - (lowest.values[0] ?? 0);
   const yTicks = range(
     grouped.flatMap((group) =>
       group.values.filter((v): v is number => v !== null),
@@ -609,7 +948,11 @@ export function KindBars({
     true,
   );
   return (
-    <div className={s.chart}>
+    <div
+      className={s.chart}
+      data-bar-conclusions={annotated || undefined}
+      data-bar-field={annotated ? field : undefined}
+    >
       {groupedBySize && (
         <div className={s.legend}>
           <strong>身高</strong>
@@ -657,18 +1000,30 @@ export function KindBars({
                     ? center + (groupIndex === 0 ? -1 : 1) * step * 0.17
                     : center;
                   return (
-                    <g key={`${group.kind}-${groupIndex}`}>
+                    <g
+                      key={`${group.kind}-${groupIndex}`}
+                      data-kind-mean={annotated ? value : undefined}
+                      data-kind={annotated ? group.kind : undefined}
+                    >
                       <rect
                         x={barCenter - barWidth / 2}
                         y={y(value)}
                         width={barWidth}
                         height={b.bottom - y(value)}
                         fill={
-                          COLORS[
-                            colorByKind && !groupedBySize
-                              ? kindIndex
-                              : groupIndex
-                          ]
+                          annotated &&
+                          !colorByKind &&
+                          group.kind === highest.kind
+                            ? '#ffc91c'
+                            : annotated &&
+                                !colorByKind &&
+                                group.kind === lowest.kind
+                              ? '#b4caef'
+                              : COLORS[
+                                  colorByKind && !groupedBySize
+                                    ? kindIndex
+                                    : groupIndex
+                                ]
                         }
                       />
                       <text
@@ -679,6 +1034,34 @@ export function KindBars({
                       >
                         {value.toFixed(1)}
                       </text>
+                      {annotated &&
+                        (coloredFindings ||
+                          group.kind === highest.kind ||
+                          group.kind === lowest.kind) && (
+                          <text
+                            data-bar-finding={group.kind}
+                            x={barCenter}
+                            y={y(value) + 28}
+                            textAnchor="middle"
+                            fill={coloredFindings ? '#ffffff' : '#071a3d'}
+                            fontWeight="850"
+                            fontSize={coloredFindings ? 20 : undefined}
+                          >
+                            {coloredFindings
+                              ? group.kind === highest.kind
+                                ? rankLabels.high
+                                : group.kind === lowest.kind
+                                  ? rankLabels.low
+                                  : '居中'
+                              : group.kind === highest.kind
+                                ? field === 'speed'
+                                  ? '均速最高'
+                                  : '均值最高'
+                                : field === 'speed'
+                                  ? '均速最低'
+                                  : '均值最低'}
+                          </text>
+                        )}
                     </g>
                   );
                 }),
@@ -687,11 +1070,19 @@ export function KindBars({
           );
         }}
       </Plot>
-      <p className={s.detail}>
-        {groupedBySize
-          ? '柱高表示该组平均速度；空缺表示没有样本。'
-          : `柱高表示每族 30 个个体的平均${demonFields[field].label}。`}
-      </p>
+      {annotated && !colorByKind && field === 'speed' && (
+        <p className={s.chartConclusion}>
+          {highest.kind}平均最快，比{lowest.kind}快约{' '}
+          {meanDifference.toFixed(1)} m/s。
+        </p>
+      )}
+      {!coloredFindings && (
+        <p className={s.detail}>
+          {groupedBySize
+            ? '柱高表示该组平均速度；空缺表示没有样本。'
+            : `柱高表示每族 30 个个体的平均${demonFields[field].label}。`}
+        </p>
+      )}
     </div>
   );
 }

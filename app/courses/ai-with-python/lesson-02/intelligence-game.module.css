@@ -1023,7 +1023,7 @@
   overflow: hidden;
   background:
     linear-gradient(#09182f70, #0a1931),
-    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.png')
+    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.jpg')
       center 55% / cover;
   border-radius: 22px 22px 0 0;
 }
@@ -1233,7 +1233,7 @@
 .victoryArt {
   background:
     linear-gradient(#143f5733, #102b46),
-    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.png') 15%
+    url('/courses/ai-with-python/lesson-02/assets/defense-kingdom-map.jpg') 15%
       55% / cover;
 }
 .victoryHalo {

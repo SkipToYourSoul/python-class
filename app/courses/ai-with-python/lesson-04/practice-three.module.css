@@ -15,7 +15,7 @@
   color: #fffaf0;
   background:
     linear-gradient(#071a3ddd, #071a3d66, #071a3df5),
-    url('/courses/ai-with-python/lesson-04/assets/game/watchpost.png') center /
+    url('/courses/ai-with-python/lesson-04/assets/game/watchpost.jpg') center /
       cover;
 }
 .alert {

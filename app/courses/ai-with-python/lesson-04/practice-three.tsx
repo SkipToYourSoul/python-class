@@ -56,7 +56,7 @@ export function PracticeThreeEntry() {
           <header>
             <div>
               <h3>让数据指引调查</h3>
-              <p>从练习二读入的原始 df 重新选三列。</p>
+              <p>接着练习二的三列工作表 focus。</p>
             </div>
             <ClassPracticeStamp number="03" checklist />
           </header>
@@ -71,8 +71,8 @@ export function PracticeThreeEntry() {
             <li>
               <b>02</b>
               <div>
-                <strong>一起算均值和次数</strong>
-                <p>同名归组，同时核对两项统计。</p>
+                <strong>汇总并排序</strong>
+                <p>同名归组，算均值和次数，按均值排序。</p>
               </div>
             </li>
             <li>
@@ -104,11 +104,7 @@ export function PracticeThreeCode() {
       footer={
         <div className={s.codeFooter}>
           <div className={s.codeGuide}>
-            <Guide>
-              从原始 df 建立 work。
-              <br />
-              Shift + Enter 逐格运行，重做从第 1 格开始。
-            </Guide>
+            <Guide>接着 focus；重做先运行练习二的选列单元格。</Guide>
           </div>
           <PracticeTools code={PRACTICE_THREE_CODE} />
         </div>
@@ -146,7 +142,7 @@ export function PracticeThreeCode() {
               <span>保留的对象</span>
             </div>
           </div>
-          <p>第 2 格看统计表，第 3 格看筛选后的名单。</p>
+          <p>第 2 格先看第一名的次数，第 3 格再看筛选后的名单。</p>
           <strong className={s.question}>
             岩背魔为什么被筛掉？
             <br />

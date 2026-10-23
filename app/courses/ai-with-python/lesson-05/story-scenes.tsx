@@ -19,7 +19,7 @@ import s from './story-scenes.module.css';
 
 const speakerPortraits = {
   勇士: {
-    src: '/courses/ai-with-python/lesson-01/assets/final-guardian-hero.png',
+    src: '/courses/ai-with-python/lesson-01/assets/final-guardian-hero.jpg',
     width: 1122,
     height: 1402,
     viewBox: '370 20 340 340',

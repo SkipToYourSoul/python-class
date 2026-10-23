@@ -1,0 +1,5 @@
+# 分组漫画构图修订
+
+内置 image_gen，编辑 grouping-comic.png，最终使用 grouping-comic-v2.png。将两幅较高分镜重新构图为3:1横向条幅，避免投屏框裁去角色脸部；角色与剧情保持一致。
+
+Use case: precise-object-edit. Edit target is the referenced grouping-comic.png. Recompose its two panels into a very wide 3:1 panoramic strip, two equal LANDSCAPE panels each 1.5:1, full bleed with only one thin central gutter. Preserve characters, story, tower-color mapping and rich child-friendly fantasy comic style, but use closer medium shots and large readable gestures so the entire action fits in a shallow slide frame without vertical cropping. LEFT: same brown-haired silver/gold-armored blue-caped knight and small yellow two-eyed goggle helper sort blue/orange/teal tower record cards into three neat matching piles. RIGHT: helper compares three shield gauges and knight points thoughtfully at a small sun-clock next to them, mechanical owl perched behind. Keep all faces, all three piles and gauges WITHIN THE CENTRAL 80% OF HEIGHT. No text, numerals, speech balloons, logos, watermark or outer margins. Do not retain the original tall-panel composition.

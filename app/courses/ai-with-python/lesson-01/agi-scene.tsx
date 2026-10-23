@@ -12,13 +12,13 @@ const clips = [
     year: '2026',
     title: '2026 春晚 · 机器人武术',
     file: 'spring-gala-robots-2026.mp4',
-    poster: 'spring-gala-robots-2026-poster.png',
+    poster: 'spring-gala-robots-2026-poster.jpg',
   },
   {
     year: '2025',
     title: '2025 春晚 · 机器人秧歌',
     file: 'spring-gala-robots-2025.mp4',
-    poster: 'spring-gala-robots-2025-poster.png',
+    poster: 'spring-gala-robots-2025-poster.jpg',
   },
 ];
 

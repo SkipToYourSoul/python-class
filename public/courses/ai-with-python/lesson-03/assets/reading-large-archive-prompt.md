@@ -1,6 +1,6 @@
 # 逐行读取 · 三幕漫画
 
-生成方式：内置 imagegen。角色与风格参考 write-archive-records.png、write-archive-journey.png。
+生成方式：内置 imagegen。角色与风格参考 write-archive-records.jpg、write-archive-journey.jpg。
 
 Use case: illustration-story. Create a new classroom comic illustration using both reference images ONLY for exact character identities, art style and castle archive interior. Output ultra-wide horizontal THREE equal panels side-by-side, total aspect ratio 3:1, narrow straight cream gutters exactly at one third and two thirds. Each panel roughly square; scene must remain readable when rendered as a wide 1.65:1 crop of each square, so all essential action and faces in middle horizontal 60% of each panel. No text, speech bubbles, numbers or logos. Rich warm illustrated manga style matching reference.
 IDENTITY LOCK: same teenage boy hero with tousled chestnut brown hair, brown eyes, cobalt blue cloak and tunic with gold castle crest, silver shoulder plates with gold trim, leather gloves; same short yellow TWO-eyed companion with silver round double goggles, short black hairs, blue overalls and black gloves; same woman librarian with brown bun, round glasses and navy robe with gold trim over white shirt. All characters match each other across all three panels. Friendly clear facial expressions, no new characters.

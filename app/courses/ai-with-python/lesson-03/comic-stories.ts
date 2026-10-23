@@ -26,7 +26,7 @@ export const comicStories = {
     acts: [
       {
         title: '守城后的电影时间',
-        image: 'movie-watch-act-01.png',
+        image: 'movie-watch-act-01.jpg',
         alt: '第一幕：程序帮忙收集情报后，勇士和小派坐在城堡电影馆里，吃着爆米花观看正在联网播放的冒险电影。',
         captions: [
           '勇士：“情报查好了，看会儿电影吧！”',
@@ -37,7 +37,7 @@ export const comicStories = {
       },
       {
         title: '恶魔短暂干扰网络',
-        image: 'movie-watch-act-02.png',
+        image: 'movie-watch-act-02.jpg',
         alt: '第二幕：城堡外，恶魔用紫色迷雾短暂干扰通信；电影馆里的影片卡在加载画面，电脑显示断网，勇士和小派无法继续观看或打开网页。',
         captions: [
           '恶魔：“让你们断网一小会儿！”',
@@ -48,7 +48,7 @@ export const comicStories = {
       },
       {
         title: '网络恢复，留下提醒',
-        image: 'movie-watch-act-03.png',
+        image: 'movie-watch-act-03.jpg',
         alt: '第三幕：网络恢复，电影继续播放；勇士想到守城情报应该提前保存。管理员展示一份已保存在电脑里的电影资料网页，勇士和小派准备学习读取里面的文字信息。',
         captions: [
           '勇士：“网恢复了，重要情报得提前存下来！”',
@@ -69,7 +69,7 @@ export const comicStories = {
     acts: [
       {
         title: '想起上次电影断网',
-        image: 'handoff-outage-act-01.png',
+        image: 'handoff-outage-act-01.jpg',
         alt: '第一幕：读完电影资料后，勇士回想起上次电影加载停住、网页因断网打不开的情景；他和小派离开电影馆，决定把守城情报也提前保存一份。',
         captions: [
           '勇士：“上次看电影一断网，网页也打不开。”',
@@ -80,7 +80,7 @@ export const comicStories = {
       },
       {
         title: '换岗了，情报怎么交接？',
-        image: 'handoff-act-02.png',
+        image: 'handoff-act-02.jpg',
         alt: '第二幕：换岗钟响，晚班勇士来取情报；电脑显示着恶魔资料，交接文件夹却还是空的。',
         captions: [
           '晚班勇士：“查到的弱点，留我一份吧！”',
@@ -91,7 +91,7 @@ export const comicStories = {
       },
       {
         title: '把情报写进文件',
-        image: 'handoff-outage-act-03.png',
+        image: 'handoff-outage-act-03.jpg',
         alt: '第三幕：勇士和小派从上次电影断网的经历中获得启发，准备把查到的守城情报写进文件；电脑的新文件仍为空白，晚班伙伴在旁等待。',
         captions: [
           '勇士：“把情报存好，下次断网时也能查。”',
@@ -111,7 +111,7 @@ export const comicStories = {
     acts: [
       {
         title: '夜色中的坏消息',
-        image: 'rescue-act-01.png',
+        image: 'rescue-act-01.jpg',
         alt: '第一幕：恶魔用迷雾干扰通信，猫头鹰信使被拦住；城堡电脑收不到最新消息。',
         captions: [
           '恶魔：“让你们收不到新消息！”',
@@ -122,7 +122,7 @@ export const comicStories = {
       },
       {
         title: '白天的记录还在',
-        image: 'rescue-act-02.png',
+        image: 'rescue-act-02.jpg',
         alt: '第二幕：小派找到本地交接文件，勇士读取保存过的恶魔弱点，准备探照灯、火把和供热装置。',
         captions: [
           '小派：“白天保存的文件还在这里！”',
@@ -133,7 +133,7 @@ export const comicStories = {
       },
       {
         title: '让记录更好找',
-        image: 'rescue-act-03.png',
+        image: 'rescue-act-03.jpg',
         alt: '第三幕：密集的文字记录让伙伴难以查找，小派和勇士设想将情报分列排整齐。',
         captions: [
           '晚班勇士：“记录再多些，怎么找？”',

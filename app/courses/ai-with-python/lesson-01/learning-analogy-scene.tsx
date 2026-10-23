@@ -95,7 +95,7 @@ export function LearningAnalogyScene({ active }: { active: boolean }) {
                   src={asset(
                     active && !reducedMotion
                       ? `image${sample.image}.GIF`
-                      : `learning-analogy/image${sample.image}-complete.png`,
+                      : `learning-analogy/image${sample.image}-complete.jpg`,
                   )}
                   alt={`“${sample.character}”字的笔顺：${sample.feature}`}
                   width={600}
@@ -129,7 +129,7 @@ export function LearningAnalogyScene({ active }: { active: boolean }) {
           <section className={s.thinking} aria-label="思考与建模">
             <img
               className={s.storyImage}
-              src={asset('learning-analogy/learning-process.png')}
+              src={asset('learning-analogy/learning-process.jpg')}
               alt="小朋友看着字帖，比较一、二、三的横画数量，反复练习认字。"
               width={1448}
               height={1086}
@@ -150,7 +150,7 @@ export function LearningAnalogyScene({ active }: { active: boolean }) {
           <section className={s.skill} aria-label="学会的技能与模型">
             <img
               className={s.storyImage}
-              src={asset('learning-analogy/learned-skill.png')}
+              src={asset('learning-analogy/learned-skill.jpg')}
               alt="同一个小朋友换了一本字帖，仍能认出不同写法的一、二、三。"
               width={1445}
               height={1088}

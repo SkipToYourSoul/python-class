@@ -1,6 +1,6 @@
 # 三条巡逻路线：从单只观察到群体比较
 
-生成方式：内置 imagegen，参考本课 fieldwork.png、opening.png、discovery.png 保持人物及三族造型。三格分别呈现路线困难、同族个体差异、三族记录归组；图内不提供最快种类结论，中文台词由 HTML 承载。
+生成方式：内置 imagegen，参考本课 fieldwork.jpg、opening.jpg、discovery.jpg 保持人物及三族造型。三格分别呈现路线困难、同族个体差异、三族记录归组；图内不提供最快种类结论，中文台词由 HTML 承载。
 
 最终提示词：
 

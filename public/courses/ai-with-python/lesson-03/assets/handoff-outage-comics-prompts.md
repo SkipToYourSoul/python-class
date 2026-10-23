@@ -4,15 +4,15 @@
 
 ## 当前剧情与素材
 
-- 第一幕：读完电影资料，勇士想起先前电影卡住、网页因断网打不开的经历，决定把守城情报也存一份。素材：`handoff-outage-act-01.png`（2172×724）。
-- 第二幕：换岗伙伴来取情报，屏幕有资料，交接文件夹仍为空。复用 `handoff-act-02.png`。
-- 第三幕：回忆先前断网，准备把三条情报写进文件，供断网时查阅、下一班交接。素材：`handoff-outage-act-03.png`（2170×725，约 3:1）。新文件仍为空白，写入任务尚未完成。
+- 第一幕：读完电影资料，勇士想起先前电影卡住、网页因断网打不开的经历，决定把守城情报也存一份。素材：`handoff-outage-act-01.jpg`（2172×724）。
+- 第二幕：换岗伙伴来取情报，屏幕有资料，交接文件夹仍为空。复用 `handoff-act-02.jpg`。
+- 第三幕：回忆先前断网，准备把三条情报写进文件，供断网时查阅、下一班交接。素材：`handoff-outage-act-03.jpg`（2170×725，约 3:1）。新文件仍为空白，写入任务尚未完成。
 
 回忆中的加载圈与断网图标表示第 3 页发生过的短暂断网；当前情报站没有再次断网。保存的是已经查到的情报，旧资料不能代表实时位置。
 
 ## 第一幕最终提示词
 
-参考 1（编辑目标）：`handoff-act-01.png`。参考 2（回忆内容）：`movie-watch-act-02.png`。
+参考 1（编辑目标）：`handoff-act-01.png`。参考 2（回忆内容）：`movie-watch-act-02.jpg`。
 
 ```text
 Use case: precise-object-edit / compositing.
@@ -27,7 +27,7 @@ Keep full canvas 2172×724 or equivalent exact 3:1 aspect ratio, no cropping or 
 
 ## 第三幕最终提示词
 
-参考 1（编辑目标）：`handoff-act-03.png`。参考 2（回忆内容）：`movie-watch-act-02.png`。
+参考 1（编辑目标）：`handoff-act-03.jpg`。参考 2（回忆内容）：`movie-watch-act-02.jpg`。
 
 ```text
 Use case: precise-object-edit / compositing.

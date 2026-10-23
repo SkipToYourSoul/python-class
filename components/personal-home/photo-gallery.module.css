@@ -1,0 +1,332 @@
+.gallery {
+  position: fixed;
+  width: min(1040px, calc(100vw - 48px));
+  max-width: calc(100vw - 48px);
+  height: min(88dvh, 850px);
+  max-height: calc(100dvh - 48px);
+  box-sizing: border-box;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #dedbd4;
+  border-radius: 5px;
+  background: #faf9f6;
+  color: #252421;
+  font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  box-shadow: 0 20px 90px #1f1a1629;
+}
+.gallery *,
+.gallery *::before,
+.gallery *::after {
+  box-sizing: border-box;
+}
+.gallery::backdrop {
+  background: #16161699;
+  backdrop-filter: blur(6px);
+}
+.shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+  gap: 12px;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 22px 26px 18px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.eyebrow {
+  margin: 0 0 7px;
+  color: #8b8780;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+.header h2 {
+  margin: 0;
+  font-family: 'Times New Roman', 'Songti SC', serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+.close {
+  display: grid;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #d5d1c9;
+  border-radius: 50%;
+  background: #fff8;
+  color: inherit;
+  font: inherit;
+  font-size: 28px;
+  cursor: pointer;
+}
+.figure {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+.imageStage {
+  display: grid;
+  grid-row: 1;
+  grid-column: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #e6e2da;
+  background: #eeeae2;
+  touch-action: pan-y;
+}
+.imageStage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.zoomEntry {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
+  grid-column: 1;
+  align-self: end;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin: 10px;
+  padding: 7px 12px;
+  border: 1px solid #ded9cf;
+  border-radius: 30px;
+  background: #fffdf6f5;
+  color: #292621;
+  font: inherit;
+  font-size: 11px;
+  box-shadow: 0 2px 9px #2620190d;
+  cursor: pointer;
+}
+.zoomEntry svg {
+  width: 14px;
+  height: 14px;
+}
+.caption {
+  grid-column: 1;
+  grid-row: 2;
+  min-height: 18px;
+  color: #77736d;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.navigation button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 95px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #d7d3cb;
+  border-radius: 3px;
+  background: #fff9;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.navigation button:disabled {
+  color: #b2ada5;
+  border-color: #e7e3dc;
+  cursor: default;
+}
+.navigation svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+.counter {
+  flex: none;
+  color: #77736d;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+.thumbnails {
+  margin: 0;
+  border: 0;
+  min-inline-size: 0;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  padding: 4px 4px 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #c7c1b7 transparent;
+}
+.thumbnail {
+  position: relative;
+  display: grid;
+  flex: 0 0 96px;
+  width: 96px;
+  height: 73px;
+  place-items: center;
+  padding: 4px;
+  overflow: hidden;
+  border: 1px solid #d7d3cb;
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+}
+.thumbnail[aria-pressed='true'] {
+  border-color: #292723;
+  box-shadow: 0 0 0 1px #292723;
+}
+.thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+}
+.thumbnail > span {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 2px 4px;
+  border-radius: 1px;
+  background: #faf9f6ed;
+  color: #524d46;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  line-height: 1.1;
+}
+.hint {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #8a857d;
+  text-align: center;
+}
+.shell button:is(:hover, :focus-visible):not(:disabled) {
+  border-color: #484139;
+  background-color: #fff;
+}
+.gallery button:focus-visible {
+  outline: 2px solid #36302a;
+  outline-offset: 3px;
+}
+.zoomDialog {
+  border-color: #292929;
+  background: #171717;
+}
+.zoomDialog button:focus-visible {
+  outline-color: #fff;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .gallery {
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    height: calc(
+      100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+    max-height: calc(
+      100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+  }
+  .shell {
+    gap: 10px;
+    padding: 15px 14px 12px;
+  }
+  .header h2 {
+    font-size: 22px;
+  }
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .caption {
+    font-size: 11px;
+  }
+  .navigation {
+    gap: 6px;
+  }
+  .navigation button {
+    min-width: 78px;
+    gap: 5px;
+    padding: 8px;
+    font-size: 11px;
+  }
+  .counter {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .thumbnail {
+    flex-basis: 72px;
+    width: 72px;
+    height: 58px;
+  }
+  .zoomEntry {
+    min-height: 34px;
+    margin: 8px;
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
+@media (max-height: 540px) {
+  .shell {
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  .header h2 {
+    font-size: 18px;
+  }
+  .eyebrow {
+    margin-bottom: 3px;
+    font-size: 8px;
+  }
+  .thumbnail {
+    height: 44px;
+    flex-basis: 62px;
+    width: 62px;
+  }
+  .hint {
+    font-size: 9px;
+  }
+}

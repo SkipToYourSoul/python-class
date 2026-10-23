@@ -224,6 +224,12 @@ export function CourseLessonPlayer({
                         [scene.id]: { ...prev[scene.id], ...value },
                       })),
                     navigate,
+                    pages: states,
+                    updatePage: (id, patch) =>
+                      setStates((prev) => ({
+                        ...prev,
+                        [id]: { ...prev[id], ...patch },
+                      })),
                   }}
                 >
                   <RenderScene key={`${scene.id}:${revision}`} id={scene.id} />

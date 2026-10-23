@@ -229,7 +229,7 @@ export default function FinalChallengeGame() {
               data-motion-paused={scenePaused}
               data-result={review ? v.phase : completed ? 'correct' : undefined}
               style={{
-                backgroundImage: `url(${asset('final-challenge-road.png')})`,
+                backgroundImage: `url(${asset('final-challenge-road.jpg')})`,
               }}
             >
               {celebrate && (

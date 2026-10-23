@@ -7,7 +7,7 @@
 ## 资源与检查
 
 - `investigation-map.png`：1672 × 941；夜色城堡庭院探索地图。左侧暖光战报室、右侧蓝光哨塔、中央远端雾林城门均清晰，石路连通，未绘制角色、文字或界面。
-- `watchpost.png`：1672 × 941；夜间隐蔽观察背景。前景枝叶和岩石形成窥视框景，中部留空，远端三队恶魔使用橙、绿、蓝区分，未出现 Boss、铃铛或指挥暗示。
+- `watchpost.jpg`：1672 × 941；夜间隐蔽观察背景。前景枝叶和岩石形成窥视框景，中部留空，远端三队恶魔使用橙、绿、蓝区分，未出现 Boss、铃铛或指挥暗示。
 
 两图已通过 `view_image` 实际查看。约 16:9，作为背景时建议 `object-fit: cover`。关键地点处于可视主体区，顶栏与底栏可以叠加。允许游戏通过代码添加热点、视差、灯光、粒子和观察目标；图片本身不包含交互控件。
 
@@ -23,7 +23,7 @@ Lighting/mood: Moonlit indigo, rich cyan glow in watchtower, warm golden light f
 Constraints: Absolutely no text, lettering, captions, labels, icons, UI, border, watermarks, logos, arrows, or characters. No demon, no boss, no hero. Production-ready environment artwork, clear visual hierarchy, avoid flat vector or generic dashboard style.
 ```
 
-## watchpost.png 精确生成提示词
+## watchpost.jpg 精确生成提示词
 
 ```text
 Use case: stylized-concept

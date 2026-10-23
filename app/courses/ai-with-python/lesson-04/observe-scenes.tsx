@@ -22,7 +22,7 @@ export function Opening() {
         <div className={`${s.stack} ${s.center}`}>
           <img
             className={s.missionArt}
-            src="/courses/ai-with-python/lesson-04/assets/mission-briefing.png"
+            src="/courses/ai-with-python/lesson-04/assets/mission-briefing.jpg"
             alt="机械猫头鹰送来厚厚的进攻战报，勇士接过档案，小派指向电脑上的记录表，准备一起寻找线索"
             width={1448}
             height={1086}

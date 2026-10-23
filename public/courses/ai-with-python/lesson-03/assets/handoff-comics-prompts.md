@@ -1,12 +1,12 @@
 # 第二节 STORY 三幕漫画生成记录
 
-2026-10-09：当前第一幕和第三幕已改为“从上次电影断网获得启发，给守城情报留一份”，使用 `handoff-outage-act-01.png` 与 `handoff-outage-act-03.png`；第二幕沿用 `handoff-act-02.png`。见[当前素材与完整提示词](handoff-outage-comics-prompts.md)。下方保留原版生成记录。
+2026-10-09：当前第一幕和第三幕已改为“从上次电影断网获得启发，给守城情报留一份”，使用 `handoff-outage-act-01.jpg` 与 `handoff-outage-act-03.jpg`；第二幕沿用 `handoff-act-02.jpg`。见[当前素材与完整提示词](handoff-outage-comics-prompts.md)。下方保留原版生成记录。
 
 生成方式：内置 image_gen.imagegen，参考图生成与宽幅重新构图；未使用 CLI/API。
 
-最终素材：handoff-act-01.png、handoff-act-02.png、handoff-act-03.png，均为 2172×724（3:1）。每幅左右两格、无文字，网页同步呈现中文对话。最终素材只用于课程漫画；旧 2:1 中间稿保留在默认生成目录，不在课程目录重复保存。
+最终素材：handoff-act-01.png、handoff-act-02.jpg、handoff-act-03.jpg，均为 2172×724（3:1）。每幅左右两格、无文字，网页同步呈现中文对话。最终素材只用于课程漫画；旧 2:1 中间稿保留在默认生成目录，不在课程目录重复保存。
 
-角色参考：archive-room.png、movie-archive.png；movie-act-03.png 为电影馆管理员、勇士、小派的系列定稿；夜班勇士采用 handoff-act-02 的短深棕发、轻胡茬、蓝披风金城堡图案及银金肩甲。
+角色参考：archive-room.jpg、movie-archive.png；movie-act-03.png 为电影馆管理员、勇士、小派的系列定稿；夜班勇士采用 handoff-act-02 的短深棕发、轻胡茬、蓝披风金城堡图案及银金肩甲。
 
 ## 最终提示词 01：电影档案帮了大忙
 
@@ -28,7 +28,7 @@ Additional identity lock: reference 2 movie-act-03 is the final canonical boy he
 Use case: illustration-story. Recompose this exact TWO-panel comic reference into an EXTREMELY WIDE 3:1 image, target 2172×724 or equivalent 3:1 ratio. Exactly two equal 3:2 landscape panels, thin cream central gutter. Maintain all identities, costumes, rich warm hand-drawn anime castle artwork and story beats. Pull camera wider, use horizontal staging, no vertical stretching. LEFT: brown-haired teen armored hero and yellow TWO-eyed goggled blue-overalls Xiaopai realize they can use the movie-file method; Xiaopai raises a finger, hero bright expression. Small soft-edged MEMORY INSET above or beside them showing movie-library computer with stored folder/movie thumbnails, and familiar female librarian with brown bun, glasses, navy robe. Inset small enough to keep all main faces visible. RIGHT: hero and Xiaopai at keyboard ready to create handoff record, adult dark-short-haired armored night warrior waits optimistically. On computer: demon thumbnails with simple output bars in one window; the second NEW DOCUMENT window is blank and shows a single simple PAGE shaped outline icon with folded upper corner (NOT a folder icon). Task remains incomplete, no checkmark, no completed report, no victory. All faces and whole screen fully visible and centered, hands on keyboard visible. NO letters, text, numbers, fake writing, subtitles, speech bubbles, logos, watermark or quill/paper diary. Entire finished canvas exactly 3:1, not 2:1.
 Input role: image1 is story composition draft; image2 movie-act-03 is final identity lock for the boy, yellow companion and female librarian; image3 handoff-act-02 is exact final identity for adult warrior, short dark-brown hair, light chin stubble, blue cloak gold castle motif, silver/gold shoulder plates. Maintain identity absolutely across all panels. Tiny demons on screen orange-red horned fire beast, green vine armored beast, icy-blue winged beast.
 
-参考：初版第三幕（exec-def59a7b-e5ff-46e4-bcd0-02b1670e7f03.png）、movie-act-03.png、最终 handoff-act-02.png。
+参考：初版第三幕（exec-def59a7b-e5ff-46e4-bcd0-02b1670e7f03.png）、movie-act-03.png、最终 handoff-act-02.jpg。
 输出：exec-ec3c19a2-2b9b-4214-8bbb-5e10f9107b9d.png。
 
 所有生成结果默认目录：/Users/liye/.codex/generated_images/01a0c820-d616-7190-8835-563aee62f63f/
@@ -82,13 +82,13 @@ Use case: illustration-story. Recompose this exact TWO-panel comic reference int
 
 Please make one small illustration consistency correction to image 1. In its right-side computer screen, replace the three small colored creature portraits with miniature illustrations of the same three fantasy creatures shown in reference image 2: the four-legged black-and-orange lava bull, the sturdy leafy green forest creature, and the pale blue crystalline winged dragon. Fit them neatly into the same three existing small portrait boxes. Preserve the original whole scene and all people, their faces and outfits, the castle background, both comic panels, monitor and other screen contents exactly. In particular preserve the empty folder icon in the right computer window. Keep the image exactly 3:1 wide, 2172×724, no text, no watermark. These are friendly classroom fantasy illustrations; no violence or injury.
 
-最终输出：exec-c7d908b6-ecbe-402d-bb9f-747378f7a8e6.png，已覆盖本轮 handoff-act-02.png。
+最终输出：exec-c7d908b6-ecbe-402d-bb9f-747378f7a8e6.png，已覆盖本轮 handoff-act-02.jpg。
 
 ### 第三幕定向编辑最终提示词
 
 Please make one small illustration consistency correction to image 1. In its right-side computer screen, replace the three small colored creature portraits with miniature illustrations of the same three fantasy creatures shown in reference image 2: the four-legged black-and-orange lava bull, the sturdy leafy green forest creature, and the pale blue crystalline winged dragon. Fit them neatly into the same three existing small portrait boxes. Preserve the original whole scene and all people, their faces and outfits, the memory inset with movie librarian, the castle background, both comic panels, monitor and other screen contents exactly. In particular preserve the blank PAGE file icon with folded top-right corner in the right computer window, NOT a folder icon. Keep the image exactly 3:1 wide, 2172×724, no text, no watermark. These are friendly classroom fantasy illustrations; no violence or injury.
 
-最终输出：exec-7c355f36-fba0-477e-ab08-583f5d90e432.png，已覆盖本轮 handoff-act-03.png。
+最终输出：exec-7c355f36-fba0-477e-ab08-583f5d90e432.png，已覆盖本轮 handoff-act-03.jpg。
 
 ### 第二幕首次定向请求（服务输出检查拒绝，无输出）
 

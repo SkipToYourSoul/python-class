@@ -142,7 +142,7 @@ export function TransferScene({ id }: { id: string }) {
           <div className={`${m.grid} ${m.balanced}`}>
             <img
               className={m.art}
-              src={`${assetBase}/assets/warriors-movie-time.png`}
+              src={`${assetBase}/assets/warriors-movie-time.jpg`}
               alt="程序整理好敌情，勇士们拿着爆米花挑选电影"
             />
             <div className={m.stack}>

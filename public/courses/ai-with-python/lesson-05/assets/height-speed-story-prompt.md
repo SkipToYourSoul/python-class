@@ -1,6 +1,6 @@
 # 身高与速度：从外形猜测到核对记录
 
-生成方式：内置 imagegen，参考本课 fieldwork.png、opening.png、discovery.png 保持人物和三族造型一致。图片为三格连续漫画；中文对话由页面 HTML 承载，图内不提前展示统计图或结论。
+生成方式：内置 imagegen，参考本课 fieldwork.jpg、opening.jpg、discovery.jpg 保持人物和三族造型一致。图片为三格连续漫画；中文对话由页面 HTML 承载，图内不提前展示统计图或结论。
 
 最终提示词：
 

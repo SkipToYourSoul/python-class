@@ -135,7 +135,7 @@ export function WriteModesScene() {
         <figure className={s.comic}>
           <div className={s.comicFrame}>
             <img
-              src={`${assetBase}/assets/${showOriginal ? 'write-archive-records.png' : 'write-archive-journey.png'}`}
+              src={`${assetBase}/assets/${showOriginal ? 'write-archive-records.jpg' : 'write-archive-journey.jpg'}`}
               alt={
                 comicStep === 2
                   ? '勇士把写好的情报档案归还档案架'

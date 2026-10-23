@@ -46,6 +46,23 @@
   height: 100%;
   object-fit: contain;
 }
+.taskBrief.customTaskBrief {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.taskVisual {
+  position: absolute;
+  inset: 0;
+}
+.customTaskBrief > .stamp {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 112px;
+  height: 112px;
+  z-index: 3;
+}
 .stamp {
   display: flex;
   flex-direction: column;

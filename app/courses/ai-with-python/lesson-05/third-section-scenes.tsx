@@ -12,14 +12,13 @@ import {
 import { usePageState } from '@/components/course/lesson-state';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { ClassPracticeStamp } from '@/components/course/ai-with-python/practice-templates';
-import { Page, CodeTools, Art } from './lesson-ui';
+import { Page, CodeTools, Art, Guide } from './lesson-ui';
 import { DataScatter, KindBars } from './charts';
 import { demons, demonKinds, penguins, penguinKinds } from './study-data';
 import {
   PAIRPLOT_FULL_CODE,
   PAIRPLOT_UNCOLORED_FULL_CODE,
-  PENGUIN_PRACTICE_CODE,
-  PENGUIN_PRACTICE_TRANSFERS,
+  PENGUIN_PRACTICE_TEMPLATE,
   PENGUIN_PLOT_FIELDS,
   getPenguinFullCode,
 } from './practice-content';
@@ -44,10 +43,12 @@ function PenguinPlot({
   x = 'billLength',
   y = 'billDepth',
   english = false,
+  showBodyFindings = false,
 }: {
   x?: PenguinField;
   y?: PenguinField;
   english?: boolean;
+  showBodyFindings?: boolean;
 }) {
   return (
     <DataScatter
@@ -62,29 +63,25 @@ function PenguinPlot({
       interactive={false}
       xLabel={english ? PENGUIN_PLOT_FIELDS[x].label : fieldLabel(x)}
       yLabel={english ? PENGUIN_PLOT_FIELDS[y].label : fieldLabel(y)}
+      groupFindings={
+        showBodyFindings
+          ? [
+              { kind: penguinKinds[0], summary: '与帽带企鹅重叠较多' },
+              { kind: penguinKinds[2], summary: '鳍肢较长、体重较大' },
+            ]
+          : undefined
+      }
     />
   );
 }
 
 export function DemonPairs() {
-  const [state, update] = usePageState({ evidenceRevealed: false });
   return (
     <Page
       title="两组特征，交叉核对线索"
       label="DEMON EVIDENCE · 恶魔特征观察"
       footer={
-        <>
-          <p>同样的 90 个个体、同样的种类颜色，换特征后再核对。</p>
-          <button
-            className={s.button}
-            aria-expanded={state.evidenceRevealed}
-            onClick={() =>
-              update({ evidenceRevealed: !state.evidenceRevealed })
-            }
-          >
-            {state.evidenceRevealed ? '收起参考线索' : '观察后，核对线索'}
-          </button>
-        </>
+        <p>两图都是同样的 90 个个体。点群仍有重叠，整体特点不代表每一个体。</p>
       }
     >
       <div className={s.twoCharts}>
@@ -104,49 +101,122 @@ export function DemonPairs() {
                 interactive={false}
                 xLabel="身高（cm）"
                 yLabel={field === 'speed' ? '速度（m/s）' : '体重（kg）'}
+                groupFindings={[
+                  {
+                    kind: '冰翼魔族',
+                    summary:
+                      field === 'speed' ? '整体较矮、较快' : '整体较矮、较轻',
+                  },
+                  {
+                    kind: '藤甲魔族',
+                    summary:
+                      field === 'speed' ? '整体较高、较慢' : '整体较高、较重',
+                  },
+                ]}
+                pointFinding={
+                  field === 'speed'
+                    ? { pointId: 'D004', label: 'D004：高而快的例外' }
+                    : undefined
+                }
               />
-            </div>
-            <div className={s.finding} aria-live="polite">
-              <strong>
-                {field === 'speed'
-                  ? '哪类点群偏右下？哪类偏左上？'
-                  : '较高的点群，也通常更重吗？'}
-              </strong>
-              <p>
-                {state.evidenceRevealed
-                  ? field === 'speed'
-                    ? '藤甲魔族偏右下，整体较高、速度较低。冰翼魔族偏左上，整体较矮、速度较高。'
-                    : '藤甲魔族偏右上，整体较高、较重。冰翼魔族偏左下，整体较矮、较轻。'
-                  : '先按图例找到三类点群，再描述它们的位置。也找一找点群交界和例外。'}
-              </p>
             </div>
           </section>
         ))}
       </div>
-      <p className={s.caution}>
-        例外也算证据：D004 身高 205 cm、速度 11.7
-        m/s，是一只高而快的炎角兽。整体特点不代表每一个体。
-      </p>
     </Page>
   );
 }
 
 const demonClues = [
-  { title: '炎角兽族', clue: '三项平均值居中，同族仍有差异。' },
-  { title: '藤甲魔族', clue: '整体较高、较重，平均速度较低。' },
-  { title: '冰翼魔族', clue: '整体较矮、较轻，平均速度较高。' },
+  {
+    title: '炎角兽族',
+    finding: '三项平均值居中',
+    clue: '三项平均值居中，同族仍有差异。',
+    portrait: { left: '0%', top: '0%' },
+  },
+  {
+    title: '藤甲魔族',
+    finding: '较高、较重，平均速度较低',
+    clue: '整体较高、较重，平均速度较低。',
+    portrait: { left: '0%', top: '-100%' },
+  },
+  {
+    title: '冰翼魔族',
+    finding: '较矮、较轻，平均速度较高',
+    clue: '整体较矮、较轻，平均速度较高。',
+    portrait: { left: '-100%', top: '0%' },
+  },
 ];
+
+function demonMean(kind: string, field: 'height' | 'mass' | 'speed') {
+  const sample = demons.filter((demon) => demon.kind === kind);
+  return sample.reduce((sum, demon) => sum + demon[field], 0) / sample.length;
+}
+
+export function DemonConclusions() {
+  const fields = [
+    { key: 'height', label: '平均身高', unit: 'cm' },
+    { key: 'mass', label: '平均体重', unit: 'kg' },
+    { key: 'speed', label: '平均速度', unit: 'm/s' },
+  ] as const;
+  return (
+    <Page
+      title="从图表中，读出三族的特点"
+      label="DATA FINDINGS · 三族恶魔结论"
+      footer={
+        <Guide>
+          图表帮我们读出了三族的整体特点，同族仍有差异。
+          <strong>真实世界，也能这样研究吗？</strong>
+        </Guide>
+      }
+    >
+      <div className={s.profileCards}>
+        {demonClues.map((item, index) => (
+          <section
+            className={s.profileCard}
+            key={item.title}
+            data-demon-profile={item.title}
+            style={{ borderTopColor: colors[index] }}
+          >
+            <header>
+              <h3>{item.title}</h3>
+              <span>30 个体</span>
+            </header>
+            <div className={s.profileArt}>
+              <div className={s.profilePortrait}>
+                <img
+                  className={s.profileSprite}
+                  src="/courses/ai-with-python/lesson-04/assets/shield-game/demons.png"
+                  alt={`${item.title}形象`}
+                  style={item.portrait}
+                />
+              </div>
+            </div>
+            <p className={s.profileFinding}>{item.finding}</p>
+            <dl className={s.profileStats}>
+              {fields.map((field) => (
+                <div key={field.key} data-profile-field={field.key}>
+                  <dt>{field.label}</dt>
+                  <dd>
+                    <b>{demonMean(item.title, field.key).toFixed(1)}</b>{' '}
+                    <span>{field.unit}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))}
+      </div>
+    </Page>
+  );
+}
 
 export function DemonDossier() {
   return (
     <Page
       title="三张图，补齐恶魔特征档案"
       label="DEMON DOSSIER · 侦察线索归档"
-      footer={
-        <p>
-          把散点图上的点群特点，与三族的平均值交叉核对。每族各 30 个观测个体。
-        </p>
-      }
+      footer={<p>每根柱子表示该族 30 个个体的平均值；平均值不代表每一个体。</p>}
     >
       <div className={s.dossierCharts}>
         {(
@@ -159,25 +229,11 @@ export function DemonDossier() {
           <section className={s.evidenceCard} key={item.field}>
             <h3>{item.title}</h3>
             <div className={s.plot}>
-              <KindBars field={item.field} colorByKind />
+              <KindBars field={item.field} colorByKind showConclusions />
             </div>
           </section>
         ))}
       </div>
-      <div className={s.kindCards}>
-        {demonClues.map((item, i) => (
-          <section key={item.title} style={{ borderTopColor: colors[i] }}>
-            <h3>
-              <i style={{ background: colors[i] }} />
-              {item.title}
-            </h3>
-            <p>{item.clue}</p>
-          </section>
-        ))}
-      </div>
-      <p className={s.caution}>
-        图表描述这批样本的体型与速度，平均值不能代替每只恶魔的记录。
-      </p>
     </Page>
   );
 }
@@ -312,7 +368,7 @@ function MatrixCell({
 }
 
 export function PenguinOverview() {
-  const [state, update] = usePageState({ matrixColored: false });
+  const [state, update] = usePageState({ matrixColored: true });
   const [zoom, setZoom] = useState<{ x: PenguinField; y: PenguinField } | null>(
     null,
   );
@@ -322,7 +378,7 @@ export function PenguinOverview() {
       label="REAL DATA · 企鹅数据总览"
       footer={
         <>
-          <p>{penguins.length} 条观测 · Penguins_cleaned.csv</p>
+          <p>{penguins.length} 条观测 · 类别有重叠，特点描述整体。</p>
           <CodeTools
             code={
               state.matrixColored
@@ -405,28 +461,59 @@ export function PenguinOverview() {
               </div>
             ))}
           </div>
+          <p className={s.matrixHint}>
+            对角格看
+            {state.matrixColored
+              ? '密度：曲线看分布的位置和形状'
+              : '分布：柱高表示数量'}
+            ；其余格看两项特征的联系，可点击放大。
+          </p>
         </div>
-        <div className={s.overviewNotes}>
-          <section>
-            <b>01 看清全部变量</b>
-            <p>
-              喙长、喙深、鳍肢长度、体重，都是数值数据。
-              <strong>种类 species</strong> 是分类数据。
-            </p>
-            <p className={s.sampleCounts}>阿德利 151 · 帽带 68 · 巴布亚 123</p>
-          </section>
-          <section>
-            <b>02 看懂每个格子</b>
-            <p>
-              上方选横轴，左侧选纵轴。两个维度相同的对角格看单项分布，其他格子看两项特征的联系。
-            </p>
-          </section>
-          <section>
-            <b>03 加颜色找线索</b>
-            <p>
-              着色后，对角线改用密度图：曲线越高，该值附近的记录越集中。哪些种类仍然重叠？点击散点格子可以放大。
-            </p>
-          </section>
+        <div className={s.penguinFindings}>
+          {[
+            {
+              species: 'Adelie',
+              kind: penguinKinds[0],
+              image: 'penguin-adelie.jpg',
+              traits: ['喙较短', '鳍肢较短', '体重较轻'],
+            },
+            {
+              species: 'Chinstrap',
+              kind: penguinKinds[1],
+              image: 'penguin-chinstrap.jpg',
+              traits: ['喙较长、较深', '鳍肢、体重与阿德利重叠较多'],
+            },
+            {
+              species: 'Gentoo',
+              kind: penguinKinds[2],
+              image: 'penguin-gentoo.png',
+              traits: ['喙较浅', '鳍肢较长', '体重较大'],
+            },
+          ].map((item, index) => (
+            <section
+              className={s.penguinFinding}
+              key={item.species}
+              data-penguin-conclusion={item.species}
+              style={{ borderLeftColor: colors[index] }}
+            >
+              <img
+                src={`${assetBase}/assets/${item.image}`}
+                alt={`${item.kind}照片`}
+              />
+              <header>
+                <h3>{item.kind}</h3>
+                <span>
+                  {item.species} ·{' '}
+                  {penguins.filter((p) => p.species === item.species).length} 只
+                </span>
+              </header>
+              <div className={s.penguinTraits}>
+                {item.traits.map((trait) => (
+                  <span key={trait}>{trait}</span>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
       </div>
       <Dialog
@@ -460,6 +547,7 @@ export function PenguinOverview() {
                 yLabel={fieldLabel(zoom.y)}
                 colored={state.matrixColored}
                 interactive={false}
+                alignEdgeTicks
               />
             </div>
           )}
@@ -611,73 +699,20 @@ export function PenguinBill() {
 }
 
 export function PenguinFeatures() {
-  const [state, update] = usePageState({ bodyClueRevealed: false });
   return (
     <Page
       title="换组特征，换个角度看企鹅"
       label="PENGUIN EVIDENCE · 核对另一组特征"
       footer={
-        <>
-          <p>与上一页的其他特征组合比较：哪类更容易区分？</p>
-          <button
-            className={s.button}
-            aria-expanded={state.bodyClueRevealed}
-            onClick={() =>
-              update({ bodyClueRevealed: !state.bodyClueRevealed })
-            }
-          >
-            {state.bodyClueRevealed ? '收起参考观察' : '观察后，核对线索'}
-          </button>
-        </>
+        <p>
+          {penguins.length} 条观测 ·
+          点群会重叠。接着用成对图，把四项特征一起核对。
+        </p>
       }
     >
-      <div className={s.featureLayout}>
-        <div className={s.evidenceCard}>
-          <div className={s.plot}>
-            <PenguinPlot x="flipper" y="mass" />
-          </div>
-        </div>
-        <div className={s.overviewNotes}>
-          <section>
-            <b>三类的平均值，帮我们核对位置</b>
-            <table className={s.means}>
-              <thead>
-                <tr>
-                  <th>种类</th>
-                  <th>鳍肢 / mm</th>
-                  <th>体重 / g</th>
-                </tr>
-              </thead>
-              <tbody>
-                {penguinKinds.map((kind, i) => {
-                  const rows = penguins.filter((p) => p.kind === kind);
-                  const mean = (field: PenguinField) =>
-                    rows.reduce((sum, p) => sum + p[field], 0) / rows.length;
-                  return (
-                    <tr key={kind}>
-                      <th>
-                        <i style={{ background: colors[i] }} />
-                        {kind}
-                      </th>
-                      <td>{mean('flipper').toFixed(1)}</td>
-                      <td>{Math.round(mean('mass'))}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </section>
-          <div className={s.finding} aria-live="polite">
-            <strong>哪类点群偏右上？</strong>
-            <p>
-              {state.bodyClueRevealed
-                ? '巴布亚企鹅的鳍肢通常更长，体重通常更大。阿德利与帽带在这组特征上重叠较多。'
-                : '先读横轴和纵轴，再按颜色找点群。用右侧平均值核对你的观察。'}
-            </p>
-          </div>
-          <p className={s.caution}>
-            换特征会改变哪些种类容易区分。只凭一项数值，还不能确定一只企鹅的种类。
-          </p>
+      <div className={`${s.evidenceCard} ${s.featureChart}`}>
+        <div className={s.plot}>
+          <PenguinPlot x="flipper" y="mass" showBodyFindings />
         </div>
       </div>
     </Page>
@@ -685,133 +720,69 @@ export function PenguinFeatures() {
 }
 
 export function PenguinPractice() {
-  const [state, update] = usePageState({
-    penguinPracticeRevealed: false,
-    penguinPracticeStep: 0,
-    penguinPracticeTransfer: 'flipper',
-    penguinTransferRevealed: false,
-  });
-  const transfer =
-    PENGUIN_PRACTICE_TRANSFERS.find(
-      (choice) => choice.id === state.penguinPracticeTransfer,
-    ) ?? PENGUIN_PRACTICE_TRANSFERS[0];
-  const changingAxis = state.penguinPracticeStep === 1;
-  const code = changingAxis ? transfer.code : PENGUIN_PRACTICE_CODE;
-  const revealed = changingAxis
-    ? state.penguinTransferRevealed
-    : state.penguinPracticeRevealed;
   return (
     <Page
-      title={changingAxis ? '换一个轴，再解释变化' : '亲手画出企鹅的种类差异'}
+      title="自选两个轴，用图表说发现"
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
         <>
-          <div className={s.practiceSteps} aria-label="课堂练习 03 环节">
-            {['01 跟写与核对', '02 换轴与解释'].map((label, step) => (
-              <button
-                key={label}
-                className={s.button}
-                aria-pressed={state.penguinPracticeStep === step}
-                onClick={() => update({ penguinPracticeStep: step })}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <CodeTools code={code} label="完整跟写代码" />
-          <button
-            className={s.button}
-            aria-expanded={revealed}
-            onClick={() =>
-              update(
-                changingAxis
-                  ? { penguinTransferRevealed: !revealed }
-                  : { penguinPracticeRevealed: !revealed },
-              )
-            }
-          >
-            {revealed ? '收起参考发现' : '观察后，核对发现'}
-          </button>
+          <p>完成自查：坐标与单位正确 · 342 个观测点 · 三种企鹅图例</p>
+          <CodeTools
+            code={PENGUIN_PRACTICE_TEMPLATE}
+            label="复制填空模板"
+            description="在 JupyterLab 中打开练习包的“第五课练习.ipynb”，先运行字体、准备单元格。自选两个不同特征，补全四处空白后运行；CSV 与笔记本放在同一文件夹。"
+          />
         </>
       }
     >
       <div className={s.practiceLayout}>
+        <div className={s.practiceTask}>
+          <div className={s.practiceGoal}>
+            <ClassPracticeStamp number="03" checklist />
+            <div>
+              <h3>01 选两个不同特征</h3>
+              <p>一个作横轴 x，一个作纵轴 y。</p>
+            </div>
+          </div>
+          <table className={s.practiceFields}>
+            <thead>
+              <tr>
+                <th>特征与单位</th>
+                <th>填入 x / y 的字段名</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fields.map((field) => (
+                <tr key={field.key}>
+                  <th>{fieldLabel(field.key)}</th>
+                  <td>
+                    <code>{PENGUIN_PLOT_FIELDS[field.key].column}</code>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <section className={s.practiceReport}>
+            <h3>03 看图，说出你的结论</h3>
+            <p>哪类偏大或偏小？点群有重叠吗？</p>
+            <blockquote>“我观察到……，图中的证据是……”</blockquote>
+          </section>
+        </div>
         <div className={s.practiceCode}>
-          <p className={s.instructions}>
-            {changingAxis ? (
-              <>
-                自选右侧一个横轴，亲手修改 <strong>x</strong> 和{' '}
-                <strong>xlabel</strong> 的名称、单位。
-                <br />按 <strong>Shift+Enter</strong> 运行，对比原图并解释变化。
-              </>
-            ) : (
-              <>
-                先运行字体准备单元格。CSV 与笔记本放在同一文件夹。
-                <br />
-                亲手跟写完整代码，按 <strong>Shift+Enter</strong> 运行。
-              </>
-            )}
-          </p>
+          <div className={s.practiceRun}>
+            <h3>02 补全代码，运行</h3>
+            <p>填好 x、y 和两轴名称、单位，按 Shift+Enter。</p>
+          </div>
           <NotebookPanel
             compact
             title="第五课练习.ipynb"
             cells={[
-              { code, ...(changingAxis ? { activeLines: [7, 11] } : {}) },
+              { code: PENGUIN_PRACTICE_TEMPLATE, activeLines: [5, 6, 9, 10] },
             ]}
           />
-        </div>
-        <div className={s.practiceOutput}>
-          <section className={s.evidenceCard}>
-            {changingAxis ? (
-              <label className={s.practiceAxisChoice}>
-                自选横轴
-                <select
-                  value={transfer.id}
-                  onChange={(event) =>
-                    update({
-                      penguinPracticeTransfer: event.target.value,
-                      penguinTransferRevealed: false,
-                    })
-                  }
-                >
-                  {PENGUIN_PRACTICE_TRANSFERS.map((choice) => (
-                    <option key={choice.id} value={choice.id}>
-                      {choice.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-            <strong className={s.outputLabel}>
-              输出核对 · 342 个点，三类图例
-            </strong>
-            <div className={s.plot}>
-              <PenguinPlot
-                x={changingAxis ? transfer.x : 'billLength'}
-                y="billDepth"
-                english
-              />
-            </div>
-          </section>
-          <div className={s.practiceFinding}>
-            {!changingAxis && <ClassPracticeStamp number="03" checklist />}
-            <div aria-live="polite">
-              <strong>
-                {changingAxis
-                  ? '横轴名称和单位变了，纵轴与颜色保留'
-                  : '核对坐标、单位、图例，再解释发现'}
-              </strong>
-              <p>
-                {changingAxis
-                  ? revealed
-                    ? transfer.finding + '换轴提供了新线索，企鹅仍是同一批。'
-                    : transfer.question
-                  : revealed
-                    ? '阿德利的喙通常较短，帽带与巴布亚的喙深有差异。点群仍有重叠。'
-                    : '哪类喙通常较短？哪两类喙长相近、喙深有差异？'}
-              </p>
-            </div>
-          </div>
+          <p className={s.practiceSetup}>
+            先运行笔记本的字体、准备单元格；CSV 与笔记本放在同一文件夹。
+          </p>
         </div>
       </div>
     </Page>
@@ -832,9 +803,8 @@ export function FinalPreparation() {
         </div>
         <div className={s.finalClues}>
           {demonClues.map((item, i) => {
-            const rows = demons.filter((d) => d.kind === item.title);
             const mean = (f: 'height' | 'mass' | 'speed') =>
-              rows.reduce((sum, d) => sum + d[f], 0) / rows.length;
+              demonMean(item.title, f);
             return (
               <section key={item.title} style={{ borderLeftColor: colors[i] }}>
                 <h3>{item.title}</h3>

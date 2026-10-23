@@ -1,6 +1,6 @@
 # 探险家的日记本 · 封面四格故事
 
-生成方式：内置 imagegen；参考 archive-room.png、rescue-act-01.png、rescue-act-02.png，编辑生成。
+生成方式：内置 imagegen；参考 archive-room.jpg、rescue-act-01.jpg、rescue-act-02.jpg，编辑生成。
 
 Use case: illustration-story / identity-preserve.
 EDIT reference image1, the existing lesson cover archive-room scene, into an expanded complete narrative comic cover. Final canvas EXACTLY 16:9 landscape, ideally 2560x1440. FOUR equally sized WIDE panels in a clean 2x2 grid separated by thin cream gutters. Not four tall vertical strips. Full bleed illustrations, NO empty title area because title is outside image on webpage. Preserve original warm detailed storybook anime style and precise faces/costumes: brown messy-haired teen hero, brown eyes, royal blue cloak and gold castle emblem, silver/gold shoulder armor, brown gloves; small yellow two-eyed silver-goggled companion in blue denim overalls, sparse hair; blue/gold/white mechanical owl with glowing cyan eyes. Reference2 is story/creature reference for purple fog demon disrupting communications. Reference3 confirms saved file interface, dark-brown short-haired adult guard with light stubble, navy-and-gold outfit, and orange black lava bull monster. Keep recurring characters absolutely consistent.

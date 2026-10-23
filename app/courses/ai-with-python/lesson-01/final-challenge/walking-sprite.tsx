@@ -98,8 +98,8 @@ export function WalkingSprite({
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const source = src.replace(
-    /final-visitor-(.+)\.png$/,
-    'walking/$1-walk-sheet.png',
+    /final-visitor-(.+)\.jpg$/,
+    'walking/$1-walk-sheet.jpg',
   );
   useEffect(() => {
     let disposed = false;

@@ -58,7 +58,7 @@ export function WriteNewlineScene() {
             <div className={s.comicFrame}>
               <span className={s.comicBadge}>漫画 {act + 1} / 3</span>
               <img
-                src={`${assetBase}/assets/reading-large-archive.png`}
+                src={`${assetBase}/assets/reading-large-archive.jpg`}
                 style={{
                   transform: `translateX(-${((byLine ? 2 : step) * 100) / 3}%)`,
                 }}

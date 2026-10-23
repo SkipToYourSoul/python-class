@@ -1,0 +1,6 @@
+{
+  "pandasVersion": "3.0.6",
+  "head": "  tower  hour  energy guard  kind attribute weakness  defense\n0    北塔     6      72  G001  炎角兽族        火焰       强光       78\n1    北塔     7      66  G002  炎角兽族        火焰       强光       72\n2    北塔     8      58  G003  炎角兽族        火焰       强光       68\n3    北塔     9      44  G004  炎角兽族        火焰       强光       54\n4    北塔    10      18  G005  炎角兽族        火焰       强光       42",
+  "info": "<class 'pandas.DataFrame'>\nRangeIndex: 36 entries, 0 to 35\nData columns (total 8 columns):\n #   Column     Non-Null Count  Dtype\n---  ------     --------------  -----\n 0   tower      36 non-null     str  \n 1   hour       36 non-null     int64\n 2   energy     36 non-null     int64\n 3   guard      36 non-null     str  \n 4   kind       36 non-null     str  \n 5   attribute  36 non-null     str  \n 6   weakness   36 non-null     str  \n 7   defense    36 non-null     int64\ndtypes: int64(3), str(5)\nmemory usage: 2.4 KB",
+  "dtypes": "tower          str\nhour         int64\nenergy       int64\nguard          str\nkind           str\nattribute      str\nweakness       str\ndefense      int64\ndtype: object"
+}

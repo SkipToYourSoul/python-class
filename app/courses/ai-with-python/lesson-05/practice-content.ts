@@ -5,11 +5,17 @@ import matplotlib.pyplot as plt
 
 demons = pd.read_csv("demons.csv")`;
 
-export const FONT_CODE = `import matplotlib.pyplot as plt
-plt.rcParams["font.sans-serif"] = [
-    "Heiti SC", "Microsoft YaHei", "Noto Sans CJK SC",
-    "Arial Unicode MS", "DejaVu Sans"
-]
+export const FONT_CODE = `from pathlib import Path
+from matplotlib import font_manager
+import matplotlib.pyplot as plt
+
+# 使用练习包自带的中文字体，无需安装到系统。
+_base = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd()
+_font = _base / "fonts" / "NotoSansCJKsc-Regular.otf"
+if not _font.is_file():
+    raise FileNotFoundError("请完整解压练习包，保留 fonts 文件夹，并在练习包文件夹中打开笔记本。")
+font_manager.fontManager.addfont(str(_font))
+plt.rcParams["font.family"] = [font_manager.FontProperties(fname=str(_font)).get_name()]
 plt.rcParams["axes.unicode_minus"] = False`;
 
 export const BAR_CODE = `sns.barplot(
@@ -103,12 +109,14 @@ export const PRACTICE_02_PLOTS = [
   },
 ] as const;
 
-export const PRACTICE_02_CODE = [
+const PRACTICE_02_BODY = [
   PRACTICE_02_PREPARATION,
   '# 散点图：90 个恶魔的身高与速度有什么联系？\n' + SCATTER_CODE,
   '# 折线图：D001 的速度怎样随时刻变化？\n' + LINE_PLOT_CODE,
   '# 条形图：三族的平均速度有什么不同？\n' + KIND_BAR_CODE,
 ].join('\n\n');
+
+export const PRACTICE_02_CODE = [FONT_CODE, PRACTICE_02_BODY].join('\n\n');
 
 export const PENGUIN_PLOT_FIELDS = {
   billLength: { column: 'culmen_length_mm', label: 'Bill length (mm)' },
@@ -134,6 +142,20 @@ plt.xlabel("${PENGUIN_PLOT_FIELDS[x].label}")
 plt.ylabel("${PENGUIN_PLOT_FIELDS[y].label}")
 plt.show()`;
 }
+
+/** Learners choose both axes; run notebook font and setup cells first. */
+export const PENGUIN_PRACTICE_TEMPLATE = `penguins = pd.read_csv(
+    "Penguins_cleaned.csv"
+)
+sns.scatterplot(
+    data=penguins,
+    x="____",
+    y="____",
+    hue="species"
+)
+plt.xlabel("____")
+plt.ylabel("____")
+plt.show()`;
 
 export const PENGUIN_CODE = getPenguinCode('billLength', 'billDepth', true);
 
@@ -220,11 +242,11 @@ export const COMPLETE_CODE = [
   '# 教师演示：身高与速度\n' + SCATTER_CODE,
   '# 教师演示：同一个体 D001 的连续观测\n' + LINE_CODE,
   '# 教师演示：比较三族的平均速度\n' + KIND_BAR_CODE,
-  '# 课堂练习 02：三个问题，选对三种图\n' + PRACTICE_02_CODE,
+  '# 课堂练习 02：三个问题，选对三种图\n' + PRACTICE_02_BODY,
   '# 教师演示：恶魔种类颜色与特征线索\n' + HUE_CODE,
   '# 教师演示：企鹅四项数值特征的关系总览\n' + PAIRPLOT_CODE,
-  '# 课堂练习 03：企鹅喙长与喙深，按种类着色\n' + PENGUIN_PRACTICE_CODE,
+  '# 课堂练习 03 选轴示例：喙长与喙深，按种类着色\n' + PENGUIN_PRACTICE_CODE,
   ...PENGUIN_PRACTICE_TRANSFERS.map(
-    (choice) => '# 同一练习的换轴参考：' + choice.title + '\n' + choice.code,
+    (choice) => '# 其他选轴示例：' + choice.title + '\n' + choice.code,
   ),
 ].join('\n\n');

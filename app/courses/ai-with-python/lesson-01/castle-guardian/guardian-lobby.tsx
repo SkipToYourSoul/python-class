@@ -9,7 +9,7 @@ export function GuardianLobby({ onStart }: { onStart: () => void }) {
   return (
     <figure className={s.lobby}>
       <img
-        src={asset('castle-guardian-lobby.png')}
+        src={asset('castle-guardian-lobby.jpg')}
         alt="蓝金色城堡矗立在山谷中，披蓝色斗篷的守卫与石桥上的小恶魔隔桥相望"
       />
       <figcaption className={s.menu}>

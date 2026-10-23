@@ -1,8 +1,8 @@
 # 数值数据特征漫画
 
-模式：imagegen 内置工具。输入 fieldwork.png 作为角色与风格参考，生成独立新场景。
+模式：imagegen 内置工具。输入 fieldwork.jpg 作为角色与风格参考，生成独立新场景。
 
-保存：`numeric-features.png`，用于 `l5-distribution-story` 左栏。
+保存：`numeric-features.jpg`，用于 `l5-distribution-story` 左栏。
 
 ```text
 Use case: illustration-story.

@@ -1,0 +1,5 @@
+Meili Display is a web subset of Smiley Sans v2.0.1, containing the homepage name 李美丽 and a space. The derived subset has been renamed in accordance with the reserved font name requirement.
+
+Original font: https://github.com/atelier-anchor/smiley-sans
+Release: https://github.com/atelier-anchor/smiley-sans/releases/tag/v2.0.1
+License: SIL Open Font License 1.1; see meili-display-LICENSE.txt.

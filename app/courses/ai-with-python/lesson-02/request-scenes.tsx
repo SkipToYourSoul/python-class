@@ -43,7 +43,7 @@ export function RequestScene({ id }: { id: string }) {
           </div>
           <figure className={s.crawlerConcept}>
             <img
-              src={`${assetBase}/assets/scout-crawler-concept.png`}
+              src={`${assetBase}/assets/scout-crawler-concept.jpg`}
               alt="用机械信使作比喻：勇士交给它地址，它到前线档案室取回网页资料，再带回给勇士。"
             />
             <figcaption>
@@ -69,7 +69,7 @@ export function RequestScene({ id }: { id: string }) {
           <div className={s.storyFlow}>
             <div className={s.storyEndpoint}>
               <img
-                src={`${assetBase}/assets/scout-http-client.png`}
+                src={`${assetBase}/assets/scout-http-client.jpg`}
                 alt="勇士在电脑前准备写有网页地址的取信请求。"
               />
               <h3>勇士的电脑</h3>
@@ -93,7 +93,7 @@ export function RequestScene({ id }: { id: string }) {
             </div>
             <div className={s.storyEndpoint}>
               <img
-                src={`${assetBase}/assets/scout-http-server.png`}
+                src={`${assetBase}/assets/scout-http-server.jpg`}
                 alt="前线档案管理员从档案室取出已保存的网页资料，准备回信。"
               />
               <h3>前线档案室</h3>
@@ -146,7 +146,7 @@ export function RequestScene({ id }: { id: string }) {
             </div>
             <div className={s.urlComic}>
               <img
-                src={`${assetBase}/assets/${step === 0 ? 'scout-url-site-wide.png' : 'scout-url-record-wide.png'}`}
+                src={`${assetBase}/assets/${step === 0 ? 'scout-url-site-wide.jpg' : 'scout-url-record-wide.jpg'}`}
                 alt={
                   step === 0
                     ? '勇士和小信使找到前线档案室。'

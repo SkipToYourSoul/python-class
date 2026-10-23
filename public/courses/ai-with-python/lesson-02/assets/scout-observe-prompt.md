@@ -1,8 +1,8 @@
 # 第5页：人工侦察插图
 
 - 工具：内置 image_gen。
-- 文件：`scout-observe.png`。
-- 风格参考：`scout-http-client.png`，沿用同一位蓝斗篷勇士和手绘漫画风格。
+- 文件：`scout-observe.jpg`。
+- 风格参考：`scout-http-client.jpg`，沿用同一位蓝斗篷勇士和手绘漫画风格。
 - 生成来源：`/Users/liye/.codex/generated_images/01a08013-c2a3-7011-a982-6cd4a52b3faa/exec-2b2a64f4-5db4-41d2-aa54-b47aed625e42.png`。
 
 ## 完整提示词

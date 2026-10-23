@@ -100,10 +100,11 @@ export const courseLessons = [
     number: '06',
     stage: 'data',
     isStageProject: true,
-    title: '综合练习一：一朵心情会变换的云',
-    summary: '获取、整理并呈现数据，完成第一个作品。',
-    tags: ['综合练习', '数据可视化', '课程作品'],
-    available: false,
+    title: '综合练习一：决战魔王——用数据找到破盾时机',
+    summary: '获取三塔情报、分析三队策略，用图表攻破魔塔，再直面魔王。',
+    tags: ['综合练习', '数据全流程', '决战作品'],
+    available: true,
+    href: '/courses/ai-with-python/lesson-06',
   },
   {
     number: '07',
@@ -164,7 +165,7 @@ export const warriors = [
     health: 420,
     category: '勇士',
     type: '防御型',
-    image: 'image114.png',
+    image: 'image114.jpg',
   },
   {
     name: '暗影掠夺者',
@@ -173,7 +174,7 @@ export const warriors = [
     health: 180,
     category: '恶魔',
     type: '高攻偷袭型',
-    image: 'image115.png',
+    image: 'image115.jpg',
   },
   {
     name: '森林游侠',
@@ -182,7 +183,7 @@ export const warriors = [
     health: 310,
     category: '勇士',
     type: '均衡型',
-    image: 'image116.png',
+    image: 'image116.jpg',
   },
   {
     name: '腐肉巨兽',
@@ -191,7 +192,7 @@ export const warriors = [
     health: 480,
     category: '恶魔',
     type: '肉盾型',
-    image: 'image123.png',
+    image: 'image123.jpg',
   },
   {
     name: '火焰剑士',
@@ -200,7 +201,7 @@ export const warriors = [
     health: 260,
     category: '勇士',
     type: '进攻型',
-    image: 'image117.png',
+    image: 'image117.jpg',
   },
   {
     name: '剧毒蠕虫',
@@ -209,7 +210,7 @@ export const warriors = [
     health: 150,
     category: '恶魔',
     type: '低生存毒攻型',
-    image: 'image118.png',
+    image: 'image118.jpg',
   },
   {
     name: '冰晶盾卫',
@@ -218,7 +219,7 @@ export const warriors = [
     health: 380,
     category: '勇士',
     type: '极致防御型',
-    image: 'image119.png',
+    image: 'image119.jpg',
   },
   {
     name: '骨爪刺客',
@@ -227,7 +228,7 @@ export const warriors = [
     health: 210,
     category: '恶魔',
     type: '快速突袭型',
-    image: 'image120.png',
+    image: 'image120.jpg',
   },
   {
     name: '大地战锤',
@@ -236,7 +237,7 @@ export const warriors = [
     health: 350,
     category: '勇士',
     type: '稳健型',
-    image: 'image121.png',
+    image: 'image121.jpg',
   },
   {
     name: '虚空噬魂者',
@@ -245,7 +246,7 @@ export const warriors = [
     health: 230,
     category: '恶魔',
     type: '低生存进攻型',
-    image: 'image122.png',
+    image: 'image122.jpg',
   },
 ];
 

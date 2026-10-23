@@ -44,7 +44,7 @@ export function ReportPracticeEntry() {
         <figure className={s.entryPicture}>
           <div className={s.handoffFrame}>
             <img
-              src={`${assetBase}/assets/handoff-act-03.png`}
+              src={`${assetBase}/assets/handoff-act-03.jpg`}
               alt="勇士和小派准备将三种恶魔的情报保存成文件，交给等待换班的伙伴。"
             />
           </div>
@@ -104,7 +104,7 @@ export function ReportPractice() {
           <figure className={s.comic}>
             <div className={s.comicFrame}>
               <img
-                src={`${assetBase}/assets/practice-shift-handoff.png`}
+                src={`${assetBase}/assets/practice-shift-handoff.jpg`}
                 style={{ transform: `translateX(-${step.panel * 50}%)` }}
                 alt={step.caption}
               />

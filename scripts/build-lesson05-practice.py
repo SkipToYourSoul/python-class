@@ -120,23 +120,27 @@ def blank():
 
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
+    for name in ("NotoSansCJKsc-Regular.otf", "LICENSE.txt", "README.md"):
+        if not (OUT / "fonts" / name).is_file():
+            raise FileNotFoundError(f"Missing bundled Chinese font resource: fonts/{name}")
     stats = build_data()
     code = load_codes()
     intro = """# 第五课：勇闯图表世界
 
 ## 恶魔军团图鉴 → 企鹅家族研究
 魔王已经现身。侦察队新增了 90 个恶魔个体的观测，勇士需要一份有证据的图鉴。
-前两个课堂练习研究恶魔。第三小节先观察恶魔种类的特征线索，再比较真实企鹅数据，最后跟写企鹅分类展示代码，再自选一个横轴修改并解释变化。
+前两个课堂练习研究恶魔。第三小节先观察恶魔种类的特征线索，再比较真实企鹅数据，最后自选两个不同特征作为横纵轴，补全代码并运行，用图表证据说出自己的结论。
 
 ## 开始前
-1. 安装 Python 3.10 或更高版本，在终端运行 `python -m pip install -r requirements.txt`。
-2. 解压整个练习包，在这个文件夹运行 `python -m jupyterlab`，打开 `第五课练习.ipynb`。
-3. CSV、笔记本与完整参考文件放在同一个文件夹；先跟写并运行准备代码，再依次完成练习。笔记本开头的中文字体单元格已预置，只需运行。
-4. 在空白代码单元亲手输入，按 Shift + Enter 运行。完整参考放在末尾，用来核对。
+1. 安装 Python 3.10 或更高版本，完整解压练习包，保留 `fonts/` 文件夹。
+2. 在终端进入解压后的练习文件夹，运行 `python -m pip install -r requirements.txt`，再运行 `python -m jupyterlab`，打开 `第五课练习.ipynb`。
+3. CSV、笔记本与完整参考文件放在同一个文件夹；先运行开头预置的中文字体单元格，再跟写并运行准备代码。
+4. 按顺序完成三个练习，按 Shift + Enter 运行。练习 01、02 提供空白输入格，练习 03 已放入双轴填空模板；完整参考放在末尾，用来核对。
 
 英文坐标名后的括号是单位。恶魔种类使用中文；企鹅种类沿用原文件的 Adelie、Chinstrap、Gentoo。
-若中文显示为方框，安装 Noto Sans CJK SC
-或将预置环境代码中的字体名称改为系统已有中文字体，再从准备代码开始重新运行。
+练习包自带 Noto Sans CJK SC 中文字体，离线可用，无需另装系统字体。请完整解压并保留 `fonts/` 文件夹。
+笔记本先运行“中文显示环境”单元格；两个完整参考 `.py` 文件会自动加载同一字体，不需要提前运行笔记本。
+若提示找不到字体文件，请重新完整解压练习包，并在练习包文件夹中打开笔记本。字体来源与许可见 `fonts/README.md`、`fonts/LICENSE.txt`。
 没有图时检查是否运行 `plt.show()`；提示变量不存在时先运行准备代码。
 
 ## 读懂数据
@@ -147,7 +151,7 @@ def build():
   仍在相同测量场地和方法下测量。`hour` 是时刻，`speed` 单位 m/s；不是六只不同恶魔。
 - `patrol-by-kind.csv`：承接 D001 的原六次记录，新增藤甲魔族 D002、冰翼魔族 D009
   在同一天、同一时刻的教学模拟观测，共 18 行。`id` 是个体编号，`kind` 是种类。
-  第 28 页以颜色区分种类，每条折线仍追踪同一个体；三个个体的记录不能代表整族。
+  “折线和条形，也能分组比较”页以颜色区分种类，每条折线仍追踪同一个体；三个个体的记录不能代表整族。
 - `Penguins_cleaned.csv`：老师提供的 342 条真实企鹅记录，保持文件原有字段和行序。
   `species` 是已知种类（Adelie 阿德利、Chinstrap 帽带、Gentoo 巴布亚），`island` 是观测岛屿；
   `culmen_length_mm` 喙长（mm）、`culmen_depth_mm` 喙深（mm）、
@@ -164,19 +168,19 @@ def build():
         ("课堂练习 02 · 三个例子，亲手画出三种图", "PRACTICE_02_CODE",
          "先跟写并运行共用准备代码，再依次输入三段绘图代码，每格按 Shift + Enter 运行。共用准备只写一次：读取 demons.csv 与 patrol.csv。散点图观察 90 个恶魔的身高与速度；折线图追踪 D001 的一天；条形图比较三族的平均速度。",
          "依次画出三种图，核对各自的坐标、单位和数据。用散点图观察两项特征的联系，用折线图找出 D001 速度变化，用条形图比较三族平均速度；说清每张图回答的问题。"),
-        ("课堂练习 03 · 画出企鹅的种类差异", "PENGUIN_PRACTICE_CODE",
-         "先运行预置字体单元格，再亲手输入完整代码，读取 Penguins_cleaned.csv，画出喙长与喙深散点图，并用 hue=\"species\" 按已知种类着色。按 Shift + Enter 运行，核对输出图。再从鳍肢长度（mm）或体重（g）中自选一个横轴，亲手修改 x 与 xlabel 的名称和单位，重新运行并解释变化。",
-         "图上包含 342 个观测点；横轴为 Bill length (mm)，纵轴为 Bill depth (mm)，图例包含三种企鹅。说出一种类别特点，并指出不同种类之间会重叠。换轴后核对新坐标与单位，仍保留 342 个点、原纵轴和三类图例；用图中的位置与重叠说明新发现。"),
+        ("课堂练习 03 · 自选两个轴，用图表说发现", "PENGUIN_PRACTICE_TEMPLATE",
+         "从喙长、喙深、鳍肢长度和体重中选择两个不同特征，一个作横轴 x，一个作纵轴 y。把字段名填进模板的 x、y，并补全 xlabel、ylabel 的名称和单位。先运行字体、准备单元格，再按 Shift + Enter 运行自己的代码。",
+         "核对坐标与单位、342 个观测点和三类图例。看图说出自己的结论，并指出图中的位置、变化趋势或点群重叠作为证据；不同选轴可以有不同发现。"),
     ]
     font_cell = blank()
     font_cell["source"] = code["FONT_CODE"].splitlines(True)
     font_cell["metadata"] = {"tags": ["environment-setup"]}
     cells = [markdown(intro), markdown("## 中文显示环境（已预置）\n直接运行下一格，不需要跟写；之后完成准备代码。"), font_cell, markdown("## 准备代码\n先跟写并运行，读取恶魔个体档案。\n```python\n" + code["SETUP_CODE"] + "\n```"), blank()]
     for title, key, instruction, standard in tasks:
-        if key == "PENGUIN_PRACTICE_CODE":
+        if key == "PENGUIN_PRACTICE_TEMPLATE":
             cells += [
                 markdown("## 教师演示参考 · 恶魔种类与特征线索\n在 90 个恶魔的身高与速度图上加入种类颜色，再换一组特征观察。藤甲魔族整体较高、较重，平均速度较低；冰翼魔族整体较矮、较轻，平均速度较高。D004 身高 205 cm、速度 11.7 m/s，是高且快的例外。\n```python\n" + code["HUE_CODE"] + "\n```"),
-                markdown("## 教师演示参考 · 企鹅四项特征的关系总览\n先观察喙长与喙深，再用总览比较鳍肢长度与体重等更多组合，最后进入跟写练习。两个维度相同的对角格看单项分布，其余格子用散点图看两项特征的联系。\n\n未着色时，对角线使用直方图：\n```python\n" + code["PAIRPLOT_UNCOLORED_FULL_CODE"] + "\n```\n\n按已知种类着色后，对角线自动使用密度图；曲线越高，该值附近的记录越集中，不能把曲线高度读成只数。所有格子与后面的练习使用同一份 342 条观测。\n```python\n" + code["PAIRPLOT_FULL_CODE"] + "\n```"),
+                markdown("## 教师演示参考 · 企鹅四项特征的关系总览\n先观察喙长与喙深，再观察鳍肢长度与体重，最后用总览核对四项特征，进入自选双轴的练习。两个维度相同的对角格看单项分布，其余格子用散点图看两项特征的联系。\n\n未着色时，对角线使用直方图：\n```python\n" + code["PAIRPLOT_UNCOLORED_FULL_CODE"] + "\n```\n\n按已知种类着色后，对角线自动使用密度图；曲线帮助观察各类的分布位置和形状，高度不是只数。三类曲线按样本量共同归一化，不能只凭跨种类的峰高比较各族自身的集中程度。所有格子与后面的练习使用同一份 342 条观测。\n```python\n" + code["PAIRPLOT_FULL_CODE"] + "\n```"),
             ]
         cells.append(markdown(f"## {title}\n{instruction}\n\n完成标准：{standard}"))
         if key == "PRACTICE_02_CODE":
@@ -184,14 +188,15 @@ def build():
             for step, reference in enumerate(code["PRACTICE_02_PLOTS"], 1):
                 cells += [markdown(f"### 步骤 {step} · {reference['title']}\n{reference['question']}\n在已运行共用准备的同一笔记本中跟写：\n```python\n" + reference["code"] + "\n```"), blank()]
             cells.append(markdown("练习收获：散点图观察个体的身高与速度联系；折线图发现 D001 在 12 时这次观测中最快、16 时最慢；条形图看清三族平均速度，冰翼魔族最高，藤甲魔族最低。\n\n不同问题适合不同的图。联系不等于因果，六次巡逻记录不代表整族，种类平均值也不代表每一个体；勇士还要继续侦察。"))
+        elif key == "PENGUIN_PRACTICE_TEMPLATE":
+            cells.append(markdown("### 01 选择两个不同特征\n| 特征与单位 | 填入 x / y 的字段名 |\n| --- | --- |\n| 喙长（mm） | culmen_length_mm |\n| 喙深（mm） | culmen_depth_mm |\n| 鳍肢长度（mm） | flipper_length_mm |\n| 体重（g） | body_mass_g |\n\n### 02 补全代码，运行\n将四处 ____ 替换为你选择的字段、两轴名称与单位，再按 Shift + Enter。下面一格已经放好模板。"))
+            task_cell = blank()
+            task_cell["source"] = code[key].splitlines(True)
+            task_cell["metadata"] = {"tags": ["student-axis-choice"]}
+            cells.append(task_cell)
+            cells.append(markdown("### 03 看图，说出你的结论\n哪类偏大或偏小？两项特征怎样一起变化？点群有重叠吗？\n\n我选择的横轴：____；纵轴：____。\n\n我观察到：____。图中的证据是：____。\n\n不同选轴可以有不同发现；结论应来自你自己画出的图。"))
         else:
             cells += [markdown("跟写参考：\n```python\n" + code[key] + "\n```"), blank()]
-        if key == "PENGUIN_PRACTICE_CODE":
-            cells.append(markdown("### 换一个轴，再解释变化\n仍是课堂练习 03。先保留原图，在新单元格中从鳍肢长度（mm）或体重（g）中自选一个横轴，亲手修改 x 对应的字段和 xlabel 的名称、单位；保留喙深纵轴和 species 着色，再按 Shift + Enter 运行。\n\n核对：横轴的名称与单位是否一起改变？是否仍有 342 个点和三类图例？纵轴是否仍是 Bill depth (mm)？\n\n比较原图，说说哪类更靠右、点群是否重叠，以及换轴带来了什么新线索。以下两个完整示例可任选一个核对，不要求得到唯一结论。"))
-            cells.append(blank())
-            for choice in code["PENGUIN_PRACTICE_TRANSFERS"]:
-                cells.append(markdown("### 换轴核对参考 · " + choice["title"] + "\n" + choice["question"] + "\n```python\n" + choice["code"] + "\n```\n参考发现：" + choice["finding"] + "数据仍是同一批企鹅；类别仍有重叠。"))
-            cells.append(markdown("练习收获：阿德利企鹅的喙通常较短；帽带与巴布亚企鹅的喙长相近，但帽带企鹅的喙通常更深。不同种类的点仍有重叠，仅凭一项或两项数值不能保证认出每一只企鹅。"))
         cells.append(markdown("我的发现：\n\n图中的证据：\n\n还想调查："))
     cells += [markdown("## 教师观察参考 · 切换企鹅特征\n课堂上可在喙长、喙深、鳍肢长度与体重之间选择两个数值维度，再比较着色前后的点群。读取同一份 Penguins_cleaned.csv，修改 x、y 对应的原文件字段与坐标标签；hue=\"species\" 表示已知种类。这里是在观察数据，不是训练自动识别模型。\n```python\n" + code["PENGUIN_FULL_CODE"] + "\n```"),
               markdown("## 教师演示参考 · 比较五个个体\n每根柱子是一只恶魔，柱高是身高。\n```python\n" + code["BAR_CODE"] + "\n```"),
@@ -199,6 +204,9 @@ def build():
               markdown("## 教师演示参考 · 同一个体的一天\n先读取同一只 D001 的六次记录，按时间顺序连接。线段帮助观察变化，未测量时刻的精确数值仍未知。\n```python\n" + code["LINE_CODE"] + "\n```"),
               markdown("## 教师演示参考 · 三族的平均速度\n一根柱子对应一个种类；seaborn 默认计算该类个体的平均速度，errorbar=None 隐藏误差线。这是三族平均值，不代表每只恶魔的速度。\n```python\n" + code["KIND_BAR_FULL_CODE"] + "\n```"),
               markdown("## 完整参考\n运行顺序：准备、五个个体条形图、练习 01、散点图演示、折线图演示、三族条形图演示、练习 02 三图、恶魔种类演示、企鹅关系总览、练习 03 企鹅种类散点图及两个换轴参考。\n```python\n" + code["COMPLETE_CODE"] + "\n```")]
+    cells.append(markdown("## 完成后核对示例 · 课堂练习 03\n以下只是几种选轴方法，自己的选择不必与示例相同。\n```python\n" + code["PENGUIN_PRACTICE_CODE"] + "\n```"))
+    for choice in code["PENGUIN_PRACTICE_TRANSFERS"]:
+        cells.append(markdown("### 其他选轴示例 · " + choice["title"] + "\n```python\n" + choice["code"] + "\n```\n参考发现：" + choice["finding"]))
     for index, cell in enumerate(cells):
         cell["id"] = f"lesson05-{index:03}"
     notebook = {"cells": cells, "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
@@ -229,8 +237,10 @@ def build():
 三个课堂练习依次是：
 1. 用直方图看清 90 只恶魔的速度分布。
 2. 围绕三个问题跟写三种图：90 个恶魔的身高与速度联系、D001 的一天变化、三族的平均速度比较。
-3. 在观察恶魔与企鹅的种类线索后，跟写企鹅喙长与喙深的分类散点图。完整代码包含导入、读取 CSV、按 species 着色、坐标标签和显示图形。
-   核对 342 个点、两个坐标的名称与单位、三种企鹅的图例，并说出一种类别特点和种类间的重叠。\n   然后自选鳍肢长度（mm）或体重（g）作为横轴，亲手修改 x 和 xlabel 的名称与单位，运行后与原图比较；纵轴与种类着色保留。笔记本提供一个空白迁移格及两个完整核对示例，仍属于课堂练习 03。
+3. 自选两个不同的企鹅数值特征作为横轴和纵轴，把原字段名填入 x、y，并补全两轴名称和单位。
+   笔记本预置填空代码；先运行字体、准备单元格，补全后按 Shift + Enter。
+   核对坐标与单位、342 个观测点和三种企鹅图例，再用“我观察到……，图中的证据是……”说出自己的发现。
+   字段与单位提示在任务旁；完成后的几个选轴示例放在笔记本末尾，不要求唯一选轴或结论。
 第三小节的教学顺序是恶魔种类与特征线索、企鹅喙部特征讲解、企鹅四项特征关系总览、课堂练习 03。
 企鹅特征的下拉切换与着色观察已融合到课堂讲解，帮助比较不同维度；课后练习仍按课件中的任务完成。
 
@@ -239,7 +249,7 @@ def build():
 `课堂练习二完整参考.py` 读取 `demons.csv` 与 `patrol.csv`，依次绘制身高与速度散点图、D001 巡逻折线图、三族平均速度条形图。网页练习二分为跟写和核对两页；第一页同时展示共用准备与三段绘图代码，第二页展示三个输出与收获。笔记本同样提供共用准备和三个绘图单元：先运行字体设置，再跟写准备代码一次，之后依次跟写三段绘图代码。
 每张图均为真实 CSV 的绘图结果；图的默认配色与网页教学演示可能不同。
 企鹅关系总览使用 `sns.pairplot`，明确选择 culmen_length_mm、culmen_depth_mm、flipper_length_mm、body_mass_g 四个数值字段，沿用默认对角图类型：未着色用直方图，按 species 着色后用密度图。网页的高斯核密度估计与 Seaborn 默认参数一致，使用 Scott 带宽、200 个采样点、两端延伸三个带宽、各类共同归一化；曲线高度不是只数。4×4 矩阵其余十二格是两两散点图，每格均使用同一份 342 条观测。
-课堂练习 03 的基础坐标为 Bill length (mm) 与 Bill depth (mm)；迁移阶段自选 Flipper length (mm) 或 Body mass (g) 作为横轴，纵轴仍为 Bill depth (mm)，species 是已知种类。网页当前代码、复制内容和输出核对随所选横轴同步；下载包提供同源的两个换轴参考。它不涉及训练分类模型。
+课堂练习 03 允许从四个数值特征任意选择两个不同的轴。species 是已知种类，hue="species" 让三类点用不同颜色显示；这项任务用于观察数据，不涉及训练分类模型。
 `data-summary.json` 提供数量与区间统计。`reference-plots/` 是验证程序执行同一份代码保存的十三张输出图，其中一张是 16 格企鹅关系总览。
 恶魔数据使用固定随机种子 {SEED} 生成；D004 是身高 205 cm、速度 11.7 m/s 的高个体快速度例子。
 数据包含人为设置的教学例外，不能用模拟恶魔数据推断真实生物规律。

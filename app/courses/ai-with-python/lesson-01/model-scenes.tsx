@@ -108,7 +108,7 @@ function Problem() {
         />
         <figure className={problemStyles.process}>
           <img
-            src={asset('castle-gatekeeper-process.png')}
+            src={asset('castle-gatekeeper-process.jpg')}
             alt="城堡守门流程：先用已知身份的勇士、恶魔档案训练模型。再输入新来客的攻击、防御、血量三个数值，使用训练好的模型预测身份；预测为勇士则放行，预测为恶魔则拦下。"
             width={1254}
             height={1254}
@@ -180,7 +180,7 @@ function DataDiscussion() {
             href="/courses/ai-with-python/lesson-01/castle-guardian/"
           >
             <img
-              src={asset('castle-guardian-lobby.png')}
+              src={asset('castle-guardian-lobby.jpg')}
               alt=""
               aria-hidden="true"
             />
@@ -391,7 +391,7 @@ function Predict() {
                   role={{
                     ...r,
                     name: `来客 ${i === 0 ? 'A' : 'B'}`,
-                    image: `prediction-visitor-${i === 0 ? 'a' : 'b'}.png`,
+                    image: `prediction-visitor-${i === 0 ? 'a' : 'b'}.jpg`,
                   }}
                   portrait
                 >
@@ -477,7 +477,7 @@ function Summary() {
       </div>
       <div className={s.challengeEntry}>
         <img
-          src={asset('final-challenge-entry-background.png')}
+          src={asset('final-challenge-entry-background.jpg')}
           alt=""
           aria-hidden="true"
         />

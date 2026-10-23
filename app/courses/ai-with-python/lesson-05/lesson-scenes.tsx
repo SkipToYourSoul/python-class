@@ -33,6 +33,7 @@ import { PenguinIntro } from './penguin-challenge';
 import {
   DemonPairs,
   DemonDossier,
+  DemonConclusions,
   PenguinOverview,
   PenguinBill,
   PenguinFeatures,
@@ -107,7 +108,7 @@ function Cover() {
         <span className={s.coverLabel}>本课故事 · 决战前的侦察</span>
         <img
           className={s.art}
-          src={`${assetBase}/assets/opening.png`}
+          src={`${assetBase}/assets/opening.jpg`}
           alt="勇士、小派与熊猫博士查看恶魔个体档案，为最终决战准备侦察图鉴"
           width={1536}
           height={1024}
@@ -123,11 +124,11 @@ function Compare() {
   const [state, update] = usePageState({ show: false });
   return (
     <Page
-      title="同一份数据，两种看法"
-      label="BAR CHART · 条形图"
+      title="画成图，高矮差距更清楚"
+      label="VISUALIZATION · 用图表看数据"
       footer={
         <>
-          <p>每根柱子对应一个个体，柱高表示身高。</p>
+          <p>刚才只看了 5 只恶魔的身高，档案里还有更多个体和特征。</p>
           <CodeTools code={full(BAR_CODE)} label="条形图代码" />
         </>
       }
@@ -151,7 +152,11 @@ function Compare() {
               ))}
             </tbody>
           </table>
-          <Guide>熊猫博士已把记录整理成表格。哪只最高？哪两只比较接近？</Guide>
+          <Guide>
+            {state.show
+              ? '每根柱子代表一只恶魔，柱高表示身高。高矮和差距更直观了！'
+              : '哪只最高？哪两只身高最接近？把同样的数据画成图，再比一比。'}
+          </Guide>
           <button
             className={s.button}
             onClick={() => update({ show: !state.show })}
@@ -168,10 +173,10 @@ function Compare() {
             <img
               className={s.comparisonArt}
               data-comparison-art
-              src={`${assetBase}/assets/compare-heights.png`}
+              src={`${assetBase}/assets/compare-five-demons.png`}
               width={1254}
               height={1254}
-              alt="勇士、小派和熊猫博士观察同一基线上的五只恶魔，依次对应 D001 至 D005，比较身高差异"
+              alt="勇士、小派和熊猫博士观察同一基线上的五种不同恶魔：岩背犀兽、雾铃幽灵、砂甲蜥蜴、晶翼龙和苔帽蘑菇怪，从左到右标记 D001 至 D005，比较身高差异"
             />
           )}
         </div>
@@ -185,35 +190,33 @@ function Archive() {
   const average = (examples[0].height + examples[1].height) / 2;
   return (
     <Page
-      title="一行是一只恶魔"
+      title="90 只恶魔，记录了哪些特征？"
       label="NEW EVIDENCE · 个体观测档案"
-      footer={
-        <p>这是新获得的个体观测记录。第四课的整场进攻威胁值，不是个体属性。</p>
-      }
+      footer={<p>从这些特征中，先选速度这一列，看看整体水平和快慢差距。</p>}
     >
       <div className={s.grid}>
         <div className={s.column}>
           <Art />
           <p className={s.note}>
-            三类恶魔，各观测 30 个个体，共 90 行。不同个体使用不同编号。
+            档案扩展到 90 只恶魔：三类各 30 只，一行记录一只，每只都有多项特征。
           </p>
         </div>
         <div className={s.column}>
           <div className={`${s.fields} ${s.archiveFields}`}>
             <div className={s.field}>
-              <strong>身高 height</strong>
+              <strong>身高 height · 数值</strong>
               <span>cm · 站立时脚底到头顶</span>
             </div>
             <div className={s.field}>
-              <strong>速度 speed</strong>
+              <strong>速度 speed · 数值</strong>
               <span>m/s · 同条件短距离移动</span>
             </div>
             <div className={s.field}>
-              <strong>体重 mass</strong>
+              <strong>体重 mass · 数值</strong>
               <span>kg · 同一口径称量</span>
             </div>
             <div className={s.field}>
-              <strong>种类 kind</strong>
+              <strong>种类 kind · 分类</strong>
               <span>炎角兽族 / 藤甲魔族 / 冰翼魔族</span>
             </div>
           </div>
@@ -221,7 +224,7 @@ function Archive() {
             className={s.numericEvidence}
             aria-label="数值数据的测量、比较与计算"
           >
-            <h3>数值数据：量一量，比一比</h3>
+            <h3>身高、速度、体重：能测量，也能比较和计算</h3>
             <div className={s.measurementExample}>
               <figure className={s.measurementOrigin}>
                 <img
@@ -300,14 +303,19 @@ function HistogramScene() {
         <div className={s.column}>
           <img
             className={s.miniArt}
-            src={`${assetBase}/assets/fieldwork.png`}
+            src={`${assetBase}/assets/fieldwork.jpg`}
             alt="勇士与小派观察恶魔的体型和移动"
           />
           <p>观察全部 90 个个体：最高的柱子对应哪个区间？两端的个体多不多？</p>
-          <Guide>柱子的高度表示数量。它不表示某一只恶魔有多高、跑多快。</Guide>
+          <Guide>
+            也能看到中间多、两端少；但仅凭这张直方图，还不能认定是正态分布。
+          </Guide>
         </div>
         <div className={s.chartPanel}>
-          <Histogram field={state.field === 0 ? 'speed' : 'height'} />
+          <Histogram
+            field={state.field === 0 ? 'speed' : 'height'}
+            showConclusions
+          />
         </div>
       </div>
     </Page>
@@ -420,7 +428,7 @@ function ScatterScene() {
             className={s.button}
             onClick={() => update({ show: !state.show })}
           >
-            {state.show ? '收起观察提示' : '寻找一个例外'}
+            {state.show ? '收起勇士线索' : '查看勇士的新线索'}
           </button>
         </>
       }
@@ -437,7 +445,7 @@ function ScatterScene() {
           {state.show && <StoryResult kind="guess" />}
         </div>
         <div className={s.chartPanel}>
-          <Scatter interactive />
+          <Scatter interactive showConclusions />
         </div>
       </div>
     </Page>
@@ -456,7 +464,7 @@ function LineScene() {
             className={s.button}
             onClick={() => update({ show: !state.show })}
           >
-            {state.show ? '收起结果' : '核对最快与最慢时刻'}
+            {state.show ? '收起勇士线索' : '查看勇士的新线索'}
           </button>
         </>
       }
@@ -471,7 +479,7 @@ function LineScene() {
           {state.show && <StoryResult kind="patrol" />}
         </div>
         <div className={s.chartPanel}>
-          <LineChart />
+          <LineChart showConclusions />
         </div>
       </div>
     </Page>
@@ -636,7 +644,7 @@ function Colors() {
         <div className={s.column}>
           <img
             className={s.miniArt}
-            src={`${assetBase}/assets/discovery.png`}
+            src={`${assetBase}/assets/discovery.jpg`}
             alt="小派和勇士研究有类别颜色的散点图"
           />
           <p>位置、颜色都会用了。聚在一起的点，真的属于同一种恶魔吗？</p>
@@ -653,7 +661,7 @@ function Colors() {
 }
 function SpeedClueComic() {
   const [open, setOpen] = useState(false);
-  const src = `${assetBase}/assets/speed-clue.png`;
+  const src = `${assetBase}/assets/speed-clue.jpg`;
   const alt =
     '勇士举起恶魔速度分布图，握拳露出坚定笑容，小派指向图中的线索，远处城堡呼应最终决战';
   return (
@@ -992,15 +1000,7 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l5-dossier':
       return <DemonDossier />;
     case 'l5-transfer':
-      return (
-        <Story
-          kind="discovery"
-          title="真实世界，也能这样研究吗？"
-          speaker="小派"
-          quote="我们用数据看懂了恶魔的特点。这套方法，也能帮助我们认识真实动物吗？"
-          question="接下来观察真实企鹅的四项特征，再亲手画出不同种类的差异。"
-        />
-      );
+      return <DemonConclusions />;
     case 'l5-penguins':
       return <PenguinIntro />;
     case 'l5-penguin-overview':

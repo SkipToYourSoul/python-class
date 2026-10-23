@@ -189,24 +189,29 @@ process.stdout.write(JSON.stringify(Array.from({length: 13}, (_, n) => m.rankSus
         self.assertEqual([cell["key"] for cell in cells], ["expand", "summarize", "investigate"])
         self.assertEqual(self.source["PRACTICE_THREE_CODE"], "\n\n".join(cell["code"] for cell in cells))
         namespace = {"df": self.df.copy()}
-        # A student may run the teaching blocks before exercise 03. The split
-        # demonstration changes focus to lists; exercise 03 must recover from df.
+        # The split demonstration changes focus to lists. Before repeating
+        # exercise 03, students restore focus with exercise 02's selection cell.
         with redirect_stdout(io.StringIO()):
             for key, code in self.source["codeBlocks"].items():
                 if key != "load":
                     exec(code, namespace)
         self.assertTrue(namespace["focus"]["出现的恶魔"].map(lambda value: isinstance(value, list)).all())
-        focus_after_demo = namespace["focus"].copy(deep=True)
         for _ in range(3):
+            with redirect_stdout(io.StringIO()):
+                exec(self.source["codeBlocks"]["select"], namespace)
+            pd.testing.assert_frame_equal(namespace["focus"], self.df[
+                ["记录编号", "出现的恶魔", "威胁值"]])
             for cell in cells:
                 buffer = io.StringIO()
                 with redirect_stdout(buffer):
                     exec(cell["code"], namespace)
                 self.assertEqual(buffer.getvalue(), expected[cell["key"]])
-                pd.testing.assert_frame_equal(namespace["focus"], focus_after_demo)
                 pd.testing.assert_frame_equal(namespace["df"], self.df)
             self.assertEqual(len(namespace["expanded"]), 76)
-            pd.testing.assert_frame_equal(namespace["summary"], self.summary)
+            pd.testing.assert_frame_equal(namespace["summary"], self.summary.sort_values("mean", ascending=False))
+            self.assertEqual(namespace["summary"].index[0], "岩背魔")
+            self.assertEqual(namespace["summary"].iloc[0]["count"], 1)
+            self.assertTrue(namespace["focus"]["出现的恶魔"].map(lambda value: isinstance(value, list)).all())
             ranking = namespace["ranking"]
             self.assertEqual(len(ranking), 8)
             self.assertEqual(ranking.index[0], "冰翼魔")
@@ -215,7 +220,6 @@ process.stdout.write(JSON.stringify(Array.from({length: 13}, (_, n) => m.rankSus
         self.assertIn("岩背魔", expected["summarize"])
         self.assertNotIn("岩背魔", expected["investigate"])
         self.assertEqual(sum("print(" in cell["code"] for cell in cells), 2)
-        self.assertEqual(self.source["COMPLETE_CODE"].count(".sort_values("), 1)
 
 
 if __name__ == "__main__":

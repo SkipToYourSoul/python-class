@@ -2,7 +2,7 @@
 
 - 工具：内置 image_gen。
 - 素材：`scout-url-comic.png`，两格漫画，先定位档案室，再取指定记录。
-- 风格参考：`scout-crawler-concept.png`。
+- 风格参考：`scout-crawler-concept.jpg`。
 - 生成来源：`/Users/liye/.codex/generated_images/01a08013-c2a3-7011-a982-6cd4a52b3faa/exec-30abade8-dfd1-48c7-bf4c-0e5ddeaad2ff.png`。
 
 ## 完整提示词

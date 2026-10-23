@@ -2,9 +2,9 @@
 
 - 日期：2026-10-08。
 - 工具：内置 `image_gen`，非 CLI。
-- 课程素材：`public/courses/ai-with-python/lesson-05/assets/compare-heights.png`，1254 × 1254。
+- 课程素材：`public/courses/ai-with-python/lesson-05/assets/compare-heights.jpg`，1254 × 1254。
 - 用途：`l5-compare` 的初始观察状态；点击后切换为读取同一份 CSV 的真实条形图。
-- 参考：本课 `opening.png` 的人物与画风；第三课 `assets/archive-siege/demons.png` 的三类恶魔。
+- 参考：本课 `opening.jpg` 的人物与画风；第三课 `assets/archive-siege/demons.png` 的三类恶魔。
 - 检查：五个个体从左至右对应 D001—D005，炎角兽、藤甲魔、冰翼魔、炎角兽、藤甲魔；同一地面基线，保留三位主要角色。插画承载比较情境，精确身高以表格及条形图为准。
 - 生成：首次输出未成功，第二次生成成功；随后针对五个个体的相对高度做一次定向编辑，最终保留第二只最高、第三只最矮、第四与第五只接近的关系。未切换工具。
 

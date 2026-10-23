@@ -10,19 +10,19 @@ const questions = [
   {
     title: '想判断什么？',
     copy: '例如：新角色是勇士还是恶魔。',
-    image: '01-judgement.png',
+    image: '01-judgement.jpg',
     alt: '守门机器面对身份未知的新角色，需要在勇士和恶魔两种身份之间作出判断。',
   },
   {
     title: '找哪些带答案的例子？',
     copy: '例如：已经核实身份的角色档案。',
-    image: '02-labelled-examples.png',
+    image: '02-labelled-examples.jpg',
     alt: '老师核实勇士与恶魔的身份，给多份角色档案标明答案，再交给机器学习。',
   },
   {
     title: '从中提取什么线索？',
     copy: '例如：攻击、防御、血量。',
-    image: '03-features.png',
+    image: '03-features.jpg',
     alt: '机器从角色资料中找出攻击、防御和血量，分别用剑、盾牌、爱心与数值条表示。',
   },
 ];

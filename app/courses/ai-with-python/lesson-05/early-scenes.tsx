@@ -2,7 +2,7 @@
 'use client';
 import { usePageState } from '@/components/course/lesson-state';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
-import { Page, Guide, Tabs, CodeTools } from './lesson-ui';
+import { Page, Guide, CodeTools } from './lesson-ui';
 import { Plot } from './charts';
 import { demons } from './study-data';
 import { SETUP_CODE } from './practice-content';
@@ -12,73 +12,72 @@ import s from './early-scenes.module.css';
 const speeds = demons.slice(0, 9).map((d) => d.speed);
 const ordered = [...speeds].sort((a, b) => a - b);
 const mean = speeds.reduce((a, b) => a + b, 0) / speeds.length;
+const slowest = ordered[0];
+const fastest = ordered[ordered.length - 1];
+const speedRange = (fastest - slowest).toFixed(1);
 
 export function NumericStory() {
-  const [state, update] = usePageState({ step: 0 });
   return (
-    <Page
-      title="这么多数字，先看什么？"
-      label="NUMERICAL DATA · 数值特征"
-      footer={<p>先概括数值的特点，再看整个军团的速度分布。</p>}
-    >
+    <Page title="先看平均速度，再看快慢差距" label="SPEED DATA · 概括一列速度">
       <div className={s.numericGrid}>
         <figure className={s.comic}>
           <img
-            src={`${assetBase}/assets/numeric-features.png`}
-            alt="小派面对大量速度观测卡片感到困惑，熊猫博士与勇士比较卡片上的数值"
+            src={`${assetBase}/assets/numeric-features.jpg`}
+            alt="小派、勇士与熊猫博士比较恶魔观测卡片上的速度数值"
           />
-          <figcaption>小派：“90 个速度数字，怎样说清军团的特点？”</figcaption>
+          <figcaption className={s.comicSpeech} aria-label="小派说">
+            先看整体水平和快慢差距，
+            <br />
+            再分组找出数量最多的速度范围！
+          </figcaption>
         </figure>
         <div className={s.explanation}>
           <div className={s.sample}>
-            <strong>先看前 9 个速度 · 从小到大 / m/s</strong>
+            <strong>从 90 只中先取前 9 只 · 速度从小到大 / m/s</strong>
             <p>{ordered.join('、')}</p>
           </div>
-          <Tabs
-            items={['集中趋势', '离散趋势']}
-            value={state.step}
-            onChange={(step) => update({ step })}
-          />
-          <div className={s.featureList}>
-            {state.step === 0 ? (
-              <>
-                <h3>数据集中在哪里？</h3>
-                <p>
-                  <strong>平均数 ≈ {mean.toFixed(1)}</strong>
-                  <span>总和 ÷ 个数，概括整体水平。</span>
-                </p>
-                <p>
-                  <strong>中位数 = {ordered[4]}</strong>
-                  <span>按大小排队后，中间的那个数。</span>
-                </p>
-                <p>
-                  <strong>众数 = 9.6</strong>
-                  <span>出现最多的数，这里出现 2 次。</span>
-                </p>
-              </>
-            ) : (
-              <>
-                <h3>彼此差得有多大？</h3>
-                <p>
-                  <strong>最小值 5.1 · 最大值 11.7</strong>
-                  <span>先找到数值的两端。</span>
-                </p>
-                <p>
-                  <strong>极差 = 11.7 − 5.1 = 6.6</strong>
-                  <span>最大值减最小值，描述跨度。</span>
-                </p>
-                <p>
-                  <strong>差异越大，数据越分散</strong>
-                  <span>还可用标准差等方法衡量。</span>
-                </p>
-              </>
-            )}
+          <div className={s.statisticsSections}>
+            <section className={s.statSection}>
+              <header className={s.statHeader}>
+                <h3>① 整体跑得多快？</h3>
+                <span>集中趋势</span>
+              </header>
+              <p className={s.statFeatured}>
+                <strong>平均速度 ≈ {mean.toFixed(1)} m/s</strong>
+                <span>速度总和 ÷ 9，概括这 9 只的整体水平。</span>
+              </p>
+              <dl className={s.secondaryStats}>
+                <div>
+                  <dt>中位数 {ordered[4]}</dt>
+                  <dd>从小到大排好队后，中间的数。</dd>
+                </div>
+                <div>
+                  <dt>众数 9.6</dt>
+                  <dd>出现次数最多，这里出现 2 次。</dd>
+                </div>
+              </dl>
+            </section>
+            <section className={s.statSection}>
+              <header className={s.statHeader}>
+                <h3>② 最快和最慢差多少？</h3>
+                <span>离散程度</span>
+              </header>
+              <p className={s.statFeatured}>
+                <strong>
+                  极差 = {fastest} − {slowest} = {speedRange} m/s
+                </strong>
+                <span>
+                  最快 {fastest}、最慢 {slowest} m/s，两者相减得到快慢差距。
+                </span>
+              </p>
+              <dl className={s.secondaryStats}>
+                <div>
+                  <dt>标准差</dt>
+                  <dd>描述各个数值偏离平均数的程度。</dd>
+                </div>
+              </dl>
+            </section>
           </div>
-          <Guide>
-            {state.step === 0
-              ? '还要看看：个体差得有多大？'
-              : '分组后，还能看清分布的形状。'}
-          </Guide>
         </div>
       </div>
     </Page>
@@ -89,14 +88,21 @@ const edges = [4, 8, 12, 16];
 const groups = edges.slice(0, -1).map((low, i) => ({
   low,
   high: edges[i + 1],
-  values: speeds.filter((v) => v >= low && v < edges[i + 1]),
+  values: ordered.filter((v) => v >= low && v < edges[i + 1]),
 }));
+const largestGroup = groups.reduce((largest, group) =>
+  group.values.length > largest.values.length ? group : largest,
+);
+const groupCounts = groups
+  .map((group) => `${group.low}至${group.high}为${group.values.length}只`)
+  .join('，');
+
 export function Buckets() {
   const [state, update] = usePageState({ show: false });
   return (
     <Page
-      title="把分组数量，变成柱高"
-      label="HISTOGRAM · 从分组到直方图"
+      title="直方图：看清数值的分布"
+      label="CHART 01 · 今天学习的第一个图表"
       footer={
         <>
           <p>9 个观测，每组宽 4 m/s；区间左含右不含，例如 8 归入 8–12。</p>
@@ -109,7 +115,9 @@ export function Buckets() {
         </>
       }
     >
-      <p className={s.speedStrip}>速度 / m/s：{speeds.join('、')}</p>
+      <p className={s.speedStrip}>
+        沿用刚才这 9 个速度 / m/s：{ordered.join('、')}
+      </p>
       <div className={s.groupGrid}>
         <div className={s.groupList}>
           <section className={s.histogramConcept} aria-label="直方图概念">
@@ -117,7 +125,7 @@ export function Buckets() {
               直方图 <span lang="en">Histogram</span>
             </h3>
             <p>
-              把数值分成<b>区间</b>，用相邻柱子的<b>高度</b>表示各组数量。
+              速度按<b>等宽区间</b>分组，柱子的<b>高度</b>表示每组数量。
             </p>
             <div className={s.histogramAxes}>
               <span>
@@ -129,7 +137,10 @@ export function Buckets() {
             </div>
           </section>
           {groups.map((group) => (
-            <div className={s.groupRow} key={group.low}>
+            <div
+              className={`${s.groupRow} ${state.show && group.low === largestGroup.low ? s.peakGroup : ''}`}
+              key={group.low}
+            >
               <strong>
                 {group.low}–{group.high}
                 <span>m/s</span>
@@ -151,22 +162,30 @@ export function Buckets() {
               </b>
             </div>
           ))}
-          <div className={s.groupReminder}>
-            <Guide>每个速度只进入一组。分完后，三组数量加起来还是 9。</Guide>
+          <div
+            className={s.groupTotal}
+            aria-label="每只只计入一组，分组后仍是9只"
+          >
+            <strong>
+              {state.show
+                ? groups.map((group) => group.values.length).join(' + ')
+                : '? + ? + ?'}
+              {' = '}
+              {speeds.length} 只
+            </strong>
+            <span>每只只计入一组</span>
           </div>
         </div>
         <div className={s.groupChart}>
           <div className={s.chartHeading}>
-            <strong>
-              {state.show ? '这就是直方图' : '先猜：哪组的柱子最高？'}
-            </strong>
-            <span>柱高 = 这个区间的个体数</span>
+            <strong>这 {speeds.length} 只的速度分布</strong>
+            <span>比柱高：哪个区间最多？哪里没有？</span>
           </div>
           <div
             className={s.miniHistogram}
             aria-label={
               state.show
-                ? '速度直方图，4至8为4只，8至12为5只，12至16为0只'
+                ? `速度直方图，${groupCounts}`
                 : '直方图待揭晓，先按区间分组'
             }
           >
@@ -175,7 +194,7 @@ export function Buckets() {
               {groups.map((group) => (
                 <div className={s.barSlot} key={group.low}>
                   <div
-                    className={`${s.bar} ${state.show ? '' : s.pendingBar}`}
+                    className={`${s.bar} ${state.show ? (group.low === largestGroup.low ? s.peakBar : '') : s.pendingBar}`}
                     style={{
                       height: state.show
                         ? `${group.values.length * 16}%`
@@ -183,11 +202,21 @@ export function Buckets() {
                     }}
                   >
                     {(!state.show || group.values.length > 0) && (
-                      <strong>{state.show ? group.values.length : '?'}</strong>
+                      <div className={s.barLabel}>
+                        <strong>
+                          {state.show ? `${group.values.length}只` : '?'}
+                        </strong>
+                        {state.show && group.low === largestGroup.low && (
+                          <span>最多</span>
+                        )}
+                      </div>
                     )}
                   </div>
                   {state.show && group.values.length === 0 && (
-                    <strong className={s.zeroCount}>0</strong>
+                    <div className={s.zeroCount}>
+                      <strong>0只</strong>
+                      <span>没有</span>
+                    </div>
                   )}
                 </div>
               ))}
@@ -201,9 +230,37 @@ export function Buckets() {
             </div>
             <span className={s.xAxis}>速度 / m/s</span>
           </div>
-          <p className={s.chartDefinition}>
-            直方图把连续数值分成区间，用相邻的柱子呈现各组数量，帮助我们看清分布。
-          </p>
+          <div className={s.histogramConclusion}>
+            {state.show ? (
+              <>
+                <p>
+                  {largestGroup.values.length > speeds.length / 2
+                    ? '超过一半在'
+                    : '最多的是'}{' '}
+                  <b>
+                    {largestGroup.low}–{largestGroup.high} m/s
+                  </b>
+                </p>
+                <div className={s.shareEvidence}>
+                  <div className={s.shareDots} aria-hidden="true">
+                    {Array.from({ length: speeds.length }, (_, i) => (
+                      <span
+                        key={i}
+                        className={
+                          i < largestGroup.values.length ? s.peakDot : ''
+                        }
+                      />
+                    ))}
+                  </div>
+                  <strong>
+                    {largestGroup.values.length} / {speeds.length} 只
+                  </strong>
+                </div>
+              </>
+            ) : (
+              <p>先分组、再比柱高：看清哪里多、哪里少、哪里没有。</p>
+            )}
+          </div>
         </div>
       </div>
     </Page>
@@ -211,20 +268,37 @@ export function Buckets() {
 }
 
 export function NormalScene() {
+  const [state, update] = usePageState({ show: false });
   return (
     <Page
-      title="统计学中的神奇规律"
-      label="NORMAL DISTRIBUTION · 正态分布"
+      title="直方图的轮廓，像什么？"
+      label="OBSERVE · 从直方图看形状"
       footer={
-        <p>
-          图中是形状示意。实际数据可能不对称、有多个峰，不能一律当作正态分布。
-        </p>
+        <>
+          <p>
+            {state.show
+              ? '形状示意；实际数据未必对称，也可能有多个峰。'
+              : '沿用直方图：柱子越高，这个身高区间的人越多。'}
+          </p>
+          <button
+            className={s.action}
+            onClick={() => update({ show: !state.show })}
+          >
+            {state.show ? '重新观察' : '描出轮廓，认识分布'}
+          </button>
+        </>
       }
     >
       <div className={s.normalGrid}>
         <div className={s.normalChart}>
-          <strong>同年龄人群的身高 · 形状示意</strong>
-          <Plot label="身高分布形状示意，中间人数多，两头人数少，平滑曲线呈钟形">
+          <strong>换看一组身高直方图 · 形状示意</strong>
+          <Plot
+            label={
+              state.show
+                ? '身高直方图及钟形轮廓示意：中间多、两头少、左右对称'
+                : '一组身高直方图形状示意，请观察柱高和左右的形状'
+            }
+          >
             {(b) => {
               const x = (v: number) =>
                 b.left + ((v - 100) / 100) * (b.right - b.left);
@@ -256,10 +330,16 @@ export function NormalScene() {
                     <rect
                       key={i}
                       x={x(100 + i * 10) + 1}
-                      y={y(count(105 + i * 10))}
+                      y={y(Math.round(count(105 + i * 10)))}
                       width={x(110 + i * 10) - x(100 + i * 10) - 2}
-                      height={b.bottom - y(count(105 + i * 10))}
-                      fill="#a7bce7"
+                      height={b.bottom - y(Math.round(count(105 + i * 10)))}
+                      fill={
+                        state.show
+                          ? i === 4 || i === 5
+                            ? '#ffc91c'
+                            : '#a7bce7'
+                          : '#1457d9'
+                      }
                     />
                   ))}
                   <path
@@ -268,21 +348,33 @@ export function NormalScene() {
                     stroke="#071a3d"
                     strokeWidth="2"
                   />
-                  <path
-                    d={curve}
-                    fill="none"
-                    stroke="#1457d9"
-                    strokeWidth="4"
-                  />
-                  <line
-                    x1={x(150)}
-                    x2={x(150)}
-                    y1={y(20)}
-                    y2={b.bottom}
-                    stroke="#d45030"
-                    strokeWidth="2"
-                    strokeDasharray="6 5"
-                  />
+                  {state.show && (
+                    <g>
+                      <path
+                        d={curve}
+                        fill="none"
+                        stroke="#1457d9"
+                        strokeWidth="4"
+                      />
+                      <line
+                        x1={x(150)}
+                        x2={x(150)}
+                        y1={y(20)}
+                        y2={b.bottom}
+                        stroke="#071a3d"
+                        strokeWidth="2"
+                        strokeDasharray="6 5"
+                      />
+                      <text x={x(150)} y={y(20) - 14} textAnchor="middle">
+                        中间多
+                      </text>
+                      {[110, 190].map((v) => (
+                        <text key={v} x={x(v)} y={y(4)} textAnchor="middle">
+                          少
+                        </text>
+                      ))}
+                    </g>
+                  )}
                   {[110, 130, 150, 170, 190].map((v) => (
                     <text
                       key={v}
@@ -303,31 +395,45 @@ export function NormalScene() {
                   >
                     身高 / cm
                   </text>
-                  <text x={x(150)} y={y(20) - 12} textAnchor="middle">
-                    中心附近最多
-                  </text>
                 </g>
               );
             }}
           </Plot>
         </div>
         <div className={s.normalText}>
-          <h3>为什么像一口钟？</h3>
-          <p>
-            <b>中间多</b>
-            <span>多数人的身高在中心附近。</span>
-          </p>
-          <p>
-            <b>两头少</b>
-            <span>特别矮或特别高的人较少。</span>
-          </p>
-          <p>
-            <b>大致对称</b>
-            <span>中心左右的形状相近。</span>
-          </p>
-          <Guide>
-            许多自然现象都近似服从正态分布，如人的身高、体重、智商，多神奇啊！
-          </Guide>
+          <ol className={s.normalSteps} aria-label="从观察到概念">
+            <li aria-current={!state.show ? 'step' : undefined}>01 看柱子</li>
+            <li aria-current={state.show ? 'step' : undefined}>02 认形状</li>
+          </ol>
+          <h3 className={s.normalQuestionTitle}>这组柱子，像什么？</h3>
+          {state.show ? (
+            <>
+              <div className={s.normalConcept}>
+                <h3>正态分布</h3>
+                <span lang="en">Normal distribution</span>
+                <p>一种左右对称的钟形分布。</p>
+              </div>
+              <div className={s.normalClues} aria-label="图形特点">
+                <span>中间多</span>
+                <span>两头少</span>
+                <span>左右对称</span>
+              </div>
+              <p className={s.normalNext}>回到恶魔军团：速度分布也像这样吗？</p>
+            </>
+          ) : (
+            <div className={s.normalQuestions}>
+              <span>上一页数数量，这一页看形状</span>
+              <p>
+                <b>①</b> 哪一段的柱子最高？
+              </p>
+              <p>
+                <b>②</b> 两端的柱子怎么样？
+              </p>
+              <p>
+                <b>③</b> 左右的形状像不像？
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </Page>

@@ -24,9 +24,21 @@
 
 `compact` 使用紧凑布局并保留代码原有换行，调用方需要为长代码提供足够宽度。`children` 位于单元格区域之后，可承接相关图示。组件不自带复制按钮；页面提供复制操作时，应与展示代码共用内容来源。
 
+### 练习剧情视频
+
+`PracticeStoryVideo`（[practice-story-video.tsx](practice-story-video.tsx)）提供教师控制的原生视频。必传 `pageId`、`title`、`src`、`poster`、动作描述 `description`、初始文案 `initialCaption` 和阶段数组 `phases`（每项为 `{ from: 秒数, text: 文案 }`）。从当前时间已到达的阶段中选取时间最大的文案；时间为 0 时显示初始文案。素材完整路径与剧情均由调用方传入，可选 `descriptionTrack` 指向中文动作描述 VTT。
+
+`initialDuration` 默认 12 秒，元数据加载后使用视频实际时长。可选 `steps` 为 `{ label, complete }` 数组；省略或空数组时不渲染步骤条，所有步骤完成时可通过 `completeCaption` 显示完成提示。`compact` 缩小标题与控件间距，适合较短的视频区；`className` 可提供页面布局样式。
+
+视频默认静音、暂停，支持播放、暂停、继续、从头播放、拖动和循环。`controlLabel` 默认“剧情视频”，用于按钮和进度条的无障碍名称。通过 `useLessonPageState(pageId)` 保留进度与循环选择，键名 `elapsedKey`／`loopKey` 默认 `practiceVideoElapsed`／`practiceVideoLoop`，可兼容页面已有状态。刷新或返回页面只恢复时间，不自动播放；离页或页面隐藏时暂停，页面重置时不会回写旧进度。启用减少动态效果会立即暂停，点击播放直接显示末帧。加载失败可重试，并保留最近播放位置。
+
 ### 练习模板与小派气泡
 
 `CheckpointTaskTemplate` 可接收 `illustration={{ src, alt }}`。传入后，左侧用插图替代问题、指令、行动标签和提示文字；调用方需确保任务要求仍通过插图或其他可见内容完整呈现。
+
+需要自定义动态场景时，可传入 `taskVisual={ReactNode}`，优先于 `illustration`。此模式保留默认左 2／右 3 的栏宽；左侧场景填满任务区，无内边距并裁切超出圆角的内容。印章以 112px 尺寸覆盖在左上角（距上、左各 12px，层级 3），场景应为它留出空间。问题、指令、行动标签和提示不再重复渲染，由调用方在场景或其他可见区域提供完整任务要求；动画的暂停、重播、离页停止与减少动态效果也由调用方负责。
+
+课堂代码填空也可复用 `CheckpointTaskTemplate` 的任务与工作区布局：传入 `kind="class"`，标签切换为 `CLASS PRACTICE · 课堂练习 NN`，印章使用 `CHECKLIST NN`。省略 `kind` 时沿用课后练习样式；可用 `actionLabel` 设置与任务对应的行动标签，默认显示“动手完成你的作品”。
 
 `XiaopaiSpeech` 是客户端组件。`active` 应反映当前页面是否处于展示状态；组件在页面隐藏或 `active=false` 时暂停角色动画，并提供手动暂停按钮。静态角色使用 `animated={false}`，此时不显示动画控制按钮；`compact` 缩小角色和间距，`featured` 放大角色。传入与当前讲解对应的 `label`，供辅助技术识别。
 
@@ -58,10 +70,13 @@ export function PracticeExample() {
 - `ChapterCover` 使用 `atlas-chapter-brief`、`atlas-chapter-brief-simple` 和 `atlas-brief-number` 全局类，依赖课程播放器的演示容器与全局样式。
 - 页面确需调整组件布局时，使用组件参数或下表的稳定属性定位，避免依赖 CSS Module 自动生成的类名片段。具体样式规则以对应组件样式文件为准。
 
-| 稳定属性                                                         | 用途                                                               |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------ |
-| `data-lesson-stage`                                              | 教学页容器。                                                       |
-| `data-practice-stamp`                                            | 课堂或课后练习印章。                                               |
-| `data-notebook-panel`、`data-notebook-compact`                   | 代码面板及其紧凑模式。                                             |
-| `data-notebook-part="toolbar"`、`"cells"`、`"input"`、`"prompt"` | 工具栏、单元格区域、输入区域和执行编号。                           |
-| `data-lesson-image-button`、`data-lesson-art-button`             | 图片按钮的标记，由调用方设置，沿用教学页对特殊图片按钮的样式排除。 |
+| 稳定属性                                                                                   | 用途                                                               |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `data-lesson-stage`                                                                        | 教学页容器。                                                       |
+| `data-practice-stamp`                                                                      | 课堂或课后练习印章。                                               |
+| `data-task-visual`                                                                         | 使用自定义动态场景的左侧任务区。                                   |
+| `data-practice-video`、`data-video-compact`                                                | 练习剧情视频容器及其紧凑模式。                                     |
+| `data-video-part="video"`、`"heading"`、`"controls"`、`"buttons"`、`"progress"`、`"steps"` | 视频、标题、控制区、按钮组、进度条与可选步骤条。                   |
+| `data-notebook-panel`、`data-notebook-compact`                                             | 代码面板及其紧凑模式。                                             |
+| `data-notebook-part="toolbar"`、`"cells"`、`"input"`、`"prompt"`                           | 工具栏、单元格区域、输入区域和执行编号。                           |
+| `data-lesson-image-button`、`data-lesson-art-button`                                       | 图片按钮的标记，由调用方设置，沿用教学页对特殊图片按钮的样式排除。 |

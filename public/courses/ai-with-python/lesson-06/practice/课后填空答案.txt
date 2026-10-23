@@ -1,0 +1,5 @@
+课后练习 01：requests、csv、write
+
+课后练习 02：groupby、energy、30
+
+课后练习 03：hour、energy、hue

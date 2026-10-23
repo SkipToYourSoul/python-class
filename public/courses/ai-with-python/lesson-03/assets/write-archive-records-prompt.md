@@ -1,8 +1,8 @@
 # 读取原档案与换行结果漫画
 
-生成方式：内置 image_gen.imagegen，2172×724三格横图。角色和画风参考 write-archive-journey.png、handoff-act-03.png。
+生成方式：内置 image_gen.imagegen，2172×724三格横图。角色和画风参考 write-archive-journey.jpg、handoff-act-03.jpg。
 
-最终素材：write-archive-records.png。左格用于第16页借阅已有记录；中、右格用于第17页预览无换行、带换行的结果。精确文本结果在网页单独展示，漫画只表达档案的可读性。
+最终素材：write-archive-records.jpg。左格用于第16页借阅已有记录；中、右格用于第17页预览无换行、带换行的结果。精确文本结果在网页单独展示，漫画只表达档案的可读性。
 
 ## 最终提示词
 

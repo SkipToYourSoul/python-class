@@ -1,6 +1,6 @@
 # 城堡档案官：挑战入口来袭插图
 
-更新日期：2026-10-09。使用内置 `image_gen.imagegen` 编辑已有档案室场景，输出专用于 `l3-challenge-entry` 的方形插图 `challenge-entry-demons.png`。保留原有游戏背景 `room.png`。
+更新日期：2026-10-09。使用内置 `image_gen.imagegen` 编辑已有档案室场景，输出专用于 `l3-challenge-entry` 的方形插图 `challenge-entry-demons.jpg`。保留原有游戏背景 `room.jpg`。
 
 ## 画面要求与检查
 
@@ -10,7 +10,7 @@
 
 ## 最终提示词
 
-- 编辑与场景参考：`room.png`。
+- 编辑与场景参考：`room.jpg`。
 - 恶魔身份参考：`demons.png`。
 
 ```text

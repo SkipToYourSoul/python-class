@@ -37,7 +37,7 @@ export function ScoutScaleScene() {
                 <strong>{message.title}</strong>
               </figcaption>
               <img
-                src={`${assetBase}/assets/scout-scale-${message.image}.png`}
+                src={`${assetBase}/assets/scout-scale-${message.image}.jpg`}
                 alt={message.alt}
               />
               <p>{message.caption}</p>

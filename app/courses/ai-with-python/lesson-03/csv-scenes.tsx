@@ -168,7 +168,7 @@ export function CsvCode() {
           </fieldset>
           <div className={s.smallComic}>
             <img
-              src={`${assetBase}/assets/rescue-act-03.png`}
+              src={`${assetBase}/assets/rescue-act-03.jpg`}
               alt="小派和勇士把恶魔情报按列排好，帮助接班伙伴查找。"
             />
           </div>
@@ -223,7 +223,7 @@ export function CsvPracticeEntry() {
         <figure className={entry.entryPicture}>
           <div className={entry.handoffFrame}>
             <img
-              src={`${assetBase}/assets/rescue-act-03.png`}
+              src={`${assetBase}/assets/rescue-act-03.jpg`}
               alt="勇士和小派把散乱情报整理成表格，让守城伙伴查找。"
             />
           </div>
