@@ -38,27 +38,96 @@ export function TowerChart({
   kind = 'history',
   threshold = false,
   tower,
-  clues = false,
+  clueTower,
+  codeMapping = false,
 }: {
   kind?: 'history' | 'guards';
   threshold?: boolean;
   tower?: string;
-  clues?: boolean;
+  clueTower?: string;
+  codeMapping?: boolean;
 }) {
   const line = kind === 'history';
   const towers = tower
     ? TOWER_NAMES.filter((name) => name === tower)
     : TOWER_NAMES;
   const candidates = windows
-    .filter((row) => row.tower === tower)
+    .filter((row) => row.tower === clueTower)
     .sort((a, b) => a.hour - b.hour);
+  const xLabel = line ? '观测时刻（时）' : '守卫防御力';
+  const axisColor = (axis: 'x' | 'y') =>
+    codeMapping ? `var(--chart-${axis})` : undefined;
+  const xAxis = {
+    tick: { ...tick, fill: axisColor('x') ?? tick.fill },
+    axisLine: codeMapping ? { stroke: axisColor('x'), strokeWidth: 2 } : true,
+    label: {
+      value: xLabel,
+      position: 'insideBottom' as const,
+      offset: -10,
+      fontSize: 18,
+      fontWeight: codeMapping ? 800 : undefined,
+      fill: axisColor('x'),
+    },
+    height: 52,
+  };
+  const yAxis = {
+    tick: { ...tick, fill: axisColor('y') ?? tick.fill },
+    axisLine: codeMapping ? { stroke: axisColor('y'), strokeWidth: 2 } : true,
+    domain: [0, 100],
+    ticks: [0, ATTACK_THRESHOLD, 60, 100],
+    width: 48,
+  };
   const reference = threshold ? (
     <ReferenceLine
       y={ATTACK_THRESHOLD}
-      stroke="#071a3d"
+      stroke={codeMapping ? 'var(--chart-limit)' : '#071a3d'}
+      strokeWidth={codeMapping ? 3 : 1}
       strokeDasharray="6 4"
+      label={
+        codeMapping
+          ? {
+              value: `阈值 ${ATTACK_THRESHOLD}`,
+              position: 'insideTopLeft',
+              fill: 'var(--chart-limit)',
+              fontWeight: 800,
+              stroke: '#fffdf8',
+              strokeWidth: 4,
+              paintOrder: 'stroke',
+            }
+          : undefined
+      }
     />
   ) : null;
+  const clueDots = candidates.map((row, index) => (
+    <ReferenceDot
+      key={row.hour}
+      x={line ? row.hour : row.defense}
+      y={row.energy}
+      r={7}
+      fill={TOWER_COLORS[TOWER_NAMES.indexOf(row.tower)]}
+      stroke="#071a3d"
+      strokeWidth={2}
+      label={{
+        value: `${row.hour}时`,
+        position: line
+          ? index === 0
+            ? 'left'
+            : 'right'
+          : index === 0
+            ? row.tower === '东塔'
+              ? 'left'
+              : 'right'
+            : 'top',
+        offset: 10,
+        fontSize: 18,
+        fontWeight: 800,
+        fill: '#071a3d',
+        stroke: '#fffdf8',
+        strokeWidth: 4,
+        paintOrder: 'stroke',
+      }}
+    />
+  ));
   return (
     <div
       className={s.chart}
@@ -72,7 +141,8 @@ export function TowerChart({
         {tower && `${tower} · `}
         {line ? '外罩强度随时间变化' : '守卫防御 × 外罩强度'}
         <span className={s.chartAxisHint}>
-          纵轴：外罩强度{!line && ' · 每个点是一条观测'}
+          <span data-chart-y={codeMapping || undefined}>纵轴：外罩强度</span>
+          {!line && ' · 每个点是一条观测'}
         </span>
       </div>
       <ResponsiveContainer
@@ -94,23 +164,13 @@ export function TowerChart({
             )}
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis
+              type="number"
               dataKey="hour"
+              domain={[HOURS[0], HOURS[HOURS.length - 1]]}
               ticks={HOURS}
-              tick={tick}
-              label={{
-                value: '观测时刻（时）',
-                position: 'insideBottom',
-                offset: -10,
-                fontSize: 18,
-              }}
-              height={52}
+              {...xAxis}
             />
-            <YAxis
-              domain={[0, 100]}
-              ticks={[0, 30, 60, 100]}
-              width={48}
-              tick={tick}
-            />
+            <YAxis {...yAxis} />
             <Tooltip
               contentStyle={{ fontSize: 20 }}
               labelFormatter={(v) => `${v} 时`}
@@ -133,6 +193,7 @@ export function TowerChart({
                 isAnimationActive={false}
               />
             ))}
+            {clueDots}
           </LineChart>
         ) : (
           <ScatterChart margin={margin}>
@@ -150,24 +211,9 @@ export function TowerChart({
               dataKey="defense"
               name="守卫防御"
               domain={[0, 100]}
-              tick={tick}
-              height={52}
-              label={{
-                value: '守卫防御力',
-                position: 'insideBottom',
-                offset: -10,
-                fontSize: 18,
-              }}
+              {...xAxis}
             />
-            <YAxis
-              type="number"
-              dataKey="energy"
-              name="外罩强度"
-              domain={[0, 100]}
-              ticks={[0, 30, 60, 100]}
-              tick={tick}
-              width={48}
-            />
+            <YAxis type="number" dataKey="energy" name="外罩强度" {...yAxis} />
             <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
               content={({ active, payload }) => {
@@ -196,31 +242,7 @@ export function TowerChart({
                 isAnimationActive={false}
               />
             ))}
-            {clues &&
-              candidates.map((row, index) => (
-                <ReferenceDot
-                  key={row.hour}
-                  x={row.defense}
-                  y={row.energy}
-                  r={7}
-                  fill={TOWER_COLORS[TOWER_NAMES.indexOf(row.tower)]}
-                  stroke="#071a3d"
-                  strokeWidth={2}
-                  label={{
-                    value: `${row.hour}时`,
-                    position:
-                      index === 0
-                        ? tower === '东塔'
-                          ? 'left'
-                          : 'right'
-                        : 'top',
-                    offset: 12,
-                    fontSize: 18,
-                    fontWeight: 800,
-                    fill: '#071a3d',
-                  }}
-                />
-              ))}
+            {clueDots}
           </ScatterChart>
         )}
       </ResponsiveContainer>

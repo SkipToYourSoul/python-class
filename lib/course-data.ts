@@ -112,7 +112,8 @@ export const courseLessons = [
     title: '送你一朵小红花——让机器帮你分类',
     summary: '用带标签的数据训练模型，再检验分类结果。',
     tags: ['监督学习', '分类', '完整流程'],
-    available: false,
+    available: true,
+    href: '/courses/ai-with-python/lesson-07',
   },
   {
     number: '08',

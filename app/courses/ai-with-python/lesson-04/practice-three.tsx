@@ -16,11 +16,11 @@ export function PracticeThreeEntry() {
   const { navigate } = useContext(LessonState);
   return (
     <LessonStage
+      tools={<PracticeTools code={PRACTICE_THREE_CODE} />}
       title="下一轮进攻前，锁定调查方向"
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
         <div className={s.footer}>
-          <PracticeTools code={PRACTICE_THREE_CODE} />
           <button
             className={s.start}
             onClick={() => navigate('l4-practice-03-code')}
@@ -99,6 +99,7 @@ export function PracticeThreeCode() {
   const associations = records.reduce((sum, row) => sum + row.demons.length, 0);
   return (
     <LessonStage
+      tools={<PracticeTools code={PRACTICE_THREE_CODE} />}
       title="一页完成你的数据调查"
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
@@ -106,7 +107,6 @@ export function PracticeThreeCode() {
           <div className={s.codeGuide}>
             <Guide>接着 focus；重做先运行练习二的选列单元格。</Guide>
           </div>
-          <PracticeTools code={PRACTICE_THREE_CODE} />
         </div>
       }
     >

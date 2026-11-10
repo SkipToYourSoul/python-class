@@ -123,16 +123,20 @@ export function CourseLessonPlayer({
   }
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
       if (
         event.defaultPrevented ||
+        event.isComposing ||
         event.altKey ||
         event.ctrlKey ||
         event.metaKey ||
         outline ||
         document.querySelector('[role="dialog"]') ||
-        (event.target as HTMLElement).closest(
-          'input,textarea,select,button,a,[contenteditable="true"]',
-        )
+        target?.closest(
+          'input,textarea,select,[contenteditable]:not([contenteditable="false"]),[role="application"],[role="textbox"],[role="combobox"],[role="spinbutton"],[role="slider"],[role="tablist"],[role="menu"],[role="menubar"],[role="listbox"],[role="tree"],[role="grid"],svg,video,audio',
+        ) ||
+        (event.key === ' ' &&
+          target?.closest('button,a,[role="button"],[role="link"]'))
       )
         return;
       const jump = (i: number) =>

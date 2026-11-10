@@ -1,0 +1,50 @@
+.tools {
+  display: flex;
+  gap: 8px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.tools [data-hint] {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+  color: #071a3d;
+  cursor: pointer;
+}
+.tools [data-hint]:not([aria-disabled='true']):is(:hover, :focus-visible) {
+  background: #ffc91c;
+}
+.tools [data-hint][aria-disabled='true'] {
+  border-color: #a6b3c6;
+  color: #657c9d;
+  cursor: default;
+}
+.tools [data-hint]::after {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  right: -2px;
+  padding: 4px 8px;
+  background: #071a3d;
+  color: #fffaf0;
+  font:
+    600 18px/1.35 system-ui,
+    sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;
+  content: attr(data-hint);
+}
+.tools [data-hint]:is(:hover, :focus-visible)::after {
+  visibility: visible;
+}
+.tools svg {
+  width: 22px;
+  height: 22px;
+}

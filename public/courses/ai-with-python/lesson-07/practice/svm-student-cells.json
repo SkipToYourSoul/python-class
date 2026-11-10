@@ -1,0 +1,7 @@
+{
+  "split": "from sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.svm import SVC\nfrom sklearn.metrics import accuracy_score, classification_report\n\niris = load_iris()\nX, y = iris.data, iris.target\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.3, random_state=42, stratify=y\n)",
+  "train": "svm_classifier = SVC(kernel=\"linear\")\nsvm_classifier.fit(X_train, y_train)\n\ny_pred = svm_classifier.predict(X_test)\naccuracy = accuracy_score(y_test, y_pred)",
+  "report": "print(f\"准确率：{accuracy:.2%}\")\nprint(classification_report(\n    y_test, y_pred, target_names=iris.target_names\n))",
+  "measure": "sepal_length = None\nsepal_width = None\npetal_length = None\npetal_width = None",
+  "predict": "my_flower_feature = [\n    sepal_length, sepal_width,\n    petal_length, petal_width,\n]\nif None in my_flower_feature:\n    raise ValueError(\"请先填入四项测量值（厘米）。\")\n\nmy_flower_res = svm_classifier.predict(\n    [my_flower_feature]\n)\nname = iris.target_names[my_flower_res[0]]\nprint(\"我的鸢尾花属于：\", name)"
+}

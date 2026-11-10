@@ -1,5 +1,5 @@
 课堂练习 01：requests、BeautifulSoup、get、find、intel-data、get_text、open、write
 
-课堂练习 02：read_csv、head、info、groupby、mean、count、energy、sort_values
+课堂练习 02：read_csv、info、groupby、mean、count、energy、sort_values
 
-课堂练习 03：read_csv、lineplot、hour、energy、hue、scatterplot、defense、savefig
+课堂练习 03：read_csv、lineplot、hour、energy、hue、scatterplot、defense

@@ -41,10 +41,11 @@ export function PracticeCode({ number }: { number: keyof typeof exercises }) {
   const item = exercises[number];
   return (
     <div className={s.fullPracticePage}>
-      <Page title={item.title} label="FINAL CHALLENGE · 决战准备">
-        <div className={s.practiceActions}>
-          <CodeTools code={compact(item.complete)} />
-        </div>
+      <Page
+        tools={<CodeTools code={compact(item.complete)} />}
+        title={item.title}
+        label="FINAL CHALLENGE · 决战准备"
+      >
         <div className={s.practiceCodeGrid}>
           {item.columns.map((sections, i) => (
             <div className={s.practiceCodeColumn} key={i}>

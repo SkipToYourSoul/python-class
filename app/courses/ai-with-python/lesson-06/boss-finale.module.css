@@ -1,0 +1,238 @@
+.page {
+  min-height: 0;
+}
+.layout {
+  --chart-x: #1048a6;
+  --chart-x-bg: #e4efff;
+  --chart-y: #07634f;
+  --chart-y-bg: #e0f4eb;
+  --chart-hue: #6939a2;
+  --chart-hue-bg: #f1e8fb;
+  --chart-threshold: #a34127;
+  --chart-threshold-bg: #ffebe2;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+.left {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.movie {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  border: 2px solid #071a3d;
+}
+.movie [data-video-part='video'] {
+  position: static;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.movie [data-video-part='heading'] {
+  position: static;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: #112744;
+}
+.movie [data-video-part='heading'] h3 {
+  display: none;
+}
+.movie [data-video-part='heading'] p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+.movie [data-video-part='controls'] {
+  position: static;
+  background: #071a3d;
+}
+.movie [data-video-part='buttons'] {
+  flex-wrap: wrap;
+}
+.tablePanel,
+.plot {
+  flex: none;
+  border: 2px solid #071a3d;
+  background: #fffaf0;
+}
+.tablePanel table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071a3d;
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
+}
+.tablePanel caption {
+  padding: 5px 8px;
+  background: #071a3d;
+  color: #fffaf0;
+  font-weight: 750;
+  text-align: left;
+}
+.tablePanel th,
+.tablePanel td {
+  padding: 3px 8px;
+  border-top: 1px solid #c9d2df;
+}
+.tablePanel thead {
+  background: #edf3fc;
+}
+.plot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 8px 0;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.legend strong {
+  padding: 2px 5px;
+}
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.plot svg {
+  width: 100%;
+  height: clamp(162px, 16.5cqh, 200px);
+}
+.plot text {
+  fill: #071a3d;
+  font-size: 18px;
+}
+.plot text.axisX,
+.plot text.axisY,
+.plot text.threshold {
+  fill: currentColor;
+  font-weight: 750;
+}
+.windowBand {
+  fill: var(--chart-threshold-bg);
+}
+.thresholdStroke {
+  stroke: var(--chart-threshold);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+.axisX {
+  color: var(--chart-x);
+  background: var(--chart-x-bg);
+}
+.axisY {
+  color: var(--chart-y);
+  background: var(--chart-y-bg);
+}
+.weakness {
+  color: var(--chart-hue);
+  background: var(--chart-hue-bg);
+}
+.threshold {
+  color: var(--chart-threshold);
+  background: var(--chart-threshold-bg);
+}
+.code {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.code [data-notebook-panel] {
+  flex: none;
+}
+.code [data-notebook-part='toolbar'],
+.code [data-notebook-part='prompt'] {
+  display: none;
+}
+.code [data-notebook-part='cells'] {
+  padding: 4px 5px;
+}
+.code [data-notebook-part='input'] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.code [data-notebook-part='input'] pre {
+  font-size: clamp(18px, 1.15cqw, 20px);
+  line-height: 1.1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 4px;
+}
+.code [data-notebook-part='input'] code > span {
+  min-height: 1.1em;
+}
+.code [data-python-comment] {
+  color: #526780;
+}
+.code mark {
+  font-weight: 750;
+  border-radius: 3px;
+  box-shadow: inset 0 -2px currentColor;
+}
+.result,
+.question {
+  background: #fff0b2;
+  border-left: 4px solid #1457d9;
+  padding: 6px 12px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.result strong {
+  font-size: 22px;
+}
+.result p {
+  margin: 2px 0 0;
+}
+.question {
+  font-weight: 750;
+}
+@container (max-width: 1120px) {
+  .layout {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  }
+}
+@container (max-height: 690px) {
+  .code {
+    gap: 6px;
+  }
+  .code [data-notebook-part='input'] pre {
+    line-height: 1.02;
+  }
+  .code [data-notebook-part='input'] code > span {
+    min-height: 1.02em;
+  }
+}
+@container (max-height: 799px) {
+  .code [data-notebook-part='tab'] {
+    display: none;
+  }
+}
+@container (min-height: 800px) {
+  .code {
+    gap: 12px;
+  }
+}

@@ -8,6 +8,36 @@
   flex: 1;
   min-height: 0;
 }
+.dispatchComic {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.dispatchCaptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.dispatchCaptions span {
+  padding: 6px 10px;
+  border-bottom: 3px solid #1457d9;
+  background: #fffaf0;
+  text-align: center;
+  font-size: clamp(20px, 1.6cqw, 28px);
+  font-weight: 750;
+}
+.dispatchFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.dispatchFooter > button {
+  flex: none;
+}
 .planControls {
   display: flex;
   align-items: center;
@@ -189,7 +219,52 @@
   font-size: 18px;
 }
 .codeGrid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  --chart-x: #1048a6;
+  --chart-x-bg: #e4efff;
+  --chart-y: #07634f;
+  --chart-y-bg: #e0f4eb;
+  --chart-tower: #6939a2;
+  --chart-tower-bg: #f1e8fb;
+  --chart-limit: #a34127;
+  --chart-limit-bg: #ffebe2;
+}
+.codeGrid mark {
+  font-weight: 750;
+  border-radius: 3px;
+  box-shadow: inset 0 -2px currentColor;
+}
+.codeGrid [data-notebook-panel] [data-python-comment] {
+  font-size: clamp(18px, 1.45cqw, 22px);
+  color: #526780;
+}
+.axisX {
+  color: var(--chart-x);
+  background: var(--chart-x-bg);
+}
+.axisY,
+.codeGrid [data-chart-y] {
+  color: var(--chart-y);
+  background: var(--chart-y-bg);
+}
+.codeGrid [data-chart-y] {
+  padding: 1px 4px;
+  font-weight: 750;
+}
+.towerHue {
+  color: var(--chart-tower);
+  background: var(--chart-tower-bg);
+}
+.codeGrid :global(.recharts-default-legend) {
+  width: fit-content;
+  margin-inline: auto !important;
+  padding-inline: 12px !important;
+  background: var(--chart-tower-bg);
+  border-bottom: 2px solid var(--chart-tower);
+}
+.thresholdLine {
+  color: var(--chart-limit);
+  background: var(--chart-limit-bg);
 }
 .codeGrid [data-notebook-part='toolbar'],
 .codeGrid [data-notebook-part='prompt'] {

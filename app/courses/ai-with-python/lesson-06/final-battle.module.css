@@ -180,14 +180,33 @@
   font-size: 18px;
   color: #52617a;
 }
-.command .reading {
-  font-size: 20px;
-  line-height: 1.4;
-  border-left: 5px solid #ffc91c;
-  padding: 8px 10px;
-  background: #f5f0e6;
+.hints {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
-.reading b {
+.hint {
+  min-width: 0;
+}
+.hint button {
+  width: 100%;
+}
+.hint button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.hint button[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.command .hint p {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-left: 4px solid #ffc91c;
+  background: #f5f0e6;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.hint b {
   color: #1457d9;
 }
 .command .feedback {
@@ -384,12 +403,8 @@
   .topbar strong {
     font-size: 18px;
   }
-  .command .rule,
-  .command .reading {
+  .command .rule {
     font-size: 18px;
-  }
-  .command .reading {
-    padding: 6px 8px;
   }
   .formGrid {
     gap: 8px 10px;

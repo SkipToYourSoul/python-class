@@ -14,6 +14,12 @@
 | 最新情报   | [latest.png](latest.png)     | 猫头鹰送新观测、勇士停下核对、修订计划       |
 | 阶段庆祝   | [victory.png](victory.png)   | 阶段总结与团队庆祝                           |
 
+## 第 11 页归档漫画
+
+使用内置 image_gen，以 [第 10 页漫画](save-story-v2.jpg) 为角色和画风参考。第 11 页并排展示 [归档漫画](save-code-comic.jpg) 的上、下两格，切换代码步骤时高亮对应图注。
+
+undefined
+
 ## 开场提示词
 
 Use case: illustration-story. Create a polished 16:9 horizontal three-panel sequential comic for a Chinese children's Python course, ages 10-13. References are character and rendering style references only. Preserve the brown-haired boy warrior with blue scarf, silver gold armor, and the small yellow goggle-wearing helper in blue uniform, plus the blue-white mechanical owl. High quality colorful 3D animation film art, navy/cobalt/gold colors, expressive faces, friendly adventure, no gore. Panel 1 at left: the boy and yellow helper emerge from a castle side gate, triumphantly carrying a creature field-guide book, silhouettes of defeated fire/vine/ice guards safely far behind. Panel 2 at center: in the dark castle courtyard the boy's glowing sword bounces harmlessly off a giant violet translucent dome enclosing a mysterious cloaked shadow demon king; surprised expression. Panel 3 at right: mechanical owl above the companions points with wing at three distinct distant crystal supply towers, linked by glowing violet energy streams to the demon king's shield. One north, one east, one west, visually three towers, no maps or labels. Three clearly separated equal-width cinematic panels with narrow cream gutters. Art should communicate the concrete problem: attack blocked by shield fed by three towers. No text, no speech bubbles, no letters, no numbers, no watermark. Every panel meaningful and close enough to read on projection.

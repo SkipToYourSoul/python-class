@@ -1,7 +1,8 @@
 /* oxlint-disable next/no-img-element -- Local illustrated course assets. */
 'use client';
 import { useState, type ReactNode } from 'react';
-import { Copy, Download, Code2 } from 'lucide-react';
+import { Copy } from 'lucide-react';
+import { CodeToolButtons } from '@/components/course/ai-with-python/code-tool-buttons';
 import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
@@ -27,14 +28,22 @@ export function Page({
   label = 'FIELD NOTES · 恶魔观察笔记',
   children,
   footer,
+  tools,
 }: {
   title: string;
   label?: string;
   children: ReactNode;
   footer?: ReactNode;
+  tools?: ReactNode;
 }) {
   return (
-    <Stage title={title} label={label} className={s.stage} footer={footer}>
+    <Stage
+      title={title}
+      label={label}
+      className={s.stage}
+      footer={footer}
+      tools={tools}
+    >
       {children}
     </Stage>
   );
@@ -135,16 +144,11 @@ export function CodeTools({
   const [copy, setCopy] = useState('');
   return (
     <>
-      <div className={s.actions}>
-        <a href={`${assetBase}/practice/lesson-05-practice.zip`} download>
-          <Download size={20} />
-          练习包
-        </a>
-        <button onClick={() => setOpen(true)}>
-          <Code2 size={20} />
-          {label}
-        </button>
-      </div>
+      <CodeToolButtons
+        downloadUrl={`${assetBase}/practice/lesson-05-practice.zip`}
+        referenceLabel={label}
+        onReference={() => setOpen(true)}
+      />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className={s.modal}>
           <DialogHeader>
@@ -206,12 +210,12 @@ export function CodeLesson({
     current.mapping ?? (kind ? getCodeMapping(kind, state.step) : undefined);
   return (
     <Page
+      tools={<CodeTools code={complete} />}
       title={title}
       label="PYTHON LAB · 代码讲解"
       footer={
         <>
           <p>已运行导入与读表单元格；下方图形为对应数据示例。</p>
-          <CodeTools code={complete} />
         </>
       }
     >

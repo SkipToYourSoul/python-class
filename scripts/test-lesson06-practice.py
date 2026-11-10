@@ -55,23 +55,23 @@ def main():
     assert completed_classroom == codes["PRACTICE_01_CODE"]
     analysis_fill = codes["PRACTICE_02_FILL_CODE"]
     analysis_answers = codes["PRACTICE_02_FILL_ANSWERS"]
-    assert analysis_answers == ["read_csv", "head", "info", "groupby", "mean", "count", "energy", "sort_values"]
-    assert analysis_fill.count("____") == len(analysis_answers) == 8
+    assert analysis_answers == ["read_csv", "info", "groupby", "mean", "count", "energy", "sort_values"]
+    assert analysis_fill.count("____") == len(analysis_answers) == 7
     completed_analysis = fill_code(analysis_fill, analysis_answers)
     assert completed_analysis == codes["PRACTICE_02_CODE"]
     assert "\n\n".join(section["code"] for section in codes["PRACTICE_02_FILL_SECTIONS"]) == analysis_fill
-    assert codes["PRACTICE_02_FILL_SECTIONS"][0]["code"].count("____") == 3
+    assert codes["PRACTICE_02_FILL_SECTIONS"][0]["code"].count("____") == 2
     assert codes["PRACTICE_02_FILL_SECTIONS"][1]["code"].count("____") == 5
     assert 'defense_mean=("defense", "mean")' in analysis_fill
     visualization_fill = codes["PRACTICE_03_FILL_CODE"]
     visualization_answers = codes["PRACTICE_03_FILL_ANSWERS"]
-    assert visualization_answers == ["read_csv", "lineplot", "hour", "energy", "hue", "scatterplot", "defense", "savefig"]
-    assert visualization_fill.count("____") == len(visualization_answers) == 8
+    assert visualization_answers == ["read_csv", "lineplot", "hour", "energy", "hue", "scatterplot", "defense"]
+    assert visualization_fill.count("____") == len(visualization_answers) == 7
     completed_visualization = fill_code(visualization_fill, visualization_answers)
     assert completed_visualization == codes["PRACTICE_03_CODE"]
     assert "\n\n".join(section["code"] for section in codes["PRACTICE_03_FILL_SECTIONS"]) == visualization_fill
     assert codes["PRACTICE_03_FILL_SECTIONS"][0]["code"].count("____") == 5
-    assert codes["PRACTICE_03_FILL_SECTIONS"][1]["code"].count("____") == 3
+    assert codes["PRACTICE_03_FILL_SECTIONS"][1]["code"].count("____") == 2
     history = pd.DataFrame(source["history"])
     current = pd.DataFrame(source["battleReadings"])
     boss = pd.DataFrame(source["bossRecords"])
@@ -93,8 +93,9 @@ def main():
         assert group.weakness.nunique() == 1 and group.kind.nunique() == 1
     windows = history[history.energy < source["ATTACK_THRESHOLD"]]
     assert len(windows) == 6
+    # Preserve the displayed order so sorting regressions cannot be normalized away.
     pd.testing.assert_frame_equal(
-        pd.DataFrame(source["windows"]).sort_values(["tower", "defense"]).reset_index(drop=True),
+        pd.DataFrame(source["windows"]).reset_index(drop=True),
         windows.sort_values(["tower", "defense"]).reset_index(drop=True),
     )
     assert [(row["tower"], row["hour"], row["weakness"]) for row in source["plans"]] == [
@@ -129,12 +130,11 @@ def main():
 
     def check_plot():
         axis = plt.gca()
-        assert axis.get_ylim() == (0.0, 100.0)
-        assert axis.get_ylabel() == "外罩强度"
+        assert axis.get_ylabel() == ("energy" if len(snapshots) < 2 else "外罩强度")
         if len(snapshots) == 0:
             lines = [line for line in axis.lines if len(line.get_xdata()) == 12]
             assert len(lines) == 3
-            assert axis.get_xlabel() == "观测时刻（时）"
+            assert axis.get_xlabel() == "hour"
             for tower, line in zip(source["TOWER_NAMES"], lines):
                 expected = history[history.tower == tower]
                 np.testing.assert_array_equal(line.get_xdata(), expected.hour)
@@ -142,12 +142,13 @@ def main():
             assert set(text.get_text() for text in axis.get_legend().get_texts()) == set(source["TOWER_NAMES"])
         else:
             frame = history if len(snapshots) == 1 else boss
-            assert axis.get_xlabel() == ("守卫防御力" if len(snapshots) == 1 else "部位防御力")
+            assert axis.get_xlabel() == ("defense" if len(snapshots) == 1 else "部位防御力")
             assert len(axis.collections[0].get_offsets()) == len(frame)
             np.testing.assert_array_equal(axis.collections[0].get_offsets(), frame[["defense", "energy"]])
             hue = "tower" if len(snapshots) == 1 else "weakness"
             if len(snapshots) == 2:
                 assert axis.get_xlim() == (0.0, 100.0)
+                assert axis.get_ylim() == (0.0, 100.0)
                 assert [text.get_text() for text in axis.get_legend().get_texts()] == ["强光", "火焰", "热量"]
                 colors = {"强光": "#1457D9", "火焰": "#BE4B2B", "热量": "#16806A"}
                 expected_colors = [matplotlib.colors.to_rgba(colors[value]) for value in boss.weakness]
@@ -216,9 +217,9 @@ def main():
             plt.show = original_show
 
     notebook = json.loads((OUT / "第六课练习.ipynb").read_text())
-    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 4
+    assert sum(cell["cell_type"] == "code" and not cell["source"] for cell in notebook["cells"]) == 3
     assert sum("environment-setup" in cell["metadata"].get("tags", []) for cell in notebook["cells"]) == 1
-    assert sum("student-input" in cell["metadata"].get("tags", []) for cell in notebook["cells"]) == 4
+    assert sum("student-input" in cell["metadata"].get("tags", []) for cell in notebook["cells"]) == 3
     assert sum("homework-fill-in" in cell["metadata"].get("tags", []) for cell in notebook["cells"]) == 3
     classroom_cells = [cell for cell in notebook["cells"]
                        if "classroom-fill-in" in cell["metadata"].get("tags", [])]
@@ -230,8 +231,11 @@ def main():
     assert sum(text.startswith("## 课堂练习 ") for text in markdown) == 3
     assert sum(text.startswith("## CHECKPOINT ") for text in markdown) == 3
     assert sum(text.startswith("## 结课挑战") for text in markdown) == 1
-    for key in ["CURRENT_CODE",
-                "HOMEWORK_01_CODE", "HOMEWORK_02_CODE", "HOMEWORK_03_CODE"]:
+    demo_cells = [cell for cell in notebook["cells"]
+                  if "teacher-demo" in cell["metadata"].get("tags", [])]
+    assert len(demo_cells) == 1
+    assert "".join(demo_cells[0]["source"]) == codes["CURRENT_CODE"]
+    for key in ["HOMEWORK_01_CODE", "HOMEWORK_02_CODE", "HOMEWORK_03_CODE"]:
         assert any(codes[key] in text for text in markdown)
     assert not any(codes["PRACTICE_01_CODE"] in text for text in markdown)
     assert not any(codes["PRACTICE_02_CODE"] in text for text in markdown)
@@ -253,7 +257,7 @@ def main():
         assert not any("__pycache__" in name for name in archive.namelist())
     print("PASS: teaching Python with a local station URL requested real HTTP, saved 36×8 tower and 9×4 boss CSVs;")
     print("grouped means/counts, six attack windows, three deployments, line/scatter evidence verified;")
-    print("three eight-blank classroom flows, three short homework fill-ins, four blank student cells, actual info/head/dtypes evidence, reused server and ZIP verified.")
+    print("three eight-blank classroom flows, three short homework fill-ins, three blank homework cells and one teacher demo cell, actual info/head/dtypes evidence, reused server and ZIP verified.")
 
 
 if __name__ == "__main__":

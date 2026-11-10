@@ -345,7 +345,7 @@ export function ChartSummary() {
     <Page
       title="这节课，学会了哪些图表？"
       label="FIELD GUIDE · 图表方法回顾"
-      footer={<CodeTools code={COMPLETE_CODE} />}
+      tools={<CodeTools code={COMPLETE_CODE} />}
     >
       <div className={s.grid}>
         {cards.map((card) => (

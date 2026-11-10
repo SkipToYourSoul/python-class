@@ -69,7 +69,11 @@ export function ChallengeEntry() {
 export function SummaryScene() {
   const { navigate } = useContext(LessonState);
   return (
-    <LessonStage title="带走一套调查方法" label="FIELD NOTES · 数据小侦探">
+    <LessonStage
+      tools={<PracticeTools />}
+      title="带走一套调查方法"
+      label="FIELD NOTES · 数据小侦探"
+    >
       <div className={s.balancedLayout}>
         <div className={`${s.route} ${s.balancedColumn}`}>
           {[
@@ -95,7 +99,6 @@ export function SummaryScene() {
             <button onClick={() => navigate('l4-challenge-entry')}>
               前往结课挑战
             </button>
-            <PracticeTools />
           </div>
         </div>
       </div>

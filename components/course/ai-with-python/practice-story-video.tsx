@@ -1,7 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { Check, Pause, Play, Repeat2, RotateCcw } from 'lucide-react';
+import {
+  Check,
+  Pause,
+  Play,
+  Repeat2,
+  RotateCcw,
+  Volume2,
+  VolumeX,
+} from 'lucide-react';
 import { useLessonPageState } from '@/components/course/lesson-state';
 import s from './practice-story-video.module.css';
 
@@ -21,9 +29,11 @@ type PracticeStoryVideoProps = {
   poster: string;
   description: string;
   descriptionTrack?: string;
+  captionTrack?: string;
   initialDuration?: number;
   initialCaption: string;
   phases: readonly { from: number; text: string }[];
+  checkpoint?: { time: number; label: string };
   completeCaption?: string;
   steps?: readonly { label: string; complete: boolean }[];
   compact?: boolean;
@@ -31,6 +41,7 @@ type PracticeStoryVideoProps = {
   controlLabel?: string;
   elapsedKey?: string;
   loopKey?: string;
+  hasAudio?: boolean;
 };
 
 export function PracticeStoryVideo({
@@ -40,9 +51,11 @@ export function PracticeStoryVideo({
   poster,
   description,
   descriptionTrack,
+  captionTrack,
   initialDuration = 12,
   initialCaption,
   phases,
+  checkpoint,
   completeCaption,
   steps,
   compact = false,
@@ -50,10 +63,16 @@ export function PracticeStoryVideo({
   controlLabel = '剧情视频',
   elapsedKey = 'practiceVideoElapsed',
   loopKey = 'practiceVideoLoop',
+  hasAudio = false,
 }: PracticeStoryVideoProps) {
   const [saved, update] = useLessonPageState<Record<string, number | boolean>>(
     pageId,
-    { [elapsedKey]: 0, [loopKey]: false },
+    {
+      [elapsedKey]: 0,
+      [loopKey]: false,
+      videoSound: hasAudio,
+      videoVolume: 100,
+    },
   );
   const savedElapsed = saved[elapsedKey];
   const elapsed =
@@ -61,6 +80,11 @@ export function PracticeStoryVideo({
       ? Math.max(0, savedElapsed)
       : 0;
   const looping = saved[loopKey] === true;
+  const volume =
+    typeof saved.videoVolume === 'number' && Number.isFinite(saved.videoVolume)
+      ? Math.min(100, Math.max(0, saved.videoVolume))
+      : 100;
+  const soundOn = hasAudio && saved.videoSound !== false && volume > 0;
   const fallbackDuration =
     Number.isFinite(initialDuration) && initialDuration > 0
       ? initialDuration
@@ -86,6 +110,9 @@ export function PracticeStoryVideo({
   useEffect(() => {
     if (reduced) videoRef.current?.pause();
   }, [reduced]);
+  useEffect(() => {
+    if (hasAudio && videoRef.current) videoRef.current.volume = volume / 100;
+  }, [hasAudio, volume]);
   useEffect(() => {
     activeRef.current = true;
     const video = videoRef.current;
@@ -176,13 +203,14 @@ export function PracticeStoryVideo({
       data-elapsed={Math.round(time * 1000)}
       data-looping={looping}
     >
+      {/* oxlint-disable-next-line jsx-a11y/media-has-caption -- Captions are conditional; existing silent clips only provide descriptions. */}
       <video
         ref={videoRef}
         className={s.video}
         data-video-part="video"
         src={src}
         poster={poster}
-        muted
+        muted={!soundOn}
         playsInline
         preload="metadata"
         loop={looping && !reduced}
@@ -197,7 +225,7 @@ export function PracticeStoryVideo({
           setDuration(length);
           const position = Math.max(0, Math.min(length, initialTime.current));
           video.currentTime = position;
-          setTime(position);
+          record(position);
           setReady(true);
           setError('');
         }}
@@ -226,6 +254,14 @@ export function PracticeStoryVideo({
           }
         }}
       >
+        {captionTrack && (
+          <track
+            kind="captions"
+            src={captionTrack}
+            srcLang="zh"
+            label="中文字幕"
+          />
+        )}
         {descriptionTrack && (
           <track
             kind="descriptions"
@@ -238,6 +274,17 @@ export function PracticeStoryVideo({
       <header className={s.heading} data-video-part="heading">
         <h3>{title}</h3>
         <p>{caption}</p>
+        {checkpoint && (
+          <button
+            type="button"
+            className={s.checkpoint}
+            data-video-part="checkpoint"
+            disabled={!ready}
+            onClick={() => seek(checkpoint.time)}
+          >
+            {checkpoint.label}
+          </button>
+        )}
       </header>
       <div className={s.controls} data-video-part="controls">
         <div className={s.buttons} data-video-part="buttons">
@@ -281,6 +328,39 @@ export function PracticeStoryVideo({
               <RotateCcw size={18} />
               从头播放
             </button>
+          )}
+          {hasAudio && (
+            <div className={s.audioControls}>
+              <button
+                type="button"
+                className={s.replay}
+                aria-label={`${soundOn ? '关闭' : '开启'}${controlLabel}声音`}
+                aria-pressed={soundOn}
+                onClick={() =>
+                  update({ videoSound: !soundOn, videoVolume: volume || 100 })
+                }
+              >
+                {soundOn ? <Volume2 size={19} /> : <VolumeX size={19} />}
+                声音{soundOn ? '开' : '关'}
+              </button>
+              <input
+                type="range"
+                className={s.volume}
+                min={0}
+                max={100}
+                step={5}
+                value={soundOn ? volume : 0}
+                aria-label={`${controlLabel}音量`}
+                aria-valuetext={`${soundOn ? volume : 0}%`}
+                onChange={(event) => {
+                  const nextVolume = event.currentTarget.valueAsNumber;
+                  update({
+                    videoSound: nextVolume > 0,
+                    videoVolume: nextVolume,
+                  });
+                }}
+              />
+            </div>
           )}
           <button
             type="button"

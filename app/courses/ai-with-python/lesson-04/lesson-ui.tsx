@@ -1,7 +1,8 @@
 /* oxlint-disable next/no-img-element -- Local course comic assets. */
 'use client';
 import { useState, type ReactNode } from 'react';
-import { Copy, Download, FileCode } from 'lucide-react';
+import { Copy } from 'lucide-react';
+import { CodeToolButtons } from '@/components/course/ai-with-python/code-tool-buttons';
 import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import {
@@ -21,14 +22,22 @@ export function LessonStage({
   label,
   children,
   footer,
+  tools,
 }: {
   title: string;
   label: string;
   children: ReactNode;
   footer?: ReactNode;
+  tools?: ReactNode;
 }) {
   return (
-    <Stage title={title} label={label} className={s.stage} footer={footer}>
+    <Stage
+      title={title}
+      label={label}
+      className={s.stage}
+      footer={footer}
+      tools={tools}
+    >
       {children}
     </Stage>
   );
@@ -248,16 +257,11 @@ export function PracticeTools({ code = COMPLETE_CODE }: { code?: string }) {
   }
   return (
     <>
-      <div className={s.actions}>
-        <a href={`${assetBase}/practice/lesson-04-practice.zip`} download>
-          <Download size={20} />
-          练习包
-        </a>
-        <button onClick={() => setOpen(true)}>
-          <FileCode size={20} />
-          完整代码与核对
-        </button>
-      </div>
+      <CodeToolButtons
+        downloadUrl={`${assetBase}/practice/lesson-04-practice.zip`}
+        referenceLabel="完整代码与核对"
+        onReference={() => setOpen(true)}
+      />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className={s.modal}>
           <DialogHeader>

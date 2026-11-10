@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import {
   ArrowRight,
   Check,
+  ChevronDown,
   Flag,
   LockKeyhole,
   Pause,
@@ -61,7 +62,7 @@ function BossEvidence({
       </div>
       <svg
         viewBox="0 0 580 260"
-        role="img"
+        role="group"
         aria-label="魔王九个护甲部位的外罩强度与防御，横轴防御，纵轴外罩，水平虚线为外罩30"
       >
         {[0, 30, 60, 100].map((value) => (
@@ -118,7 +119,7 @@ function BossEvidence({
               className={s.dot}
               role="button"
               tabIndex={0}
-              aria-label={`${row.part}，外罩${row.energy}，防御${row.defense}，弱点${row.weakness}`}
+              aria-label={`选择${row.part}`}
               aria-pressed={selected === row.part}
               onClick={() => onSelect(row.part)}
               onKeyDown={(event) => {
@@ -145,10 +146,7 @@ function BossEvidence({
               <text x={labelX} y={labelY} textAnchor={anchor}>
                 {row.part}
               </text>
-              <title>
-                {row.part}：外罩{row.energy}，防御{row.defense}，弱点
-                {row.weakness}
-              </title>
+              <title>{row.part} · 点击选择部位</title>
             </g>
           );
         })}
@@ -241,7 +239,11 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
     'l6-tower-battle',
     initialCampaign,
   );
-  const [saved, update] = usePageState({ battle: initialBattle });
+  const [saved, update] = usePageState({
+    battle: initialBattle,
+    showReadings: false,
+    showWeakness: false,
+  });
   const state = saved.battle;
   const { navigate } = useContext(LessonState);
   const [motionKey, setMotionKey] = useState(0);
@@ -259,7 +261,13 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
     state.phase === 'ready' || state.phase === 'attacking' || victory;
   const record = bossRecords.find((row) => row.part === state.part);
   function choose(value: Partial<typeof state>) {
-    if (!locked) patch({ ...value, phase: 'command', message: '' });
+    if (!locked)
+      update({
+        battle: { ...state, ...value, phase: 'command', message: '' },
+        ...(value.part !== undefined && value.part !== state.part
+          ? { showReadings: false, showWeakness: false }
+          : {}),
+      });
   }
   function launch() {
     setMotionKey((key) => key + 1);
@@ -305,7 +313,13 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
             </strong>
             <button
               type="button"
-              onClick={() => update({ battle: { ...initialBattle } })}
+              onClick={() =>
+                update({
+                  battle: { ...initialBattle },
+                  showReadings: false,
+                  showWeakness: false,
+                })
+              }
             >
               <RotateCcw size={18} />
               重置魔王决战
@@ -326,7 +340,7 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
               {victory ? (
                 <>
                   <span className={s.eyebrow}>
-                    <Flag size={22} /> 阶段通关 · 决战报告
+                    <Flag size={22} /> 阶段通关 · 指令核验报告
                   </span>
                   <h3>我们用数据赢得了决战！</h3>
                   <p className={s.result}>
@@ -336,18 +350,18 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
                     <br />
                     突破装备：<b>{state.equipment}</b>
                   </p>
-                  <ol className={s.report}>
+                  <ol className={s.report} aria-label="本次指令核验结果">
                     <li>
                       <Check size={20} />
-                      取得并保存魔王情报
+                      选中可破罩部位中防御最低的一处
                     </li>
                     <li>
                       <Check size={20} />
-                      先筛选，再按防御排序
+                      外罩与防御读数填写正确
                     </li>
                     <li>
                       <Check size={20} />
-                      从散点图核对弱点与证据
+                      装备与所选部位的弱点匹配
                     </li>
                   </ol>
                   <button className={s.primary} type="button" onClick={launch}>
@@ -423,25 +437,54 @@ export function FinalBattle({ active = true }: { active?: boolean }) {
                       />
                     </label>
                   </div>
-                  <p className={s.reading}>
-                    {record ? (
-                      <>
-                        <strong>{record.part}</strong> · 外罩 {record.energy} /
-                        防御 {record.defense}
-                        <br />
-                        图中颜色对应弱点：<b>{record.weakness}</b>
-                      </>
-                    ) : (
-                      '点选散点图中的部位，核对它的读数和弱点。'
-                    )}
-                  </p>
+                  <div className={s.hints} aria-label="按需查看提示">
+                    <div className={s.hint}>
+                      <button
+                        type="button"
+                        disabled={!record}
+                        aria-expanded={saved.showReadings}
+                        aria-controls="l6-boss-reading-hint"
+                        aria-label={`${saved.showReadings ? '收起' : '展开'}读数提示`}
+                        onClick={() =>
+                          update({ showReadings: !saved.showReadings })
+                        }
+                      >
+                        读数提示 <ChevronDown size={20} />
+                      </button>
+                      {record && saved.showReadings && (
+                        <p id="l6-boss-reading-hint">
+                          外罩 <b>{record.energy}</b> · 防御{' '}
+                          <b>{record.defense}</b>
+                        </p>
+                      )}
+                    </div>
+                    <div className={s.hint}>
+                      <button
+                        type="button"
+                        disabled={!record}
+                        aria-expanded={saved.showWeakness}
+                        aria-controls="l6-boss-weakness-hint"
+                        aria-label={`${saved.showWeakness ? '收起' : '展开'}弱点提示`}
+                        onClick={() =>
+                          update({ showWeakness: !saved.showWeakness })
+                        }
+                      >
+                        弱点提示 <ChevronDown size={20} />
+                      </button>
+                      {record && saved.showWeakness && (
+                        <p id="l6-boss-weakness-hint">
+                          图中颜色对应弱点：<b>{record.weakness}</b>
+                        </p>
+                      )}
+                    </div>
+                  </div>
                   <p
                     className={s.feedback}
                     data-success={locked}
                     aria-live="polite"
                   >
                     {state.message ||
-                      '保留筛选后的所有候选部位，比较防御，最后下达全班的决战指令。'}
+                      '先选部位，读坐标和颜色图例并填写判断；需要帮助再展开提示。'}
                   </p>
                   {(state.phase === 'command' ||
                     state.phase === 'feedback') && (

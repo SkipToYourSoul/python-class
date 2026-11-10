@@ -17,6 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { CodeToolButtons } from '@/components/course/ai-with-python/code-tool-buttons';
 import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
@@ -31,14 +32,22 @@ export function LessonStage({
   label,
   children,
   footer,
+  tools,
 }: {
   title: string;
   label: string;
   children: ReactNode;
   footer?: ReactNode;
+  tools?: ReactNode;
 }) {
   return (
-    <Stage title={title} label={label} className={s.stage} footer={footer}>
+    <Stage
+      title={title}
+      label={label}
+      className={s.stage}
+      footer={footer}
+      tools={tools}
+    >
       {children}
     </Stage>
   );
@@ -101,22 +110,32 @@ export function CodeDialog({
   output,
   outputLabel,
   note,
+  pairedTools = false,
 }: {
   title?: string;
   code: string;
   output?: string;
   outputLabel?: string;
   note?: string;
+  pairedTools?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [copy, setCopy] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   return (
     <>
-      <button className={s.secondary} onClick={() => setOpen(true)}>
-        <BookOpen size={20} />
-        {title}
-      </button>
+      {pairedTools ? (
+        <CodeToolButtons
+          downloadUrl={PRACTICE_DOWNLOAD_URL}
+          referenceLabel={title}
+          onReference={() => setOpen(true)}
+        />
+      ) : (
+        <button className={s.secondary} onClick={() => setOpen(true)}>
+          <BookOpen size={20} />
+          {title}
+        </button>
+      )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className={s.modal} initialFocus={titleRef}>
           <DialogHeader>
@@ -167,20 +186,23 @@ export function PracticeTools({
   outputLabel?: string;
   note?: string;
 }) {
+  if (code) {
+    return (
+      <CodeDialog
+        code={code}
+        output={output}
+        outputLabel={outputLabel}
+        note={note}
+        pairedTools
+      />
+    );
+  }
   return (
     <div className={s.actions}>
       <a className={s.secondary} href={PRACTICE_DOWNLOAD_URL} download>
         <Download size={20} />
         下载练习包
       </a>
-      {code && (
-        <CodeDialog
-          code={code}
-          output={output}
-          outputLabel={outputLabel}
-          note={note}
-        />
-      )}
     </div>
   );
 }

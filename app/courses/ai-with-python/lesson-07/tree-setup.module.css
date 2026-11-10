@@ -1,0 +1,473 @@
+.conditions,
+.splitCards,
+.discussion {
+  display: grid;
+  gap: clamp(16px, 2cqw, 32px);
+}
+
+.conditions {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.conditions li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: clamp(14px, 1.55cqw, 24px);
+  border: 2px solid #b0c8ea;
+  border-radius: 18px;
+  background: #f0f5ff;
+  font-size: clamp(20px, 1.8cqw, 28px);
+  line-height: 1.4;
+}
+
+.conditions li:nth-child(2) {
+  border-color: #b5c9aa;
+  background: #f2f8ed;
+}
+
+.conditions li:last-child {
+  border-color: #a66a16;
+  background: #fff2c9;
+}
+
+.conditions li:last-child :is(h3, strong, .conditionHead) {
+  color: #603a13;
+}
+
+.conditionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #163766;
+}
+
+.conditionHead span {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #dceaff;
+  font-size: clamp(18px, 1.4cqw, 22px);
+  font-weight: 750;
+}
+
+.conditions li:last-child .conditionHead span {
+  background: #ffc91c;
+  color: #603a13;
+}
+
+.conditionHead svg {
+  flex: none;
+  width: clamp(36px, 4.2cqw, 65px);
+  height: auto;
+}
+
+.conditionDetail {
+  color: #405477;
+  font-size: clamp(18px, 1.45cqw, 23px);
+}
+
+.conditionArrow {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0;
+  width: clamp(18px, 2cqw, 28px);
+  height: auto;
+  color: #526786;
+  transform: translate(100%, -50%);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.43fr) minmax(0, 0.57fr);
+  align-items: center;
+  gap: clamp(16px, 2cqw, 32px);
+  margin-block: auto;
+}
+
+.splitStory {
+  display: grid;
+  gap: 12px;
+}
+
+.splitStory img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #91ab83;
+  border-radius: 18px;
+}
+
+.splitStory figcaption {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: 10px 14px;
+  border: 2px solid #91ab83;
+  border-radius: 16px;
+  background: #f2f8ed;
+  font-size: clamp(20px, 1.65cqw, 26px);
+  line-height: 1.4;
+}
+
+.splitStory figcaption::before {
+  position: absolute;
+  top: -8px;
+  left: 36%;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid #91ab83;
+  border-left: 2px solid #91ab83;
+  background: #f2f8ed;
+  content: '';
+  transform: rotate(45deg);
+}
+
+.splitStory b {
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #dcead1;
+  color: #315638;
+}
+
+.splitStory strong {
+  display: block;
+  color: #315638;
+}
+
+.splitPlan {
+  display: grid;
+  gap: 9px;
+}
+
+.splitIntro {
+  display: grid;
+  gap: 4px;
+  font-size: clamp(18px, 1.55cqw, 24px);
+}
+
+.splitIntro strong {
+  font-size: clamp(23px, 2cqw, 30px);
+}
+
+.splitBar {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  overflow: hidden;
+  border: 2px solid #071a3d;
+  border-radius: 14px;
+  font-weight: 800;
+}
+
+.splitBar span {
+  padding: clamp(7px, 1.15cqh, 13px) 8px;
+  background: #1457d9;
+  color: #fff;
+  text-align: center;
+}
+
+.splitBar span:last-child {
+  background: #ffc91c;
+  color: #071a3d;
+}
+
+.splitCards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.35cqw, 24px);
+}
+
+.splitCards article {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: clamp(10px, 1.2cqw, 18px);
+  border: 2px solid #a7bddf;
+  border-radius: 14px;
+  background: #eef4ff;
+  font-size: clamp(19px, 1.65cqw, 25px);
+  line-height: 1.4;
+}
+
+.splitCards article:last-child {
+  border-color: #d9b979;
+  background: #fff6de;
+}
+
+.splitCards svg {
+  flex: none;
+  width: clamp(23px, 2.2cqw, 34px);
+  height: auto;
+  margin-top: 2px;
+  color: #1457d9;
+}
+
+.splitCards article:last-child svg {
+  color: #92621a;
+}
+
+.splitCards h3 {
+  font-size: clamp(22px, 1.85cqw, 29px);
+}
+
+.splitCards b {
+  display: block;
+  margin-block: 4px;
+  color: #405477;
+  font-size: clamp(18px, 1.45cqw, 23px);
+}
+
+.splitWhy {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #071a3d;
+  color: #ffda63;
+  font-size: clamp(18px, 1.55cqw, 24px);
+  line-height: 1.38;
+}
+
+.testSequence {
+  display: grid;
+  gap: 5px;
+}
+
+.testSequence h3 {
+  font-size: clamp(21px, 1.8cqw, 28px);
+}
+
+.testSequence ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.testSequence li {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 2px solid #b0c8ea;
+  border-radius: 9px;
+  background: #f5f8ff;
+  font-size: clamp(18px, 1.45cqw, 23px);
+  line-height: 1.28;
+}
+
+.testSequence li:last-child {
+  border-color: #d9b979;
+  background: #fff6de;
+}
+
+.discussion {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  row-gap: 12px;
+  margin-block: auto;
+}
+
+.discussionBridge {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 12px;
+  margin: 0;
+  padding: 7px 12px;
+  border: 2px solid #d9b979;
+  border-radius: 12px;
+  background: #fffaf0;
+  font-size: clamp(18px, 1.6cqw, 24px);
+}
+
+.discussionBridge b {
+  padding: 1px 9px;
+  border-radius: 999px;
+  background: #ffedb8;
+  color: #805012;
+}
+
+.discussionPlot {
+  overflow: hidden;
+  border: 2px solid #b0c8ea;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.discussionPlot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: #263b5b;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.discussionPlot line {
+  stroke: #dbe3ec;
+  stroke-width: 1;
+}
+
+.plotAxes {
+  fill: none;
+  stroke: #425878;
+  stroke-width: 2;
+}
+
+.cutMarker line {
+  stroke: #1457d9;
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+
+.cutMarker text {
+  fill: #104ebc;
+}
+
+.overlapMarker {
+  fill: none;
+  stroke: #86402c;
+  stroke-width: 2.5;
+}
+
+.overlapMarker text {
+  fill: #7b3423;
+  stroke: white;
+  stroke-width: 5;
+  paint-order: stroke;
+}
+
+.discussionPlot figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  padding: 8px 12px;
+  background: #e6efff;
+  color: #163766;
+  font-size: clamp(18px, 1.4cqw, 22px);
+  line-height: 1.35;
+}
+
+.discussionPlot figcaption span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.discussionPlot figcaption strong {
+  margin-left: auto;
+}
+
+.discussionPlot figcaption i {
+  width: 12px;
+  height: 12px;
+}
+
+.discussionPlot figcaption span:first-child i {
+  border-radius: 50%;
+}
+
+.discussionPlot figcaption span:nth-child(3) i {
+  transform: rotate(45deg);
+}
+
+.discussionBody,
+.discussionBody ol {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.discussionBody li {
+  display: grid;
+  gap: 6px;
+  padding: clamp(10px, 1.15cqw, 18px);
+  border: 2px solid #a9c0e3;
+  border-radius: 14px;
+  background: #f5f8ff;
+  font-size: clamp(19px, 1.6cqw, 25px);
+  line-height: 1.35;
+}
+
+.discussionBody li:last-child {
+  border-color: #d8b484;
+  background: #fff8ec;
+}
+
+.discussionQuestion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+}
+
+.discussionQuestion h3 {
+  font-size: clamp(22px, 1.85cqw, 30px);
+}
+
+.discussionBody button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 3px 10px;
+  border: 2px solid #071a3d;
+  border-radius: 8px;
+  background: #fff;
+  color: #071a3d;
+  font: inherit;
+  font-size: clamp(18px, 1.38cqw, 22px);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.discussionBody button:hover,
+.discussionBody button[aria-expanded='true'] {
+  background: #dceaff;
+}
+
+.discussionBody button:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 3px;
+}
+
+.discussionAnswer {
+  margin-top: 3px;
+  padding-left: 10px;
+  border-left: 4px solid #1457d9;
+}
+
+.discussionAnswer p + p {
+  margin-top: 4px;
+}
+
+.discussionNext {
+  display: grid;
+  justify-items: start;
+  gap: 7px;
+  font-size: clamp(18px, 1.55cqw, 24px);
+}
+
+.discussionNext button {
+  background: #ffc91c;
+}
+
+.discussionNext button:hover {
+  background: #ffe58e;
+}
+
+.discussionNext svg {
+  width: 21px;
+  height: 21px;
+}

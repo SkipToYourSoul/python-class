@@ -313,7 +313,7 @@ export function PandasScene() {
     <LessonStage
       title="请来处理表格的帮手"
       label="SMELL · 闻 / Pandas"
-      footer={<PracticeTools />}
+      tools={<PracticeTools />}
     >
       <div className={p.layout}>
         <div className={p.story}>

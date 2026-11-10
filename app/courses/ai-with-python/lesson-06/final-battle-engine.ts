@@ -53,7 +53,7 @@ export function assessDecision(
   ) {
     return {
       success: false,
-      message: `${record.part}的证据需要再核对：外罩 ${record.energy}，防御 ${record.defense}。保留目标，修订读数再试。`,
+      message: `${record.part}的读数需要再核对：纵轴是外罩，横轴是防御。需要精确值时展开读数提示，再修订重试。`,
     };
   }
   if (record.energy >= ATTACK_THRESHOLD) {

@@ -1,0 +1,291 @@
+.practice {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  gap: 12px;
+}
+
+.stamp {
+  position: absolute;
+  top: -68px;
+  right: 12px;
+  pointer-events: none;
+}
+
+.stamp [data-practice-stamp] {
+  width: 110px;
+  height: 110px;
+}
+
+.tabList {
+  justify-self: start;
+  height: auto;
+  gap: 4px;
+  padding: 4px;
+  border: 2px solid #9db1cc;
+  border-radius: 8px;
+  background: #e7eef9;
+}
+
+.tabList .tab {
+  height: auto;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 750;
+  font-size: clamp(18px, 1.45cqw, 23px);
+  line-height: 1.2;
+  color: #071a3d;
+}
+
+.tabList .tab[data-active] {
+  background: #1457d9;
+  color: #fff;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(12px, 1.8cqw, 24px);
+  align-items: stretch;
+  min-height: 0;
+  color: #071a3d;
+}
+
+.panel[hidden],
+.panel[inert] {
+  display: none;
+}
+
+.figure {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: stretch;
+  min-height: 0;
+  padding: 8px;
+  border: 2px solid #9db1cc;
+  border-radius: 8px;
+  background: #fff;
+  color: #071a3d;
+  cursor: zoom-in;
+}
+
+.figure:hover {
+  border-color: #1457d9;
+}
+
+.figureArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.figureLabel,
+.figureLabel > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.figureLabel {
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #334867;
+  text-align: left;
+}
+
+.figureLabel > span {
+  color: #104ebc;
+}
+
+.figureLabel svg {
+  width: 19px;
+  height: 19px;
+}
+
+.guide {
+  align-self: center;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  font-size: clamp(18px, 1.7cqw, 24px);
+  line-height: 1.3;
+}
+
+.guide .heading {
+  font-size: clamp(24px, 2.2cqw, 32px);
+}
+
+.score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 12px;
+  font-weight: 750;
+}
+
+.score strong {
+  color: #104ebc;
+  font-size: clamp(36px, 4.8cqh, 52px);
+  line-height: 1.1;
+}
+
+.precision {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-left: 4px solid #ffc91c;
+  background: #fff0c7;
+}
+
+.path {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.path li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #e7eef9;
+}
+
+.path li[data-current='true'] {
+  background: #fff0c7;
+}
+
+.path b,
+.example strong {
+  color: #104ebc;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.next,
+.replay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 2px solid #1457d9;
+  border-radius: 6px;
+  background: #1457d9;
+  color: #fff;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.next:hover {
+  background: #104ebc;
+}
+
+.replay {
+  background: #fff;
+  color: #104ebc;
+}
+
+.replay:disabled {
+  opacity: 0.55;
+}
+
+.next:focus-visible,
+.replay:focus-visible {
+  outline: 3px solid #1457d9;
+  outline-offset: 3px;
+}
+
+.measurementArt {
+  display: grid;
+  align-items: center;
+  min-height: 0;
+  margin: 0;
+}
+
+.measurementArt img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border: 2px solid #9db1cc;
+  border-radius: 12px;
+}
+
+.task {
+  gap: 12px;
+}
+
+.task label {
+  display: grid;
+  gap: 4px;
+  font-weight: 750;
+  justify-items: start;
+}
+
+.task select {
+  padding: 4px 6px;
+  border: 1px solid #8399ba;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.zoom {
+  width: min(96vw, 1320px);
+  max-width: none;
+  max-height: 96dvh;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+  color: #071a3d;
+}
+
+.zoomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.zoomHeader [data-slot='dialog-title'] {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.zoomHeader [data-slot='dialog-description'],
+.zoomClose {
+  font-size: 18px;
+}
+
+.zoomClose {
+  padding: 6px 12px;
+  border: 2px solid #1457d9;
+  border-radius: 6px;
+  background: #fff;
+  color: #104ebc;
+  font-weight: 750;
+}
+
+.zoom .figureArt {
+  height: auto;
+  max-height: calc(96dvh - 84px);
+}

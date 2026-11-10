@@ -74,6 +74,13 @@ function MoviePractice() {
   const field = movieFields[state.field];
   return (
     <LessonStage
+      tools={
+        <PracticeTools
+          code={MOVIE_COMPLETE_CODE}
+          output={movie.output}
+          note="在练习文件夹打开 Notebook。先安装 beautifulsoup4，再亲手输入完整代码并运行。输出为课堂电影样本的核对结果。"
+        />
+      }
       title="一口气读出电影资料"
       label="CLASS PRACTICE · 课堂练习 01"
     >
@@ -110,11 +117,6 @@ function MoviePractice() {
             <br />
             练习文件中的演员节选前两位。
           </p>
-          <PracticeTools
-            code={MOVIE_COMPLETE_CODE}
-            output={movie.output}
-            note="在练习文件夹打开 Notebook。先安装 beautifulsoup4，再亲手输入完整代码并运行。输出为课堂电影样本的核对结果。"
-          />
         </aside>
       </div>
     </LessonStage>

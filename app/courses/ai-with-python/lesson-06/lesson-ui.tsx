@@ -1,7 +1,8 @@
 /* oxlint-disable next/no-img-element -- Local illustrated course assets. */
 'use client';
 import { useContext, useState, type ReactNode } from 'react';
-import { Code2, Copy, Download, Maximize2 } from 'lucide-react';
+import { Copy, Maximize2 } from 'lucide-react';
+import { CodeToolButtons } from '@/components/course/ai-with-python/code-tool-buttons';
 import { Stage } from '@/components/course/ai-with-python/lesson-stage';
 import { XiaopaiSpeech } from '@/components/course/ai-with-python/xiaopai-speech';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
@@ -21,14 +22,22 @@ export function Page({
   label = 'BATTLE NOTES · 决战观察笔记',
   children,
   footer,
+  tools,
 }: {
   title: string;
   label?: string;
   children: ReactNode;
   footer?: ReactNode;
+  tools?: ReactNode;
 }) {
   return (
-    <Stage title={title} label={label} className={s.stage} footer={footer}>
+    <Stage
+      title={title}
+      label={label}
+      className={s.stage}
+      footer={footer}
+      tools={tools}
+    >
       {children}
     </Stage>
   );
@@ -75,16 +84,21 @@ export function Jump({ id, children }: { id: string; children: ReactNode }) {
 }
 export function Art({
   kind,
+  src,
+  imageOnly = false,
   alt,
   firstPanel = false,
   panoramic = false,
 }: {
   kind: string;
+  src?: string;
+  imageOnly?: boolean;
   alt: string;
   firstPanel?: boolean;
   panoramic?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const image = src ?? `${assetBase}/assets/${kind}.jpg`;
   return (
     <>
       <button
@@ -95,19 +109,23 @@ export function Art({
         onClick={() => setOpen(true)}
         aria-label={`放大漫画：${alt}`}
       >
-        <img src={`${assetBase}/assets/${kind}.jpg`} alt={alt} />
-        <span>
-          <Maximize2 size={20} />
-          放大漫画
-        </span>
+        <img src={image} alt={alt} />
+        {!imageOnly && (
+          <span>
+            <Maximize2 size={20} />
+            放大漫画
+          </span>
+        )}
       </button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className={s.artModal}>
-          <DialogHeader>
+        <DialogContent
+          className={`${s.artModal} ${imageOnly ? s.imageModal : ''}`}
+        >
+          <DialogHeader className={imageOnly ? 'sr-only' : undefined}>
             <DialogTitle>决战漫画</DialogTitle>
             <DialogDescription>{alt}</DialogDescription>
           </DialogHeader>
-          <img src={`${assetBase}/assets/${kind}.jpg`} alt={alt} />
+          <img src={image} alt={alt} />
         </DialogContent>
       </Dialog>
     </>
@@ -146,31 +164,26 @@ export function Story({
 export function CodeTools({
   code,
   label = '完整参考',
+  description = '解压练习包，打开“第六课练习.ipynb”。先运行预置环境格，再按顺序亲手输入代码。',
 }: {
   code: string;
   label?: string;
+  description?: string;
 }) {
   const [open, setOpen] = useState(false),
     [copy, setCopy] = useState('');
   return (
     <>
-      <div className={s.actions}>
-        <a href={PRACTICE_DOWNLOAD_URL} download>
-          <Download size={20} />
-          练习包
-        </a>
-        <button onClick={() => setOpen(true)}>
-          <Code2 size={20} />
-          {label}
-        </button>
-      </div>
+      <CodeToolButtons
+        downloadUrl={PRACTICE_DOWNLOAD_URL}
+        referenceLabel={label}
+        onReference={() => setOpen(true)}
+      />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className={s.codeModal}>
           <DialogHeader>
             <DialogTitle>{label}</DialogTitle>
-            <DialogDescription>
-              解压练习包，打开“第六课练习.ipynb”。先运行预置环境格，再按顺序亲手输入代码。
-            </DialogDescription>
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <button
             className={s.primary}
@@ -199,9 +212,10 @@ export type CodeStep = {
   lines?: number[];
   output?: string;
   view?: ReactNode;
+  storyboard?: ReactNode;
   keyCode?: string;
 };
-function wideCode(source: string, active: number[] = []) {
+export function wideCode(source: string, active: number[] = []) {
   const result: string[] = [];
   const highlighted: number[] = [];
   let pending = '';
@@ -246,19 +260,35 @@ export function CodeScene({
   const [state, update] = usePageState({ codeStep: 0 });
   const step = steps[state.codeStep] || steps[0];
   const displayed = wideCode(step.code, step.lines);
+  const guide = (
+    <Guide>
+      {before && (
+        <>
+          {before}
+          <br />
+        </>
+      )}
+      {step.text}
+    </Guide>
+  );
   return (
-    <Page title={title} label={label}>
+    <Page tools={<CodeTools code={complete} />} title={title} label={label}>
       <div className={s.codeTop}>
         <Tabs
           items={steps.map((x) => x.name)}
           value={state.codeStep}
           onChange={(codeStep) => update({ codeStep })}
         />
-        <CodeTools code={complete} />
       </div>
       <div
         className={
-          illustration ? s.codeWithArt : visual ? s.codeWithChart : s.codeBody
+          step.storyboard
+            ? s.codeWithStoryboard
+            : illustration
+              ? s.codeWithArt
+              : visual
+                ? s.codeWithChart
+                : s.codeBody
         }
       >
         <div className={s.codeColumn}>
@@ -283,6 +313,12 @@ export function CodeScene({
             />
           )}
         </div>
+        {step.storyboard && (
+          <>
+            <div className={s.storyboardGuide}>{guide}</div>
+            <div className={s.storyboardStrip}>{step.storyboard}</div>
+          </>
+        )}
         {visual && <div className={s.chartColumn}>{visual}</div>}
         {illustration && (
           <div className={s.codeIllustration}>
@@ -290,15 +326,7 @@ export function CodeScene({
           </div>
         )}
       </div>
-      <Guide>
-        {before && (
-          <>
-            {before}
-            <br />
-          </>
-        )}
-        {step.text}
-      </Guide>
+      {!step.storyboard && guide}
     </Page>
   );
 }

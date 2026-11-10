@@ -2,6 +2,14 @@
 
 使用内置 image_gen 生成，沿用 tower-assault.jpg 的人物与画风。最终素材：chart-mission-v2.png、north-two-clues-v3.png。
 
+## 第 30 页 · 三队领到作战图，出发
+
+内置 image_gen 使用 `chart-mission-v2.jpg` 作为参考，成品为 `tower-chart-dispatch.jpg`。
+
+```text
+Use case: illustration-story. New full-bleed 3:1 panoramic 3-panel comic asset for lesson 06 of a Chinese children's fantasy data course. Use supplied image as style, character, and world reference only. Retain young brown-haired knight in blue cloak with gold-trimmed silver armor, small yellow one-eyed goggle assistant in blue overalls, heraldic blue tower / orange sun / teal snowflake teams, rich colorful adventure comic style. New story after students make two charts, before any battle. Three equal panels separated by thin light paper gutters. LEFT: at the tent entrance, assistant and the brown-haired knight hand three matching chart packets to the three distinct blue, orange, and teal captains gathered together. At least one packet open towards camera shows two unmistakable simple chart icons, a zigzag line graph and a cloud of scatter points, as stylized props, without numbers or axes labels. CENTER: over shoulder of the three captains outdoors at a wooden table, one captain holds the two charts while another points at the three routes on a parchment terrain map. Their matching banner colors make the three teams easy to recognize. RIGHT: wide rear view, the three compact teams with the three colored banners each walk along a different path toward the blue, orange and teal distant towers with intact, translucent purple shields. A foreground captain carries the chart packet in view. Clear progression from handoff to briefing to departure. Sunny pre-battle anticipation, no weapons drawn, no combat, no damage, no victory, no speech bubbles, no text, no logos, no watermarks. Keep the key action and chart props clear at classroom projection size. Aim for 3:1 wide panoramic canvas.
+```
+
 ## 图表带队出发
 
 Use case: illustration-story. Asset type: Chinese children's Python course, chapter 3 opening comic, panoramic 3:1, 2400x800.

@@ -41,7 +41,7 @@ export const scenes = [
   {
     id: 'l6-assault-story',
     chapter: 'command',
-    title: '队伍出发，先让图表指路',
+    title: '北塔外罩更薄，为什么还要等？',
   },
   {
     id: 'l6-chart-choice',
@@ -51,41 +51,41 @@ export const scenes = [
   {
     id: 'l6-line-story',
     chapter: 'command',
-    title: '沿着曲线，圈出可破罩时段',
+    title: '沿着曲线，圈出可破罩时刻',
   },
-  { id: 'l6-line', chapter: 'command', title: '画折线图，让候选时段现身' },
+  { id: 'l6-line', chapter: 'command', title: '画折线图，找北塔的候选时刻' },
   {
     id: 'l6-scatter-story',
     chapter: 'command',
-    title: '外罩最弱，就一定最好打吗',
+    title: '外罩最弱，就一定最好打吗？',
   },
-  { id: 'l6-scatter', chapter: 'command', title: '画散点图，比较外罩与防御' },
+  { id: 'l6-scatter', chapter: 'command', title: '画散点图，比北塔的守卫防御' },
   {
     id: 'l6-chart-plan',
     chapter: 'command',
-    title: '把图上的线索，变成出击方案',
+    title: '各队看图，复述出击命令',
   },
   {
     id: 'l6-practice-03',
     chapter: 'command',
     title: '补齐代码，为三队绘制作战图',
   },
+  { id: 'l6-latest', chapter: 'command', title: '三队领到作战图，出发！' },
   {
     id: 'l6-tower-battle',
     chapter: 'command',
-    title: '三队出击：攻破全部魔塔',
+    title: '到了阵前，现在能出击吗？',
   },
-  { id: 'l6-latest', chapter: 'command', title: '切断供能，直面魔王' },
   {
     id: 'l6-final-mission',
     chapter: 'command',
-    title: '最终挑战：找到魔王的突破口',
+    title: '魔王决战：让证据指挥行动',
   },
-  { id: 'l6-current', chapter: 'command', title: '重新走完数据全流程' },
-  { id: 'l6-battle', chapter: 'command', title: '最终决战：三队会合' },
-  { id: 'l6-summary', chapter: 'command', title: '用数据，完成这场决战' },
+  { id: 'l6-summary', chapter: 'command', title: '从数据出发，走向机器学习' },
 ] as const;
 export const sceneAliases = {
+  'l6-current': 'l6-final-mission',
+  'l6-battle': 'l6-final-mission',
   'l6-mission': 'l6-rule',
   'l6-practice-01-code': 'l6-practice-01',
   'l6-checkpoint-01': 'l6-practice-01',

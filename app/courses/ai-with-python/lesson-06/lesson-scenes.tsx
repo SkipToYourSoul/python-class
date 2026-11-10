@@ -1,24 +1,31 @@
 /* oxlint-disable next/no-img-element -- Local illustrated course assets. */
 'use client';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { FileSpreadsheet, Globe2, Search, Flag } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { ChapterCover } from '@/components/course/ai-with-python/chapter-cover';
 import { StoryRecap } from '@/components/course/ai-with-python/story-recap';
 import { NotebookPanel } from '@/components/course/ai-with-python/notebook-panel';
 import { usePageState } from '@/components/course/lesson-state';
 import {
   Page,
+  Tabs,
   Guide,
   Story,
   Art,
   CodeTools,
   CodeScene,
-  Jump,
 } from './lesson-ui';
-import { FinalBattle } from './final-battle';
+import { BossFinale } from './boss-finale';
 import { TowerBattle } from './tower-battle';
 import { CoverScene } from './cover-scene';
-import { PracticeCode } from './practice-code';
 import { ClassPracticeOne } from './class-practice-one';
 import { ClassPracticeTwo } from './class-practice-two';
 import { ClassPracticeThree } from './class-practice-three';
@@ -28,9 +35,10 @@ import {
   ScatterStory,
   ChartCode,
   ChartPlan,
-  TowerAftermath,
+  TowerAssaultStory,
 } from './third-section';
 import evidence from './analysis-evidence.json';
+import { assetBase } from './lesson-data';
 import {
   history,
   summary,
@@ -100,19 +108,32 @@ function Recap() {
 function DataTable({
   caption,
   headers,
+  meanings,
+  activeColumns = [],
   rows,
 }: {
   caption: string;
   headers: string[];
+  meanings?: string[];
+  activeColumns?: readonly string[];
   rows: ReactNode[][];
 }) {
   return (
-    <table className={s.table}>
+    <table className={`${s.table} ${meanings ? s.fieldTable : ''}`}>
       <caption>{caption}</caption>
       <thead>
         <tr>
-          {headers.map((h) => (
-            <th key={h}>{h}</th>
+          {headers.map((h, index) => (
+            <th key={h} scope="col" data-active={activeColumns.includes(h)}>
+              {meanings ? (
+                <>
+                  <code>{h}</code>
+                  <span>{meanings[index]}</span>
+                </>
+              ) : (
+                h
+              )}
+            </th>
           ))}
         </tr>
       </thead>
@@ -120,7 +141,9 @@ function DataTable({
         {rows.map((r, i) => (
           <tr key={i}>
             {r.map((c, j) => (
-              <td key={j}>{c}</td>
+              <td key={j} data-active={activeColumns.includes(headers[j])}>
+                {c}
+              </td>
             ))}
           </tr>
         ))}
@@ -280,6 +303,57 @@ function Station() {
     </Page>
   );
 }
+function RawDataPreview() {
+  return (
+    <Dialog>
+      <DialogTrigger className={s.primary}>查看原始数据</DialogTrigger>
+      <DialogContent className={s.dataPreview}>
+        <DialogHeader>
+          <DialogTitle>三塔原始数据</DialogTitle>
+          <DialogDescription>
+            共 {history.length} 条记录，每行是一座塔在一个时刻的观测。
+          </DialogDescription>
+        </DialogHeader>
+        <div className={s.dataPreviewScroll}>
+          <DataTable
+            caption="towers.csv · 8 个字段"
+            headers={[
+              'tower',
+              'hour',
+              'energy',
+              'guard',
+              'kind',
+              'attribute',
+              'weakness',
+              'defense',
+            ]}
+            meanings={[
+              '魔塔',
+              '时刻',
+              '外罩强度',
+              '守卫编号',
+              '守卫族类',
+              '属性',
+              '弱点',
+              '守卫防御',
+            ]}
+            rows={history.map((r) => [
+              r.tower,
+              r.hour,
+              r.energy,
+              r.guard,
+              r.kind,
+              r.attribute,
+              r.weakness,
+              r.defense,
+            ])}
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function Look() {
   return (
     <Page title="望：看清三塔与守卫档案" label="DIAGNOSIS · 数据类型与行列">
@@ -314,6 +388,7 @@ function Look() {
               ))}
             </div>
           </div>
+          <RawDataPreview />
         </div>
         <Guide>
           一行是一座塔在一个时刻的观测。守卫编号 guard
@@ -323,43 +398,76 @@ function Look() {
     </Page>
   );
 }
-const selectedInspectionCode = (...parts: string[]) =>
-  code.INSPECT_CODE.split('\n')
-    .filter((line) => parts.some((part) => line.includes(part)))
-    .join('\n');
+const inspectionSteps = [
+  {
+    name: '1 看前几行',
+    title: '读取与预览',
+    statement: 'print(towers.head())',
+    text: '档案打开了！head 默认显示前 5 条，先核对列名、塔名与读数是否对齐。',
+  },
+  {
+    name: '2 查看 info',
+    title: '整体检查',
+    statement: 'towers.info()',
+    output: evidence.info,
+    text: '先验收档案：36 行、8 列，每列都有 36 个非空值，这份情报没有缺失值。',
+  },
+  {
+    name: '3 核对类型',
+    title: '每列类型',
+    statement: 'print(towers.dtypes)',
+    output: evidence.dtypes,
+    text: 'dtypes 列出每列类型：int64 是整数；文字列在不同版本可能显示 str 或 object。',
+  },
+];
 function Inspect() {
+  const [state, update] = usePageState({ codeStep: 0, inspectionThrough: 0 });
+  const stepIndex = Math.min(
+    inspectionSteps.length - 1,
+    Math.max(0, state.codeStep),
+  );
+  const through = Math.min(
+    inspectionSteps.length - 1,
+    Math.max(stepIndex, state.inspectionThrough),
+  );
+  const step = inspectionSteps[stepIndex];
+  const lines = code.INSPECT_CODE.split('\n');
+  const visibleCode = lines
+    .slice(0, lines.indexOf(inspectionSteps[through].statement) + 1)
+    .join('\n');
   return (
-    <CodeScene
+    <Page
+      tools={<CodeTools code={code.PRACTICE_02_CODE} />}
       title="闻：读回并检查情报"
-      complete={code.PRACTICE_02_CODE}
-      illustration={{
-        kind: 'inspection-comic',
-        alt: '猫头鹰送来已保存的档案，勇士和小派先查看记录，再核对整份情报是否完整。',
-      }}
-      steps={[
-        {
-          name: '1 看前几行',
-          code: code.INSPECT_CODE,
-          text: (
-            <>
-              档案打开了！head 默认显示前 5 条，先核对列名、塔名与读数是否对齐。
-            </>
-          ),
-          view: (
-            <div className={s.inspectionView}>
-              <NotebookPanel
-                title="第六课练习.ipynb · 读取与预览"
-                compact
-                cells={[
-                  {
-                    code: selectedInspectionCode(
-                      'import',
-                      'read_csv',
-                      '.head()',
-                    ),
-                  },
-                ]}
-              />
+      label="PYTHON LAB · 代码讲解"
+    >
+      <div className={s.codeTop}>
+        <Tabs
+          items={inspectionSteps.map((item) => item.name)}
+          value={stepIndex}
+          onChange={(codeStep) =>
+            update({ codeStep, inspectionThrough: Math.max(through, codeStep) })
+          }
+        />
+      </div>
+      <div className={s.codeWithArt}>
+        <div className={s.codeColumn}>
+          <div
+            className={s.inspectionView}
+            data-inspection-output={step.output ? true : undefined}
+          >
+            <NotebookPanel
+              title={`第六课练习.ipynb · ${step.title}`}
+              compact
+              cells={[
+                {
+                  code: visibleCode,
+                  activeLines: [lines.indexOf(step.statement)],
+                  output: step.output,
+                },
+              ]}
+            />
+            {stepIndex === 0 && (
               <div className={s.inspectionTable}>
                 <DataTable
                   caption="head() 输出 · 前 5 条记录"
@@ -387,76 +495,92 @@ function Inspect() {
                     ])}
                 />
               </div>
-            </div>
-          ),
-        },
-        {
-          name: '2 查看 info',
-          code: code.INSPECT_CODE,
-          view: (
-            <div className={s.inspectionView}>
-              <NotebookPanel
-                title="第六课练习.ipynb · 整体检查"
-                compact
-                cells={[
-                  {
-                    code: selectedInspectionCode('.info()'),
-                    output: evidence.info,
-                  },
-                ]}
-              />
-            </div>
-          ),
-          text: '先验收档案：36 行、8 列，每列都有 36 个非空值，这份情报没有缺失值。',
-        },
-        {
-          name: '3 核对类型',
-          code: code.INSPECT_CODE,
-          text: (
-            <>
-              dtypes 列出每列类型：int64 是整数；文字列在不同版本可能显示 str 或
-              object。
-            </>
-          ),
-          view: (
-            <div className={s.inspectionView}>
-              <NotebookPanel
-                title="第六课练习.ipynb · 每列类型"
-                compact
-                cells={[
-                  {
-                    code: selectedInspectionCode('.dtypes'),
-                    output: evidence.dtypes,
-                  },
-                ]}
-              />
-            </div>
-          ),
-        },
-      ]}
-    />
+            )}
+          </div>
+        </div>
+        <div className={s.codeIllustration}>
+          <Art
+            kind="inspection-comic"
+            alt="猫头鹰送来已保存的档案，勇士和小派先查看记录，再核对整份情报是否完整。"
+          />
+        </div>
+      </div>
+      <Guide>{step.text}</Guide>
+    </Page>
   );
 }
+
+const groupSteps = [
+  {
+    name: '1 按塔和弱点分组',
+    lines: ['.groupby('],
+    fields: ['tower', 'weakness'],
+    text: 'groupby 按 tower（塔）和 weakness（弱点）分组，每组算一份统计。',
+  },
+  {
+    name: '2 比较均值',
+    lines: ['energy_mean=', 'defense_mean='],
+    fields: ['energy_mean', 'defense_mean'],
+    text: 'mean 计算每组的外罩和防御均值，看平时的守备水平。三塔外罩均值都超过 30，还有机会破罩吗？',
+  },
+  {
+    name: '3 清点记录',
+    lines: ['count='],
+    fields: ['count'],
+    text: 'count 数有守卫编号的记录。这里每塔都统计了 12 条。要定出击时刻，还得回到每小时的读数。',
+  },
+];
+
 function Group() {
+  const [state, update] = usePageState({ codeStep: 0 });
+  const step = groupSteps[state.codeStep] ?? groupSteps[0];
+  const rows = [...summary].sort((a, b) => (a.tower < b.tower ? -1 : 1));
   return (
-    <Page title="切：先比较三塔整体" label="DIAGNOSIS · 分组与统计">
+    <Page
+      title="切：先比较三塔整体"
+      label="DIAGNOSIS · 分组与统计"
+      tools={<CodeTools code={code.PRACTICE_02_CODE} />}
+    >
+      <div className={s.codeTop}>
+        <Tabs
+          items={groupSteps.map((item) => item.name)}
+          value={state.codeStep}
+          onChange={(codeStep) => update({ codeStep })}
+        />
+        <RawDataPreview />
+      </div>
       <div className={s.analysisLesson}>
         <div className={s.column}>
           <NotebookPanel
             title="第六课练习.ipynb"
             compact
-            cells={[{ code: code.GROUP_CODE }]}
+            cells={[
+              {
+                code: code.GROUP_CODE,
+                activeLines: linesOf(code.GROUP_CODE, ...step.lines),
+              },
+            ]}
           />
-          <CodeTools code={code.PRACTICE_02_CODE} />
+          <Guide>{step.text}</Guide>
         </div>
         <div className={`${s.column} ${s.groupEvidence}`}>
           <DataTable
-            caption="输出节选 · 每塔 12 条记录"
-            headers={['塔', '外罩均值', '防御均值']}
-            rows={summary.map((r) => [
+            caption="分组输出 · 每组一行"
+            headers={[
+              'tower',
+              'weakness',
+              'energy_mean',
+              'defense_mean',
+              'count',
+            ]}
+            meanings={['塔', '弱点', '外罩均值', '防御均值', '记录数']}
+            activeColumns={step.fields}
+            rows={rows.map((r) => [
               r.tower,
+              r.weakness,
               r.mean.toFixed(1),
               r.meanDefense.toFixed(1),
+              r.count,
             ])}
           />
           <div className={s.groupComic}>
@@ -467,39 +591,74 @@ function Group() {
           </div>
         </div>
       </div>
-      <Guide>
-        先把三塔记录分开，再用 mean 求平均、count
-        数记录。整体强弱看清了，还要找出具体进攻时刻。
-      </Guide>
     </Page>
   );
 }
+
+const filterSteps = [
+  {
+    name: '1 筛外罩',
+    lines: ['towers[towers'],
+    fields: ['energy'],
+    text: '逐条检查 energy（外罩），只保留外罩低于 30 的记录。虽然三塔的外罩均值都超过 30，每塔仍有两次破罩机会。',
+  },
+  {
+    name: '2 塔内排防御',
+    lines: ['.sort_values(', '["tower", "defense"]'],
+    fields: ['tower', 'defense'],
+    text: '先按 tower 把同塔记录排在一起，再按 defense 从低到高排。每塔最上面那一条，守卫防御最低。',
+  },
+  {
+    name: '3 查看输出列',
+    lines: ['print(windows', '["tower", "hour"', '"defense", "weakness"'],
+    fields: ['hour', 'weakness'],
+    text: '输出五列。hour 告诉我们哪一小时能进攻，weakness 告诉我们该带什么装备。',
+  },
+];
+
 function Filter() {
+  const [state, update] = usePageState({ codeStep: 0 });
+  const step = filterSteps[state.codeStep] ?? filterSteps[0];
   return (
-    <Page title="切：筛选薄弱时段" label="DIAGNOSIS · 排序与筛选">
+    <Page
+      title="切：筛选薄弱时段"
+      label="DIAGNOSIS · 排序与筛选"
+      tools={<CodeTools code={code.PRACTICE_02_CODE} />}
+    >
+      <Tabs
+        items={filterSteps.map((item) => item.name)}
+        value={state.codeStep}
+        onChange={(codeStep) => update({ codeStep })}
+      />
       <div className={s.analysisLesson}>
         <div className={s.column}>
           <NotebookPanel
             title="第六课练习.ipynb"
             compact
-            cells={[{ code: code.FILTER_CODE }]}
+            cells={[
+              {
+                code: code.FILTER_CODE,
+                activeLines: linesOf(code.FILTER_CODE, ...step.lines),
+              },
+            ]}
           />
-          <Guide>
-            先问“哪些记录的外罩低于
-            30？”再在每座塔内按防御从低到高排列。同一座塔有两个候选时段，先比较，再选计划。
-          </Guide>
-          <CodeTools code={code.PRACTICE_02_CODE} />
+          <Guide>{step.text}</Guide>
         </div>
-        <DataTable
-          caption="输出节选 · 比较守卫防御"
-          headers={['塔', '时刻', '外罩', '防御']}
-          rows={windows.map((r) => [
-            r.tower,
-            `${r.hour} 时`,
-            r.energy,
-            r.defense,
-          ])}
-        />
+        <div>
+          <DataTable
+            caption="候选输出 · 外罩低于 30，按塔和防御排列"
+            headers={['tower', 'hour', 'energy', 'defense', 'weakness']}
+            meanings={['塔', '时刻', '外罩', '守卫防御', '弱点']}
+            activeColumns={step.fields}
+            rows={windows.map((r) => [
+              r.tower,
+              r.hour,
+              r.energy,
+              r.defense,
+              r.weakness,
+            ])}
+          />
+        </div>
       </div>
     </Page>
   );
@@ -511,6 +670,7 @@ function Deploy() {
       <div className={s.deploymentGrid}>
         {TEAMS.map((team, index) => {
           const row = plans.find((r) => r.tower === team.tower)!;
+          const baseline = summary.find((r) => r.tower === team.tower)!;
           const candidates = windows
             .filter((r) => r.tower === team.tower)
             .sort((a, b) => a.hour - b.hour);
@@ -528,6 +688,10 @@ function Deploy() {
               </span>
               <p className={s.guardianClue}>
                 {row.kind} · {row.attribute}属性
+              </p>
+              <p className={s.baselineClue}>
+                外罩均值 {baseline.mean.toFixed(1)} · 防御均值{' '}
+                {baseline.meanDefense.toFixed(1)}
               </p>
               <table className={s.deploymentEvidence}>
                 <caption>破罩候选 · 外罩 &lt; {ATTACK_THRESHOLD}</caption>
@@ -562,7 +726,8 @@ function Deploy() {
                       {row.hour} 时出击 · 携带{team.equipment}
                     </strong>
                     <p>
-                      都能破罩，防御 {row.defense} &lt; {alternative.defense}。
+                      防御 {row.defense} &lt; {alternative.defense}
+                      ，也低于均值。
                     </p>
                   </>
                 ) : (
@@ -585,89 +750,280 @@ function Deploy() {
         </button>
       </div>
       <Guide>
-        先筛外罩 &lt; {ATTACK_THRESHOLD}{' '}
-        的时段，再选守卫防御较低的时刻，最后按弱点配装备。北塔外罩最低的时刻，一定最适合出击吗？
+        三塔的外罩均值都超过 {ATTACK_THRESHOLD}，得找准破罩时机。先找外罩低于{' '}
+        {ATTACK_THRESHOLD} 的时段，再选守卫防御最低的一条，按弱点配装备。
       </Guide>
-    </Page>
-  );
-}
-function FinalMission() {
-  return (
-    <Page
-      title="最终挑战：找到魔王的突破口"
-      label="FINAL CHALLENGE · 三队会合，重新取证"
-    >
-      <div className={s.grid}>
-        <Art
-          kind="boss-reveal"
-          alt="三座塔熄灭，魔王失去护盾，勇士与小派观察新送来的护甲情报"
-        />
-        <div className={`${s.column} ${s.center}`}>
-          <div className={s.panel}>
-            <h3>这次是 9 个护甲部位</h3>
-            <p>① 获取新网页，保存 boss.csv。</p>
-            <p>② 筛选外罩低于 30 的部位。</p>
-            <p>③ 画散点图，找到防御最低的突破口。</p>
-            <p>④ 核对弱点，选择装备出击。</p>
-          </div>
-          <div className={s.row}>
-            <a
-              className={s.primary}
-              href="/boss-intel.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              查看魔王情报
-            </a>
-            <Jump id="l6-current">开始综合挑战</Jump>
-          </div>
-          <Guide>
-            塔的历史记录不能替魔王作证。请重新走完获取、存储、分析、可视化，再用新证据指挥最后一击。
-          </Guide>
-        </div>
-      </div>
     </Page>
   );
 }
 function Summary() {
   return (
-    <Page title="用数据，完成这场决战" label="STAGE PROJECT · 数据全流程回顾">
-      <div className={s.summaryStory}>
-        <Art
-          kind="victory"
-          alt="勇士、小派、熊猫博士和机械猫头鹰围着档案和图表庆祝"
-        />
-      </div>
-      <div className={s.summaryLower}>
-        <div className={s.badges}>
-          <span>
-            <Globe2 size={22} />
-            获取情报
-          </span>
-          <span>
-            <FileSpreadsheet size={22} />
-            存储档案
-          </span>
-          <span>
-            <Search size={22} />
-            分析证据
-          </span>
-          <span>
-            <Flag size={22} />
-            可视化决策
-          </span>
-        </div>
-        <Guide>
-          说说看：哪条数据改变了你的作战计划？我们把网页变成档案、统计和图表，再把证据变成行动。
-        </Guide>
-      </div>
-    </Page>
+    <div className={s.summaryComic} data-summary-comic>
+      <Art
+        kind="data-journey-summary"
+        imageOnly
+        src="/courses/ai-with-python/lesson-06/assets/data-journey-summary.png"
+        alt="从数据出发，走向机器学习。第2课数据获取：网页里的情报，取回来！第3课数据存储：存进文件，下次还能读。第4课数据分析：筛选、统计，找到线索。第5课数据可视化：画成图，看出规律。下一阶段机器学习模型：能让机器从数据中学习，判断新情况吗？用已有数据训练模型，再判断新样本。"
+      />
+    </div>
   );
 }
 const linesOf = (source: string, ...parts: string[]) =>
   source
     .split('\n')
     .flatMap((line, i) => (parts.some((p) => line.includes(p)) ? [i] : []));
+
+const firstRecord = history[0];
+const csvHeader = Object.keys(firstRecord).join(',');
+const csvPreview = [csvHeader, Object.values(firstRecord).join(',')].join('\n');
+const scrollSections = [
+  {
+    id: 'title',
+    tag: '<h1>',
+    label: '侦察站标题',
+    html: '<h1>魔堡侦察站 · 战前情报</h1>',
+  },
+  {
+    id: 'notice',
+    tag: '<p>',
+    label: '破罩提醒',
+    html: '<p>外罩强度低于 30 才能破罩；防御力越低越容易突破。按弱点选择装备。</p>',
+  },
+  {
+    id: 'intel-data',
+    tag: '<pre id="intel-data">',
+    label: '逗号分隔的记录',
+    html: `<pre id="intel-data">${csvPreview}\n…</pre>`,
+  },
+] as const;
+const parseCode = `soup = BeautifulSoup(res.text, "html.parser")
+element = soup.find("pre", id="intel-data")
+csv_text = element.get_text()`;
+const parseReference = [code.FETCH_CODE, parseCode, code.SAVE_CODE].join(
+  '\n\n',
+);
+const parseFormula = [
+  { title: '根据属性', example: 'id="intel-data"' },
+  { title: '寻找元素', example: 'find("pre", …)' },
+  { title: '获取文本', example: 'get_text()' },
+];
+
+function SourceExcerpt({ children }: { children: string }) {
+  return (
+    <pre>
+      <code>
+        {children.split(/([,>])/).map((part, index) => (
+          <span key={index}>
+            {part}
+            {(part === ',' || part === '>') && <wbr />}
+          </span>
+        ))}
+      </code>
+    </pre>
+  );
+}
+
+function ParseIntel() {
+  const [state, update] = usePageState({
+    parseSelection: '',
+    parseExtracted: false,
+  });
+  const [cue, setCue] = useState(0);
+  const selection = scrollSections.find(
+    ({ id }) => id === state.parseSelection,
+  );
+  const located = state.parseSelection === 'intel-data';
+  const extracted = located && state.parseExtracted;
+  const activeStep = extracted ? 3 : located ? 2 : 1;
+  const comicBeat = extracted
+    ? 'lift'
+    : located
+      ? 'spot'
+      : selection
+        ? 'retry'
+        : 'read';
+  const comicCaption = {
+    read: '小派和勇士检查卷轴',
+    retry: '小派和勇士继续寻找',
+    spot: '小派发现正文所在的区域',
+    lift: '小派和勇士举起三塔情报',
+  }[comicBeat];
+
+  let explanation = '先看 id 属性。找一找哪块区域的 id 是 intel-data。';
+  if (extracted) {
+    explanation = 'get_text() 取出 element 里的文字，整份情报存进 csv_text。';
+  } else if (located) {
+    explanation = 'find() 找到 id 匹配的 <pre> 元素，把它存进 element。';
+  } else if (state.parseSelection) {
+    explanation = '看一下这段 HTML 的起始标签。它有 id="intel-data" 吗？';
+  }
+
+  return (
+    <Page
+      tools={<CodeTools code={parseReference} />}
+      title="从网页中提取整份情报"
+      label="PYTHON LAB · 代码讲解"
+    >
+      <div className={s.codeWithArt}>
+        <div className={s.codeColumn}>
+          <NotebookPanel
+            title="第六课练习.ipynb"
+            compact
+            cells={[{ code: parseCode, activeLines: [extracted ? 2 : 1] }]}
+          />
+          <section className={s.parseWorkbench} aria-label="情报工作台">
+            <p>卷轴里的哪一块装着整份三塔情报？</p>
+            <fieldset className={s.parseSections} aria-label="网页结构示意">
+              {scrollSections.map(({ id, tag, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={s.choice}
+                  aria-pressed={state.parseSelection === id}
+                  data-located={located && state.parseSelection === id}
+                  onClick={() => {
+                    setCue((value) => value + 1);
+                    if (state.parseSelection !== id) {
+                      update({ parseSelection: id, parseExtracted: false });
+                    }
+                  }}
+                >
+                  <code>{tag}</code>
+                  <span>{label}</span>
+                </button>
+              ))}
+            </fieldset>
+            <button
+              type="button"
+              className={`${s.primary} ${s.parseAction}`}
+              disabled={!located}
+              onClick={() => {
+                setCue((value) => value + 1);
+                update({ parseExtracted: true });
+              }}
+            >
+              {extracted ? '重播提取' : '取出文字'}
+            </button>
+            {selection && (
+              <div className={s.parseEvidence} data-extracted={extracted}>
+                <section
+                  className={s.parseSource}
+                  aria-label="选中的 HTML 代码"
+                >
+                  <strong>{located ? 'HTML 代码节选' : 'HTML 代码'}</strong>
+                  <SourceExcerpt>{selection.html}</SourceExcerpt>
+                </section>
+                {extracted && (
+                  <section
+                    key={cue}
+                    className={s.parsePreview}
+                    data-pull={cue > 0}
+                    aria-label="CSV 情报卡"
+                  >
+                    <strong>CSV 情报卡 · {history.length} 条中预览首条</strong>
+                    <SourceExcerpt>{csvPreview}</SourceExcerpt>
+                  </section>
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+        <div className={s.parseSidebar}>
+          <figure className={s.parseComic} data-beat={comicBeat}>
+            <div key={cue} className={s.parseFrame} data-motion={cue > 0}>
+              <Art
+                kind="parse-extract"
+                alt="小派先检查网页的结构，再定位并单独取出三塔情报正文。"
+              />
+            </div>
+            <figcaption>{comicCaption}</figcaption>
+          </figure>
+          <section className={s.parseFormula} aria-label="第二课的解析公式">
+            <strong>第二课 · 解析公式</strong>
+            <ol>
+              {parseFormula.map(({ title, example }, index) => (
+                <li
+                  key={title}
+                  aria-current={activeStep === index + 1 ? 'step' : undefined}
+                >
+                  <span>
+                    <b>0{index + 1}</b> {title}
+                  </span>
+                  <code>{example}</code>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </div>
+      </div>
+      <Guide>
+        <output>{explanation}</output>
+      </Guide>
+    </Page>
+  );
+}
+
+const codeComics = {
+  'fetch-message': {
+    label: '三塔情报收发漫画',
+    panels: [
+      {
+        title: '01 发出请求',
+        caption: '猫头鹰飞往情报站',
+        alt: '小派向三塔情报站发出请求，机械猫头鹰带着请求出发。',
+      },
+      {
+        title: '02 核对回信',
+        caption: '猫头鹰带回网页',
+        alt: '机械猫头鹰带回装有三塔记录的网页，勇士和小派查看回信。',
+      },
+    ],
+  },
+  'save-code-comic': {
+    label: '情报归档漫画',
+    panels: [
+      {
+        title: '01 打开档案',
+        caption: '情报仍在手中',
+        alt: '小派打开空档案，勇士拿着三塔情报。',
+      },
+      {
+        title: '02 写入正文',
+        caption: '情报已归档',
+        alt: '勇士把三塔情报放进小派打开的档案。',
+      },
+    ],
+  },
+} as const;
+
+function CodeComic({
+  kind,
+  active,
+}: {
+  kind: keyof typeof codeComics;
+  active: 0 | 1;
+}) {
+  const { label, panels } = codeComics[kind];
+  return (
+    <div className={s.codeComic} data-comic={kind} aria-label={label}>
+      {panels.map(({ title, caption, alt }, index) => (
+        <figure
+          key={title}
+          aria-current={active === index ? 'step' : undefined}
+        >
+          <div className={s.comicFrame}>
+            <img src={`${assetBase}/assets/${kind}.jpg`} alt={alt} />
+          </div>
+          <figcaption>
+            <strong>{title}</strong>
+            <span>{caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 export function LessonScenes({ id }: { id: string }) {
   switch (id) {
     case 'l6-cover':
@@ -701,15 +1057,12 @@ export function LessonScenes({ id }: { id: string }) {
           title="让 Python 取回情报"
           complete={code.PRACTICE_01_CODE}
           before="先解压整个练习包，打开 Notebook，运行预置环境格。"
-          illustration={{
-            kind: 'fetch-message',
-            alt: '小派向情报站发出请求，机械猫头鹰随后带回装着三塔记录的网页。',
-          }}
           steps={[
             {
               name: '1 发出请求',
               code: code.FETCH_CODE,
               lines: linesOf(code.FETCH_CODE, 'url =', 'requests.get'),
+              storyboard: <CodeComic kind="fetch-message" active={0} />,
               text: (
                 <>url 保存三塔情报站的网址，requests.get 按这个地址取回网页。</>
               ),
@@ -718,6 +1071,7 @@ export function LessonScenes({ id }: { id: string }) {
               name: '2 核对回信',
               code: code.FETCH_CODE,
               lines: linesOf(code.FETCH_CODE, 'raise_for_status', 'encoding'),
+              storyboard: <CodeComic kind="fetch-message" active={1} />,
               text: (
                 <>
                   先确认请求成功，再按 UTF-8 读取中文。res.text
@@ -740,42 +1094,7 @@ export function LessonScenes({ id }: { id: string }) {
         />
       );
     case 'l6-parse':
-      return (
-        <CodeScene
-          title="从网页中提取整份情报"
-          complete={code.PRACTICE_01_CODE}
-          illustration={{
-            kind: 'parse-extract',
-            alt: '小派先检查网页的结构，再定位并单独取出三塔情报正文。',
-          }}
-          steps={[
-            {
-              name: '1 读懂网页结构',
-              code: code.PARSE_CODE,
-              lines: linesOf(code.PARSE_CODE, 'BeautifulSoup'),
-              text: (
-                <>
-                  BeautifulSoup 把网页源码变成可以查找的结构。情报站把完整 CSV
-                  正文放在 id 为 intel-data 的区域。
-                </>
-              ),
-            },
-            {
-              name: '2 找到并取出正文',
-              code: code.PARSE_CODE,
-              lines: linesOf(code.PARSE_CODE, 'find', 'get_text'),
-              text: (
-                <>
-                  find 定位 intel-data 区域，get_text 取出正文。csv_text
-                  中保留列名和 36 条侦察记录。
-                </>
-              ),
-              output:
-                'tower,hour,energy,guard,kind,attribute,weakness,defense\n北塔,6,72,G001,炎角兽族,火焰,强光,78\n…',
-            },
-          ]}
-        />
-      );
+      return <ParseIntel />;
     case 'l6-save-story':
       return (
         <Story
@@ -797,23 +1116,15 @@ export function LessonScenes({ id }: { id: string }) {
               name: '1 打开档案',
               code: code.SAVE_CODE,
               lines: linesOf(code.SAVE_CODE, 'open', 'encoding'),
-              text: (
-                <>
-                  用 w 模式创建或覆盖 towers.csv，UTF-8 保存中文塔名和弱点。CSV
-                  的第一行是列名，每条记录占一行。
-                </>
-              ),
+              storyboard: <CodeComic kind="save-code-comic" active={0} />,
+              text: 'w 模式会新建文件，或清空已有的同名文件。这时 towers.csv 还是空的。',
             },
             {
               name: '2 写入正文',
               code: code.SAVE_CODE,
               lines: linesOf(code.SAVE_CODE, 'f.write'),
-              text: (
-                <>
-                  f.write 把刚提取的 csv_text 真正写进文件。到 Notebook
-                  的文件列表打开 towers.csv，核对 8 列、36 条记录。
-                </>
-              ),
+              storyboard: <CodeComic kind="save-code-comic" active={1} />,
+              text: '把 csv_text 写进文件，用 UTF-8 保留中文。打开 towers.csv，核对首行的 8 个列名和下面的 36 行记录。',
               output: '情报已保存：towers.csv',
             },
           ]}
@@ -889,12 +1200,12 @@ export function LessonScenes({ id }: { id: string }) {
     case 'l6-assault-story':
       return (
         <Story
-          title="队伍出发，先让图表指路"
+          title="北塔外罩更薄，为什么还要等？"
           kind="chart-mission-v2"
           panoramic
           alt="勇士难以让三队共读长表格，小派把记录变成两张图，信使带着图表向三塔出发，等待核对后出击。"
-          quote="三支队伍已经出发！厚厚的表格，怎样变成全队一眼能懂的作战图？"
-          question="图表要回答两件事：何时外罩薄弱，守卫防御又有多强。"
+          quote="曙光队战士：「北塔 10 时的外罩更弱，为什么命令写的是 11 时？」"
+          question="小派：「我们把情报画成图，让每一队都能看懂自己的命令。」"
         />
       );
     case 'l6-chart-choice':
@@ -915,13 +1226,9 @@ export function LessonScenes({ id }: { id: string }) {
       return <TowerBattle />;
 
     case 'l6-latest':
-      return <TowerAftermath />;
+      return <TowerAssaultStory />;
     case 'l6-final-mission':
-      return <FinalMission />;
-    case 'l6-current':
-      return <PracticeCode number="current" />;
-    case 'l6-battle':
-      return <FinalBattle />;
+      return <BossFinale />;
     default:
       return <Summary />;
   }

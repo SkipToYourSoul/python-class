@@ -24,6 +24,7 @@ import {
   canFaceBoss,
   completeTower,
   initialCampaign,
+  towerOrderError,
   type CampaignState,
 } from './campaign-engine';
 import s from './tower-battle.module.css';
@@ -80,7 +81,7 @@ function TowerEvidence({ tower, hour }: { tower: string; hour: string }) {
   const y = (energy: number) => 124 - energy * 0.84;
   return (
     <div className={s.plot} aria-label={`${tower}的外罩曲线和低谷时的守卫防御`}>
-      <strong>① 历史曲线 · 找外罩低于 {ATTACK_THRESHOLD} 的点</strong>
+      <strong>作战图 · 历史外罩读数</strong>
       <svg
         viewBox="0 0 580 170"
         role="img"
@@ -131,7 +132,7 @@ function TowerEvidence({ tower, hour }: { tower: string; hour: string }) {
         ))}
       </svg>
       <table className={s.candidates}>
-        <caption>② 同塔候选 · 外罩都能破，再比较防御</caption>
+        <caption>历史候选 · 外罩低于 {ATTACK_THRESHOLD}，再比较防御</caption>
         <thead>
           <tr>
             <th scope="col">时刻</th>
@@ -276,9 +277,19 @@ export function TowerBattle({ active = true }: { active?: boolean }) {
   const cleared = state.phase === 'cleared';
   const locked =
     cleared || state.phase === 'ready' || state.phase === 'attacking';
+  const onsite = state.phase === 'onsite';
+  const canBreakShield = current.energy < ATTACK_THRESHOLD;
   const allDone = canFaceBoss(state);
-  const patch = (value: Partial<CampaignState>) =>
-    update({ ...value, ...(locked ? {} : { phase: 'command', message: '' }) });
+  // Existing manually verified receipts remain valid after replacing number inputs.
+  const readingsConfirmed =
+    state.energy.trim() !== '' &&
+    state.defense.trim() !== '' &&
+    Number(state.energy) === current.energy &&
+    Number(state.defense) === current.defense;
+  const patchOrder = (value: Partial<CampaignState>) =>
+    update({ ...value, phase: 'command', message: '' });
+  const reopenOrder = () =>
+    update({ phase: 'command', energy: '', defense: '', message: '' });
   function selectTower(tower: string) {
     const receipt = state.receipts[tower];
     update({
@@ -295,7 +306,7 @@ export function TowerBattle({ active = true }: { active?: boolean }) {
   }
   return (
     <Stage
-      title={allDone ? '三塔击破，三队准备会合！' : '三队出击，逐一攻破魔塔'}
+      title={allDone ? '三塔击破，三队准备会合！' : '到了阵前，现在能出击吗？'}
       label="TOWER BATTLE · 三塔战役"
       className={s.stage}
     >
@@ -315,22 +326,16 @@ export function TowerBattle({ active = true }: { active?: boolean }) {
           </button>
         </div>
         <div className={s.grid}>
-          <section className={s.evidencePanel} aria-label="图表证据和阵前情报">
+          <section className={s.evidencePanel} aria-label="作战图与历史依据">
             <CampaignMap key={motionKey} state={state} stopped={stopped} />
             <TowerEvidence tower={state.tower} hour={state.hour} />
-            <p className={s.snapshot}>
-              <strong>③ 新情报 · 阵前 {current.hour} 时</strong>
-              <span>
-                外罩 {current.energy} · 守卫防御 {current.defense}
-              </span>
-            </p>
           </section>
           <section className={s.command} aria-label="三塔出击指令">
             <fieldset
               disabled={state.phase === 'attacking'}
               className={s.targets}
+              aria-label="选择要攻打的魔塔"
             >
-              <legend>读图选计划 → 核对新情报 → 出击</legend>
               <div>
                 {TOWER_NAMES.map((tower) => (
                   <button
@@ -346,96 +351,132 @@ export function TowerBattle({ active = true }: { active?: boolean }) {
               </div>
             </fieldset>
             <p className={s.team}>
-              <strong>{team.name}</strong> · 对手：{current.kind}
-              <br />
-              守卫弱点：<b>{current.weakness}</b> → 配对应装备
+              <strong>{team.name}</strong> · {current.kind} · 弱点：
+              <b>{current.weakness}</b>
             </p>
-            <div className={s.formGrid}>
-              <label>
-                图表选出的时刻
-                <select
-                  value={state.hour}
-                  disabled={locked}
-                  onChange={(event) => patch({ hour: event.target.value })}
-                >
-                  <option value="">选择时刻</option>
-                  {HOURS.map((hour) => (
-                    <option key={hour} value={hour}>
-                      {hour} 时
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                携带装备
-                <select
-                  value={state.equipment}
-                  disabled={locked}
-                  onChange={(event) => patch({ equipment: event.target.value })}
-                >
-                  <option value="">选择装备</option>
-                  {TEAMS.map((item) => (
-                    <option key={item.equipment}>{item.equipment}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                阵前外罩读数
-                <input
-                  type="number"
-                  min="0"
-                  max="100"
-                  inputMode="numeric"
-                  value={state.energy}
-                  placeholder="核对当前情报"
-                  disabled={locked}
-                  onChange={(event) => patch({ energy: event.target.value })}
-                />
-              </label>
-              <label>
-                阵前守卫防御
-                <input
-                  type="number"
-                  min="0"
-                  max="100"
-                  inputMode="numeric"
-                  value={state.defense}
-                  placeholder="核对当前情报"
-                  disabled={locked}
-                  onChange={(event) => patch({ defense: event.target.value })}
-                />
-              </label>
+            <div className={s.plan}>
+              <strong>① 对照作战图，核对本队命令</strong>
+              <div className={s.formGrid}>
+                <label>
+                  计划出击时刻
+                  <select
+                    value={state.hour}
+                    disabled={onsite || locked}
+                    onChange={(event) =>
+                      patchOrder({ hour: event.target.value })
+                    }
+                  >
+                    <option value="">选择时刻</option>
+                    {HOURS.map((hour) => (
+                      <option key={hour} value={hour}>
+                        {hour} 时
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  携带装备
+                  <select
+                    value={state.equipment}
+                    disabled={onsite || locked}
+                    onChange={(event) =>
+                      patchOrder({ equipment: event.target.value })
+                    }
+                  >
+                    <option value="">选择装备</option>
+                    {TEAMS.map((item) => (
+                      <option key={item.equipment}>{item.equipment}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
             </div>
+            {(onsite || locked) && (
+              <section className={s.snapshot} aria-label="阵前新情报与确认">
+                <strong>② 阵前新情报 · 现在能破罩吗？</strong>
+                <p>
+                  {current.hour} 时实测 · 外罩 <b>{current.energy}</b> ·
+                  守卫防御 <b>{current.defense}</b>
+                </p>
+                {canBreakShield ? (
+                  <label className={s.confirm}>
+                    <input
+                      type="checkbox"
+                      checked={readingsConfirmed}
+                      disabled={locked}
+                      onChange={(event) =>
+                        update({
+                          energy: event.target.checked
+                            ? String(current.energy)
+                            : '',
+                          defense: event.target.checked
+                            ? String(current.defense)
+                            : '',
+                          message: '',
+                        })
+                      }
+                    />
+                    我已核对：现场外罩低于 {ATTACK_THRESHOLD}，可以破罩。
+                  </label>
+                ) : (
+                  <p>现场外罩达到 {ATTACK_THRESHOLD} 或以上，暂缓出击。</p>
+                )}
+              </section>
+            )}
             <p className={s.feedback} data-success={locked} aria-live="polite">
               {state.message ||
                 (cleared
-                  ? `${state.tower}已击破。表中保留计划时刻，下方保留阵前读数与装备。`
-                  : `先用历史图表选时机和装备；再填写阵前新读数，确认现在的外罩仍低于 ${ATTACK_THRESHOLD}。`)}
+                  ? `${state.tower}已击破。接着核对下一队的命令。`
+                  : onsite
+                    ? '命令已核对。现在用现场读数判断能否出击。'
+                    : '先根据历史候选核对时刻，再按守卫弱点核对装备。')}
             </p>
             {(state.phase === 'command' || state.phase === 'feedback') && (
               <button
                 type="button"
                 className={s.primary}
                 onClick={() => {
-                  const result = assessTowerDecision(state);
+                  const error = towerOrderError(state);
                   update({
-                    phase: result.success ? 'ready' : 'feedback',
-                    message: result.message,
+                    phase: error ? 'feedback' : 'onsite',
+                    message: error ?? '',
+                    energy: '',
+                    defense: '',
                     attempts: state.attempts + 1,
                   });
                 }}
               >
                 <Check size={20} />
-                核实出击指令
+                核对命令，接收新情报
               </button>
+            )}
+            {onsite && (
+              <div className={s.actions}>
+                <button type="button" onClick={reopenOrder}>
+                  重核命令
+                </button>
+                {canBreakShield && (
+                  <button
+                    type="button"
+                    className={s.primary}
+                    onClick={() => {
+                      const result = assessTowerDecision(state);
+                      update({
+                        phase: result.success ? 'ready' : 'onsite',
+                        message: result.message,
+                      });
+                    }}
+                  >
+                    <Check size={20} />
+                    确认能否出击
+                  </button>
+                )}
+              </div>
             )}
             {state.phase === 'ready' && (
               <div className={s.actions}>
-                <button
-                  type="button"
-                  onClick={() => update({ phase: 'command', message: '' })}
-                >
-                  修改指令
+                <button type="button" onClick={reopenOrder}>
+                  重核命令
                 </button>
                 <button type="button" className={s.primary} onClick={launch}>
                   <Play size={20} />
@@ -472,7 +513,7 @@ export function TowerBattle({ active = true }: { active?: boolean }) {
                   className={s.primary}
                   onClick={() =>
                     allDone
-                      ? navigate('l6-latest')
+                      ? navigate('l6-final-mission')
                       : selectTower(
                           TOWER_NAMES.find(
                             (tower) => !state.completed.includes(tower),

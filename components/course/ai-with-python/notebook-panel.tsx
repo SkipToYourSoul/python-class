@@ -5,6 +5,7 @@ import s from './notebook-panel.module.css';
 export type NotebookCell = {
   code: string;
   activeLines?: number[];
+  highlightFragments?: Record<string, string>;
   output?: string;
   outputLabel?: string;
 };
@@ -12,7 +13,7 @@ export type NotebookCell = {
 function PythonLine({ text }: { text: string }) {
   return text
     .split(
-      /("[^"\n]*"|'[^'\n]*'|\b(?:import|from|for|in|if|else|with|as|print|\d+)\b)/g,
+      /("[^"\n]*"|'[^'\n]*'|#[^\n]*|\b(?:import|from|for|in|if|else|with|as|print|\d+)\b)/g,
     )
     .map((part, index) => {
       const kind = /^['"]/.test(part)
@@ -25,11 +26,38 @@ function PythonLine({ text }: { text: string }) {
               ? s.pyNumber
               : undefined;
       return (
-        <span className={kind} key={index}>
+        <span
+          className={kind}
+          data-python-comment={part.startsWith('#') || undefined}
+          key={index}
+        >
           {part}
         </span>
       );
     });
+}
+
+function HighlightedPythonLine({
+  text,
+  fragments,
+}: {
+  text: string;
+  fragments: Record<string, string>;
+}) {
+  const pattern = Object.keys(fragments)
+    .filter(Boolean)
+    .map((fragment) => fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
+  if (!pattern) return <PythonLine text={text} />;
+  return text.split(new RegExp(`(${pattern})`, 'g')).map((part, index) =>
+    index % 2 === 1 ? (
+      <mark key={index} className={fragments[part]}>
+        {part}
+      </mark>
+    ) : (
+      <PythonLine key={index} text={part} />
+    ),
+  );
 }
 
 export function NotebookPanel({
@@ -52,7 +80,7 @@ export function NotebookPanel({
       data-notebook-compact={compact || undefined}
       aria-label="JupyterLab 代码讲解"
     >
-      <div className={s.notebookTab}>
+      <div className={s.notebookTab} data-notebook-part="tab">
         <BookOpen size={20} aria-hidden="true" />
         <span>{title}</span>
       </div>
@@ -80,7 +108,14 @@ export function NotebookPanel({
                       key={lineIndex}
                       className={`${s.notebookLine} ${cell.activeLines?.includes(lineIndex) ? s.activeNotebookLine : ''}`}
                     >
-                      <PythonLine text={line || ' '} />
+                      {cell.highlightFragments ? (
+                        <HighlightedPythonLine
+                          text={line || ' '}
+                          fragments={cell.highlightFragments}
+                        />
+                      ) : (
+                        <PythonLine text={line || ' '} />
+                      )}
                     </span>
                   ))}
                 </code>

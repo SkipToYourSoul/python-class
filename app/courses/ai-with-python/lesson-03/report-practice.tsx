@@ -77,6 +77,13 @@ export function ReportPractice() {
   const step = steps[state.handoffStep];
   return (
     <LessonStage
+      tools={
+        <PracticeTools
+          code={REPORT_COMPLETE_CODE}
+          output={`${REPORT_OUTPUT}\n`}
+          note="在 Notebook 中亲手输入全部代码，从上到下运行。先将 reports 中的三条情报写入 ./handover.txt，再用 for line in f 逐行读取。w 会覆盖同名交接文件。核对输出为三条情报，每条一行，没有多余空行。"
+        />
+      }
       title="写好交接记录，逐行读取核对"
       label="CLASS PRACTICE · 课堂练习 02"
     >
@@ -117,11 +124,6 @@ export function ReportPractice() {
             <pre>{REPORT_OUTPUT}</pre>
             <p className={s.tip}>{step.tip}</p>
           </section>
-          <PracticeTools
-            code={REPORT_COMPLETE_CODE}
-            output={`${REPORT_OUTPUT}\n`}
-            note="在 Notebook 中亲手输入全部代码，从上到下运行。先将 reports 中的三条情报写入 ./handover.txt，再用 for line in f 逐行读取。w 会覆盖同名交接文件。核对输出为三条情报，每条一行，没有多余空行。"
-          />
         </aside>
       </div>
     </LessonStage>

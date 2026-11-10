@@ -124,12 +124,12 @@ function Compare() {
   const [state, update] = usePageState({ show: false });
   return (
     <Page
+      tools={<CodeTools code={full(BAR_CODE)} label="条形图代码" />}
       title="画成图，高矮差距更清楚"
       label="VISUALIZATION · 用图表看数据"
       footer={
         <>
           <p>刚才只看了 5 只恶魔的身高，档案里还有更多个体和特征。</p>
-          <CodeTools code={full(BAR_CODE)} label="条形图代码" />
         </>
       }
     >
@@ -705,11 +705,11 @@ function SpeedPractice() {
   const code = full(HIST_CODE);
   return (
     <Page
+      tools={<CodeTools code={code} label="完整跟写代码" />}
       title="画出军团的速度分布"
       label="CLASS PRACTICE · 课堂练习 01"
       footer={
         <>
-          <CodeTools code={code} label="完整跟写代码" />
           <button
             className={s.button}
             aria-expanded={state.reference}

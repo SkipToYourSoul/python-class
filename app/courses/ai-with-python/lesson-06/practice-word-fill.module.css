@@ -1,0 +1,185 @@
+.codeLine {
+  display: block;
+}
+.codeLine:empty {
+  height: 6px;
+}
+
+.codeComment {
+  color: #526780;
+}
+
+.codeLine .blank {
+  display: inline-block;
+  min-width: 0;
+  height: var(--blank-height, 1.3em);
+  padding: 0 3px;
+  border: 1px solid #1457d9;
+  border-bottom-width: 2px;
+  border-radius: 0;
+  background: #edf3fc;
+  color: #071a3d;
+  font: inherit;
+  font-size: inherit;
+  line-height: 1.1;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.codeLine .blank[data-result='correct'] {
+  border-color: #27704b;
+  background: #edf8ee;
+}
+
+.codeLine .blank[data-result='retry'] {
+  border-color: #b14c2e;
+  background: #fff0e9;
+}
+
+.codeLine .blank[aria-pressed='true'],
+.wordBank button[aria-pressed='true'] .wordTile {
+  border-color: #926800;
+  background: #fff0ad;
+}
+
+.codeLine .blank:focus-visible {
+  outline: 3px solid #ffc91c;
+  outline-offset: 2px;
+}
+
+.wordBank {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--word-row-gap, 8px) 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.wordBank button {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.wordBank button::before {
+  position: absolute;
+  inset: -3px;
+  content: '';
+}
+
+.wordTile,
+.flyingWord {
+  display: grid;
+  place-items: center;
+  min-height: var(--word-height, 40px);
+  padding: 5px 6px;
+  border: 1px solid #1457d9;
+  background: #fffaf0;
+  color: #071a3d;
+  font:
+    600 clamp(20px, 1.65cqw, 22px)/1.15 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+
+.wordTile {
+  pointer-events: none;
+  animation: float-word 3.4s ease-in-out infinite;
+}
+
+.wordBank button[data-used] .wordTile {
+  border-color: #657c9d;
+  border-style: dashed;
+  background: #e4edf9;
+  color: #364b66;
+}
+
+.wordBank button:nth-of-type(3n + 2) .wordTile {
+  animation-delay: -1.15s;
+}
+
+.wordBank button:nth-of-type(3n) .wordTile {
+  animation-delay: -2.3s;
+}
+
+.wordBank
+  button:is(:hover, :focus-visible, [aria-pressed='true'], [data-used])
+  .wordTile {
+  animation-play-state: paused;
+}
+
+.wordBank button[aria-pressed='true'] {
+  animation: select-word 240ms ease-out;
+}
+
+.flyingWord {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: #fff0ad;
+  border-color: #926800;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.codeLine .blank[data-receiving] {
+  animation: land-word 420ms ease-out;
+}
+
+@keyframes select-word {
+  45% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes float-word {
+  0%,
+  100% {
+    transform: translate(-2px, 0);
+  }
+  33% {
+    transform: translate(0, -3px);
+  }
+  66% {
+    transform: translate(2px, 3px);
+  }
+}
+
+@keyframes land-word {
+  0%,
+  65% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  82% {
+    box-shadow: 0 0 0 3px #ffc91c;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordTile,
+  .wordBank button[aria-pressed='true'],
+  .codeLine .blank[data-receiving] {
+    animation: none;
+  }
+  .flyingWord {
+    display: none;
+  }
+}
+
+.accessibleStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

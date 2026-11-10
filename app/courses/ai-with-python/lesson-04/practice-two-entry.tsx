@@ -14,11 +14,11 @@ export function PracticeTwoEntry() {
 
   return (
     <LessonStage
+      tools={<PracticeTools />}
       title="建立你的调查工作表"
       label="CLASS PRACTICE · 课堂练习 02"
       footer={
         <div className={s.footer}>
-          <PracticeTools />
           <button
             className={s.start}
             onClick={() => navigate('l4-practice-02-code')}

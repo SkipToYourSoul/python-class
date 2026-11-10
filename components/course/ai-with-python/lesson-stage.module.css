@@ -39,6 +39,13 @@
 .heading {
   flex: none;
 }
+.headingWithTools {
+  display: grid;
+  flex: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 16px;
+}
 .heading h2 {
   color: #071a3d;
 }

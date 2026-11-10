@@ -1,6 +1,19 @@
 {
   "ATTACK_THRESHOLD": 30,
-  "HOURS": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+  "HOURS": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
   "TEAMS": [
     {
       "name": "曙光队",
@@ -18,7 +31,11 @@
       "equipment": "热量"
     }
   ],
-  "TOWER_NAMES": ["北塔", "东塔", "西塔"],
+  "TOWER_NAMES": [
+    "北塔",
+    "东塔",
+    "西塔"
+  ],
   "battleReadings": [
     {
       "tower": "北塔",
@@ -593,26 +610,6 @@
   ],
   "windows": [
     {
-      "tower": "北塔",
-      "hour": 11,
-      "energy": 25,
-      "guard": "G006",
-      "kind": "炎角兽族",
-      "attribute": "火焰",
-      "weakness": "强光",
-      "defense": 30
-    },
-    {
-      "tower": "北塔",
-      "hour": 10,
-      "energy": 18,
-      "guard": "G005",
-      "kind": "炎角兽族",
-      "attribute": "火焰",
-      "weakness": "强光",
-      "defense": 42
-    },
-    {
       "tower": "东塔",
       "hour": 14,
       "energy": 22,
@@ -631,6 +628,26 @@
       "attribute": "藤甲",
       "weakness": "火焰",
       "defense": 46
+    },
+    {
+      "tower": "北塔",
+      "hour": 11,
+      "energy": 25,
+      "guard": "G006",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 30
+    },
+    {
+      "tower": "北塔",
+      "hour": 10,
+      "energy": 18,
+      "guard": "G005",
+      "kind": "炎角兽族",
+      "attribute": "火焰",
+      "weakness": "强光",
+      "defense": 42
     },
     {
       "tower": "西塔",

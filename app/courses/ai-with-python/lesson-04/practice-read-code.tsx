@@ -22,7 +22,7 @@ export function PracticeReadCode() {
     <LessonStage
       title="一格一格运行，逐步核对结果"
       label="CLASS PRACTICE · 课堂练习 02"
-      footer={
+      tools={
         <PracticeTools code={keys.map((k) => codeBlocks[k]).join('\n\n')} />
       }
     >

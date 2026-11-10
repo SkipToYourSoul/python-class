@@ -34,6 +34,8 @@ export function PreparationScene({
       controlLabel="备战视频"
       elapsedKey="prepVideoElapsed"
       loopKey="prepSceneLoop"
+      hasAudio
+      compact
     />
   );
 }

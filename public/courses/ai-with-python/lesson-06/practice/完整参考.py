@@ -17,32 +17,30 @@ plt.rcParams["font.sans-serif"] = [
 ]
 plt.rcParams["axes.unicode_minus"] = False
 
-import requests
-from bs4 import BeautifulSoup
+import requests  # 请求网页
+from bs4 import BeautifulSoup  # 解析
 
 url = "https://www.creaai.online/battle-towers.html"
-res = requests.get(url, timeout=10)
+res = requests.get(url, timeout=10)  # 获取
 res.raise_for_status()
 res.encoding = "utf-8"
 
 soup = BeautifulSoup(
     res.text, "html.parser")
-csv_text = soup.find(
-    id="intel-data").get_text()
+csv_text = soup.find(  # 按属性找元素
+    id="intel-data").get_text()  # 取文本
 
-with open("towers.csv", "w",
+with open("towers.csv", "w",  # 打开文件
           encoding="utf-8") as f:
-    f.write(csv_text)
+    f.write(csv_text)  # 写入情报
 print("情报已保存：towers.csv")
 
 import pandas as pd
 
-towers = pd.read_csv("towers.csv")
-print(towers.head())
-towers.info()
-print(towers.dtypes)
+towers = pd.read_csv("towers.csv")  # 读 CSV
+towers.info()  # 看行列与类型
 
-summary = (
+summary = (  # 按塔和弱点分组，求均值和人数
     towers.groupby(["tower", "weakness"])
     .agg(energy_mean=("energy", "mean"),
          defense_mean=("defense", "mean"),
@@ -50,9 +48,9 @@ summary = (
 )
 print(summary)
 
-windows = towers[towers["energy"] < 30]
+windows = towers[towers["energy"] < 30]  # 外罩
 windows = windows.sort_values(
-    ["tower", "defense"])
+    ["tower", "defense"])  # 塔内按防御升序
 print(windows[
     ["tower", "hour", "energy",
      "defense", "weakness"]
@@ -62,29 +60,19 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-towers = pd.read_csv("towers.csv")
-
-plt.figure(figsize=(9, 5))
+towers = pd.read_csv("towers.csv")  # 读取 CSV
+plt.figure(figsize=(9, 5))  # 准备折线图
+# 横轴是时刻，纵轴是外罩强度，按塔分色
 sns.lineplot(data=towers, x="hour",
-             y="energy", hue="tower",
-             marker="o")
+    y="energy", hue="tower", marker="o")
 plt.axhline(30, color="#F36D4A", ls="--")
-plt.ylim(0, 100)
-plt.xlabel("观测时刻（时）")
-plt.ylabel("外罩强度")
-plt.tight_layout()
 plt.savefig("tower-history.png", dpi=150)
 plt.show()
 
-plt.figure(figsize=(9, 5))
+plt.figure(figsize=(9, 5))  # 散点，防御横轴
 sns.scatterplot(data=towers, x="defense",
-                y="energy", hue="tower",
-                s=100)
+    y="energy", hue="tower", s=100)
 plt.axhline(30, color="#F36D4A", ls="--")
-plt.ylim(0, 100)
-plt.xlabel("守卫防御力")
-plt.ylabel("外罩强度")
-plt.tight_layout()
 plt.savefig("tower-weakness.png", dpi=150)
 plt.show()
 

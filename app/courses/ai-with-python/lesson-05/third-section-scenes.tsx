@@ -374,19 +374,21 @@ export function PenguinOverview() {
   );
   return (
     <Page
+      tools={
+        <CodeTools
+          code={
+            state.matrixColored
+              ? PAIRPLOT_FULL_CODE
+              : PAIRPLOT_UNCOLORED_FULL_CODE
+          }
+          label="总览参考代码"
+        />
+      }
       title="四项特征，一次看全"
       label="REAL DATA · 企鹅数据总览"
       footer={
         <>
           <p>{penguins.length} 条观测 · 类别有重叠，特点描述整体。</p>
-          <CodeTools
-            code={
-              state.matrixColored
-                ? PAIRPLOT_FULL_CODE
-                : PAIRPLOT_UNCOLORED_FULL_CODE
-            }
-            label="总览参考代码"
-          />
         </>
       }
     >
@@ -596,14 +598,16 @@ export function PenguinBill() {
     });
   return (
     <Page
+      tools={
+        <CodeTools
+          code={getPenguinFullCode(xField, yField, state.penguinColored)}
+          label="当前图的参考代码"
+        />
+      }
       title="换一对特征，观察企鹅点群"
       label="PENGUIN EXPLORER · 企鹅特征观察"
       footer={
         <>
-          <CodeTools
-            code={getPenguinFullCode(xField, yField, state.penguinColored)}
-            label="当前图的参考代码"
-          />
           <button
             className={s.button}
             aria-expanded={state.billClueRevealed}
@@ -722,16 +726,18 @@ export function PenguinFeatures() {
 export function PenguinPractice() {
   return (
     <Page
+      tools={
+        <CodeTools
+          code={PENGUIN_PRACTICE_TEMPLATE}
+          label="复制填空模板"
+          description="在 JupyterLab 中打开练习包的“第五课练习.ipynb”，先运行字体、准备单元格。自选两个不同特征，补全四处空白后运行；CSV 与笔记本放在同一文件夹。"
+        />
+      }
       title="自选两个轴，用图表说发现"
       label="CLASS PRACTICE · 课堂练习 03"
       footer={
         <>
           <p>完成自查：坐标与单位正确 · 342 个观测点 · 三种企鹅图例</p>
-          <CodeTools
-            code={PENGUIN_PRACTICE_TEMPLATE}
-            label="复制填空模板"
-            description="在 JupyterLab 中打开练习包的“第五课练习.ipynb”，先运行字体、准备单元格。自选两个不同特征，补全四处空白后运行；CSV 与笔记本放在同一文件夹。"
-          />
         </>
       }
     >

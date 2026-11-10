@@ -309,11 +309,11 @@ export function ChartPractice() {
   const { navigate } = useContext(LessonState);
   return (
     <Page
+      tools={<CodeTools code={PRACTICE_02_CODE} label="三例完整代码" />}
       title="三个例子，亲手画出三种图"
       label="CLASS PRACTICE · 课堂练习 02"
       footer={
         <>
-          <CodeTools code={PRACTICE_02_CODE} label="三例完整代码" />
           <button
             className={s.button}
             onClick={() => navigate('l5-practice-02-results')}
@@ -394,11 +394,11 @@ export function ChartPracticeResults() {
   };
   return (
     <Page
+      tools={<CodeTools code={PRACTICE_02_CODE} label="三例完整代码" />}
       title="三种图，带回三条线索"
       label="CLASS PRACTICE · 课堂练习 02"
       footer={
         <>
-          <CodeTools code={PRACTICE_02_CODE} label="三例完整代码" />
           <div className={c.practiceResultActions}>
             <button
               className={`${s.button} ${c.backButton}`}

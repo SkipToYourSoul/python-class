@@ -18,19 +18,23 @@
 | `NotebookPanel`          | [notebook-panel.tsx](notebook-panel.tsx)         | 必传笔记本标题 `title` 和单元格数组 `cells`；可传 `compact`、`executionStart`、`children`。这里只展示代码和输出示例，不执行 Python。         |
 | `XiaopaiSpeech`          | [xiaopai-speech.tsx](xiaopai-speech.tsx)         | 必传 `active` 和台词 `children`；可传 `label`、`compact`、`featured`、`animated`。台词没有默认内容。                                         |
 
+`LessonCover`（[lesson-cover.tsx](lesson-cover.tsx)）提供课件第 1 页的双栏模板。左侧传入课次、两行课名、主题、简介和开始按钮，右侧传入本课漫画、问题和简短说明。开始按钮通过 `nextScene` 跳转到指定页。
+
 ### 代码面板
 
-`NotebookCell` 类型由代码面板文件导出。每个单元格包含 `code`，可选 `activeLines`、`output` 和 `outputLabel`。`activeLines` 使用从 **0** 开始的行索引，空行也计入；有输出时默认标注“输出示例”，`executionStart` 默认从 1 开始编号。
+`NotebookCell` 类型由代码面板文件导出。每个单元格包含 `code`，可选 `activeLines`、`highlightFragments`、`output` 和 `outputLabel`。`activeLines` 使用从 **0** 开始的行索引，空行也计入。`highlightFragments` 将同一行内的原样代码片段映射到调用方提供的 CSS 类名，适合将参数与图示配色对应。有输出时默认标注“输出示例”，`executionStart` 默认从 1 开始编号。
 
 `compact` 使用紧凑布局并保留代码原有换行，调用方需要为长代码提供足够宽度。`children` 位于单元格区域之后，可承接相关图示。组件不自带复制按钮；页面提供复制操作时，应与展示代码共用内容来源。
 
+代码页通过 `CodeToolButtons` 在标题右上角提供下载和完整参考。需要其他图标操作的页面可在 `Stage` 的 `tools` 中使用同文件导出的 `CodeToolGroup`，给每个按钮提供 `aria-label` 和 `data-hint`，统一悬停和键盘聚焦提示。
+
 ### 练习剧情视频
 
-`PracticeStoryVideo`（[practice-story-video.tsx](practice-story-video.tsx)）提供教师控制的原生视频。必传 `pageId`、`title`、`src`、`poster`、动作描述 `description`、初始文案 `initialCaption` 和阶段数组 `phases`（每项为 `{ from: 秒数, text: 文案 }`）。从当前时间已到达的阶段中选取时间最大的文案；时间为 0 时显示初始文案。素材完整路径与剧情均由调用方传入，可选 `descriptionTrack` 指向中文动作描述 VTT。
+`PracticeStoryVideo`（[practice-story-video.tsx](practice-story-video.tsx)）提供教师控制的原生视频。必传 `pageId`、`title`、`src`、`poster`、动作描述 `description`、初始文案 `initialCaption` 和阶段数组 `phases`（每项为 `{ from: 秒数, text: 文案 }`）。从当前时间已到达的阶段中选取时间最大的文案；时间为 0 时显示初始文案。素材完整路径与剧情均由调用方传入，可选 `descriptionTrack` 指向中文动作描述 VTT，`captionTrack` 指向中文字幕 VTT。
 
 `initialDuration` 默认 12 秒，元数据加载后使用视频实际时长。可选 `steps` 为 `{ label, complete }` 数组；省略或空数组时不渲染步骤条，所有步骤完成时可通过 `completeCaption` 显示完成提示。`compact` 缩小标题与控件间距，适合较短的视频区；`className` 可提供页面布局样式。
 
-视频默认静音、暂停，支持播放、暂停、继续、从头播放、拖动和循环。`controlLabel` 默认“剧情视频”，用于按钮和进度条的无障碍名称。通过 `useLessonPageState(pageId)` 保留进度与循环选择，键名 `elapsedKey`／`loopKey` 默认 `practiceVideoElapsed`／`practiceVideoLoop`，可兼容页面已有状态。刷新或返回页面只恢复时间，不自动播放；离页或页面隐藏时暂停，页面重置时不会回写旧进度。启用减少动态效果会立即暂停，点击播放直接显示末帧。加载失败可重试，并保留最近播放位置。
+视频初次进入保持暂停，支持播放、暂停、继续、从头播放、拖动和循环。可传 `checkpoint={{ time, label }}`，为教师提供跳到指定秒数并暂停的按钮。带音轨的素材可传 `hasAudio`，教师主动播放时默认有声，控制栏提供声音开关和音量滑杆。开关和音量分别保存在该页的 `videoSound` 与 `videoVolume` 状态中。`controlLabel` 默认“剧情视频”，用于按钮和进度条的无障碍名称。通过 `useLessonPageState(pageId)` 保留进度与循环选择，键名 `elapsedKey`／`loopKey` 默认 `practiceVideoElapsed`／`practiceVideoLoop`，可兼容页面已有状态。刷新或返回页面只恢复时间，不自动播放；离页或页面隐藏时暂停，页面重置时不会回写旧进度。启用减少动态效果会立即暂停，点击播放直接显示末帧。加载失败可重试，并保留最近播放位置。
 
 ### 练习模板与小派气泡
 
@@ -78,5 +82,5 @@ export function PracticeExample() {
 | `data-practice-video`、`data-video-compact`                                                | 练习剧情视频容器及其紧凑模式。                                     |
 | `data-video-part="video"`、`"heading"`、`"controls"`、`"buttons"`、`"progress"`、`"steps"` | 视频、标题、控制区、按钮组、进度条与可选步骤条。                   |
 | `data-notebook-panel`、`data-notebook-compact`                                             | 代码面板及其紧凑模式。                                             |
-| `data-notebook-part="toolbar"`、`"cells"`、`"input"`、`"prompt"`                           | 工具栏、单元格区域、输入区域和执行编号。                           |
+| `data-notebook-part="tab"`、`"toolbar"`、`"cells"`、`"input"`、`"prompt"`                  | 笔记本标签、工具栏、单元格区域、输入区域和执行编号。               |
 | `data-lesson-image-button`、`data-lesson-art-button`                                       | 图片按钮的标记，由调用方设置，沿用教学页对特殊图片按钮的样式排除。 |

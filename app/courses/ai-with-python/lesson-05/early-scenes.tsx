@@ -445,7 +445,7 @@ export function Setup() {
     <Page
       title="请来绘图的帮手"
       label="PYTHON LAB · 开始前"
-      footer={<CodeTools code={SETUP_CODE} label="查看并复制准备代码" />}
+      tools={<CodeTools code={SETUP_CODE} label="查看并复制准备代码" />}
     >
       <div className={s.setupGrid}>
         <div className={s.setupCode}>

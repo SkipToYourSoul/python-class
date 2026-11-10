@@ -59,13 +59,11 @@ export const summary = TOWER_NAMES.map((tower) => {
   };
 });
 
-/** Compare guard defense only within observed low-shield windows. */
+/** Match Pandas sort_values(["tower", "defense"]), without locale collation. */
 export const windows = history
   .filter((row) => row.energy < ATTACK_THRESHOLD)
-  .sort(
-    (a, b) =>
-      TOWER_NAMES.indexOf(a.tower) - TOWER_NAMES.indexOf(b.tower) ||
-      a.defense - b.defense,
+  .sort((a, b) =>
+    a.tower === b.tower ? a.defense - b.defense : a.tower < b.tower ? -1 : 1,
   );
 export const plans = TOWER_NAMES.map((tower) =>
   windows.find((row) => row.tower === tower)!,

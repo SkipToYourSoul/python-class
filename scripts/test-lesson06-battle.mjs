@@ -231,3 +231,17 @@ test('the boss requires chest armor, matching fire equipment and both exact evid
   assessDecision(correctBoss, initialCampaign);
   assert.deepEqual(correctBoss, before);
 });
+
+test('incorrect boss readings guide another attempt without revealing the answer', () => {
+  for (const patch of [
+    { energy: '', defense: '' },
+    { energy: '24', defense: '18' },
+    { energy: '22', defense: '40' },
+  ]) {
+    const result = assessDecision({ ...correctBoss, ...patch }, allTowers);
+    assert.equal(result.success, false);
+    assert.match(result.message, /纵轴是外罩，横轴是防御/);
+    assert.match(result.message, /展开读数提示/);
+    assert.doesNotMatch(result.message, /18|24|火焰/);
+  }
+});
